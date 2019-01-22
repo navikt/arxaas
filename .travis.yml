@@ -4,3 +4,6 @@ sudo: true
 
 before_install:
   - chmod +x mvnw
+
+script:
+  mvn test
