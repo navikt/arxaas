@@ -7,6 +7,7 @@ public class Note {
     private Date date;
     private String title;
     private String message;
+    private List participants;
 
     public List getParticipants() {
         return participants;
@@ -16,7 +17,6 @@ public class Note {
         this.participants = participants;
     }
 
-    private List participants;
 
     public Date getDate() {
         return date;
