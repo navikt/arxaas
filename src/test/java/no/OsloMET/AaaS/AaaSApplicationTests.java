@@ -13,11 +13,17 @@ public class AaaSApplicationTests {
 	public void contextLoads() {
 	}
 	
+	//Test methods to check if jacoco plugin is working
 	@Test
-	public void whenEmptyString_thenAccept() {
+	public void whenPalindrom_thenAccept() {
     		Palindrome palindromeTester = new Palindrome();
-    		assertTrue(palindromeTester.isPalindrome(""));
+    		assertTrue(palindromeTester.isPalindrome("noon"));
+	}     
+	@Test
+	public void whenNearPalindrom_thanReject(){
+    		Palindrome palindromeTester = new Palindrome();
+    		assertFalse(palindromeTester.isPalindrome("neon"));
 	}
-
+	//.......................
 }
 
