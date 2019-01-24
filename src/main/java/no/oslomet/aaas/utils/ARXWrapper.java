@@ -70,6 +70,9 @@ public class ARXWrapper {
     }
 
     public static void main (String[] args) throws IOException {
+        /**
+         * Testing script for ARX Functionality
+         */
         makedata();
         defineAttri();
         defineHeirarchy();
