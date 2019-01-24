@@ -29,6 +29,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.deidentifier</groupId>
+			<artifactId>libarx</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/libarx-3.7.1.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
