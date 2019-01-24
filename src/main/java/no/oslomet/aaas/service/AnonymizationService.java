@@ -1,6 +1,6 @@
-package no.OsloMET.AaaS.service;
+package no.oslomet.aaas.service;
 
-import no.OsloMET.AaaS.model.Note;
+import no.oslomet.aaas.model.Note;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

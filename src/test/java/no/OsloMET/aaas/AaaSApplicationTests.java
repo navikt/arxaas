@@ -1,5 +1,6 @@
-package no.OsloMET.AaaS;
+package no.OsloMET.aaas;
 
+import no.oslomet.aaas.AaaSApplication;
 import org.junit.Test;
 import org.junit.Assert;
 import org.junit.runner.RunWith;

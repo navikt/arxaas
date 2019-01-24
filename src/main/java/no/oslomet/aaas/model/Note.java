@@ -1,4 +1,4 @@
-package no.OsloMET.AaaS.model;
+package no.oslomet.aaas.model;
 
 import java.util.Date;
 import java.util.List;

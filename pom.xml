@@ -8,8 +8,8 @@
 		<version>2.1.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>no.OsloMET</groupId>
-	<artifactId>AaaS</artifactId>
+	<groupId>no.oslomet</groupId>
+	<artifactId>aaas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>AaaS</name>
 	<description>Demo project for Spring Boot</description>
