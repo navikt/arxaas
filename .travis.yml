@@ -1,9 +1,19 @@
 language: java
 jdk: openjdk11
+dist: trusty
 sudo: true
 
+env:
+  global:
+    - CC_TEST_RPORTER_ID=CC_TEST_ID
+before_script:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
 before_install:
   - chmod +x mvnw
-
 script:
-  mvn test
+  - mvn test
+after_script:
+  - ./cc-test-reporter format-coverage -d -t jacoco ./target/jacoco-ut/jacoco.xml
+  - ./cc-test-reporter upload-coverage -d
