@@ -1,10 +1,20 @@
 language: java
 jdk: openjdk11
+dist: trusty
 sudo: true
 
+env:
+  global:
+    - CC_TEST_RPORTER_ID=e59701f1dba6e0dfea16c9c938e3d1abd4f6afb4e00a42cab6aca617aba5d1c7
+before_script:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
 before_install:
   - chmod +x mvnw
   - wget  http://arx.deidentifier.org/wp-content/uploads/downloads/libarx-3.7.1.jar -P ./src/main/resources/
-
 script:
-  mvn test
+  - mvn test
+after_script:
+  - ./cc-test-reporter format-coverage -d -t jacoco ./target/jacoco-ut/jacoco.xml
+  - ./cc-test-reporter upload-coverage -d
