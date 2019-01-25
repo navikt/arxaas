@@ -12,6 +12,7 @@ before_script:
     - ./cc-test-reporter before-build
 before_install:
   - chmod +x mvnw
+  - wget  http://arx.deidentifier.org/wp-content/uploads/downloads/libarx-3.7.1.jar -P ./src/main/resources/
 script:
   - mvn test
 after_script:
