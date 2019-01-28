@@ -1,5 +1,6 @@
 package no.oslomet.aaas.utils;
 
+import no.oslomet.aaas.model.AnonymizationPayload;
 import org.apache.commons.lang.CharSet;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.Data.DefaultData;
@@ -8,26 +9,30 @@ import org.deidentifier.arx.ARXResult;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class ARXWrapper {
 
 
 
-    public Data makedata() {
-        DefaultData data = Data.create();
-        data.add("age", "gender", "zipcode");
-        data.add("34", "male", "81667");
-        data.add("35", "female", "81668");
-        data.add("36", "male", "81669");
-        data.add("37", "female", "81670");
-        data.add("38", "male", "81671");
-        data.add("39", "female", "81672");
-        data.add("40", "male", "81673");
-        data.add("41", "female", "81674");
-        data.add("42", "male", "81675");
-        data.add("43", "female", "81676");
-        data.add("44", "male", "81677");
+    public Data makedata(String rawdata) {
+        Data data = null;
+        ByteArrayInputStream stream = new ByteArrayInputStream(rawdata.getBytes(StandardCharsets.UTF_8));
+        List<String> datalist = Arrays.asList(rawdata.split("\n"));
+
+        List<String[]> rawDataList = new ArrayList<>();
+        datalist.forEach(field -> {
+            rawDataList.add(field.split(","));
+        });
+
+        data = Data.create(rawDataList);
+
+
         return data;
 
     }
@@ -74,8 +79,8 @@ public class ARXWrapper {
 
     }
         //remeber we need data perameter
-    public String anonomize (ARXAnonymizer anonymizer,ARXConfiguration config) throws IOException {
-        Data data = makedata();
+    public String anonomize (ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
+        Data data = makedata(payload.getData());
         data = defineAttri(data);
         data = defineHeirarchy(data);
         config = setKAnonymity(config,4);
@@ -83,10 +88,6 @@ public class ARXWrapper {
         //File newfile = new File("C:/test.txt");
         ARXResult result = anonymizer.anonymize(data,config);
         DataHandle handle = result.getOutput();
-        DataHandle view = handle.getView();
-        Object value = handle.getValue(0, 2);
-        //handle.release();
-        //handle.save(newfile,';');
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         handle.save(outputStream,';');
         return new String(outputStream.toByteArray());

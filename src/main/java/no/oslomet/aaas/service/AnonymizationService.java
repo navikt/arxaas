@@ -1,5 +1,6 @@
 package no.oslomet.aaas.service;
 
+import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.deidentifier.arx.ARXAnonymizer;
 import org.deidentifier.arx.ARXConfiguration;
@@ -15,11 +16,10 @@ public class AnonymizationService {
     @Autowired
     ARXWrapper arxWrapper;
 
-    public String anonymize() throws IOException {
-        Data.DefaultData data = Data.create();
+    public String anonymize(AnonymizationPayload payload) throws IOException {
         ARXConfiguration config = ARXConfiguration.create();
         ARXAnonymizer anonymizer = new ARXAnonymizer();
-       return arxWrapper.anonomize(anonymizer, config);
+       return arxWrapper.anonomize(anonymizer, config, payload);
     }
 
 

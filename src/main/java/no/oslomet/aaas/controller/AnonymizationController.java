@@ -28,7 +28,7 @@ public class AnonymizationController {
     }
     @PostMapping
     public AnonymizationPayload anonymization(@RequestBody AnonymizationPayload payload) throws IOException {
-        payload.setData(anonymizationService.anonymize());
+        payload.setData(anonymizationService.anonymize(payload));
         return payload;
     }
 }
