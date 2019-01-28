@@ -88,6 +88,15 @@ public class ARXWrapper {
         return config;
     }
 
+    public Data setHierarchies(Data data, AnonymizationPayload payload){
+        for (Map.Entry<String, String[][]> entry : payload.getMetaData().getHierarchy().entrySet())
+        {
+            AttributeType.Hierarchy hierarchy = AttributeType.Hierarchy.create(entry.getValue());
+            data.getDefinition().setAttributeType(entry.getKey(),hierarchy);
+        }
+        return data;
+    }
+
     private PrivacyCriterion getPrivacyModel(PrivacyModel model, Map<String,String> params){
       switch(model){
           case KANONYMITY:
@@ -111,7 +120,7 @@ public class ARXWrapper {
     public String anonomize (ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
         Data data = makedata(payload.getData());
         data = setSensitivityModels(data,payload);
-        data = defineHeirarchy(data);
+        data = setHierarchies(data, payload);
         config = setSuppressionLimit(config);
         anonymizer = setAnonymizer(anonymizer);
         //File newfile = new File("C:/test.txt");

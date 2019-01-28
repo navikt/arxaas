@@ -5,7 +5,7 @@ public class MetaData {
 
     private Map<String, SensitivityModel> sensitivityList;
     private Map<String, String> dataType;
-    private Map<String, String> hierarchy;
+    private Map<String, String[][]> hierarchy;
     private Map<PrivacyModel, Map<String, String>> models;
 
     public Map<String, SensitivityModel> getSensitivityList() {
@@ -24,11 +24,11 @@ public class MetaData {
         this.dataType = dataType;
     }
 
-    public Map<String, String> getHierarchy() {
+    public Map<String, String[][]> getHierarchy() {
         return hierarchy;
     }
 
-    public void setHierarchy(Map<String, String> hierarchy) {
+    public void setHierarchy(Map<String, String[][]> hierarchy) {
         this.hierarchy = hierarchy;
     }
 
