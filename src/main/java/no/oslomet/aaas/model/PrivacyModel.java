@@ -2,8 +2,8 @@ package no.oslomet.aaas.model;
 
 public enum PrivacyModel {
 
-    KANONYMITY("k-anonymity"),
-    LDIVERSITY("l-diversity");
+    KANONYMITY("K-Anonymity"),
+    LDIVERSITY("L-Diversity");
 
     private String name;
 

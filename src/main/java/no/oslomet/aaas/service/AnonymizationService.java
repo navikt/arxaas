@@ -18,6 +18,7 @@ public class AnonymizationService {
 
     public String anonymize(AnonymizationPayload payload) throws IOException {
         ARXConfiguration config = ARXConfiguration.create();
+        arxWrapper.setPrivacyModels(config,payload);
         ARXAnonymizer anonymizer = new ARXAnonymizer();
        return arxWrapper.anonomize(anonymizer, config, payload);
     }

@@ -1,19 +1,17 @@
 package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.model.AnonymizationPayload;
-import org.apache.commons.lang.CharSet;
+import no.oslomet.aaas.model.PrivacyModel;
 import org.deidentifier.arx.*;
-import org.deidentifier.arx.Data.DefaultData;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.deidentifier.arx.ARXResult;
+import org.deidentifier.arx.criteria.PrivacyCriterion;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 
 @Component
 public class ARXWrapper {
@@ -62,11 +60,31 @@ public class ARXWrapper {
         return data;
     }
 
-    public ARXConfiguration setKAnonymity(ARXConfiguration config,int k){
+    public ARXConfiguration setSuppressionLimit(ARXConfiguration config){
 
-        config.addPrivacyModel(new KAnonymity(k));
         config.setSuppressionLimit(0.02d);
         return config;
+    }
+
+    public ARXConfiguration setPrivacyModels(ARXConfiguration config, AnonymizationPayload payload){
+
+
+        for (Map.Entry<PrivacyModel, Map<String,String>> entry : payload.getMetaData().getModels().entrySet())
+        {
+            config.addPrivacyModel(getPrivacyModel(entry.getKey(),entry.getValue()));
+        }
+        return config;
+    }
+
+    private PrivacyCriterion getPrivacyModel(PrivacyModel model, Map<String,String> params){
+      switch(model){
+          case KANONYMITY:
+              return new KAnonymity(Integer.parseInt(params.get("k")));
+
+          default:
+              throw new RuntimeException(model.getName() + " Privacy Model not supported");
+
+      }
     }
 
     public ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
@@ -82,7 +100,7 @@ public class ARXWrapper {
         Data data = makedata(payload.getData());
         data = defineAttri(data);
         data = defineHeirarchy(data);
-        config = setKAnonymity(config,4);
+        config = setSuppressionLimit(config);
         anonymizer = setAnonymizer(anonymizer);
         //File newfile = new File("C:/test.txt");
         ARXResult result = anonymizer.anonymize(data,config);
