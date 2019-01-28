@@ -6,6 +6,8 @@ import no.oslomet.aaas.service.AnonymizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/anonymize")
 public class AnonymizationController {
@@ -25,8 +27,8 @@ public class AnonymizationController {
         return payload;
     }
     @PostMapping
-    public AnonymizationPayload anonymization(@RequestBody AnonymizationPayload payload){
-        payload.setData("Viktor");
+    public AnonymizationPayload anonymization(@RequestBody AnonymizationPayload payload) throws IOException {
+        payload.setData(anonymizationService.anonymize(payload));
         return payload;
     }
 }
