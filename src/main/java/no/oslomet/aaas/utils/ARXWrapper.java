@@ -2,6 +2,7 @@ package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.PrivacyModel;
+import no.oslomet.aaas.model.SensitivityModel;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.deidentifier.arx.ARXResult;
@@ -66,6 +67,17 @@ public class ARXWrapper {
         return config;
     }
 
+    public Data setSensitivityModels(Data data, AnonymizationPayload payload){
+
+
+        for (Map.Entry<String,SensitivityModel> entry : payload.getMetaData().getSensitivityList().entrySet())
+        {
+            data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());
+        }
+        return data;
+    }
+
+
     public ARXConfiguration setPrivacyModels(ARXConfiguration config, AnonymizationPayload payload){
 
 
@@ -98,7 +110,7 @@ public class ARXWrapper {
         //remeber we need data perameter
     public String anonomize (ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
         Data data = makedata(payload.getData());
-        data = defineAttri(data);
+        data = setSensitivityModels(data,payload);
         data = defineHeirarchy(data);
         config = setSuppressionLimit(config);
         anonymizer = setAnonymizer(anonymizer);

@@ -3,16 +3,16 @@ import java.util.Map;
 
 public class MetaData {
 
-    private Map<String, String> sensitivityList;
+    private Map<String, SensitivityModel> sensitivityList;
     private Map<String, String> dataType;
     private Map<String, String> hierarchy;
     private Map<PrivacyModel, Map<String, String>> models;
 
-    public Map<String, String> getSensitivityList() {
+    public Map<String, SensitivityModel> getSensitivityList() {
         return sensitivityList;
     }
 
-    public void setSensitivityList(Map<String, String> sensitivityList) {
+    public void setSensitivityList(Map<String, SensitivityModel> sensitivityList) {
         this.sensitivityList = sensitivityList;
     }
 
