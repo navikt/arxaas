@@ -23,14 +23,13 @@ public class ARXWrapper {
     public Data makedata(String rawdata) {
         Data data = null;
         ByteArrayInputStream stream = new ByteArrayInputStream(rawdata.getBytes(StandardCharsets.UTF_8));
-        List<String> datalist = Arrays.asList(rawdata.split("\n"));
 
-        List<String[]> rawDataList = new ArrayList<>();
-        datalist.forEach(field -> {
-            rawDataList.add(field.split(","));
-        });
 
-        data = Data.create(rawDataList);
+        try {
+            data = Data.create(stream, Charset.defaultCharset(), ',');
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         return data;
