@@ -48,8 +48,13 @@
     				<groupId>org.jacoco</groupId>
     				<artifactId>jacoco-maven-plugin</artifactId>
     				<version>0.8.2</version>
+				<configuration>
+   					<destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+   					<dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+  				</configuration>
     				<executions>
         				<execution>
+						<id>jacoco-initialize</id>
             					<goals>
                 					<goal>prepare-agent</goal>
            					</goals>
