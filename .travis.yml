@@ -14,7 +14,7 @@ before_install:
   - chmod +x mvnw
   - wget  http://arx.deidentifier.org/wp-content/uploads/downloads/libarx-3.7.1.jar -P ./src/main/resources/
 script:
-  - mvn test
+  - mvn clean test
 after_script:
-  - ./cc-test-reporter format-coverage -d -t jacoco ./target/jacoco-ut/jacoco.xml
+  - ./cc-test-reporter format-coverage -d -t jacoco ./target/site/jacoco/jacoco.xml
   - ./cc-test-reporter upload-coverage -d
