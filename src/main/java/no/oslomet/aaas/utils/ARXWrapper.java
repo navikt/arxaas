@@ -17,26 +17,20 @@ import java.util.Map;
 @Component
 public class ARXWrapper {
 
-
-
     public Data makedata(String rawdata) {
         Data data = null;
         ByteArrayInputStream stream = new ByteArrayInputStream(rawdata.getBytes(StandardCharsets.UTF_8));
-
 
         try {
             data = Data.create(stream, Charset.defaultCharset(), ',');
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return data;
-
     }
+
     public Data defineAttri(Data data){
         //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
-
         data.getDefinition().setAttributeType("age", AttributeType.IDENTIFYING_ATTRIBUTE);
         data.getDefinition().setAttributeType("gender", AttributeType.INSENSITIVE_ATTRIBUTE);
         data.getDefinition().setAttributeType("zipcode", AttributeType.INSENSITIVE_ATTRIBUTE);
@@ -61,15 +55,12 @@ public class ARXWrapper {
         return data;
     }
 
-    public ARXConfiguration setSuppressionLimit(ARXConfiguration config){
-
+    private ARXConfiguration setSuppressionLimit(ARXConfiguration config){
         config.setSuppressionLimit(0.02d);
         return config;
     }
 
-    public Data setSensitivityModels(Data data, AnonymizationPayload payload){
-
-
+    private Data setSensitivityModels(Data data, AnonymizationPayload payload){
         for (Map.Entry<String,SensitivityModel> entry : payload.getMetaData().getSensitivityList().entrySet())
         {
             data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());
@@ -79,8 +70,6 @@ public class ARXWrapper {
 
 
     public ARXConfiguration setPrivacyModels(ARXConfiguration config, AnonymizationPayload payload){
-
-
         for (Map.Entry<PrivacyModel, Map<String,String>> entry : payload.getMetaData().getModels().entrySet())
         {
             config.addPrivacyModel(getPrivacyModel(entry.getKey(),entry.getValue()));
@@ -88,7 +77,7 @@ public class ARXWrapper {
         return config;
     }
 
-    public Data setHierarchies(Data data, AnonymizationPayload payload){
+    private Data setHierarchies(Data data, AnonymizationPayload payload){
         for (Map.Entry<String, String[][]> entry : payload.getMetaData().getHierarchy().entrySet())
         {
             AttributeType.Hierarchy hierarchy = AttributeType.Hierarchy.create(entry.getValue());
@@ -104,18 +93,16 @@ public class ARXWrapper {
 
           default:
               throw new RuntimeException(model.getName() + " Privacy Model not supported");
-
       }
     }
 
-    public ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
-
+    private ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
         anonymizer.setMaximumSnapshotSizeDataset(0.2);
         anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
         anonymizer.setHistorySize(200);
         return  anonymizer;
-
     }
+
         //remeber we need data perameter
     public String anonomize (ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
         Data data = makedata(payload.getData());
@@ -129,7 +116,6 @@ public class ARXWrapper {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         handle.save(outputStream,';');
         return new String(outputStream.toByteArray());
-
     }
 
 }

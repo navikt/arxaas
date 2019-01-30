@@ -10,7 +10,6 @@ public enum SensitivityModel {
     QUASIIDENTIFYING(AttributeType.QUASI_IDENTIFYING_ATTRIBUTE);
 
     private String name;
-
     private AttributeType attributeType;
 
     SensitivityModel(AttributeType attributeType){
@@ -21,6 +20,5 @@ public enum SensitivityModel {
     public String getName() {
         return name;
     }
-
     public AttributeType getAttributeType() { return attributeType; }
 }
