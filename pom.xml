@@ -19,7 +19,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<!--image prefix has to correlate with docker hub server name-->
-		<docker.image.prefix>${project.artifactId}</docker.image.prefix>
+		<docker.image.prefix>vartdalen</docker.image.prefix>
 	</properties>
 
 	<dependencies>
