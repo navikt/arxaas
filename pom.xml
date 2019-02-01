@@ -52,11 +52,6 @@
     				<groupId>org.jacoco</groupId>
     				<artifactId>jacoco-maven-plugin</artifactId>
     				<version>0.8.3</version>
-					<configuration>
-						<includes>
-							<include>**/no/oslomet/aaas/**/*</include>
-						</includes>
-					</configuration>
 					<executions>
         				<execution>
 							<goals>
@@ -69,6 +64,11 @@
             					<goals>
                 					<goal>report</goal>
             					</goals>
+						<configuration>
+							<includes>
+								<include>**/no/oslomet/aaas/**/*</include>
+							</includes>
+						</configuration>
         				</execution>
     				</executions>
 			</plugin>
