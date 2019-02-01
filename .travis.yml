@@ -18,5 +18,5 @@ install:
 script:
   - mvn test
 after_script:
-  - ./cc-test-reporter format-coverage -d -t jacoco ./target/site/jacoco/jacoco.xml
-  - ./cc-test-reporter upload-coverage -d
+ - JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage target/site/jacoco/jacoco.xml --input-type jacoco
+ - ./cc-test-reporter upload-coverage -d
