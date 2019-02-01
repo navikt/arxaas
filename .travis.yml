@@ -5,7 +5,7 @@ sudo: true
 
 env:
   global:
-  
+    - CC_TEST_REPORTER_ID=token
 before_script:
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
@@ -18,5 +18,4 @@ install:
 script:
   - mvn test
 after_script:
- - JACOCO_SOURCE_PATH=./src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
- - ./cc-test-reporter upload-coverage -d
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
