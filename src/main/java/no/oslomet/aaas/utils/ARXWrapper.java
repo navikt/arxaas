@@ -4,6 +4,7 @@ import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.PrivacyModel;
 import no.oslomet.aaas.model.SensitivityModel;
 import org.deidentifier.arx.*;
+import org.deidentifier.arx.criteria.DistinctLDiversity;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.deidentifier.arx.ARXResult;
 import org.deidentifier.arx.criteria.PrivacyCriterion;
@@ -90,7 +91,10 @@ public class ARXWrapper {
       switch(model){
           case KANONYMITY:
               return new KAnonymity(Integer.parseInt(params.get("k")));
-
+          case LDIVERSITY:
+              if(params.get("variant").equals("distinct")){
+                  return new DistinctLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")));
+              }
           default:
               throw new RuntimeException(model.getName() + " Privacy Model not supported");
       }
