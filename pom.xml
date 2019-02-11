@@ -19,7 +19,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<!--image prefix has to correlate with docker hub server name-->
-		<docker.image.prefix>vartdalen</docker.image.prefix>
+		<docker.image.prefix>arxaaas</docker.image.prefix>
 	</properties>
 
 	<dependencies>
@@ -118,14 +118,24 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.10</version>
-				<configuration>
-					<repository>${docker.image.prefix}/${project.artifactId}</repository>
-				</configuration>
-			</plugin>
+			<!--<plugin>-->
+				<!--<groupId>com.spotify</groupId>-->
+				<!--<artifactId>dockerfile-maven-plugin</artifactId>-->
+				<!--<version>1.4.10</version>-->
+				<!--<configuration>-->
+					<!--<repository>${docker.image.prefix}/${project.artifactId}</repository>-->
+				<!--</configuration>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>default</id>-->
+						<!--<phase>install</phase>-->
+						<!--<goals>-->
+							<!--<goal>build</goal>-->
+							<!--<goal>push</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
 		</plugins>
 	</build>
 
