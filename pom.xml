@@ -19,7 +19,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<!--image prefix has to correlate with docker hub server name-->
-		<docker.image.prefix>vartdalen</docker.image.prefix>
+		<docker.image.prefix>vartdalen</docker.image.prefix>	
 	</properties>
 
 	<dependencies>
@@ -126,7 +126,32 @@
 					<repository>${docker.image.prefix}/${project.artifactId}</repository>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<show>private</show>
+					<nohelp>true</nohelp>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<show>public</show>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
 
 </project>
