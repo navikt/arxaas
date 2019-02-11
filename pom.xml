@@ -2,20 +2,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>no.oslomet</groupId>
+	<artifactId>aaas</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>AaaS</name>
+	<description>The best anonynmization service the world has ever seen</description>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>no.oslomet</groupId>
-	<artifactId>aaas</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>AaaS</name>
-	<description>Demo project for Spring Boot</description>
 
 	<properties>
 		<java.version>11</java.version>
+		<!--image prefix has to correlate with docker hub server name-->
+		<docker.image.prefix>arxaaas</docker.image.prefix>
 	</properties>
 
 	<dependencies>
@@ -40,6 +44,28 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<groupId>org.deidentifier</groupId>
+					<artifactId>libarx</artifactId>
+					<version>3.7.1</version>
+					<packaging>jar</packaging>
+					<file>${basedir}/src/main/resources/libarx-3.7.1.jar</file>
+					<generatePom>true</generatePom>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install-jar-lib</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>validate</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
@@ -47,40 +73,25 @@
 			<plugin>
     				<groupId>org.jacoco</groupId>
     				<artifactId>jacoco-maven-plugin</artifactId>
-    				<version>0.8.2</version>
-    				<executions>
+    				<version>0.8.3</version>
+					<executions>
         				<execution>
-            					<goals>
-                					<goal>prepare-agent</goal>
+							<goals>
+                				<goal>prepare-agent</goal>
            					</goals>
         				</execution>
         				<execution>
             					<id>report</id>
-            					<phase>prepare-package</phase>
+            					<phase>test</phase>
             					<goals>
                 					<goal>report</goal>
             					</goals>
+						<configuration>
+							<includes>
+								<include>**/no/oslomet/aaas/**/*</include>
+							</includes>
+						</configuration>
         				</execution>
-					<execution>
-    						<id>jacoco-check</id>
-    						<goals>
-        						<goal>check</goal>
-    						</goals>
-    						<configuration>
-        					<rules>
-            						<rule>
-                						<element>PACKAGE</element>
-                					<limits>
-                    						<limit>
-                       							<counter>LINE</counter>
-                        						<value>COVEREDRATIO</value>
-                        						<minimum>0.20</minimum>
-                    						</limit>
-                					</limits>
-            						</rule>
-        					</rules>
-    						</configuration>
-					</execution>
     				</executions>
 			</plugin>
 
@@ -89,36 +100,42 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy-dependencies</id>
-						<phase>prepare-package</phase>
+						<id>unpack</id>
+						<phase>package</phase>
 						<goals>
-							<goal>copy-dependencies</goal>
+							<goal>unpack</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/classes/lib</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>false</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+								</artifactItem>
+							</artifactItems>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 
-			<plugin>
-				<!-- Build an executable JAR -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.1</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>classes/lib/</classpathPrefix>
-							<mainClass>no.oslomet.aaas.AaaSApplication</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
+			<!--<plugin>-->
+				<!--<groupId>com.spotify</groupId>-->
+				<!--<artifactId>dockerfile-maven-plugin</artifactId>-->
+				<!--<version>1.4.10</version>-->
+				<!--<configuration>-->
+					<!--<repository>${docker.image.prefix}/${project.artifactId}</repository>-->
+				<!--</configuration>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>default</id>-->
+						<!--<phase>install</phase>-->
+						<!--<goals>-->
+							<!--<goal>build</goal>-->
+							<!--<goal>push</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
 		</plugins>
 	</build>
 

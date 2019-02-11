@@ -5,7 +5,7 @@ sudo: true
 
 env:
   global:
-    - CC_TEST_RPORTER_ID=e59701f1dba6e0dfea16c9c938e3d1abd4f6afb4e00a42cab6aca617aba5d1c7
+    - CC_TEST_REPORTER_ID=$cc_token
 before_script:
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
@@ -16,5 +16,12 @@ before_install:
 script:
   - mvn test
 after_script:
-  - ./cc-test-reporter format-coverage -d -t jacoco ./target/jacoco-ut/jacoco.xml
-  - ./cc-test-reporter upload-coverage -d
+ - JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
+ - ./cc-test-reporter upload-coverage -d
+ after_success:
+   - docker login -u $DOCKER_USER -p $DOCKER_PASS
+   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+   - export IMAGE_NAME=arxaaas/aaas
+   - docker build -t $IMAGE_NAME:$COMMIT .
+   - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
+   - docker push $IMAGE_NAME
