@@ -3,6 +3,9 @@ jdk: openjdk11
 dist: trusty
 sudo: true
 
+services:
+  - docker
+
 env:
   global:
     - CC_TEST_REPORTER_ID=$cc_token
@@ -24,7 +27,7 @@ after_script:
 deploy:
   skip_cleanup: true
   provider: script
-  script: docker_deploy.sh
+  script: bash docker_deploy.sh
   on:
     branch: master
 
