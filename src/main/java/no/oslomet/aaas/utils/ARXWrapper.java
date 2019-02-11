@@ -18,7 +18,7 @@ import java.util.Map;
 @Component
 public class ARXWrapper {
 
-    public Data makedata(String rawdata) {
+    public Data setData(String rawdata) {
         Data data = null;
         try {
             ByteArrayInputStream stream = new ByteArrayInputStream(rawdata.getBytes(StandardCharsets.UTF_8));
@@ -108,7 +108,7 @@ public class ARXWrapper {
 
         //remeber we need data perameter
     public String anonomize (ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
-        Data data = makedata(payload.getData());
+        Data data = setData(payload.getData());
         data = setSensitivityModels(data,payload);
         data = setHierarchies(data, payload);
         config = setsuppressionlimit(config);
