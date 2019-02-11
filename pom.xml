@@ -20,7 +20,7 @@
 		<java.version>11</java.version>
 		<!--image prefix has to correlate with docker hub server name-->
 
-		<docker.image.prefix>arxaaas</docker.image.prefix>
+		<docker.image.prefix>arxaas</docker.image.prefix>
 
 	</properties>
 
@@ -45,28 +45,6 @@
 
 	<build>
 		<plugins>
-			<!--<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<groupId>org.deidentifier</groupId>
-					<artifactId>libarx</artifactId>
-					<version>3.7.1</version>
-					<packaging>jar</packaging>
-					<file>${project.build.directory}/src/main/resources/libarx-3.7.1.jar</file>
-					<generatePom>true</generatePom>
-				</configuration>
-				<executions>
-					<execution>
-						<id>install-jar-lib</id>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<phase>validate</phase>
-					</execution>
-				</executions>
-			</plugin>-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -120,6 +98,7 @@
 				</executions>
 			</plugin>
 
+			<!--required for local dockerization, will otherwise be handled by travis in remote-->
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
