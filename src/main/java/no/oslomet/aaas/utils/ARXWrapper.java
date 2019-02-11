@@ -4,6 +4,7 @@ import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.PrivacyModel;
 import no.oslomet.aaas.model.SensitivityModel;
 import org.deidentifier.arx.*;
+import org.deidentifier.arx.criteria.DistinctLDiversity;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.deidentifier.arx.ARXResult;
 import org.deidentifier.arx.criteria.PrivacyCriterion;
@@ -29,7 +30,7 @@ public class ARXWrapper {
         return data;
     }
 
-    public Data defineAttri(Data data){
+/*    public Data defineAttri(Data data){
         //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
         data.getDefinition().setAttributeType("age", AttributeType.IDENTIFYING_ATTRIBUTE);
         data.getDefinition().setAttributeType("gender", AttributeType.INSENSITIVE_ATTRIBUTE);
@@ -53,14 +54,14 @@ public class ARXWrapper {
 
         data.getDefinition().setAttributeType("zipcode", hierarchy);
         return data;
-    }
+    }*/
 
-    private ARXConfiguration setSuppressionLimit(ARXConfiguration config){
+    public ARXConfiguration setsuppressionlimit(ARXConfiguration config){
         config.setSuppressionLimit(0.02d);
         return config;
     }
 
-    private Data setSensitivityModels(Data data, AnonymizationPayload payload){
+    public Data setSensitivityModels(Data data, AnonymizationPayload payload){
         for (Map.Entry<String,SensitivityModel> entry : payload.getMetaData().getSensitivityList().entrySet())
         {
             data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());
@@ -77,7 +78,7 @@ public class ARXWrapper {
         return config;
     }
 
-    private Data setHierarchies(Data data, AnonymizationPayload payload){
+    public Data setHierarchies(Data data, AnonymizationPayload payload){
         for (Map.Entry<String, String[][]> entry : payload.getMetaData().getHierarchy().entrySet())
         {
             AttributeType.Hierarchy hierarchy = AttributeType.Hierarchy.create(entry.getValue());
@@ -86,17 +87,20 @@ public class ARXWrapper {
         return data;
     }
 
-    private PrivacyCriterion getPrivacyModel(PrivacyModel model, Map<String,String> params){
+    public PrivacyCriterion getPrivacyModel(PrivacyModel model, Map<String,String> params){
       switch(model){
           case KANONYMITY:
               return new KAnonymity(Integer.parseInt(params.get("k")));
-
+          case LDIVERSITY:
+              if(params.get("variant").equals("distinct")){
+                  return new DistinctLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")));
+              }
           default:
               throw new RuntimeException(model.getName() + " Privacy Model not supported");
       }
     }
 
-    private ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
+    public ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
         anonymizer.setMaximumSnapshotSizeDataset(0.2);
         anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
         anonymizer.setHistorySize(200);
@@ -108,7 +112,7 @@ public class ARXWrapper {
         Data data = makedata(payload.getData());
         data = setSensitivityModels(data,payload);
         data = setHierarchies(data, payload);
-        config = setSuppressionLimit(config);
+        config = setsuppressionlimit(config);
         anonymizer = setAnonymizer(anonymizer);
         //File newfile = new File("C:/test.txt");
         ARXResult result = anonymizer.anonymize(data,config);
