@@ -10,11 +10,8 @@ import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.Data;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +36,7 @@ public class ARXWrapperTest {
         String expectedResultValue2 = "female";
         String expectedResultValue3 = "81669";
 
-        Data result = arxWrapper.makedata(testData);
+        Data result = arxWrapper.setData(testData);
         String resultValue1 = result.getHandle().getValue(0,0);
         String resultValue2 = result.getHandle().getValue(1,1);
         String resultValue3 = result.getHandle().getValue(2,2);
@@ -64,7 +61,7 @@ public class ARXWrapperTest {
     @Test
     public void setSensitivityModels() {
         String testvalues = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
-        Data testData = arxWrapper.makedata(testvalues);
+        Data testData = arxWrapper.setData(testvalues);
         AnonymizationPayload testpayload = new AnonymizationPayload();
         MetaData testMetaData = new MetaData();
         Map<String,SensitivityModel> testMap = new HashMap<>();
@@ -105,7 +102,7 @@ public class ARXWrapperTest {
     public void setPrivacyModelsLDiv(){
 
         String testvalues = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
-        Data testData = arxWrapper.makedata(testvalues);
+        Data testData = arxWrapper.setData(testvalues);
         ARXConfiguration testConfig = ARXConfiguration.create();
         testData.getDefinition().setAttributeType("age", AttributeType.SENSITIVE_ATTRIBUTE);
         AnonymizationPayload testpayload = new AnonymizationPayload();
@@ -131,7 +128,7 @@ public class ARXWrapperTest {
     @Test
     public void setHierarchies(){
         String testvalues = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
-        Data testData = arxWrapper.makedata(testvalues);
+        Data testData = arxWrapper.setData(testvalues);
         AnonymizationPayload testpayload = new AnonymizationPayload();
         MetaData testMetaData = new MetaData();
         Map<String ,String[][]> testMap = new HashMap<>();
