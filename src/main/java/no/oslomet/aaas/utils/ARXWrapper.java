@@ -1,44 +1,44 @@
 package no.oslomet.aaas.utils;
 
-import org.apache.commons.lang.CharSet;
+import no.oslomet.aaas.model.AnonymizationPayload;
+import no.oslomet.aaas.model.PrivacyModel;
+import no.oslomet.aaas.model.SensitivityModel;
 import org.deidentifier.arx.*;
-import org.deidentifier.arx.Data.DefaultData;
+import org.deidentifier.arx.criteria.DistinctLDiversity;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.deidentifier.arx.ARXResult;
+import org.deidentifier.arx.criteria.PrivacyCriterion;
+import org.springframework.stereotype.Component;
+
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
-
+@Component
 public class ARXWrapper {
 
-    static DefaultData data = Data.create();
-    static ARXConfiguration config = ARXConfiguration.create();
-    static ARXAnonymizer anonymizer = new ARXAnonymizer();
+    public Data makedata(String rawdata) {
+        Data data = null;
+        ByteArrayInputStream stream = new ByteArrayInputStream(rawdata.getBytes(StandardCharsets.UTF_8));
 
-    public static void makedata() {
-
-        data.add("age", "gender", "zipcode");
-        data.add("34", "male", "81667");
-        data.add("35", "female", "81668");
-        data.add("36", "male", "81669");
-        data.add("37", "female", "81670");
-        data.add("38", "male", "81671");
-        data.add("39", "female", "81672");
-        data.add("40", "male", "81673");
-        data.add("41", "female", "81674");
-        data.add("42", "male", "81675");
-        data.add("43", "female", "81676");
-        data.add("44", "male", "81677");
-
+        try {
+            data = Data.create(stream, Charset.defaultCharset(), ',');
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
-    public static void defineAttri(){
-        //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
 
+/*    public Data defineAttri(Data data){
+        //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
         data.getDefinition().setAttributeType("age", AttributeType.IDENTIFYING_ATTRIBUTE);
         data.getDefinition().setAttributeType("gender", AttributeType.INSENSITIVE_ATTRIBUTE);
         data.getDefinition().setAttributeType("zipcode", AttributeType.INSENSITIVE_ATTRIBUTE);
+        return data;
     }
 
-    public static void defineHeirarchy(){
+    public Data defineHeirarchy(Data data ){
         AttributeType.Hierarchy.DefaultHierarchy hierarchy = AttributeType.Hierarchy.create();
         hierarchy.add("81667", "8166*", "816**", "81***", "8****", "*****");
         hierarchy.add("81668", "8166*", "816**", "81***", "8****", "*****");
@@ -53,39 +53,73 @@ public class ARXWrapper {
         hierarchy.add("81677", "8167*", "816**", "81***", "8****", "*****");
 
         data.getDefinition().setAttributeType("zipcode", hierarchy);
-    }
+        return data;
+    }*/
 
-    public static void setKAnonymity(int k){
-
-        config.addPrivacyModel(new KAnonymity(k));
+    public ARXConfiguration setsuppressionlimit(ARXConfiguration config){
         config.setSuppressionLimit(0.02d);
+        return config;
     }
 
-    public static void setAnonymizer(){
+    public Data setSensitivityModels(Data data, AnonymizationPayload payload){
+        for (Map.Entry<String,SensitivityModel> entry : payload.getMetaData().getSensitivityList().entrySet())
+        {
+            data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());
+        }
+        return data;
+    }
 
+
+    public ARXConfiguration setPrivacyModels(ARXConfiguration config, AnonymizationPayload payload){
+        for (Map.Entry<PrivacyModel, Map<String,String>> entry : payload.getMetaData().getModels().entrySet())
+        {
+            config.addPrivacyModel(getPrivacyModel(entry.getKey(),entry.getValue()));
+        }
+        return config;
+    }
+
+    public Data setHierarchies(Data data, AnonymizationPayload payload){
+        for (Map.Entry<String, String[][]> entry : payload.getMetaData().getHierarchy().entrySet())
+        {
+            AttributeType.Hierarchy hierarchy = AttributeType.Hierarchy.create(entry.getValue());
+            data.getDefinition().setAttributeType(entry.getKey(),hierarchy);
+        }
+        return data;
+    }
+
+    public PrivacyCriterion getPrivacyModel(PrivacyModel model, Map<String,String> params){
+      switch(model){
+          case KANONYMITY:
+              return new KAnonymity(Integer.parseInt(params.get("k")));
+          case LDIVERSITY:
+              if(params.get("variant").equals("distinct")){
+                  return new DistinctLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")));
+              }
+          default:
+              throw new RuntimeException(model.getName() + " Privacy Model not supported");
+      }
+    }
+
+    public ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
         anonymizer.setMaximumSnapshotSizeDataset(0.2);
         anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
         anonymizer.setHistorySize(200);
-
+        return  anonymizer;
     }
 
-    public static void main (String[] args) throws IOException {
-        makedata();
-        defineAttri();
-        defineHeirarchy();
-        setKAnonymity(4);
-        setAnonymizer();
+        //remeber we need data perameter
+    public String anonomize (ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
+        Data data = makedata(payload.getData());
+        data = setSensitivityModels(data,payload);
+        data = setHierarchies(data, payload);
+        config = setsuppressionlimit(config);
+        anonymizer = setAnonymizer(anonymizer);
         //File newfile = new File("C:/test.txt");
         ARXResult result = anonymizer.anonymize(data,config);
         DataHandle handle = result.getOutput();
-        DataHandle view = handle.getView();
-        Object value = handle.getValue(0, 2);
-        //handle.release();
-        //handle.save(newfile,';');
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         handle.save(outputStream,';');
-        System.out.println(new String(outputStream.toByteArray()));
-
+        return new String(outputStream.toByteArray());
     }
 
 }
