@@ -20,9 +20,8 @@ public class ARXWrapper {
 
     public Data makedata(String rawdata) {
         Data data = null;
-        ByteArrayInputStream stream = new ByteArrayInputStream(rawdata.getBytes(StandardCharsets.UTF_8));
-
         try {
+            ByteArrayInputStream stream = new ByteArrayInputStream(rawdata.getBytes(StandardCharsets.UTF_8));
             data = Data.create(stream, Charset.defaultCharset(), ',');
         } catch (IOException e) {
             e.printStackTrace();
