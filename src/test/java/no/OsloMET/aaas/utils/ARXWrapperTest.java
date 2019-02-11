@@ -1,25 +1,21 @@
 package no.OsloMET.aaas.utils;
 
 import no.oslomet.aaas.model.AnonymizationPayload;
+import no.oslomet.aaas.model.PrivacyModel;
 import no.oslomet.aaas.model.SensitivityModel;
 import no.oslomet.aaas.model.MetaData;
 import no.oslomet.aaas.utils.ARXWrapper;
-import org.bouncycastle.math.ec.ScaleYPointMap;
 import org.deidentifier.arx.ARXConfiguration;
-import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.Data;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import static no.oslomet.aaas.model.PrivacyModel.KANONYMITY;
 import static no.oslomet.aaas.model.SensitivityModel.IDENTIFYING;
-import static no.oslomet.aaas.model.SensitivityModel.INSENSITIVE;
-import static org.junit.Assert.*;
 
 public class ARXWrapperTest {
     ARXWrapper arxWrapper;
@@ -65,9 +61,9 @@ public class ARXWrapperTest {
         Data testData = arxWrapper.makedata(testvalues);
         AnonymizationPayload testpayload = new AnonymizationPayload();
         MetaData testMetaData = new MetaData();
-        Map<String,SensitivityModel> testmap = new HashMap<>();
-        testmap.put("age",IDENTIFYING);
-        testMetaData.setSensitivityList(testmap);
+        Map<String,SensitivityModel> testMap = new HashMap<>();
+        testMap.put("age",IDENTIFYING);
+        testMetaData.setSensitivityList(testMap);
         testpayload.setMetaData(testMetaData);
 
         arxWrapper.setSensitivityModels(testData,testpayload);
@@ -75,6 +71,30 @@ public class ARXWrapperTest {
         String result = String.valueOf(testData.getDefinition().getAttributeType("age"));
         String expectedResult = "IDENTIFYING_ATTRIBUTE";
         Assert.assertEquals(result,expectedResult);
+    }
+
+    @Test
+    public void setPrivacyModelsKAnon(){
+
+        ARXConfiguration testConfig = ARXConfiguration.create();
+        AnonymizationPayload testpayload = new AnonymizationPayload();
+        MetaData testMetaData = new MetaData();
+        Map<PrivacyModel,Map<String,String>> testMap = new HashMap<>();
+        Map<String,String> testMapValue = new HashMap<>();
+        testMapValue.put("k","5");
+        testMap.put(KANONYMITY,testMapValue);
+        testMetaData.setModels(testMap);
+        testpayload.setMetaData(testMetaData);
+
+        arxWrapper.setPrivacyModels(testConfig,testpayload);
+
+        String result = String.valueOf(testConfig.getPrivacyModels());
+
+        String expectedResult = "[5-anonymity]";
+
+        Assert.assertEquals(result,expectedResult);
+
+
     }
 
     @Test
