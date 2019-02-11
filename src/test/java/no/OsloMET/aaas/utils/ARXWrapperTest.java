@@ -6,6 +6,7 @@ import no.oslomet.aaas.model.SensitivityModel;
 import no.oslomet.aaas.model.MetaData;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.deidentifier.arx.ARXConfiguration;
+import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.Data;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static no.oslomet.aaas.model.PrivacyModel.KANONYMITY;
+import static no.oslomet.aaas.model.PrivacyModel.LDIVERSITY;
 import static no.oslomet.aaas.model.SensitivityModel.IDENTIFYING;
 
 public class ARXWrapperTest {
@@ -97,8 +99,34 @@ public class ARXWrapperTest {
         String expectedResult = "[5-anonymity]";
 
         Assert.assertEquals(result,expectedResult);
-
     }
+
+    @Test
+    public void setPrivacyModelsLDiv(){
+
+        String testvalues = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
+        Data testData = arxWrapper.makedata(testvalues);
+        ARXConfiguration testConfig = ARXConfiguration.create();
+        testData.getDefinition().setAttributeType("age", AttributeType.SENSITIVE_ATTRIBUTE);
+        AnonymizationPayload testpayload = new AnonymizationPayload();
+        MetaData testMetaData = new MetaData();
+        Map<PrivacyModel,Map<String,String>> testMap = new HashMap<>();
+        Map<String,String> testMapValue = new HashMap<>();
+        testMapValue.put("l","5");
+        testMapValue.put("column_name","age");
+        testMapValue.put("variant","distinct");
+        testMap.put(LDIVERSITY,testMapValue);
+        testMetaData.setModels(testMap);
+        testpayload.setMetaData(testMetaData);
+
+        arxWrapper.setPrivacyModels(testConfig,testpayload);
+
+        String result = String.valueOf(testConfig.getPrivacyModels());
+
+        String expectedResult = "[distinct-5-diversity for attribute 'age']";
+
+        Assert.assertEquals(result,expectedResult);
+        }
 
     @Test
     public void setHierarchies(){
