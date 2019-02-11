@@ -54,7 +54,7 @@
 					<artifactId>libarx</artifactId>
 					<version>3.7.1</version>
 					<packaging>jar</packaging>
-					<file>./src/main/resources/libarx-3.7.1.jar</file>
+					<file>${project.build.directory}/src/main/resources/libarx-3.7.1.jar</file>
 					<generatePom>true</generatePom>
 				</configuration>
 				<executions>
