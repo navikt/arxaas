@@ -22,6 +22,7 @@ after_script:
  - ./cc-test-reporter upload-coverage -d
  - mvn javadoc:javadoc
 deploy:
+  skip_cleanup: true
   provider: script
   script: docker_deploy.sh
   on:
