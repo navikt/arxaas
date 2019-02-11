@@ -10,8 +10,12 @@ import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.Data;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -122,7 +126,28 @@ public class ARXWrapperTest {
         String expectedResult = "[distinct-5-diversity for attribute 'age']";
 
         Assert.assertEquals(result,expectedResult);
+        }
 
+    @Test
+    public void setHierarchies(){
+        String testvalues = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
+        Data testData = arxWrapper.makedata(testvalues);
+        AnonymizationPayload testpayload = new AnonymizationPayload();
+        MetaData testMetaData = new MetaData();
+        Map<String ,String[][]> testMap = new HashMap<>();
+        String [][] testHeirarchy = new String[][]{
+                {"81667","81*67"},{"81668","8*668"},{"81669","8166*"}
+        };
+        testMap.put("zipcode",testHeirarchy);
+        testMetaData.setHierarchy(testMap);
+        testpayload.setMetaData(testMetaData);
+
+        testData = arxWrapper.setHierarchies(testData,testpayload);
+
+        String result = Arrays.deepToString(testData.getDefinition().getHierarchy("zipcode"));
+
+        String expectedResult = "[[81667, 81*67], [81668, 8*668], [81669, 8166*]]";
+        Assert.assertEquals(result,expectedResult);
     }
 
     @Test
