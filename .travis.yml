@@ -25,7 +25,7 @@ after_success:
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
   - export IMAGE_NAME=arxaas/aaas
   - docker build -t $IMAGE_NAME:latest .
-  - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:latest
+  - docker tag $IMAGE_NAME:latest $IMAGE_NAME:latest
   - docker push $IMAGE_NAME:latest
   - docker images
 
