@@ -18,7 +18,7 @@ public class AnonymizationService {
         ARXConfiguration config = ARXConfiguration.create();
         arxWrapper.setPrivacyModels(config,payload);
         ARXAnonymizer anonymizer = new ARXAnonymizer();
-       return arxWrapper.anonomize(anonymizer, config, payload);
+       return arxWrapper.anonymize(anonymizer, config, payload);
     }
 }
 
