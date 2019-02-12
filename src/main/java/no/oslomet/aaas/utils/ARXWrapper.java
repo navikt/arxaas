@@ -29,32 +29,6 @@ public class ARXWrapper {
         return data;
     }
 
-/*    public Data defineAttri(Data data){
-        //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
-        data.getDefinition().setAttributeType("age", AttributeType.IDENTIFYING_ATTRIBUTE);
-        data.getDefinition().setAttributeType("gender", AttributeType.INSENSITIVE_ATTRIBUTE);
-        data.getDefinition().setAttributeType("zipcode", AttributeType.INSENSITIVE_ATTRIBUTE);
-        return data;
-    }
-
-    public Data defineHeirarchy(Data data ){
-        AttributeType.Hierarchy.DefaultHierarchy hierarchy = AttributeType.Hierarchy.create();
-        hierarchy.add("81667", "8166*", "816**", "81***", "8****", "*****");
-        hierarchy.add("81668", "8166*", "816**", "81***", "8****", "*****");
-        hierarchy.add("81669", "8166*", "816**", "81***", "8****", "*****");
-        hierarchy.add("81670", "8167*", "816**", "81***", "8****", "*****");
-        hierarchy.add("81671", "8167*", "816**", "81***", "8****", "*****");
-        hierarchy.add("81672", "8167*", "816**", "81***", "8****", "*****");
-        hierarchy.add("81673", "8167*", "816**", "81***", "8****", "*****");
-        hierarchy.add("81674", "8167*", "816**", "81***", "8****", "*****");
-        hierarchy.add("81675", "8167*", "816**", "81***", "8****", "*****");
-        hierarchy.add("81676", "8167*", "816**", "81***", "8****", "*****");
-        hierarchy.add("81677", "8167*", "816**", "81***", "8****", "*****");
-
-        data.getDefinition().setAttributeType("zipcode", hierarchy);
-        return data;
-    }*/
-
     public ARXConfiguration setsuppressionlimit(ARXConfiguration config){
         config.setSuppressionLimit(0.02d);
         return config;
@@ -120,5 +94,33 @@ public class ARXWrapper {
         handle.save(outputStream,';');
         return new String(outputStream.toByteArray());
     }
+
+
+
+/*    public Data defineAttri(Data data){
+        //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
+        data.getDefinition().setAttributeType("age", AttributeType.IDENTIFYING_ATTRIBUTE);
+        data.getDefinition().setAttributeType("gender", AttributeType.INSENSITIVE_ATTRIBUTE);
+        data.getDefinition().setAttributeType("zipcode", AttributeType.INSENSITIVE_ATTRIBUTE);
+        return data;
+    }
+
+    public Data defineHeirarchy(Data data ){
+        AttributeType.Hierarchy.DefaultHierarchy hierarchy = AttributeType.Hierarchy.create();
+        hierarchy.add("81667", "8166*", "816**", "81***", "8****", "*****");
+        hierarchy.add("81668", "8166*", "816**", "81***", "8****", "*****");
+        hierarchy.add("81669", "8166*", "816**", "81***", "8****", "*****");
+        hierarchy.add("81670", "8167*", "816**", "81***", "8****", "*****");
+        hierarchy.add("81671", "8167*", "816**", "81***", "8****", "*****");
+        hierarchy.add("81672", "8167*", "816**", "81***", "8****", "*****");
+        hierarchy.add("81673", "8167*", "816**", "81***", "8****", "*****");
+        hierarchy.add("81674", "8167*", "816**", "81***", "8****", "*****");
+        hierarchy.add("81675", "8167*", "816**", "81***", "8****", "*****");
+        hierarchy.add("81676", "8167*", "816**", "81***", "8****", "*****");
+        hierarchy.add("81677", "8167*", "816**", "81***", "8****", "*****");
+
+        data.getDefinition().setAttributeType("zipcode", hierarchy);
+        return data;
+    }*/
 
 }
