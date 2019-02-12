@@ -107,7 +107,7 @@ public class ARXWrapper {
     }
 
         //remeber we need data perameter
-    public String anonomize (ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
+    public String anonymize(ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
         Data data = setData(payload.getData());
         data = setSensitivityModels(data,payload);
         data = setHierarchies(data, payload);
