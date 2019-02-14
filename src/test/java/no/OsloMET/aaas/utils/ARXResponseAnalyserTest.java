@@ -3,6 +3,7 @@ package no.OsloMET.aaas.utils;
 import no.oslomet.aaas.utils.ARXResponseAnalyser;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
+import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -112,34 +113,51 @@ public class ARXResponseAnalyserTest {
 
     @Test
     public void getEstimatedProsecutorRisk() {
-        String actual=String.valueOf(arxResponseAnalyser.getEstimatedProsecutorRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getEstimatedProsecutorRisk(AnonymizeResult,pModel));
         String expected ="0.2";
         Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getEstimatedJournalistRisk() {
-
+        String actual = String.valueOf(arxResponseAnalyser.getEstimatedJournalistRisk(AnonymizeResult,pModel));
+        String expected = "0.2";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getEstimatedMarketerRisk() {
+        String actual = String.valueOf(arxResponseAnalyser.getEstimatedMarketerRisk(AnonymizeResult,pModel));
+        String expected = "0.18181818181818182";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getSampleUniques() {
+        String actual = String.valueOf(arxResponseAnalyser.getSampleUniques(AnonymizeResult,pModel));
+        String expected ="0.0";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getPopulationUniques() {
+        String actual = String.valueOf(arxResponseAnalyser.getPopulationUniques(AnonymizeResult,pModel));
+        String expected = "0.0";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getPopulationModel() {
+        String actual = String.valueOf(arxResponseAnalyser.getPopulationModel(AnonymizeResult,pModel));
+        String expected = "DANKAR";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getQuasiIdentifiers() {
+        String actual = String.valueOf(arxResponseAnalyser.getQuasiIdentifiers(AnonymizeResult));
+        String expected = "[zipcode, gender]";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
