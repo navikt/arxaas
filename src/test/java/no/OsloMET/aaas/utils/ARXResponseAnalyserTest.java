@@ -21,13 +21,9 @@ public class ARXResponseAnalyserTest {
 
     //----------------Preparing test Data -------------------------//
     Data.DefaultData data = Data.create();
-
     ARXConfiguration config = ARXConfiguration.create();
-
     ARXAnonymizer anonymizer = new ARXAnonymizer();
-
     ARXResult AnonymizeResult;
-
     ARXPopulationModel pModel;
 
     @Before
@@ -71,13 +67,11 @@ public class ARXResponseAnalyserTest {
         anonymizer.setMaximumSnapshotSizeDataset(0.2);
         anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
         anonymizer.setHistorySize(200);
-
         try {
             AnonymizeResult = anonymizer.anonymize(data,config);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
     }
     //--------------------------------------------------------
