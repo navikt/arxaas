@@ -20,7 +20,6 @@ public class ARXResponseAnalyser {
                 .getRiskEstimator(pModel)
                 .getSampleBasedRiskDistribution()
                 .getFractionOfRecordsAtRisk(risk);
-
     }
 
     public Double getAverageProsecutorRisk(ARXResult result, ARXPopulationModel pModel){
@@ -73,11 +72,10 @@ public class ARXResponseAnalyser {
     }
 
     public RiskModelPopulationUniqueness.PopulationUniquenessModel getPopulationModel(ARXResult result, ARXPopulationModel pModel){
-        return
-                result.getOutput()
-                        .getRiskEstimator(pModel)
-                        .getPopulationBasedUniquenessRisk()
-                        .getPopulationUniquenessModel();
+        return result.getOutput()
+                .getRiskEstimator(pModel)
+                .getPopulationBasedUniquenessRisk()
+                .getPopulationUniquenessModel();
     }
 
     public Set<String> getQuasiIdentifiers(ARXResult result){
