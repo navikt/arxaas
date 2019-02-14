@@ -1,7 +1,6 @@
 package no.OsloMET.aaas.utils;
 
 import no.oslomet.aaas.utils.ARXResponseAnalyser;
-import no.oslomet.aaas.utils.ARXWrapper;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.junit.Assert;
@@ -9,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-
-import static org.junit.Assert.*;
 
 public class ARXResponseAnalyserTest {
 
@@ -86,33 +83,43 @@ public class ARXResponseAnalyserTest {
 
     @Test
     public void getLowestProsecutorRisk() {
-        Double result = arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel);
-        Double expected = 0.16666666666666666;
-        Assert.assertEquals(result,expected);
+        String  actual = String.valueOf(arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel));
+        String expected = "0.16666666666666666";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
-    public void getRecodsAffectByRisk() {
-        Double testRisk = arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel);
-        Double result = arxResponseAnalyser.getRecodsAffectByRisk(AnonymizeResult,pModel,testRisk);
-        Double expected =0.5454545454545454;
-        Assert.assertEquals(result,expected);
+    public void getRecordsAffectByRisk() {
+        double testRisk = arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel);
+        String actual = String.valueOf(arxResponseAnalyser.getRecordsAffectByRisk(AnonymizeResult,pModel,testRisk));
+        String expected ="0.5454545454545454";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getAverageProsecutorRisk() {
+        String actual = String.valueOf(arxResponseAnalyser.getAverageProsecutorRisk(AnonymizeResult,pModel));
+        String expected = "0.18181818181818182";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getHighestProsecutorRisk() {
+        String actual = String.valueOf(arxResponseAnalyser.getHighestProsecutorRisk(AnonymizeResult,pModel));
+        String expected = "0.2";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getEstimatedProsecutorRisk() {
+        String actual=String.valueOf(arxResponseAnalyser.getEstimatedProsecutorRisk(AnonymizeResult,pModel));
+        String expected ="0.2";
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getEstimatedJournalistRisk() {
+
     }
 
     @Test

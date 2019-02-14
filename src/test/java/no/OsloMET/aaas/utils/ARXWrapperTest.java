@@ -32,18 +32,18 @@ public class ARXWrapperTest {
     @Test
     public void makedata() {
 
-        String expectedResultValue1 = "34";
-        String expectedResultValue2 = "female";
-        String expectedResultValue3 = "81669";
+        String expectedValue1 = "34";
+        String expectedValue2 = "female";
+        String expectedValue3 = "81669";
 
         Data result = arxWrapper.setData(testValues);
-        String resultValue1 = result.getHandle().getValue(0,0);
-        String resultValue2 = result.getHandle().getValue(1,1);
-        String resultValue3 = result.getHandle().getValue(2,2);
+        String actualValue1 = result.getHandle().getValue(0,0);
+        String actualValue2 = result.getHandle().getValue(1,1);
+        String actualValue3 = result.getHandle().getValue(2,2);
 
-        Assert.assertEquals(resultValue1,expectedResultValue1);
-        Assert.assertEquals(resultValue2,expectedResultValue2);
-        Assert.assertEquals(resultValue3,expectedResultValue3 );
+        Assert.assertEquals(expectedValue1,actualValue1);
+        Assert.assertEquals(expectedValue2,actualValue2);
+        Assert.assertEquals(expectedValue3,actualValue3);
     }
 
     @Test
@@ -51,11 +51,11 @@ public class ARXWrapperTest {
         ARXConfiguration testData = ARXConfiguration.create();
         arxWrapper.setsuppressionlimit(testData);
 
-        String result = String.valueOf(testData.getSuppressionLimit());
+        String actual = String.valueOf(testData.getSuppressionLimit());
 
-        String expectedResult = "0.02";
+        String expected = "0.02";
 
-        Assert.assertEquals(result,expectedResult);
+         Assert.assertEquals(expected,actual);
     }
 
     @Test
@@ -71,9 +71,9 @@ public class ARXWrapperTest {
 
         arxWrapper.setSensitivityModels(testData,testpayload);
 
-        String result = String.valueOf(testData.getDefinition().getAttributeType("age"));
-        String expectedResult = "IDENTIFYING_ATTRIBUTE";
-        Assert.assertEquals(result,expectedResult);
+        String actual = String.valueOf(testData.getDefinition().getAttributeType("age"));
+        String expected = "IDENTIFYING_ATTRIBUTE";
+         Assert.assertEquals(expected,actual);
     }
 
     @Test
@@ -91,11 +91,11 @@ public class ARXWrapperTest {
 
         arxWrapper.setPrivacyModels(testConfig,testpayload);
 
-        String result = String.valueOf(testConfig.getPrivacyModels());
+        String actual = String.valueOf(testConfig.getPrivacyModels());
 
-        String expectedResult = "[5-anonymity]";
+        String expected = "[5-anonymity]";
 
-        Assert.assertEquals(result,expectedResult);
+         Assert.assertEquals(expected,actual);
     }
 
     @Test
@@ -117,11 +117,11 @@ public class ARXWrapperTest {
 
         arxWrapper.setPrivacyModels(testConfig,testpayload);
 
-        String result = String.valueOf(testConfig.getPrivacyModels());
+        String actual = String.valueOf(testConfig.getPrivacyModels());
 
-        String expectedResult = "[distinct-5-diversity for attribute 'age']";
+        String expected = "[distinct-5-diversity for attribute 'age']";
 
-        Assert.assertEquals(result,expectedResult);
+         Assert.assertEquals(expected,actual);
         }
 
     @Test
@@ -140,10 +140,10 @@ public class ARXWrapperTest {
 
         testData = arxWrapper.setHierarchies(testData,testpayload);
 
-        String result = Arrays.deepToString(testData.getDefinition().getHierarchy("zipcode"));
+        String actual = Arrays.deepToString(testData.getDefinition().getHierarchy("zipcode"));
 
-        String expectedResult = "[[81667, 81*67], [81668, 8*668], [81669, 8166*]]";
-        Assert.assertEquals(result,expectedResult);
+        String expected = "[[81667, 81*67], [81668, 8*668], [81669, 8166*]]";
+         Assert.assertEquals(expected,actual);
     }
 
     @Test
