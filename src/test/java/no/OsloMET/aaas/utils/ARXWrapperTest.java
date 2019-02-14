@@ -22,6 +22,7 @@ import static no.oslomet.aaas.model.SensitivityModel.IDENTIFYING;
 
 public class ARXWrapperTest {
     ARXWrapper arxWrapper;
+    String testValues = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
 
     @Before
     public void initilze(){
@@ -30,13 +31,12 @@ public class ARXWrapperTest {
 
     @Test
     public void makedata() {
-        String testData = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
 
         String expectedResultValue1 = "34";
         String expectedResultValue2 = "female";
         String expectedResultValue3 = "81669";
 
-        Data result = arxWrapper.setData(testData);
+        Data result = arxWrapper.setData(testValues);
         String resultValue1 = result.getHandle().getValue(0,0);
         String resultValue2 = result.getHandle().getValue(1,1);
         String resultValue3 = result.getHandle().getValue(2,2);
@@ -48,10 +48,10 @@ public class ARXWrapperTest {
 
     @Test
     public void setSuppression(){
-        ARXConfiguration testdata = ARXConfiguration.create();
-        arxWrapper.setsuppressionlimit(testdata);
+        ARXConfiguration testData = ARXConfiguration.create();
+        arxWrapper.setsuppressionlimit(testData);
 
-        String result = String.valueOf(testdata.getSuppressionLimit());
+        String result = String.valueOf(testData.getSuppressionLimit());
 
         String expectedResult = "0.02";
 
@@ -60,8 +60,8 @@ public class ARXWrapperTest {
 
     @Test
     public void setSensitivityModels() {
-        String testvalues = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
-        Data testData = arxWrapper.setData(testvalues);
+
+        Data testData = arxWrapper.setData(testValues);
         AnonymizationPayload testpayload = new AnonymizationPayload();
         MetaData testMetaData = new MetaData();
         Map<String,SensitivityModel> testMap = new HashMap<>();
@@ -101,8 +101,7 @@ public class ARXWrapperTest {
     @Test
     public void setPrivacyModelsLDiv(){
 
-        String testvalues = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
-        Data testData = arxWrapper.setData(testvalues);
+        Data testData = arxWrapper.setData(testValues);
         ARXConfiguration testConfig = ARXConfiguration.create();
         testData.getDefinition().setAttributeType("age", AttributeType.SENSITIVE_ATTRIBUTE);
         AnonymizationPayload testpayload = new AnonymizationPayload();
@@ -127,8 +126,8 @@ public class ARXWrapperTest {
 
     @Test
     public void setHierarchies(){
-        String testvalues = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
-        Data testData = arxWrapper.setData(testvalues);
+
+        Data testData = arxWrapper.setData(testValues);
         AnonymizationPayload testpayload = new AnonymizationPayload();
         MetaData testMetaData = new MetaData();
         Map<String ,String[][]> testMap = new HashMap<>();
@@ -152,6 +151,6 @@ public class ARXWrapperTest {
     }
 
     @Test
-    public void anonomize() {
+    public void anonymize() {
     }
 }
