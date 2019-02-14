@@ -93,6 +93,10 @@ public class ARXResponseAnalyserTest {
 
     @Test
     public void getRecodsAffectByRisk() {
+        Double testRisk = arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel);
+        Double result = arxResponseAnalyser.getRecodsAffectByRisk(AnonymizeResult,pModel,testRisk);
+        Double expected =0.5454545454545454;
+        Assert.assertEquals(result,expected);
     }
 
     @Test
