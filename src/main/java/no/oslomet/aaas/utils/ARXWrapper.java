@@ -29,7 +29,7 @@ public class ARXWrapper {
         return data;
     }
 
-    public ARXConfiguration setsuppressionlimit(ARXConfiguration config){
+    public ARXConfiguration setSuppressionLimit(ARXConfiguration config){
         config.setSuppressionLimit(0.02d);
         return config;
     }
@@ -85,7 +85,8 @@ public class ARXWrapper {
         Data data = setData(payload.getData());
         data = setSensitivityModels(data,payload);
         data = setHierarchies(data, payload);
-        config = setsuppressionlimit(config);
+        config = setSuppressionLimit(config);
+        config = setPrivacyModels(config,payload);
         anonymizer = setAnonymizer(anonymizer);
         //File newfile = new File("C:/test.txt");
         ARXResult result = anonymizer.anonymize(data,config);
