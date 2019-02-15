@@ -8,94 +8,94 @@ import java.util.Set;
 
 public class ARXResponseAnalyser {
 
-    public double getPayloadLowestProsecutorRisk(ARXResult result, ARXPopulationModel pModel){
+    public double getResponseLowestProsecutorRisk(ARXResult result, ARXPopulationModel pModel){
         return result.getOutput()
                 .getRiskEstimator(pModel)
                 .getSampleBasedReidentificationRisk()
                 .getLowestRisk();
     }
 
-    public double getPayloadRecordsAffectByRisk(ARXResult result, ARXPopulationModel pModel, double risk){
+    public double getResponseRecordsAffectByRisk(ARXResult result, ARXPopulationModel pModel, double risk){
         return result.getOutput()
                 .getRiskEstimator(pModel)
                 .getSampleBasedRiskDistribution()
                 .getFractionOfRecordsAtRisk(risk);
     }
 
-    public Double getPayloadAverageProsecutorRisk(ARXResult result, ARXPopulationModel pModel){
+    public Double getResponseAverageProsecutorRisk(ARXResult result, ARXPopulationModel pModel){
         return result.getOutput()
                 .getRiskEstimator(pModel)
                 .getSampleBasedReidentificationRisk()
                 .getAverageRisk();
     }
 
-    public double getPayloadHighestProsecutorRisk(ARXResult result, ARXPopulationModel pModel){
+    public double getResponseHighestProsecutorRisk(ARXResult result, ARXPopulationModel pModel){
         return result.getOutput()
                 .getRiskEstimator(pModel)
                 .getSampleBasedReidentificationRisk()
                 .getHighestRisk();
     }
 
-    public double getPayloadEstimatedProsecutorRisk(ARXResult result, ARXPopulationModel pModel){
+    public double getResponseEstimatedProsecutorRisk(ARXResult result, ARXPopulationModel pModel){
         return result.getOutput()
                 .getRiskEstimator(pModel)
                 .getSampleBasedReidentificationRisk()
                 .getEstimatedProsecutorRisk();
     }
 
-    public double getPayloadEstimatedJournalistRisk(ARXResult result, ARXPopulationModel pModel){
+    public double getResponseEstimatedJournalistRisk(ARXResult result, ARXPopulationModel pModel){
         return result.getOutput()
                 .getRiskEstimator(pModel)
                 .getSampleBasedReidentificationRisk()
                 .getEstimatedJournalistRisk();
     }
 
-    public double getPayloadEstimatedMarketerRisk(ARXResult result, ARXPopulationModel pModel){
+    public double getResponseEstimatedMarketerRisk(ARXResult result, ARXPopulationModel pModel){
         return result.getOutput()
                 .getRiskEstimator(pModel)
                 .getSampleBasedReidentificationRisk()
                 .getEstimatedMarketerRisk();
     }
 
-    public double getPayloadSampleUniques(ARXResult result, ARXPopulationModel pModel){
+    public double getResponseSampleUniques(ARXResult result, ARXPopulationModel pModel){
         return result.getOutput()
                 .getRiskEstimator(pModel)
                 .getSampleBasedUniquenessRisk()
                 .getFractionOfUniqueTuples();
     }
 
-    public double getPayloadPopulationUniques(ARXResult result, ARXPopulationModel pModel){
+    public double getResponsePopulationUniques(ARXResult result, ARXPopulationModel pModel){
         return result.getOutput()
                 .getRiskEstimator(pModel)
                 .getPopulationBasedUniquenessRisk()
-                .getFractionOfUniqueTuples(getPayloadPopulationModel(result,pModel));
+                .getFractionOfUniqueTuples(getResponsePopulationModel(result,pModel));
     }
 
-    public RiskModelPopulationUniqueness.PopulationUniquenessModel getPayloadPopulationModel(ARXResult result, ARXPopulationModel pModel){
+    public RiskModelPopulationUniqueness.PopulationUniquenessModel getResponsePopulationModel(ARXResult result, ARXPopulationModel pModel){
         return result.getOutput()
                 .getRiskEstimator(pModel)
                 .getPopulationBasedUniquenessRisk()
                 .getPopulationUniquenessModel();
     }
 
-    public Set<String> getPayloadQuasiIdentifiers(ARXResult result){
+    public Set<String> getResponseQuasiIdentifiers(ARXResult result){
         return result.getDataDefinition().getQuasiIdentifyingAttributes();
     }
 
-    public String showPayloadAnalysisData(ARXResult result,ARXPopulationModel pModel){
+    public String showResponseAnalysisData(ARXResult result,ARXPopulationModel pModel){
         return  "Measure: Value;[%]\n" +
-                "Lowest risk;" + getPayloadLowestProsecutorRisk(result,pModel)*100 + "%\n" +
-                "Records affected by lowest risk;" + getPayloadRecordsAffectByRisk(result,pModel, getPayloadLowestProsecutorRisk(result,pModel))*100 + "%\n" +
-                "Average prosecutor risk;" + getPayloadAverageProsecutorRisk(result,pModel)*100 + "%\n" +
-                "Highest prosecutor risk;" + getPayloadHighestProsecutorRisk(result,pModel)*100 + "%\n" +
-                "Record affected by highest risk;" + getPayloadRecordsAffectByRisk(result,pModel, getPayloadHighestProsecutorRisk(result,pModel))*100 + "%\n" +
-                "Estimated prosecutor risk;" + getPayloadEstimatedProsecutorRisk(result,pModel)*100 + "%\n" +
-                "Estimated prosecutor risk;" + getPayloadEstimatedProsecutorRisk(result,pModel)*100 + "%\n" +
-                "Estimated journalist risk;" + getPayloadEstimatedJournalistRisk(result,pModel)*100 + "%\n" +
-                "Estimated marketer risk;" + getPayloadEstimatedMarketerRisk(result,pModel)*100 + "%\n" +
-                "Sample uniques: " + getPayloadSampleUniques(result,pModel)*100 + "%\n" +
-                "Population uniques: " + getPayloadPopulationUniques(result,pModel)*100 + "%\n" +
-                "Population model: " + getPayloadPopulationModel(result,pModel) + "\n" +
-                "Quasi-identifiers: " + getPayloadQuasiIdentifiers(result)  + "\n";
+                "Lowest risk;" + getResponseLowestProsecutorRisk(result,pModel)*100 + "%\n" +
+                "Records affected by lowest risk;" + getResponseRecordsAffectByRisk(result,pModel, getResponseLowestProsecutorRisk(result,pModel))*100 + "%\n" +
+                "Average prosecutor risk;" + getResponseAverageProsecutorRisk(result,pModel)*100 + "%\n" +
+                "Highest prosecutor risk;" + getResponseHighestProsecutorRisk(result,pModel)*100 + "%\n" +
+                "Record affected by highest risk;" + getResponseRecordsAffectByRisk(result,pModel, getResponseHighestProsecutorRisk(result,pModel))*100 + "%\n" +
+                "Estimated prosecutor risk;" + getResponseEstimatedProsecutorRisk(result,pModel)*100 + "%\n" +
+                "Estimated prosecutor risk;" + getResponseEstimatedProsecutorRisk(result,pModel)*100 + "%\n" +
+                "Estimated journalist risk;" + getResponseEstimatedJournalistRisk(result,pModel)*100 + "%\n" +
+                "Estimated marketer risk;" + getResponseEstimatedMarketerRisk(result,pModel)*100 + "%\n" +
+                "Sample uniques: " + getResponseSampleUniques(result,pModel)*100 + "%\n" +
+                "Population uniques: " + getResponsePopulationUniques(result,pModel)*100 + "%\n" +
+                "Population model: " + getResponsePopulationModel(result,pModel) + "\n" +
+                "Quasi-identifiers: " + getResponseQuasiIdentifiers(result)  + "\n";
     }
 }
