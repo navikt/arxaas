@@ -4,10 +4,9 @@ import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.PrivacyModel;
 import no.oslomet.aaas.model.SensitivityModel;
 import org.deidentifier.arx.*;
-import org.deidentifier.arx.criteria.DistinctLDiversity;
-import org.deidentifier.arx.criteria.KAnonymity;
+import org.deidentifier.arx.criteria.*;
+
 import org.deidentifier.arx.ARXResult;
-import org.deidentifier.arx.criteria.PrivacyCriterion;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -64,10 +63,16 @@ public class ARXWrapper {
       switch(model){
           case KANONYMITY:
               return new KAnonymity(Integer.parseInt(params.get("k")));
-          case LDIVERSITY:
-              if(params.get("variant").equals("distinct")){
-                  return new DistinctLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")));
-              }
+          case LDIVERSITY_DISTINCT:
+              return new DistinctLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")));
+          case LDIVERSITY_SHANNONENTROPY:
+              System.out.println(params.get("column_name"));
+              System.out.println(Integer.parseInt(params.get("l")));
+              return new EntropyLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")), EntropyLDiversity.EntropyEstimator.SHANNON);
+          case LDIVERSITY_GRASSBERGERENTROPY:
+              return new EntropyLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")), EntropyLDiversity.EntropyEstimator.GRASSBERGER);
+          case LDIVERSITY_RECURSIVE:
+              return new RecursiveCLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")), Integer.parseInt(params.get("c")));
           default:
               throw new RuntimeException(model.getName() + " Privacy Model not supported");
       }
