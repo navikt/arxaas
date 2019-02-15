@@ -26,9 +26,22 @@ public class AnonymizationController {
         payload.setMetaData(new MetaData());
         return payload;
     }
+
     @PostMapping
     public AnonymizationPayload anonymization(@RequestBody AnonymizationPayload payload) throws IOException {
         payload.setData(anonymizationService.anonymize(payload));
+        return payload;
+    }
+
+    @PostMapping
+    public AnonymizationPayload showPayloadAnalysis(@RequestBody AnonymizationPayload payload) {
+        payload.setData(anonymizationService.showPayloadAnalysis(payload));
+        return payload;
+    }
+
+    @PostMapping
+    public AnonymizationPayload showResponseAnalysis(@RequestBody AnonymizationPayload payload) throws IOException {
+        payload.setData(anonymizationService.showResponseAnalysis(payload));
         return payload;
     }
 }
