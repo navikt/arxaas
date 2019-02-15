@@ -45,6 +45,11 @@ public class ARXWrapperTest {
     }
 
     @Test
+    public void getPrivacyModel(){
+
+    }
+
+    @Test
     public void defineAttri() {
     }
 
