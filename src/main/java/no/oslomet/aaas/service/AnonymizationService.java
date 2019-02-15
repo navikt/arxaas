@@ -4,6 +4,7 @@ import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.deidentifier.arx.ARXAnonymizer;
 import org.deidentifier.arx.ARXConfiguration;
+import org.deidentifier.arx.ARXResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,8 @@ public class AnonymizationService {
         ARXConfiguration config = ARXConfiguration.create();
         arxWrapper.setPrivacyModels(config,payload);
         ARXAnonymizer anonymizer = new ARXAnonymizer();
-       return arxWrapper.anonymize(anonymizer, config, payload);
+        ARXResult result = arxWrapper.anonymize(anonymizer, config, payload);
+       return arxWrapper.showAnonymizeData(result);
     }
 }
 
