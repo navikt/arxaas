@@ -77,68 +77,68 @@ public class ARXResponseAnalyserTest {
 
     @Test
     public void getLowestProsecutorRisk() {
-        String  actual = String.valueOf(arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel));
+        String  actual = String.valueOf(arxResponseAnalyser.getPayloadLowestProsecutorRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.16666666666666666",actual);
     }
 
     @Test
     public void getRecordsAffectByRisk() {
-        double testRisk = arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel);
-        String actual = String.valueOf(arxResponseAnalyser.getRecordsAffectByRisk(AnonymizeResult,pModel,testRisk));
+        double testRisk = arxResponseAnalyser.getPayloadLowestProsecutorRisk(AnonymizeResult,pModel);
+        String actual = String.valueOf(arxResponseAnalyser.getPayloadRecordsAffectByRisk(AnonymizeResult,pModel,testRisk));
         Assert.assertEquals("0.5454545454545454",actual);
     }
 
     @Test
     public void getAverageProsecutorRisk() {
-        String actual = String.valueOf(arxResponseAnalyser.getAverageProsecutorRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getPayloadAverageProsecutorRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.18181818181818182",actual);
     }
 
     @Test
     public void getHighestProsecutorRisk() {
-        String actual = String.valueOf(arxResponseAnalyser.getHighestProsecutorRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getPayloadHighestProsecutorRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.2",actual);
     }
 
     @Test
     public void getEstimatedProsecutorRisk() {
-        String actual = String.valueOf(arxResponseAnalyser.getEstimatedProsecutorRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getPayloadEstimatedProsecutorRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.2",actual);
     }
 
     @Test
     public void getEstimatedJournalistRisk() {
-        String actual = String.valueOf(arxResponseAnalyser.getEstimatedJournalistRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getPayloadEstimatedJournalistRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.2",actual);
     }
 
     @Test
     public void getEstimatedMarketerRisk() {
-        String actual = String.valueOf(arxResponseAnalyser.getEstimatedMarketerRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getPayloadEstimatedMarketerRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.18181818181818182",actual);
     }
 
     @Test
     public void getSampleUniques() {
-        String actual = String.valueOf(arxResponseAnalyser.getSampleUniques(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getPayloadSampleUniques(AnonymizeResult,pModel));
         Assert.assertEquals("0.0",actual);
     }
 
     @Test
     public void getPopulationUniques() {
-        String actual = String.valueOf(arxResponseAnalyser.getPopulationUniques(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getPayloadPopulationUniques(AnonymizeResult,pModel));
         Assert.assertEquals("0.0",actual);
     }
 
     @Test
     public void getPopulationModel() {
-        String actual = String.valueOf(arxResponseAnalyser.getPopulationModel(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getPayloadPopulationModel(AnonymizeResult,pModel));
         Assert.assertEquals("DANKAR",actual);
     }
 
     @Test
     public void getQuasiIdentifiers() {
-        String actual = String.valueOf(arxResponseAnalyser.getQuasiIdentifiers(AnonymizeResult));
+        String actual = String.valueOf(arxResponseAnalyser.getPayloadQuasiIdentifiers(AnonymizeResult));
         Assert.assertEquals("[zipcode, gender]",actual);
     }
 
