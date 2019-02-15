@@ -77,74 +77,74 @@ public class ARXResponseAnalyserTest {
 
     @Test
     public void getLowestProsecutorRisk() {
-        String  actual = String.valueOf(arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel));
+        String  actual = String.valueOf(arxResponseAnalyser.getResponseLowestProsecutorRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.16666666666666666",actual);
     }
 
     @Test
     public void getRecordsAffectByRisk() {
-        double testRisk = arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel);
-        String actual = String.valueOf(arxResponseAnalyser.getRecordsAffectByRisk(AnonymizeResult,pModel,testRisk));
+        double testRisk = arxResponseAnalyser.getResponseLowestProsecutorRisk(AnonymizeResult,pModel);
+        String actual = String.valueOf(arxResponseAnalyser.getResponseRecordsAffectByRisk(AnonymizeResult,pModel,testRisk));
         Assert.assertEquals("0.5454545454545454",actual);
     }
 
     @Test
     public void getAverageProsecutorRisk() {
-        String actual = String.valueOf(arxResponseAnalyser.getAverageProsecutorRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getResponseAverageProsecutorRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.18181818181818182",actual);
     }
 
     @Test
     public void getHighestProsecutorRisk() {
-        String actual = String.valueOf(arxResponseAnalyser.getHighestProsecutorRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getResponseHighestProsecutorRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.2",actual);
     }
 
     @Test
     public void getEstimatedProsecutorRisk() {
-        String actual = String.valueOf(arxResponseAnalyser.getEstimatedProsecutorRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getResponseEstimatedProsecutorRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.2",actual);
     }
 
     @Test
     public void getEstimatedJournalistRisk() {
-        String actual = String.valueOf(arxResponseAnalyser.getEstimatedJournalistRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getResponseEstimatedJournalistRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.2",actual);
     }
 
     @Test
     public void getEstimatedMarketerRisk() {
-        String actual = String.valueOf(arxResponseAnalyser.getEstimatedMarketerRisk(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getResponseEstimatedMarketerRisk(AnonymizeResult,pModel));
         Assert.assertEquals("0.18181818181818182",actual);
     }
 
     @Test
     public void getSampleUniques() {
-        String actual = String.valueOf(arxResponseAnalyser.getSampleUniques(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getResponseSampleUniques(AnonymizeResult,pModel));
         Assert.assertEquals("0.0",actual);
     }
 
     @Test
     public void getPopulationUniques() {
-        String actual = String.valueOf(arxResponseAnalyser.getPopulationUniques(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getResponsePopulationUniques(AnonymizeResult,pModel));
         Assert.assertEquals("0.0",actual);
     }
 
     @Test
     public void getPopulationModel() {
-        String actual = String.valueOf(arxResponseAnalyser.getPopulationModel(AnonymizeResult,pModel));
+        String actual = String.valueOf(arxResponseAnalyser.getResponsePopulationModel(AnonymizeResult,pModel));
         Assert.assertEquals("DANKAR",actual);
     }
 
     @Test
     public void getQuasiIdentifiers() {
-        String actual = String.valueOf(arxResponseAnalyser.getQuasiIdentifiers(AnonymizeResult));
+        String actual = String.valueOf(arxResponseAnalyser.getResponseQuasiIdentifiers(AnonymizeResult));
         Assert.assertEquals("[zipcode, gender]",actual);
     }
 
     @Test
     public void showAnalysisData() {
-        String actual = arxResponseAnalyser.showAnalysisData(AnonymizeResult,pModel);
+        String actual = arxResponseAnalyser.showResponseAnalysisData(AnonymizeResult,pModel);
         String expected = "Measure: Value;[%]\n" +
                 "Lowest risk;16.666666666666664%\n" +
                 "Records affected by lowest risk;54.54545454545454%\n" +
