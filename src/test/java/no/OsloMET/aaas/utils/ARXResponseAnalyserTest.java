@@ -3,7 +3,6 @@ package no.OsloMET.aaas.utils;
 import no.oslomet.aaas.utils.ARXResponseAnalyser;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
-import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,19 +11,19 @@ import java.io.IOException;
 
 public class ARXResponseAnalyserTest {
 
-    ARXResponseAnalyser arxResponseAnalyser;
+    private ARXResponseAnalyser arxResponseAnalyser;
 
     @Before
-    public void initilze(){
+    public void initialize(){
         arxResponseAnalyser = new ARXResponseAnalyser();
     }
 
     //----------------Preparing test Data -------------------------//
-    Data.DefaultData data = Data.create();
-    ARXConfiguration config = ARXConfiguration.create();
-    ARXAnonymizer anonymizer = new ARXAnonymizer();
-    ARXResult AnonymizeResult;
-    ARXPopulationModel pModel;
+    private Data.DefaultData data = Data.create();
+    private ARXConfiguration config = ARXConfiguration.create();
+    private ARXAnonymizer anonymizer = new ARXAnonymizer();
+    private ARXResult AnonymizeResult;
+    private ARXPopulationModel pModel;
 
     @Before
     public void generateTestData() {
@@ -79,82 +78,87 @@ public class ARXResponseAnalyserTest {
     @Test
     public void getLowestProsecutorRisk() {
         String  actual = String.valueOf(arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel));
-        String expected = "0.16666666666666666";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("0.16666666666666666",actual);
     }
 
     @Test
     public void getRecordsAffectByRisk() {
         double testRisk = arxResponseAnalyser.getLowestProsecutorRisk(AnonymizeResult,pModel);
         String actual = String.valueOf(arxResponseAnalyser.getRecordsAffectByRisk(AnonymizeResult,pModel,testRisk));
-        String expected ="0.5454545454545454";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("0.5454545454545454",actual);
     }
 
     @Test
     public void getAverageProsecutorRisk() {
         String actual = String.valueOf(arxResponseAnalyser.getAverageProsecutorRisk(AnonymizeResult,pModel));
-        String expected = "0.18181818181818182";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("0.18181818181818182",actual);
     }
 
     @Test
     public void getHighestProsecutorRisk() {
         String actual = String.valueOf(arxResponseAnalyser.getHighestProsecutorRisk(AnonymizeResult,pModel));
-        String expected = "0.2";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("0.2",actual);
     }
 
     @Test
     public void getEstimatedProsecutorRisk() {
         String actual = String.valueOf(arxResponseAnalyser.getEstimatedProsecutorRisk(AnonymizeResult,pModel));
-        String expected ="0.2";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("0.2",actual);
     }
 
     @Test
     public void getEstimatedJournalistRisk() {
         String actual = String.valueOf(arxResponseAnalyser.getEstimatedJournalistRisk(AnonymizeResult,pModel));
-        String expected = "0.2";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("0.2",actual);
     }
 
     @Test
     public void getEstimatedMarketerRisk() {
         String actual = String.valueOf(arxResponseAnalyser.getEstimatedMarketerRisk(AnonymizeResult,pModel));
-        String expected = "0.18181818181818182";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("0.18181818181818182",actual);
     }
 
     @Test
     public void getSampleUniques() {
         String actual = String.valueOf(arxResponseAnalyser.getSampleUniques(AnonymizeResult,pModel));
-        String expected ="0.0";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("0.0",actual);
     }
 
     @Test
     public void getPopulationUniques() {
         String actual = String.valueOf(arxResponseAnalyser.getPopulationUniques(AnonymizeResult,pModel));
-        String expected = "0.0";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("0.0",actual);
     }
 
     @Test
     public void getPopulationModel() {
         String actual = String.valueOf(arxResponseAnalyser.getPopulationModel(AnonymizeResult,pModel));
-        String expected = "DANKAR";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("DANKAR",actual);
     }
 
     @Test
     public void getQuasiIdentifiers() {
         String actual = String.valueOf(arxResponseAnalyser.getQuasiIdentifiers(AnonymizeResult));
-        String expected = "[zipcode, gender]";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("[zipcode, gender]",actual);
     }
 
     @Test
     public void showAnalysisData() {
+        String actual = arxResponseAnalyser.showAnalysisData(AnonymizeResult,pModel);
+        String expected = "Measure: Value;[%]\n" +
+                "Lowest risk;16.666666666666664%\n" +
+                "Records affected by lowest risk;54.54545454545454%\n" +
+                "Average prosecutor risk;18.181818181818183%\n" +
+                "Highest prosecutor risk;20.0%\n" +
+                "Record affected by highest risk;45.45454545454545%\n" +
+                "Estimated prosecutor risk;20.0%\n" +
+                "Estimated prosecutor risk;20.0%\n" +
+                "Estimated journalist risk;20.0%\n" +
+                "Estimated marketer risk;18.181818181818183%\n" +
+                "Sample uniques: 0.0%\n" +
+                "Population uniques: 0.0%\n" +
+                "Population model: DANKAR\n" +
+                "Quasi-identifiers: [zipcode, gender]\n";
+        Assert.assertEquals(expected,actual);
     }
 }

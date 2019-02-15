@@ -82,19 +82,20 @@ public class ARXResponseAnalyser {
         return result.getDataDefinition().getQuasiIdentifyingAttributes();
     }
 
-    public void showAnalysisData(ARXResult result,ARXPopulationModel pModel){
-        System.out.println("Measure: Value [%]");
-        System.out.println("Lowest risk: "+getLowestProsecutorRisk(result,pModel)*100);
-        System.out.println("Records affected by lowest risk: " + getRecordsAffectByRisk(result,pModel,getLowestProsecutorRisk(result,pModel))*100);
-        System.out.println("Average prosecutor risk: " + getAverageProsecutorRisk(result,pModel)*100);
-        System.out.println("Highest prosecutor risk: " + getHighestProsecutorRisk(result,pModel)*100);
-        System.out.println("Record affected by highest risk: " + getRecordsAffectByRisk(result,pModel,getHighestProsecutorRisk(result,pModel))*100);
-        System.out.println("Estimated prosecutor risk: " + getEstimatedProsecutorRisk(result,pModel)*100);
-        System.out.println("Estimated journalist risk: " + getEstimatedJournalistRisk(result,pModel)*100);
-        System.out.println("Estimated marketer risk: " + getEstimatedMarketerRisk(result,pModel)*100);
-        System.out.println("Sample uniques: " + getSampleUniques(result,pModel)*100);
-        System.out.println("Population uniques: " + getPopulationUniques(result,pModel)*100);
-        System.out.println("Population model: " + getPopulationModel(result,pModel));
-        System.out.println("Quasi-identifiers: " + getQuasiIdentifiers(result));
+    public String showAnalysisData(ARXResult result,ARXPopulationModel pModel){
+        return  "Measure: Value;[%]\n" +
+                "Lowest risk;" + getLowestProsecutorRisk(result,pModel)*100 + "%\n" +
+                "Records affected by lowest risk;" + getRecordsAffectByRisk(result,pModel,getLowestProsecutorRisk(result,pModel))*100 + "%\n" +
+                "Average prosecutor risk;" + getAverageProsecutorRisk(result,pModel)*100 + "%\n" +
+                "Highest prosecutor risk;" + getHighestProsecutorRisk(result,pModel)*100 + "%\n" +
+                "Record affected by highest risk;" + getRecordsAffectByRisk(result,pModel,getHighestProsecutorRisk(result,pModel))*100 + "%\n" +
+                "Estimated prosecutor risk;" + getEstimatedProsecutorRisk(result,pModel)*100 + "%\n" +
+                "Estimated prosecutor risk;" + getEstimatedProsecutorRisk(result,pModel)*100 + "%\n" +
+                "Estimated journalist risk;" + getEstimatedJournalistRisk(result,pModel)*100 + "%\n" +
+                "Estimated marketer risk;" + getEstimatedMarketerRisk(result,pModel)*100 + "%\n" +
+                "Sample uniques: " + getSampleUniques(result,pModel)*100 + "%\n" +
+                "Population uniques: " + getPopulationUniques(result,pModel)*100 + "%\n" +
+                "Population model: " + getPopulationModel(result,pModel) + "\n" +
+                "Quasi-identifiers: " + getQuasiIdentifiers(result)  + "\n";
     }
 }
