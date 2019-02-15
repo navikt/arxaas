@@ -71,7 +71,7 @@ public class ARXResponseAnalyserTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
+        pModel= ARXPopulationModel.create(AnonymizeResult.getOutput().getNumRows(), 0.01d);
     }
     //--------------------------------------------------------
 

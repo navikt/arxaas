@@ -1,10 +1,10 @@
 package no.oslomet.aaas.service;
 
 import no.oslomet.aaas.model.AnonymizationPayload;
+import no.oslomet.aaas.utils.ARXPayloadAnalyser;
+import no.oslomet.aaas.utils.ARXResponseAnalyser;
 import no.oslomet.aaas.utils.ARXWrapper;
-import org.deidentifier.arx.ARXAnonymizer;
-import org.deidentifier.arx.ARXConfiguration;
-import org.deidentifier.arx.ARXResult;
+import org.deidentifier.arx.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +14,31 @@ import java.io.IOException;
 public class AnonymizationService {
     @Autowired
     ARXWrapper arxWrapper;
+    @Autowired
+    ARXPayloadAnalyser arxPayloadAnalyser;
+    @Autowired
+    ARXResponseAnalyser arxResponseAnalyser;
 
     public String anonymize(AnonymizationPayload payload) throws IOException {
         ARXConfiguration config = ARXConfiguration.create();
-        arxWrapper.setPrivacyModels(config,payload);
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         ARXResult result = arxWrapper.anonymize(anonymizer, config, payload);
        return arxWrapper.showAnonymizeData(result);
+    }
+
+    public String showPayloadAnalysis(AnonymizationPayload payload){
+        Data data = arxWrapper.setData(payload.getData());
+        arxWrapper.setSensitivityModels(data,payload);
+        ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
+        return arxPayloadAnalyser.showPayloadAnalysisData(data,pModel);
+    }
+
+    public String showResponseAnalysis(AnonymizationPayload payload)throws IOException{
+        ARXConfiguration config = ARXConfiguration.create();
+        ARXAnonymizer anonymizer = new ARXAnonymizer();
+        ARXResult result = arxWrapper.anonymize(anonymizer, config, payload);
+        ARXPopulationModel pModel= ARXPopulationModel.create(result.getOutput().getNumRows(), 0.01d);
+        return arxResponseAnalyser.showResponseAnalysisData(result,pModel);
     }
 }
 

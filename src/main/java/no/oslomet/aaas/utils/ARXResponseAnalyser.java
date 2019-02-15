@@ -3,9 +3,11 @@ package no.oslomet.aaas.utils;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.ARXResult;
 import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+@Component
 public class ARXResponseAnalyser {
 
     public double getResponseLowestProsecutorRisk(ARXResult result, ARXPopulationModel pModel){
