@@ -6,13 +6,11 @@ import no.oslomet.aaas.model.SensitivityModel;
 import no.oslomet.aaas.model.MetaData;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.deidentifier.arx.*;
-import org.deidentifier.arx.criteria.KAnonymity;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,21 +20,19 @@ import static no.oslomet.aaas.model.SensitivityModel.IDENTIFYING;
 import static no.oslomet.aaas.model.SensitivityModel.QUASIIDENTIFYING;
 
 public class ARXWrapperTest {
-    ARXWrapper arxWrapper;
-    String testValues = "age, gender, zipcode\n34, male, 81667\n35, female, 81668\n36, male, 81669";
+    private ARXWrapper arxWrapper;
 
     @Before
-    public void initilze(){
+    public void initialize(){
         arxWrapper = new ARXWrapper();
     }
 
     //-------------------------preparing test payload----------------------------//
-    Data.DefaultData data = Data.create();
-    ARXConfiguration config = ARXConfiguration.create();
-    ARXAnonymizer anonymizer = new ARXAnonymizer();
-    ARXResult AnonymizeResult;
-    AnonymizationPayload testpayload = new AnonymizationPayload();
-    MetaData testMetaData = new MetaData();
+    private Data data = Data.create();
+    private ARXConfiguration config = ARXConfiguration.create();
+    private ARXAnonymizer anonymizer = new ARXAnonymizer();
+    private AnonymizationPayload testPayload = new AnonymizationPayload();
+    private MetaData testMetaData = new MetaData();
 
     @Before
     public void generateTestData() {
@@ -53,7 +49,7 @@ public class ARXWrapperTest {
                 "43, female , 81676\n" +
                 "44, male, 81677";
 
-        testpayload.setData(testData);
+        testPayload.setData(testData);
 
         //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
         Map<String,SensitivityModel> testMapAttribute = new HashMap<>();
@@ -87,84 +83,49 @@ public class ARXWrapperTest {
         testMapPrivacy.put(KANONYMITY,testMapValue);
         testMetaData.setModels(testMapPrivacy);
 
-        testpayload.setMetaData(testMetaData);
+        testPayload.setMetaData(testMetaData);
     }
     //------------------------------------------------------------------------//
 
     @Test
-    public void makedata() {
-
-        String expectedValue1 = "34";
-        String expectedValue2 = "female";
-        String expectedValue3 = "81669";
-
-        Data result = arxWrapper.setData(testValues);
+    public void setData() {
+        Data result = arxWrapper.setData(testPayload.getData());
         String actualValue1 = result.getHandle().getValue(0,0);
         String actualValue2 = result.getHandle().getValue(1,1);
         String actualValue3 = result.getHandle().getValue(2,2);
 
-        Assert.assertEquals(expectedValue1,actualValue1);
-        Assert.assertEquals(expectedValue2,actualValue2);
-        Assert.assertEquals(expectedValue3,actualValue3);
+        Assert.assertEquals("34",actualValue1);
+        Assert.assertEquals("female",actualValue2);
+        Assert.assertEquals("81669",actualValue3);
     }
 
     @Test
     public void setSuppression(){
-        ARXConfiguration testData = ARXConfiguration.create();
-        arxWrapper.setSuppressionLimit(testData);
+        arxWrapper.setSuppressionLimit(config);
+        String actual = String.valueOf(config.getSuppressionLimit());
 
-        String actual = String.valueOf(testData.getSuppressionLimit());
-
-        String expected = "0.02";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("0.02",actual);
     }
 
     @Test
     public void setSensitivityModels() {
+        arxWrapper.setSensitivityModels(data, testPayload);
+        String actual = String.valueOf(data.getDefinition().getAttributeType("age"));
 
-        Data testData = arxWrapper.setData(testValues);
-        AnonymizationPayload testpayload = new AnonymizationPayload();
-        MetaData testMetaData = new MetaData();
-        Map<String,SensitivityModel> testMap = new HashMap<>();
-        testMap.put("age",IDENTIFYING);
-        testMetaData.setSensitivityList(testMap);
-        testpayload.setMetaData(testMetaData);
-
-        arxWrapper.setSensitivityModels(testData,testpayload);
-
-        String actual = String.valueOf(testData.getDefinition().getAttributeType("age"));
-        String expected = "IDENTIFYING_ATTRIBUTE";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("IDENTIFYING_ATTRIBUTE",actual);
     }
 
     @Test
     public void setPrivacyModelsKAnon(){
+        arxWrapper.setPrivacyModels(config, testPayload);
+        String actual = String.valueOf(config.getPrivacyModels());
 
-        ARXConfiguration testConfig = ARXConfiguration.create();
-        AnonymizationPayload testpayload1 = new AnonymizationPayload();
-        MetaData testMetaData1 = new MetaData();
-        Map<PrivacyModel,Map<String,String>> testMap = new HashMap<>();
-        Map<String,String> testMapValue = new HashMap<>();
-        testMapValue.put("k","5");
-        testMap.put(KANONYMITY,testMapValue);
-        testMetaData1.setModels(testMap);
-        testpayload1.setMetaData(testMetaData);
-
-        arxWrapper.setPrivacyModels(testConfig,testpayload);
-
-        String actual = String.valueOf(testConfig.getPrivacyModels());
-        String expected = "[5-anonymity]";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("[5-anonymity]",actual);
     }
 
     @Test
     public void setPrivacyModelsLDiv(){
-
-        Data testData = arxWrapper.setData(testValues);
-        ARXConfiguration testConfig = ARXConfiguration.create();
-        testData.getDefinition().setAttributeType("age", AttributeType.SENSITIVE_ATTRIBUTE);
-        AnonymizationPayload testpayload = new AnonymizationPayload();
-        MetaData testMetaData = new MetaData();
+        data.getDefinition().setAttributeType("age", AttributeType.SENSITIVE_ATTRIBUTE);
         Map<PrivacyModel,Map<String,String>> testMap = new HashMap<>();
         Map<String,String> testMapValue = new HashMap<>();
         testMapValue.put("l","5");
@@ -172,34 +133,25 @@ public class ARXWrapperTest {
         testMapValue.put("variant","distinct");
         testMap.put(LDIVERSITY,testMapValue);
         testMetaData.setModels(testMap);
-        testpayload.setMetaData(testMetaData);
+        testPayload.setMetaData(testMetaData);
 
-        arxWrapper.setPrivacyModels(testConfig,testpayload);
+        arxWrapper.setPrivacyModels(config, testPayload);
+        String actual = String.valueOf(config.getPrivacyModels());
 
-        String actual = String.valueOf(testConfig.getPrivacyModels());
-        String expected = "[distinct-5-diversity for attribute 'age']";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("[distinct-5-diversity for attribute 'age']",actual);
         }
 
     @Test
     public void setHierarchies(){
+        data = arxWrapper.setHierarchies(data, testPayload);
+        String[][] actual = data.getDefinition().getHierarchy("zipcode");
+        String actualResult1 = actual[0][0];
+        String actualResult2 = actual[6][3];
+        String actualResult3 = actual[10][5];
 
-        Data testData = arxWrapper.setData(testValues);
-        AnonymizationPayload testpayload = new AnonymizationPayload();
-        MetaData testMetaData = new MetaData();
-        Map<String ,String[][]> testMap = new HashMap<>();
-        String [][] testHeirarchy = new String[][]{
-                {"81667","81*67"},{"81668","8*668"},{"81669","8166*"}
-        };
-        testMap.put("zipcode",testHeirarchy);
-        testMetaData.setHierarchy(testMap);
-        testpayload.setMetaData(testMetaData);
-
-        testData = arxWrapper.setHierarchies(testData,testpayload);
-
-        String actual = Arrays.deepToString(testData.getDefinition().getHierarchy("zipcode"));
-        String expected = "[[81667, 81*67], [81668, 8*668], [81669, 8166*]]";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals("81667",actualResult1);
+        Assert.assertEquals("81***",actualResult2);
+        Assert.assertEquals("*****",actualResult3);
     }
 
     @Test
@@ -209,19 +161,15 @@ public class ARXWrapperTest {
         String actual2=String.valueOf(anonymizer.getMaximumSnapshotSizeSnapshot());
         String actual3=String.valueOf(anonymizer.getHistorySize());
 
-        String expected1="0.2";
-        String expected2="0.2";
-        String expected3="200";
-
-        Assert.assertEquals(expected1,actual1);
-        Assert.assertEquals(expected2,actual2);
-        Assert.assertEquals(expected3,actual3);
+        Assert.assertEquals("0.2",actual1);
+        Assert.assertEquals("0.2",actual2);
+        Assert.assertEquals("200",actual3);
     }
 
     @Test
     public void anonymize() {
         try {
-            String actual = String.valueOf(arxWrapper.anonymize(anonymizer,config,testpayload));
+            String actual = String.valueOf(arxWrapper.anonymize(anonymizer,config, testPayload));
             String expected = "age;gender;zipcode\n" +
                     "*;male;816**\n" +
                     "*;female;816**\n" +
