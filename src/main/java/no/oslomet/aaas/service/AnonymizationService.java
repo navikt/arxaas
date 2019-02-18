@@ -23,14 +23,14 @@ public class AnonymizationService {
         ARXConfiguration config = ARXConfiguration.create();
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         ARXResult result = arxWrapper.anonymize(anonymizer, config, payload);
-       return arxWrapper.showAnonymizeData(result);
+       return arxWrapper.getAnonymizeData(result);
     }
 
     public String showPayloadAnalysis(AnonymizationPayload payload){
         Data data = arxWrapper.setData(payload.getData());
         arxWrapper.setSensitivityModels(data,payload);
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
-        return arxPayloadAnalyser.showPayloadAnalysisData(data,pModel);
+        return arxPayloadAnalyser.getPayloadAnalysisData(data,pModel);
     }
 
     public String showResponseAnalysis(AnonymizationPayload payload)throws IOException{
@@ -38,7 +38,7 @@ public class AnonymizationService {
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         ARXResult result = arxWrapper.anonymize(anonymizer, config, payload);
         ARXPopulationModel pModel= ARXPopulationModel.create(result.getOutput().getNumRows(), 0.01d);
-        return arxResponseAnalyser.showResponseAnalysisData(result,pModel);
+        return arxResponseAnalyser.getResponseAnalysisData(result,pModel);
     }
 }
 

@@ -84,7 +84,7 @@ public class ARXResponseAnalyser {
         return result.getDataDefinition().getQuasiIdentifyingAttributes();
     }
 
-    public String showResponseAnalysisData(ARXResult result,ARXPopulationModel pModel){
+    public String getResponseAnalysisData(ARXResult result, ARXPopulationModel pModel){
         return  "Measure: Value;[%]\n" +
                 "Lowest risk;" + getResponseLowestProsecutorRisk(result,pModel)*100 + "%\n" +
                 "Records affected by lowest risk;" + getResponseRecordsAffectByRisk(result,pModel, getResponseLowestProsecutorRisk(result,pModel))*100 + "%\n" +

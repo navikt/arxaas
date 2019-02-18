@@ -84,7 +84,7 @@ public class ARXPayloadAnalyser {
         return data.getDefinition().getQuasiIdentifyingAttributes();
     }
 
-    public String showPayloadAnalysisData(Data data,ARXPopulationModel pModel){
+    public String getPayloadAnalysisData(Data data, ARXPopulationModel pModel){
         return  "Measure: Value;[%]\n" +
                 "Lowest risk;" + getPayloadLowestProsecutorRisk(data,pModel)*100 + "%\n" +
                 "Records affected by lowest risk;" + getPayloadRecordsAffectByRisk(data,pModel, getPayloadLowestProsecutorRisk(data,pModel))*100 + "%\n" +

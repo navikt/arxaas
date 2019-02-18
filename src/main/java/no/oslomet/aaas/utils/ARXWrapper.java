@@ -88,12 +88,10 @@ public class ARXWrapper {
         config = setSuppressionLimit(config);
         config = setPrivacyModels(config,payload);
         anonymizer = setAnonymizer(anonymizer);
-        //File newfile = new File("C:/test.txt");
-        ARXResult result = anonymizer.anonymize(data,config);
-        return result;
+        return anonymizer.anonymize(data,config);
     }
 
-    public String showAnonymizeData(ARXResult result) throws IOException {
+    public String getAnonymizeData(ARXResult result) throws IOException {
         DataHandle handle = result.getOutput();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         handle.save(outputStream,';');

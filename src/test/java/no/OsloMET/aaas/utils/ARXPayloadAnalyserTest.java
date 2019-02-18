@@ -113,7 +113,7 @@ public class ARXPayloadAnalyserTest {
 
     @Test
     public void showPayloadAnalysisData() {
-        String actual = arxPayloadAnalyser.showPayloadAnalysisData(data,pModel);
+        String actual = arxPayloadAnalyser.getPayloadAnalysisData(data,pModel);
         String expected = "Measure: Value;[%]\n" +
                 "Lowest risk;100.0%\n" +
                 "Records affected by lowest risk;100.0%\n" +
