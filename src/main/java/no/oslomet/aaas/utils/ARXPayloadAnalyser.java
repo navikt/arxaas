@@ -3,9 +3,11 @@ package no.oslomet.aaas.utils;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
 import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+@Component
 public class ARXPayloadAnalyser {
 
     public double getPayloadLowestProsecutorRisk(Data data, ARXPopulationModel pModel){
@@ -82,7 +84,7 @@ public class ARXPayloadAnalyser {
         return data.getDefinition().getQuasiIdentifyingAttributes();
     }
 
-    public String showPayloadAnalysisData(Data data,ARXPopulationModel pModel){
+    public String getPayloadAnalysisData(Data data, ARXPopulationModel pModel){
         return  "Measure: Value;[%]\n" +
                 "Lowest risk;" + getPayloadLowestProsecutorRisk(data,pModel)*100 + "%\n" +
                 "Records affected by lowest risk;" + getPayloadRecordsAffectByRisk(data,pModel, getPayloadLowestProsecutorRisk(data,pModel))*100 + "%\n" +

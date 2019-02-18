@@ -71,7 +71,7 @@ public class ARXResponseAnalyserTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
+        pModel= ARXPopulationModel.create(AnonymizeResult.getOutput().getNumRows(), 0.01d);
     }
     //--------------------------------------------------------
 
@@ -144,7 +144,7 @@ public class ARXResponseAnalyserTest {
 
     @Test
     public void showAnalysisData() {
-        String actual = arxResponseAnalyser.showResponseAnalysisData(AnonymizeResult,pModel);
+        String actual = arxResponseAnalyser.getResponseAnalysisData(AnonymizeResult,pModel);
         String expected = "Measure: Value;[%]\n" +
                 "Lowest risk;16.666666666666664%\n" +
                 "Records affected by lowest risk;54.54545454545454%\n" +

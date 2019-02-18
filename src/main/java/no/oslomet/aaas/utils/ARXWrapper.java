@@ -81,15 +81,17 @@ public class ARXWrapper {
     }
 
         //remeber we need data perameter
-    public String anonymize(ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
+    public ARXResult anonymize(ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
         Data data = setData(payload.getData());
         data = setSensitivityModels(data,payload);
         data = setHierarchies(data, payload);
         config = setSuppressionLimit(config);
         config = setPrivacyModels(config,payload);
         anonymizer = setAnonymizer(anonymizer);
-        //File newfile = new File("C:/test.txt");
-        ARXResult result = anonymizer.anonymize(data,config);
+        return anonymizer.anonymize(data,config);
+    }
+
+    public String getAnonymizeData(ARXResult result) throws IOException {
         DataHandle handle = result.getOutput();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         handle.save(outputStream,';');

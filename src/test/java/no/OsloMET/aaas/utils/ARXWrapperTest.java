@@ -169,7 +169,8 @@ public class ARXWrapperTest {
     @Test
     public void anonymize() {
         try {
-            String actual = String.valueOf(arxWrapper.anonymize(anonymizer,config, testPayload));
+            ARXResult testresult = arxWrapper.anonymize(anonymizer,config, testPayload);
+            String actual = arxWrapper.getAnonymizeData(testresult);
             String expected = "age;gender;zipcode\n" +
                     "*;male;816**\n" +
                     "*;female;816**\n" +
