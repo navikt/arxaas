@@ -5,10 +5,14 @@ import org.deidentifier.arx.Data;
 import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Component
 public class ARXPayloadAnalyser {
+
+    private static final int PRECENT_CONVERT = 100;
 
     public double getPayloadLowestProsecutorRisk(Data data, ARXPopulationModel pModel){
         return data.getHandle()
@@ -84,20 +88,21 @@ public class ARXPayloadAnalyser {
         return data.getDefinition().getQuasiIdentifyingAttributes();
     }
 
-    public String getPayloadAnalysisData(Data data, ARXPopulationModel pModel){
-        return  "Measure: Value;[%]\n" +
-                "Lowest risk;" + getPayloadLowestProsecutorRisk(data,pModel)*100 + "%\n" +
-                "Records affected by lowest risk;" + getPayloadRecordsAffectByRisk(data,pModel, getPayloadLowestProsecutorRisk(data,pModel))*100 + "%\n" +
-                "Average prosecutor risk;" + getPayloadAverageProsecutorRisk(data,pModel)*100 + "%\n" +
-                "Highest prosecutor risk;" + getPayloadHighestProsecutorRisk(data,pModel)*100 + "%\n" +
-                "Record affected by highest risk;" + getPayloadRecordsAffectByRisk(data,pModel, getPayloadHighestProsecutorRisk(data,pModel))*100 + "%\n" +
-                "Estimated prosecutor risk;" + getPayloadEstimatedProsecutorRisk(data,pModel)*100 + "%\n" +
-                "Estimated prosecutor risk;" + getPayloadEstimatedProsecutorRisk(data,pModel)*100 + "%\n" +
-                "Estimated journalist risk;" + getPayloadEstimatedJournalistRisk(data,pModel)*100 + "%\n" +
-                "Estimated marketer risk;" + getPayloadEstimatedMarketerRisk(data,pModel)*100 + "%\n" +
-                "Sample uniques: " + getPayloadSampleUniques(data,pModel)*100 + "%\n" +
-                "Population uniques: " + getPayloadPopulationUniques(data,pModel)*100 + "%\n" +
-                "Population model: " + getPayloadPopulationModel(data,pModel) + "\n" +
-                "Quasi-identifiers: " + getPayloadQuasiIdentifiers(data)  + "\n";
+    public Map<String, String> getPayloadAnalysisData(Data data, ARXPopulationModel pModel){
+        Map<String, String> metricsMap = new HashMap<>();
+        metricsMap.put("measure_value", "[%]");
+        metricsMap.put("lowest_risk", String.valueOf(getPayloadLowestProsecutorRisk(data,pModel)* PRECENT_CONVERT));
+        metricsMap.put("records_affected_by_lowest_risk", String.valueOf(getPayloadRecordsAffectByRisk(data,pModel, getPayloadLowestProsecutorRisk(data,pModel))* PRECENT_CONVERT));
+        metricsMap.put("average_prosecutor_risk", String.valueOf(getPayloadAverageProsecutorRisk(data,pModel)* PRECENT_CONVERT));
+        metricsMap.put("highest_prosecutor_risk", String.valueOf(getPayloadHighestProsecutorRisk(data,pModel)* PRECENT_CONVERT));
+        metricsMap.put("record_affected_by_highest_risk", String.valueOf(getPayloadRecordsAffectByRisk(data,pModel, getPayloadHighestProsecutorRisk(data,pModel))* PRECENT_CONVERT));
+        metricsMap.put("estimated_prosecutor_risk", String.valueOf(getPayloadEstimatedProsecutorRisk(data,pModel)* PRECENT_CONVERT));
+        metricsMap.put("estimated_journalist_risk", String.valueOf(getPayloadEstimatedJournalistRisk(data,pModel)* PRECENT_CONVERT));
+        metricsMap.put("estimated_marketer_risk", String.valueOf(getPayloadEstimatedMarketerRisk(data,pModel)* PRECENT_CONVERT));
+        metricsMap.put( "sample_uniques", String.valueOf(getPayloadSampleUniques(data,pModel)* PRECENT_CONVERT));
+        metricsMap.put("population_uniques", String.valueOf(getPayloadPopulationUniques(data,pModel)* PRECENT_CONVERT));
+        metricsMap.put("population_model", getPayloadPopulationModel(data,pModel).toString());
+        metricsMap.put("quasi_identifiers", getPayloadQuasiIdentifiers(data).toString());
+        return metricsMap;
     }
 }
