@@ -29,8 +29,6 @@ public class AnonymizationServiceTest {
     private ARXPayloadAnalyser arxPayloadAnalyser = new ARXPayloadAnalyser();
     private ARXResponseAnalyser arxResponseAnalyser = new ARXResponseAnalyser();
 
-    @Before
-    public void initialize(){ anonymizationService = new AnonymizationService(arxWrapper,arxPayloadAnalyser,arxResponseAnalyser); }
 
     //-------------------------preparing test payload----------------------------//
     private AnonymizationPayload testPayload = new AnonymizationPayload();
@@ -89,22 +87,6 @@ public class AnonymizationServiceTest {
     }
     //------------------------------------------------------------------------//
 
-    @Test
-    public void anonymize() throws IOException {
-        String actual = anonymizationService.anonymize(testPayload);
-        String expected = "age;gender;zipcode\n" +
-                "*;male;816**\n" +
-                "*;female;816**\n" +
-                "*;male;816**\n" +
-                "*;female;816**\n" +
-                "*;male;816**\n" +
-                "*;female;816**\n" +
-                "*;male;816**\n" +
-                "*;female;816**\n" +
-                "*;male;816**\n" +
-                "*;female;816**\n" +
-                "*;male;816**\n";
-        Assert.assertEquals(expected,actual);
-    }
+
 
 }

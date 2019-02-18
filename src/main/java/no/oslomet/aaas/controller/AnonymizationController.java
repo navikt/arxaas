@@ -1,5 +1,6 @@
 package no.oslomet.aaas.controller;
 
+import no.oslomet.aaas.model.AnonymisationResponsePayload;
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.MetaData;
 import no.oslomet.aaas.service.AnonymizationService;
@@ -28,9 +29,8 @@ public class AnonymizationController {
     }
 
     @PostMapping
-    public AnonymizationPayload anonymization(@RequestBody AnonymizationPayload payload) throws IOException {
-        payload.setData(anonymizationService.anonymize(payload));
-        return payload;
+    public AnonymisationResponsePayload anonymization(@RequestBody AnonymizationPayload payload) throws IOException {
+        return anonymizationService.anonymize(payload);
     }
 
 
