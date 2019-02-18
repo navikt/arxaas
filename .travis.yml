@@ -28,6 +28,4 @@ deploy:
   skip_cleanup: true
   provider: script
   script: bash docker_deploy.sh
-  on:
-    branch: master
 
