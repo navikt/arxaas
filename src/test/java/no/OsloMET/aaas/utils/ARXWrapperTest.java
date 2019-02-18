@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static no.oslomet.aaas.model.PrivacyModel.KANONYMITY;
-import static no.oslomet.aaas.model.PrivacyModel.LDIVERSITY;
+import static no.oslomet.aaas.model.PrivacyModel.LDIVERSITY_DISTINCT;
 import static no.oslomet.aaas.model.SensitivityModel.IDENTIFYING;
 import static no.oslomet.aaas.model.SensitivityModel.QUASIIDENTIFYING;
 
@@ -131,7 +131,7 @@ public class ARXWrapperTest {
         testMapValue.put("l","5");
         testMapValue.put("column_name","age");
         testMapValue.put("variant","distinct");
-        testMap.put(LDIVERSITY,testMapValue);
+        testMap.put(LDIVERSITY_DISTINCT,testMapValue);
         testMetaData.setModels(testMap);
         testPayload.setMetaData(testMetaData);
 
