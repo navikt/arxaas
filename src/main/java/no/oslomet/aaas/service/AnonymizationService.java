@@ -14,14 +14,10 @@ import java.io.IOException;
 public class AnonymizationService {
 
     private ARXWrapper arxWrapper;
-    private ARXPayloadAnalyser arxPayloadAnalyser;
-    private ARXResponseAnalyser arxResponseAnalyser;
 
     @Autowired
-    public AnonymizationService(ARXWrapper arxWrapper,ARXPayloadAnalyser arxPayloadAnalyser, ARXResponseAnalyser arxResponseAnalyser){
-        this.arxResponseAnalyser = arxResponseAnalyser;
+    public AnonymizationService(ARXWrapper arxWrapper){
         this.arxWrapper = arxWrapper;
-        this.arxPayloadAnalyser = arxPayloadAnalyser;
     }
 
     public String anonymize(AnonymizationPayload payload) throws IOException {

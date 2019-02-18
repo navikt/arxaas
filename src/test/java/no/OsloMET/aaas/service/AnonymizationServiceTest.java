@@ -26,11 +26,9 @@ public class AnonymizationServiceTest {
     private AnonymizationService anonymizationService;
 
     private ARXWrapper arxWrapper = new ARXWrapper();
-    private ARXPayloadAnalyser arxPayloadAnalyser = new ARXPayloadAnalyser();
-    private ARXResponseAnalyser arxResponseAnalyser = new ARXResponseAnalyser();
 
     @Before
-    public void initialize(){ anonymizationService = new AnonymizationService(arxWrapper,arxPayloadAnalyser,arxResponseAnalyser); }
+    public void initialize(){ anonymizationService = new AnonymizationService(arxWrapper); }
 
     //-------------------------preparing test payload----------------------------//
     private AnonymizationPayload testPayload = new AnonymizationPayload();

@@ -15,16 +15,16 @@ import java.io.IOException;
 import java.util.Map;
 
 @Service
-public class AnalysisationService {
+public class AnalysationService {
 
     private ARXWrapper arxWrapper;
     private ARXPayloadAnalyser arxPayloadAnalyser;
     private ARXResponseAnalyser arxResponseAnalyser;
 
     @Autowired
-    public AnalysisationService(ARXWrapper arxWrapper,
-                                ARXPayloadAnalyser arxPayloadAnalyser,
-                                ARXResponseAnalyser arxResponseAnalyser){
+    public AnalysationService(ARXWrapper arxWrapper,
+                              ARXPayloadAnalyser arxPayloadAnalyser,
+                              ARXResponseAnalyser arxResponseAnalyser){
         this.arxResponseAnalyser = arxResponseAnalyser;
         this.arxWrapper = arxWrapper;
         this.arxPayloadAnalyser = arxPayloadAnalyser;
