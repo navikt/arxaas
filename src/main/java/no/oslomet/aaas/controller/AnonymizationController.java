@@ -35,13 +35,13 @@ public class AnonymizationController {
 
     @PostMapping
     public AnonymizationPayload showPayloadAnalysis(@RequestBody AnonymizationPayload payload) {
-        payload.setData(anonymizationService.showPayloadAnalysis(payload));
+        payload.setData(anonymizationService.getPayloadAnalysis(payload));
         return payload;
     }
 
     @PostMapping
     public AnonymizationPayload showResponseAnalysis(@RequestBody AnonymizationPayload payload) throws IOException {
-        payload.setData(anonymizationService.showResponseAnalysis(payload));
+        payload.setData(anonymizationService.getResponseAnalysis(payload));
         return payload;
     }
 }
