@@ -107,43 +107,4 @@ public class AnonymizationServiceTest {
         Assert.assertEquals(expected,actual);
     }
 
-    @Test
-    public void getPayloadAnalysis() {
-        String actual = anonymizationService.getPayloadAnalysis(testPayload);
-        String expected = "Measure: Value;[%]\n" +
-                "Lowest risk;100.0%\n" +
-                "Records affected by lowest risk;100.0%\n" +
-                "Average prosecutor risk;100.0%\n" +
-                "Highest prosecutor risk;100.0%\n" +
-                "Record affected by highest risk;100.0%\n" +
-                "Estimated prosecutor risk;100.0%\n" +
-                "Estimated prosecutor risk;100.0%\n" +
-                "Estimated journalist risk;100.0%\n" +
-                "Estimated marketer risk;100.0%\n" +
-                "Sample uniques: 100.0%\n" +
-                "Population uniques: 100.0%\n" +
-                "Population model: ZAYATZ\n" +
-                "Quasi-identifiers: [zipcode, gender]\n";
-        Assert.assertEquals(expected,actual);
-    }
-
-    @Test
-    public void getResponseAnalysis() throws IOException {
-        String actual = anonymizationService.getResponseAnalysis(testPayload);
-        String expected = "Measure: Value;[%]\n" +
-                "Lowest risk;16.666666666666664%\n" +
-                "Records affected by lowest risk;54.54545454545454%\n" +
-                "Average prosecutor risk;18.181818181818183%\n" +
-                "Highest prosecutor risk;20.0%\n" +
-                "Record affected by highest risk;45.45454545454545%\n" +
-                "Estimated prosecutor risk;20.0%\n" +
-                "Estimated prosecutor risk;20.0%\n" +
-                "Estimated journalist risk;20.0%\n" +
-                "Estimated marketer risk;18.181818181818183%\n" +
-                "Sample uniques: 0.0%\n" +
-                "Population uniques: 0.0%\n" +
-                "Population model: DANKAR\n" +
-                "Quasi-identifiers: [zipcode, gender]\n";
-        Assert.assertEquals(expected,actual);
-    }
 }

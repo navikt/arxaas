@@ -14,7 +14,7 @@ import java.io.IOException;
 
 
 @RestController
-@RequestMapping("/api/analysis")
+@RequestMapping("/api/analyse")
 public class AnalysationController {
 
     private  final AnalysisationService analysisationService;

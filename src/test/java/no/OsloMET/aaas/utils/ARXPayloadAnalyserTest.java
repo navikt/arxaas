@@ -111,23 +111,4 @@ public class ARXPayloadAnalyserTest {
         Assert.assertEquals("[zipcode, gender]",actual);
     }
 
-    @Test
-    public void showPayloadAnalysisData() {
-        String actual = arxPayloadAnalyser.getPayloadAnalysisData(data,pModel);
-        String expected = "Measure: Value;[%]\n" +
-                "Lowest risk;100.0%\n" +
-                "Records affected by lowest risk;100.0%\n" +
-                "Average prosecutor risk;100.0%\n" +
-                "Highest prosecutor risk;100.0%\n" +
-                "Record affected by highest risk;100.0%\n" +
-                "Estimated prosecutor risk;100.0%\n" +
-                "Estimated prosecutor risk;100.0%\n" +
-                "Estimated journalist risk;100.0%\n" +
-                "Estimated marketer risk;100.0%\n" +
-                "Sample uniques: 100.0%\n" +
-                "Population uniques: 100.0%\n" +
-                "Population model: ZAYATZ\n" +
-                "Quasi-identifiers: [zipcode, gender]\n";
-        Assert.assertEquals(expected,actual);
-    }
 }
