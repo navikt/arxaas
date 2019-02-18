@@ -12,12 +12,17 @@ import java.io.IOException;
 
 @Service
 public class AnonymizationService {
+
+    private ARXWrapper arxWrapper;
+    private ARXPayloadAnalyser arxPayloadAnalyser;
+    private ARXResponseAnalyser arxResponseAnalyser;
+
     @Autowired
-    ARXWrapper arxWrapper;
-    @Autowired
-    ARXPayloadAnalyser arxPayloadAnalyser;
-    @Autowired
-    ARXResponseAnalyser arxResponseAnalyser;
+    public AnonymizationService(ARXWrapper arxWrapper,ARXPayloadAnalyser arxPayloadAnalyser, ARXResponseAnalyser arxResponseAnalyser){
+        this.arxResponseAnalyser = arxResponseAnalyser;
+        this.arxWrapper = arxWrapper;
+        this.arxPayloadAnalyser = arxPayloadAnalyser;
+    }
 
     public String anonymize(AnonymizationPayload payload) throws IOException {
         ARXConfiguration config = ARXConfiguration.create();
