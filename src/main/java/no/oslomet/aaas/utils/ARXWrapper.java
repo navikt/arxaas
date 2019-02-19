@@ -23,6 +23,7 @@ import java.util.Map;
 @Component
 public class ARXWrapper {
 
+    final String COLUMNNAME = "column_name";
     
     public Data setData(String rawdata) {
         Data data = null;
@@ -93,13 +94,13 @@ public class ARXWrapper {
           case KANONYMITY:
               return new KAnonymity(Integer.parseInt(params.get("k")));
           case LDIVERSITY_DISTINCT:
-              return new DistinctLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")));
+              return new DistinctLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")));
           case LDIVERSITY_SHANNONENTROPY:
-              return new EntropyLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")), EntropyLDiversity.EntropyEstimator.SHANNON);
+              return new EntropyLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")), EntropyLDiversity.EntropyEstimator.SHANNON);
           case LDIVERSITY_GRASSBERGERENTROPY:
-              return new EntropyLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")), EntropyLDiversity.EntropyEstimator.GRASSBERGER);
+              return new EntropyLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")), EntropyLDiversity.EntropyEstimator.GRASSBERGER);
           case LDIVERSITY_RECURSIVE:
-              return new RecursiveCLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")), Integer.parseInt(params.get("c")));
+              return new RecursiveCLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")), Integer.parseInt(params.get("c")));
           default:
               throw new RuntimeException(model.getName() + " Privacy Model not supported");
       }
