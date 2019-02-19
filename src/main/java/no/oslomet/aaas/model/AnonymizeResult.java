@@ -26,7 +26,7 @@ public class AnonymizeResult {
         return data;
     }
 
-    public String isAnonymized() {
+    public String getIsAnonymized() {
         return isAnonymized;
     }
 
