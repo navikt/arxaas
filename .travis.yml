@@ -26,9 +26,13 @@ after_script:
  - ./cc-test-reporter upload-coverage -d
  - mvn javadoc:javadoc
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: bash docker_deploy.sh
-  on:
-    branch: GoogleContainerReg
+ - skip_cleanup: true
+ - provider: script
+   script: bash docker_deploy.sh
+   on:
+     branch: master
+ - provider: script
+   script: bash gcloud_deploy.sh
+   on:
+     branch: master
 
