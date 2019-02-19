@@ -1,9 +1,9 @@
-package no.oslomet.aaas.service;
+package no.oslomet.aaas.analyse;
 
 import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AnalysisResult;
 
 public interface Analyser {
 
-    abstract AnalysisResult analyse(AnalysationPayload payload);
+    AnalysisResult analyse(AnalysationPayload payload);
 }

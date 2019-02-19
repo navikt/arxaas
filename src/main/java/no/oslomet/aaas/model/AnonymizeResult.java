@@ -9,11 +9,13 @@ import java.util.Map;
 public class AnonymizeResult {
 
     private final String data;
-    private final boolean isAnonymized;
+    private final String isAnonymized;
     private final MetaData payloadMetaData;
     private final Map<String, String> statistics;
 
-    public AnonymizeResult(String data, boolean isAnonymized, MetaData payloadMetaData, Map<String, String> statistics) {
+    public AnonymizeResult(String data, String isAnonymized,
+                           MetaData payloadMetaData,
+                           Map<String, String> statistics) {
         this.data = data;
         this.isAnonymized = isAnonymized;
         this.payloadMetaData = payloadMetaData;
@@ -24,7 +26,7 @@ public class AnonymizeResult {
         return data;
     }
 
-    public boolean isAnonymized() {
+    public String isAnonymized() {
         return isAnonymized;
     }
 

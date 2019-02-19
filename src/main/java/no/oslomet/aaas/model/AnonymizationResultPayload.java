@@ -6,15 +6,15 @@ import java.util.Map;
 /***
  * Model class for response object from anonymisation process
  */
-public class AnonymizationResponsePayload {
+public class AnonymizationResultPayload {
 
     private final AnonymizeResult anonymizeResult;
     private final Map<String, String> beforeAnonymizationMetrics;
     private final Map<String, String> afterAnonymizationMetrics;
 
-
-
-    public AnonymizationResponsePayload(AnonymizeResult anonymizeResult, Map<String, String> beforeAnonymizationMetrics, Map<String, String> afterAnonymisationMetrics) {
+    public AnonymizationResultPayload(AnonymizeResult anonymizeResult,
+                                      Map<String, String> beforeAnonymizationMetrics,
+                                      Map<String, String> afterAnonymisationMetrics) {
         this.anonymizeResult = anonymizeResult;
         this.beforeAnonymizationMetrics = beforeAnonymizationMetrics;
         this.afterAnonymizationMetrics = afterAnonymisationMetrics;

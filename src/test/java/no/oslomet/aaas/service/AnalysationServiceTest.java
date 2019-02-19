@@ -1,5 +1,6 @@
 package no.oslomet.aaas.service;
 
+import no.oslomet.aaas.analyse.ARXAnalyser;
 import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.SensitivityModel;
 import no.oslomet.aaas.utils.ARXPayloadAnalyser;
