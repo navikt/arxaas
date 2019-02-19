@@ -13,7 +13,7 @@ public class AnalysationPayload {
 
     /***
      *
-     * @param data data to analyse re-identification risk
+     * @param data data to analyser re-identification risk
      * @param attributeTypes AttributeTypes for the data fields/columns
      */
     public AnalysationPayload(String data, Map<String, SensitivityModel> attributeTypes) {

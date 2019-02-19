@@ -1,6 +1,6 @@
 package no.oslomet.aaas.service;
 
-import no.oslomet.aaas.analyse.Analyser;
+import no.oslomet.aaas.analyser.Analyser;
 import no.oslomet.aaas.anonymizer.Anonymiser;
 import no.oslomet.aaas.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
