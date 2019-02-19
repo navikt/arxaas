@@ -1,5 +1,6 @@
 package no.oslomet.aaas.utils;
 
+import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.PrivacyModel;
 import no.oslomet.aaas.model.SensitivityModel;
@@ -36,6 +37,15 @@ public class ARXWrapper {
 
     public Data setSensitivityModels(Data data, AnonymizationPayload payload){
         for (Map.Entry<String,SensitivityModel> entry : payload.getMetaData().getSensitivityList().entrySet())
+        {
+            data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());
+        }
+        return data;
+    }
+
+
+    public Data setSensitivityModels(Data data, AnalysationPayload analysationPayload){
+        for (Map.Entry<String,SensitivityModel> entry : analysationPayload.getAttributeTypes().entrySet())
         {
             data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());
         }

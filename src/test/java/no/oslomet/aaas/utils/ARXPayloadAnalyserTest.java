@@ -1,6 +1,5 @@
-package no.OsloMET.aaas.utils;
+package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import org.deidentifier.arx.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -112,22 +111,20 @@ public class ARXPayloadAnalyserTest {
     }
 
     @Test
-    public void showPayloadAnalysisData() {
-        String actual = arxPayloadAnalyser.getPayloadAnalysisData(data,pModel);
-        String expected = "Measure: Value;[%]\n" +
-                "Lowest risk;100.0%\n" +
-                "Records affected by lowest risk;100.0%\n" +
-                "Average prosecutor risk;100.0%\n" +
-                "Highest prosecutor risk;100.0%\n" +
-                "Record affected by highest risk;100.0%\n" +
-                "Estimated prosecutor risk;100.0%\n" +
-                "Estimated prosecutor risk;100.0%\n" +
-                "Estimated journalist risk;100.0%\n" +
-                "Estimated marketer risk;100.0%\n" +
-                "Sample uniques: 100.0%\n" +
-                "Population uniques: 100.0%\n" +
-                "Population model: ZAYATZ\n" +
-                "Quasi-identifiers: [zipcode, gender]\n";
+    public void getPayloadAnalysisData() {
+        String actual = String.valueOf(arxPayloadAnalyser.getPayloadAnalysisData(data,pModel));
+        String expected ="{measure_value=[%], " +
+                "record_affected_by_highest_risk=100.0, " +
+                "sample_uniques=100.0, estimated_prosecutor_risk=100.0, " +
+                "population_model=ZAYATZ, " +
+                "records_affected_by_lowest_risk=100.0, " +
+                "estimated_marketer_risk=100.0, " +
+                "highest_prosecutor_risk=100.0, " +
+                "estimated_journalist_risk=100.0, " +
+                "lowest_risk=100.0, " +
+                "average_prosecutor_risk=100.0, " +
+                "population_uniques=100.0, " +
+                "quasi_identifiers=[zipcode, gender]}";
         Assert.assertEquals(expected,actual);
     }
 }
