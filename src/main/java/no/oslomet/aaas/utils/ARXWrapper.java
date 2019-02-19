@@ -23,6 +23,7 @@ import java.util.Map;
 @Component
 public class ARXWrapper {
 
+    public static final char CSV_SEPERATOR_CHAR = ',';
     final String COLUMNNAME = "column_name";
     
     public Data setData(String rawdata) {
@@ -127,7 +128,7 @@ public class ARXWrapper {
     public String getAnonymizeData(ARXResult result) throws IOException {
         DataHandle handle = result.getOutput();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        handle.save(outputStream,';');
+        handle.save(outputStream, CSV_SEPERATOR_CHAR);
         return new String(outputStream.toByteArray());
     }
 }
