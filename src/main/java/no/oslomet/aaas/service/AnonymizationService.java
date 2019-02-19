@@ -1,8 +1,6 @@
 package no.oslomet.aaas.service;
 
-import no.oslomet.aaas.model.AnalysisResult;
-import no.oslomet.aaas.model.AnonymisationResponsePayload;
-import no.oslomet.aaas.model.AnonymizationPayload;
+import no.oslomet.aaas.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +16,17 @@ public class AnonymizationService {
         this.analyser = analyser;
     }
 
-    public AnonymisationResponsePayload anonymize(AnonymizationPayload payload){
-        return this.anonymiser.anonymize(payload);
+    public AnonymizationResponsePayload anonymize(AnonymizationPayload payload){
+
+        AnalysisResult beforeAnalysisResult = analyser.analyse(new AnalysationPayload(payload.getData(),
+                payload.getMetaData().getSensitivityList()));
+
+        AnonymizeResult result = this.anonymiser.anonymize(payload);
+
+        AnalysisResult afterAnalysisResult = analyser.analyse(new AnalysationPayload(result.getData(),
+                payload.getMetaData().getSensitivityList()));
+
+        return new AnonymizationResponsePayload(result, beforeAnalysisResult.getMetrics(), afterAnalysisResult.getMetrics());
     }
 
 }

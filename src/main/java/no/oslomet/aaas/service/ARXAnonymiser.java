@@ -1,7 +1,8 @@
 package no.oslomet.aaas.service;
 
-import no.oslomet.aaas.model.AnonymisationResponsePayload;
+import no.oslomet.aaas.model.AnonymizationResponsePayload;
 import no.oslomet.aaas.model.AnonymizationPayload;
+import no.oslomet.aaas.model.AnonymizeResult;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.deidentifier.arx.ARXAnonymizer;
 import org.deidentifier.arx.ARXConfiguration;
@@ -22,17 +23,14 @@ public class ARXAnonymiser implements Anonymiser {
     }
 
     @Override
-    public AnonymisationResponsePayload anonymize(AnonymizationPayload payload) {
+    public AnonymizeResult anonymize(AnonymizationPayload payload) {
         ARXConfiguration config = ARXConfiguration.create();
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         ARXResult result = null;
         try {
             result = arxWrapper.anonymize(anonymizer, config, payload);
             String anonymisedData = arxWrapper.getAnonymizeData(result);
-            return new AnonymisationResponsePayload(anonymisedData,
-                    true, payload.getMetaData(),
-                    null,
-                    null, null);
+            return new AnonymizeResult(anonymisedData, true, payload.getMetaData(), null);
         } catch (IOException e) {
             e.printStackTrace();
         }

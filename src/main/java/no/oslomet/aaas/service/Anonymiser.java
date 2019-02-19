@@ -1,9 +1,10 @@
 package no.oslomet.aaas.service;
 
-import no.oslomet.aaas.model.AnonymisationResponsePayload;
+import no.oslomet.aaas.model.AnonymizationResponsePayload;
 import no.oslomet.aaas.model.AnonymizationPayload;
+import no.oslomet.aaas.model.AnonymizeResult;
 
 public interface Anonymiser {
 
-    abstract AnonymisationResponsePayload anonymize(AnonymizationPayload payload);
+    AnonymizeResult anonymize(AnonymizationPayload payload);
 }
