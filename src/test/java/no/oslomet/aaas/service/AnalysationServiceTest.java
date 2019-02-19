@@ -1,8 +1,7 @@
-package no.OsloMET.aaas.service;
+package no.oslomet.aaas.service;
 
 import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.SensitivityModel;
-import no.oslomet.aaas.service.AnalysationService;
 import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import no.oslomet.aaas.utils.ARXResponseAnalyser;
 import no.oslomet.aaas.utils.ARXWrapper;
@@ -16,15 +15,16 @@ import java.util.Map;
 import static no.oslomet.aaas.model.SensitivityModel.IDENTIFYING;
 import static no.oslomet.aaas.model.SensitivityModel.QUASIIDENTIFYING;
 
-public class AnalysisationServiceTest {
+public class AnalysationServiceTest {
 
     private AnalysationService analysationService;
     private ARXWrapper arxWrapper = new ARXWrapper();
     private ARXPayloadAnalyser arxPayloadAnalyser = new ARXPayloadAnalyser();
     private ARXResponseAnalyser arxResponseAnalyser = new ARXResponseAnalyser();
+    private ARXAnalyser arxAnalyser = new ARXAnalyser(arxWrapper, arxPayloadAnalyser);
 
     @Before
-    public void initialize(){ analysationService = new AnalysationService(arxWrapper,arxPayloadAnalyser,arxResponseAnalyser); }
+    public void initialize(){ analysationService = new AnalysationService(arxAnalyser); }
 
     //-------------------------preparing test payload----------------------------//
     private AnalysationPayload testPayload;
@@ -55,7 +55,7 @@ public class AnalysisationServiceTest {
 
     @Test
     public void getPayloadAnalysis() {
-        String actual = String.valueOf(analysationService.getPayloadAnalysis(testPayload).getMetrics());
+        String actual = String.valueOf(analysationService.analyse(testPayload).getMetrics());
         String expected ="{measure_value=[%], " +
                 "record_affected_by_highest_risk=100.0, " +
                 "sample_uniques=100.0, estimated_prosecutor_risk=100.0, " +

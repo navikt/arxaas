@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class AnalysisationService {
+public class AnalysationService {
 
     private final Analyser analyser;
 
     @Autowired
-    public AnalysisationService(Analyser analyser){
+    public AnalysationService(Analyser analyser){
        this.analyser = analyser;
     }
 

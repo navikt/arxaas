@@ -1,4 +1,4 @@
-package no.OsloMET.aaas.service;
+package no.oslomet.aaas.service;
 
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.MetaData;
