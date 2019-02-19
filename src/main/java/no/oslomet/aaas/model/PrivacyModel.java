@@ -3,7 +3,10 @@ package no.oslomet.aaas.model;
 public enum PrivacyModel {
 
     KANONYMITY("K-Anonymity"),
-    LDIVERSITY("L-Diversity");
+    LDIVERSITY_DISTINCT("L-Diversity-Distinct"),
+    LDIVERSITY_GRASSBERGERENTROPY("L-Diversity-Grassberger-Entropy"),
+    LDIVERSITY_SHANNONENTROPY("L-Diversity-Shannon-Entropy"),
+    LDIVERSITY_RECURSIVE("L-Diversity-Recursive");
 
     private String name;
 
