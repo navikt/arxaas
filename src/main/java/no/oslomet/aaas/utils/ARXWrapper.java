@@ -14,9 +14,15 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+/**
+ * Delivers an interface for reaching the underlying arx functionality of
+ *
+ */
+
 @Component
 public class ARXWrapper {
 
+    
     public Data setData(String rawdata) {
         Data data = null;
         try {
@@ -50,6 +56,12 @@ public class ARXWrapper {
         return config;
     }
 
+    /**
+     *
+     * @param data
+     * @param payload
+     * @return
+     */
     public Data setHierarchies(Data data, AnonymizationPayload payload){
         for (Map.Entry<String, String[][]> entry : payload.getMetaData().getHierarchy().entrySet())
         {
@@ -59,6 +71,13 @@ public class ARXWrapper {
         return data;
     }
 
+    /**
+     * Returns an Arx {@link PrivacyCriterion} object for the desired privacy object selected by the user
+     *
+     * @param model  enum representing the privacy model type we want created
+     * @param params map containing parameters want set on the created privacy model
+     * @return       the {@link PrivacyCriterion} object created with the specified parameters
+     */
     public PrivacyCriterion getPrivacyModel(PrivacyModel model, Map<String,String> params){
       switch(model){
           case KANONYMITY:
@@ -66,8 +85,6 @@ public class ARXWrapper {
           case LDIVERSITY_DISTINCT:
               return new DistinctLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")));
           case LDIVERSITY_SHANNONENTROPY:
-              System.out.println(params.get("column_name"));
-              System.out.println(Integer.parseInt(params.get("l")));
               return new EntropyLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")), EntropyLDiversity.EntropyEstimator.SHANNON);
           case LDIVERSITY_GRASSBERGERENTROPY:
               return new EntropyLDiversity(params.get("column_name"),Integer.parseInt(params.get("l")), EntropyLDiversity.EntropyEstimator.GRASSBERGER);
