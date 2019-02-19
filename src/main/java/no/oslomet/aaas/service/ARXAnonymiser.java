@@ -30,9 +30,9 @@ public class ARXAnonymiser implements Anonymiser {
             result = arxWrapper.anonymize(anonymizer, config, payload);
             String anonymisedData = arxWrapper.getAnonymizeData(result);
             return new AnonymisationResponsePayload(anonymisedData,
-                    payload.getMetaData(),
+                    true, payload.getMetaData(),
                     null,
-                    null);
+                    null, null);
         } catch (IOException e) {
             e.printStackTrace();
         }

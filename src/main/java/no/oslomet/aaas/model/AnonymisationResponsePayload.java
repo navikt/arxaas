@@ -9,15 +9,21 @@ import java.util.Map;
 public class AnonymisationResponsePayload {
 
     private final String data;
+    private final boolean isAnonymized;
     private final MetaData payloadMetaData;
     private final Map<String, String> beforeAnonymisationMetrics;
     private final Map<String, String> afterAnonymisationMetrics;
+    private final Map<String, String> statistics;
 
-    public AnonymisationResponsePayload(String data, MetaData payloadMetaData, Map<String, String> beforeAnonymisationMetrics, Map<String, String> afterAnonymisationMetrics) {
+
+    public AnonymisationResponsePayload(String data, boolean isAnonymized, MetaData payloadMetaData, Map<String, String> beforeAnonymisationMetrics, Map<String, String> afterAnonymisationMetrics, Map<String, String> statistics) {
         this.data = data;
+        this.isAnonymized = isAnonymized;
         this.payloadMetaData = payloadMetaData;
+
         this.beforeAnonymisationMetrics = beforeAnonymisationMetrics;
         this.afterAnonymisationMetrics = afterAnonymisationMetrics;
+        this.statistics = statistics;
     }
 
     public String getData() {
@@ -34,5 +40,13 @@ public class AnonymisationResponsePayload {
 
     public Map<String, String> getAfterAnonymisationMetrics() {
         return afterAnonymisationMetrics;
+    }
+
+    public boolean isAnonymized() {
+        return isAnonymized;
+    }
+
+    public Map<String, String> getStatistics() {
+        return statistics;
     }
 }
