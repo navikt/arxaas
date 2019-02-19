@@ -1,6 +1,5 @@
-package no.OsloMET.aaas.utils;
+package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.utils.ARXResponseAnalyser;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.junit.Assert;

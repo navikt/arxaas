@@ -1,4 +1,4 @@
-package no.OsloMET.aaas;
+package no.oslomet.aaas;
 
 import no.oslomet.aaas.AaaSApplication;
         import org.junit.Assert;

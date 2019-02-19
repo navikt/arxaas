@@ -1,6 +1,5 @@
-package no.OsloMET.aaas.utils;
+package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import org.deidentifier.arx.*;
 import org.junit.Assert;
 import org.junit.Before;

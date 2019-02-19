@@ -1,4 +1,4 @@
-package no.OsloMET.aaas.service;
+package no.oslomet.aaas.service;
 
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.MetaData;
@@ -11,7 +11,6 @@ import no.oslomet.aaas.utils.ARXWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.HashMap;

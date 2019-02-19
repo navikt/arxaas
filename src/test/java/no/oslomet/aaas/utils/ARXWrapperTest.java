@@ -1,10 +1,9 @@
-package no.OsloMET.aaas.utils;
+package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.PrivacyModel;
 import no.oslomet.aaas.model.SensitivityModel;
 import no.oslomet.aaas.model.MetaData;
-import no.oslomet.aaas.utils.ARXWrapper;
 import org.deidentifier.arx.*;
 import org.junit.Assert;
 import org.junit.Before;
