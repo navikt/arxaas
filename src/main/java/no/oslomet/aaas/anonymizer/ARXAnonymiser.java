@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * Anonymizer class using the ARX library to implement the anonymization
+ */
 @Component
 public class ARXAnonymiser implements Anonymiser {
 

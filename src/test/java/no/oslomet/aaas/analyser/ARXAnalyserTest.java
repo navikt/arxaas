@@ -46,7 +46,6 @@ public class ARXAnalyserTest {
         testPayload = new AnalysationPayload(testData,testMapAttribute);
     }
 
-
     @Test
     public void analyse__run() {
         var result = testAnalyser.analyse(testPayload);

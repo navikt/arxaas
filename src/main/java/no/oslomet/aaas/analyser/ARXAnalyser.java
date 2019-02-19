@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+/**
+ * Analyser class using the ARX library to implement the analysation
+ */
 @Component
 public class ARXAnalyser implements Analyser {
 
