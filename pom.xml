@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>no.oslomet</groupId>
 	<artifactId>aaas</artifactId>
-	<version>1.2.3</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>AaaS</name>
 	<description>The best anonynmization service the world has ever seen</description>
 	<url>https://github.com/oslomet-arx-as-a-service/AaaS</url>
@@ -31,14 +32,13 @@
 		<url>https://github.com/oslomet-arx-as-a-service/AaaS</url>
 		<connection>scm:git:git://github.com/oslomet-arx-as-a-service/AaaS.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/oslomet-arx-as-a-service/AaaS.git</developerConnection>
-	  <tag>test1</tag>
-  </scm>
+	</scm>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.2.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -118,6 +118,11 @@
 					<plugin>
 						<artifactId>maven-release-plugin</artifactId>
 						<version>2.5.2</version>
+						<configuration>
+							<connection>${scm.connection}</connection>
+							<developerConnection>${scm.developerConnection}</developerConnection>
+							<tagBase>${scm.developerConnection}</tagBase>
+						</configuration>
 					</plugin>
 					<!--create javadoc jar-->
 					<plugin>
