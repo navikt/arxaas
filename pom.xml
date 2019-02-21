@@ -30,13 +30,23 @@
 
 	<scm>
 		<url>https://github.com/oslomet-arx-as-a-service/AaaS</url>
-		<connection>
-			scm:git:git://github.com/oslomet-arx-as-a-service/AaaS.git
-		</connection>
-		<developerConnection>
-			scm:git:ssh://git@github.com/oslomet-arx-as-a-service/AaaS.git
-		</developerConnection>
+		<connection>scm:git:git://github.com/oslomet-arx-as-a-service/AaaS.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/oslomet-arx-as-a-service/AaaS.git</developerConnection>
 	</scm>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.2.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<java.version>11</java.version>
+		<!--image prefix has to correlate with docker hub server name-->
+		<docker.image.prefix>arxaas</docker.image.prefix>
+	</properties>
+
 	<developers>
 		<developer>
 			<name>Jeremiah Augie Uy</name>
@@ -69,19 +79,6 @@
 			<organizationUrl>https://www.oslomet.no/</organizationUrl>
 		</developer>
 	</developers>
-
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-
-	<properties>
-		<java.version>11</java.version>
-		<!--image prefix has to correlate with docker hub server name-->
-		<docker.image.prefix>arxaas</docker.image.prefix>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -118,6 +115,10 @@
 			<id>release</id>
 			<build>
 				<plugins>
+					<plugin>
+						<artifactId>maven-release-plugin</artifactId>
+						<version>2.5.2</version>
+					</plugin>
 					<!--create javadoc jar-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
