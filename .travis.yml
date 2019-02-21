@@ -35,4 +35,3 @@ deploy:
    script: bash gcloud_deploy.sh
    on:
      branch: master
-
