@@ -25,7 +25,13 @@ public class ARXWrapper {
 
     public static final char CSV_SEPERATOR_CHAR = ',';
     final String COLUMNNAME = "column_name";
-    
+
+    /***
+     * Returns an ARX {@link Data} object create from the provided String. A table of records/fields will be made from
+     * the provided string.
+     * @param rawdata string containing tabular data set
+     * @return the {@link Data} object created with the records/fields defined from the sting of rawdata
+     */
     public Data setData(String rawdata) {
         Data data = null;
         try {
@@ -37,11 +43,23 @@ public class ARXWrapper {
         return data;
     }
 
+    /***
+     * Returns an ARX {@link ARXConfiguration} object that sets the suppression limit configuration for the
+     * data set to be anonymize
+     * @param config an ARX {@link ARXConfiguration} object that holds the anonymize/data set settings
+     * @return      an ARX {@link ARXConfiguration} object with the suppression setting
+     */
     public ARXConfiguration setSuppressionLimit(ARXConfiguration config){
         config.setSuppressionLimit(0.02d);
         return config;
     }
 
+    /***
+     * Returns an ARX {@link Data} object that holds the data set along with an assigned attribute type.
+     * @param data
+     * @param payload
+     * @return
+     */
     public Data setSensitivityModels(Data data, AnonymizationPayload payload){
         for (Map.Entry<String,SensitivityModel> entry : payload.getMetaData().getSensitivityList().entrySet())
         {
