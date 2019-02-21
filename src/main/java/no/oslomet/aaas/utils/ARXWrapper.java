@@ -152,7 +152,10 @@ public class ARXWrapper {
         //remeber we need data perameter
 
     /***
-     * Returns an ARX {@link ARXResult} object that holds the anonymized data set.
+     * Returns an ARX {@link ARXResult} object that holds the anonymized data set. This method uses the payload
+     * parameter to create the ARX {@link Data} object, and sets the attribute types for each field in the data set.
+     * The method will then use that ARX {@link Data} object along with the defined settings,
+     * taken from the ARX {@link ARXAnonymizer} and {@link ARXConfiguration} objects to create the anonymized data set.
      * @param anonymizer an ARX {@link ARXAnonymizer} object that will hold the anonymising settings
      * @param config an ARX {@link ARXConfiguration} object that will hold the anonymize/data set settings
      * @param payload map containing parameters that sets the records/fields for the data set and the parameters used to
