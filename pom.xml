@@ -45,6 +45,7 @@
 		<java.version>11</java.version>
 		<!--image prefix has to correlate with docker hub server name-->
 		<docker.image.prefix>arxaas</docker.image.prefix>
+		<project.scm.id>my-scm-server</project.scm.id>
 	</properties>
 
 	<developers>
