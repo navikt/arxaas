@@ -8,6 +8,67 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>AaaS</name>
 	<description>The best anonynmization service the world has ever seen</description>
+	<url>https://github.com/oslomet-arx-as-a-service/AaaS</url>
+
+	<organization>
+		<name>no.oslomet</name>
+		<url>https://github.com/oslomet-arx-as-a-service</url>
+	</organization>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/oslomet-arx-as-a-service/AaaS/issues</url>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>https://github.com/oslomet-arx-as-a-service/AaaS/blob/master/LICENCE</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/oslomet-arx-as-a-service/AaaS</url>
+		<connection>
+			scm:git:git://github.com/oslomet-arx-as-a-service/AaaS.git
+		</connection>
+		<developerConnection>
+			scm:git:ssh://git@github.com/oslomet-arx-as-a-service/AaaS.git
+		</developerConnection>
+	</scm>
+	<developers>
+		<developer>
+			<name>Jeremiah Augie Uy</name>
+			<email>s181369@oslomet.no</email>
+			<organization>OsloMet</organization>
+			<organizationUrl>https://www.oslomet.no/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Lord André Groseth</name>
+			<email>s181365@oslomet.no</email>
+			<organization>OsloMet</organization>
+			<organizationUrl>https://www.oslomet.no/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Julian Sagen</name>
+			<email>s315584@oslomet.no</email>
+			<organization>OsloMet</organization>
+			<organizationUrl>https://www.oslomet.no/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Sondre Halvorsen</name>
+			<email>s305348@oslomet.no</email>
+			<organization>OsloMet</organization>
+			<organizationUrl>https://www.oslomet.no/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Viktor Vartdal Johansen</name>
+			<email>s315615@oslomet.no</email>
+			<organization>OsloMet</organization>
+			<organizationUrl>https://www.oslomet.no/</organizationUrl>
+		</developer>
+	</developers>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -21,7 +82,6 @@
 		<!--image prefix has to correlate with docker hub server name-->
 
 		<docker.image.prefix>arxaas</docker.image.prefix>
-
 	</properties>
 
 	<dependencies>
@@ -98,16 +158,6 @@
 				</executions>
 			</plugin>
 
-			<!--required for local dockerization, will otherwise be handled by travis in remote-->
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.10</version>
-				<configuration>
-					<repository>${docker.image.prefix}/${project.artifactId}</repository>
-				</configuration>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -116,22 +166,30 @@
 					<show>private</show>
 					<nohelp>true</nohelp>
 				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.1</version>
-				<configuration>
-					<show>public</show>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
-
 
 </project>
