@@ -19,6 +19,7 @@ before_install:
 install:
   - mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
 script:
+  - cp settings.xml $HOME/.m2/settings.xml
   - mvn help:active-profiles
   - mvn clean deploy -B -P release
 after_script:
