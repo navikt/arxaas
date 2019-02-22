@@ -4,8 +4,8 @@
     <servers>
         <server>
             <id>ossrh</id>
-            <username>${env.SONATYPE_USER}</username>
-            <password>${env.SONATYPE_PASS}</password>
+            <username>ARXaaS</username>
+            <password>BachelorData8!</password>
         </server>
     </servers>
 
