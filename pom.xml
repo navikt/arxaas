@@ -241,8 +241,8 @@
 								</goals>
 								<configuration>
 									<gpgArguments>
-										<arg>--pinentry-mode</arg>
-										<arg>loopback</arg>
+										<argument>--pinentry-mode</argument>
+										<argument>loopback</argument>
 									</gpgArguments>
 								</configuration>
 							</execution>
