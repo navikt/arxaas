@@ -13,14 +13,14 @@ before_script:
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
     - ./cc-test-reporter before-build
+    - gpg --import my-private-key.asc
+    - cp settings.xml $HOME/.m2/settings.xml
 before_install:
   - chmod +x mvnw
   - wget  http://arx.deidentifier.org/wp-content/uploads/downloads/libarx-3.7.1.jar -P ./src/main/resources/
 install:
   - mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
 script:
-  - gpg --import my-private-key.asc
-  - cp settings.xml $HOME/.m2/settings.xml
   - mvn clean deploy -B -P release
 after_script:
  - JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
