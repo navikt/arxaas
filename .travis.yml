@@ -19,7 +19,8 @@ before_install:
 install:
   - mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
 script:
-  - mvn clean deploy -B -P release -Dgpg.passphrase=$GPG_PASS
+  - mvn help:active-profiles
+  - mvn clean deploy -B -P release
 after_script:
  - JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
  - ./cc-test-reporter upload-coverage -d
