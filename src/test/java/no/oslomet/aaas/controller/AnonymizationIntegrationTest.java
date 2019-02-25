@@ -4,14 +4,12 @@ import no.oslomet.aaas.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 
 import java.util.HashMap;
@@ -96,9 +94,10 @@ public class AnonymizationIntegrationTest {
 
     @Test
     void anonymization_post() {
-
         ResponseEntity<AnonymizationResultPayload> responseEntity = restTemplate.postForEntity("/api/anonymize",testPayload, AnonymizationResultPayload.class);
         assertNotNull(responseEntity);
         assertSame(responseEntity.getStatusCode(), HttpStatus.OK);
+        assertNotNull(responseEntity.getBody().getAfterAnonymizationMetrics().get("record_affected_by_highest_risk"));
+        assertNotNull(responseEntity.getBody().getAnonymizeResult().getData());
     }
 }
