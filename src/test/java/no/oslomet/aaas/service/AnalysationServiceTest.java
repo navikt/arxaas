@@ -4,7 +4,6 @@ import no.oslomet.aaas.analyser.ARXAnalyser;
 import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.SensitivityModel;
 import no.oslomet.aaas.utils.ARXPayloadAnalyser;
-import no.oslomet.aaas.utils.ARXResponseAnalyser;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,7 +20,6 @@ public class AnalysationServiceTest {
     private AnalysationService analysationService;
     private ARXWrapper arxWrapper = new ARXWrapper();
     private ARXPayloadAnalyser arxPayloadAnalyser = new ARXPayloadAnalyser();
-    private ARXResponseAnalyser arxResponseAnalyser = new ARXResponseAnalyser();
     private ARXAnalyser arxAnalyser = new ARXAnalyser(arxWrapper, arxPayloadAnalyser);
 
     @Before
@@ -72,7 +70,4 @@ public class AnalysationServiceTest {
         Assert.assertEquals(expected,actual);
     }
 
-    @Test
-    public void getResponseAnalysis() {
-    }
 }
