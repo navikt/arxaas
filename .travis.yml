@@ -27,7 +27,7 @@ after_script:
  - ./cc-test-reporter upload-coverage -d
 
 before_deploy:
-  - $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
 deploy:
   skip_cleanup: true
   provider: script
