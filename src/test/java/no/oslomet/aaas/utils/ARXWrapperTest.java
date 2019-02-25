@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static no.oslomet.aaas.model.PrivacyModel.KANONYMITY;
+import static no.oslomet.aaas.model.PrivacyModel.*;
 import static no.oslomet.aaas.model.SensitivityModel.IDENTIFYING;
 import static no.oslomet.aaas.model.SensitivityModel.QUASIIDENTIFYING;
 
@@ -114,22 +114,21 @@ public class ARXWrapperTest {
     }
 
     @Test
-    public void setPrivacyModelsKAnon(){
+    public void setPrivacyModels_KAnon(){
         arxWrapper.setPrivacyModels(config, testPayload);
         String actual = String.valueOf(config.getPrivacyModels());
 
         Assert.assertEquals("[5-anonymity]",actual);
     }
 
-/*    @Test
-    public void setPrivacyModelsLDiv(){
+    @Test
+    public void setPrivacyModels_LDIVERSITY_DISTINCT(){
         data.getDefinition().setAttributeType("age", AttributeType.SENSITIVE_ATTRIBUTE);
         Map<PrivacyModel,Map<String,String>> testMap = new HashMap<>();
         Map<String,String> testMapValue = new HashMap<>();
         testMapValue.put("l","5");
         testMapValue.put("column_name","age");
-        testMapValue.put("variant","distinct");
-        testMap.put(LDIVERSITY,testMapValue);
+        testMap.put(LDIVERSITY_DISTINCT,testMapValue);
         testMetaData.setModels(testMap);
         testPayload.setMetaData(testMetaData);
 
@@ -137,7 +136,59 @@ public class ARXWrapperTest {
         String actual = String.valueOf(config.getPrivacyModels());
 
         Assert.assertEquals("[distinct-5-diversity for attribute 'age']",actual);
-    }*/
+    }
+
+    @Test
+    public void setPrivacyModels_LDIVERSITY_SHANNONENTROPY(){
+        data.getDefinition().setAttributeType("age", AttributeType.SENSITIVE_ATTRIBUTE);
+        Map<PrivacyModel,Map<String,String>> testMap = new HashMap<>();
+        Map<String,String> testMapValue = new HashMap<>();
+        testMapValue.put("l","5");
+        testMapValue.put("column_name","age");
+        testMap.put(LDIVERSITY_SHANNONENTROPY,testMapValue);
+        testMetaData.setModels(testMap);
+        testPayload.setMetaData(testMetaData);
+
+        arxWrapper.setPrivacyModels(config, testPayload);
+        String actual = String.valueOf(config.getPrivacyModels());
+
+        Assert.assertEquals("[shannon-entropy-5.0-diversity for attribute 'age']",actual);
+    }
+
+    @Test
+    public void setPrivacyModels_LDIVERSITY_GRASSBERGERENTROPY(){
+        data.getDefinition().setAttributeType("age", AttributeType.SENSITIVE_ATTRIBUTE);
+        Map<PrivacyModel,Map<String,String>> testMap = new HashMap<>();
+        Map<String,String> testMapValue = new HashMap<>();
+        testMapValue.put("l","5");
+        testMapValue.put("column_name","age");
+        testMap.put(LDIVERSITY_GRASSBERGERENTROPY,testMapValue);
+        testMetaData.setModels(testMap);
+        testPayload.setMetaData(testMetaData);
+
+        arxWrapper.setPrivacyModels(config, testPayload);
+        String actual = String.valueOf(config.getPrivacyModels());
+
+        Assert.assertEquals("[grassberger-entropy-5.0-diversity for attribute 'age']",actual);
+    }
+
+    @Test
+    public void setPrivacyModels_LDIVERSITY_RECURSIVE(){
+        data.getDefinition().setAttributeType("age", AttributeType.SENSITIVE_ATTRIBUTE);
+        Map<PrivacyModel,Map<String,String>> testMap = new HashMap<>();
+        Map<String,String> testMapValue = new HashMap<>();
+        testMapValue.put("l","5");
+        testMapValue.put("c","3");
+        testMapValue.put("column_name","age");
+        testMap.put(LDIVERSITY_RECURSIVE,testMapValue);
+        testMetaData.setModels(testMap);
+        testPayload.setMetaData(testMetaData);
+
+        arxWrapper.setPrivacyModels(config, testPayload);
+        String actual = String.valueOf(config.getPrivacyModels());
+
+        Assert.assertEquals("[recursive-(5.0,3)-diversity for attribute 'age']",actual);
+    }
 
     @Test
     public void setHierarchies(){
