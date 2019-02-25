@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AnonymizationIntegrationTest {
+public class AnonymizationIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
