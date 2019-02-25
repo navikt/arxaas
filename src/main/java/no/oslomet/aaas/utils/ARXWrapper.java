@@ -29,7 +29,7 @@ public class ARXWrapper {
     /***
      * Returns an ARX {@link Data} object created from the provided String. The object is a table of records/fields made from
      * the provided string.
-     * @param raw String containing tabular data set
+     * @param rawdata String containing tabular data set
      * @return the {@link Data} object created with the records/fields defined by the string of raw data
      */
     public Data setData(String rawdata) {
