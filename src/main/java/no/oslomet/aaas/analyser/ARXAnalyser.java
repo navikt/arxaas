@@ -6,6 +6,7 @@ import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
+import org.deidentifier.arx.DataHandle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,8 +31,9 @@ public class ARXAnalyser implements Analyser {
     public AnalysisResult analyse(AnalysationPayload payload) {
         Data data = arxWrapper.setData(payload.getData());
         arxWrapper.setSensitivityModels(data,payload);
+        DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
-        Map<String,String> analasysMetrics = arxPayloadAnalyser.getPayloadAnalysisData(data,pModel);
+        Map<String,String> analasysMetrics = arxPayloadAnalyser.getPayloadAnalysisData(dataToAnalyse,pModel);
         return new AnalysisResult(analasysMetrics);
     }
 }
