@@ -4,7 +4,7 @@ import java.util.Map;
 
 
 /***
- * Model class for response object from anonymisation process.
+ * Model class for the response object from anonymisation process.
  */
 public class AnonymizationResultPayload {
 
@@ -16,8 +16,12 @@ public class AnonymizationResultPayload {
      * Setter method for the response object from the anonymisation and analysation process.
      * @param anonymizeResult model {@link AnonymizeResult} containing the anonymized dataset and the metadata
      *                        used for the anonymization
-     * @param beforeAnonymizationMetrics HashMap containing the analysis data before the anonymization process
-     * @param afterAnonymisationMetrics HashMap containing the analysis data after the anonymization process
+     * @param beforeAnonymizationMetrics HashMap containing the analysis data before the anonymization process.
+     *                                   The HashMap contains a String of fields that describe the type of risk and a
+     *                                   String that contains its risk value
+     * @param afterAnonymisationMetrics HashMap containing the analysis data after the anonymization process.
+     *                                  The HashMap contains a String of fields that describe the type of risk and a
+     *                                  String that contains its risk value
      */
     public AnonymizationResultPayload(AnonymizeResult anonymizeResult,
                                       Map<String, String> beforeAnonymizationMetrics,
@@ -39,7 +43,8 @@ public class AnonymizationResultPayload {
 
     /***
      * Getter method for the analysis data before the anonymization process.
-     * @return HashMap containing the analysis data before the anonymization process
+     * @return HashMap containing the analysis data before the anonymization process. The HashMap contains a
+     * String of fields that describe the type of risk and a String that contains its risk value
      */
     public Map<String, String> getBeforeAnonymizationMetrics() {
         return beforeAnonymizationMetrics;
@@ -47,7 +52,8 @@ public class AnonymizationResultPayload {
 
     /***
      * Getter method for the analysis data after teh anonymization process.
-     * @return HashMap containing the analysis data after the anonymization process
+     * @return HashMap containing the analysis data after the anonymization process. The HashMap contains a
+     * String of fields that describe the type of risk and a String that contains its risk value
      */
     public Map<String, String> getAfterAnonymizationMetrics() {
         return afterAnonymizationMetrics;

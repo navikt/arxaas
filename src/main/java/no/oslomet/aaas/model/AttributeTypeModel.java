@@ -2,7 +2,10 @@ package no.oslomet.aaas.model;
 
 import org.deidentifier.arx.AttributeType;
 
-public enum SensitivityModel {
+/***
+ * Model class for Anonymity. Sets the anonymous status of the dataset after anonymization.
+ */
+public enum AttributeTypeModel {
 
     SENSITIVE(AttributeType.SENSITIVE_ATTRIBUTE),
     INSENSITIVE(AttributeType.INSENSITIVE_ATTRIBUTE),
@@ -12,7 +15,7 @@ public enum SensitivityModel {
     private String name;
     private AttributeType attributeType;
 
-    SensitivityModel(AttributeType attributeType){
+    AttributeTypeModel(AttributeType attributeType){
         this.name = attributeType.toString();
         this.attributeType = attributeType;
     }

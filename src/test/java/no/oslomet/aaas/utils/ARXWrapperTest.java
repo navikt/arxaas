@@ -2,7 +2,7 @@ package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.PrivacyModel;
-import no.oslomet.aaas.model.SensitivityModel;
+import no.oslomet.aaas.model.AttributeTypeModel;
 import no.oslomet.aaas.model.MetaData;
 import org.deidentifier.arx.*;
 import org.junit.Assert;
@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static no.oslomet.aaas.model.PrivacyModel.*;
-import static no.oslomet.aaas.model.SensitivityModel.IDENTIFYING;
-import static no.oslomet.aaas.model.SensitivityModel.QUASIIDENTIFYING;
+import static no.oslomet.aaas.model.AttributeTypeModel.IDENTIFYING;
+import static no.oslomet.aaas.model.AttributeTypeModel.QUASIIDENTIFYING;
 
 public class ARXWrapperTest {
     private ARXWrapper arxWrapper;
@@ -50,11 +50,11 @@ public class ARXWrapperTest {
         testPayload.setData(testData);
 
         //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
-        Map<String,SensitivityModel> testMapAttribute = new HashMap<>();
+        Map<String, AttributeTypeModel> testMapAttribute = new HashMap<>();
         testMapAttribute.put("age",IDENTIFYING);
         testMapAttribute.put("gender",QUASIIDENTIFYING);
         testMapAttribute.put("zipcode",QUASIIDENTIFYING);
-        testMetaData.setSensitivityList(testMapAttribute);
+        testMetaData.setAttributeTypeList(testMapAttribute);
 
         //Defining Hierarchy for a give column name
         Map<String ,String[][]> testMapHierarchy = new HashMap<>();
