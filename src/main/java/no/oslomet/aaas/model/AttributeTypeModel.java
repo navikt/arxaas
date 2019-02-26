@@ -3,7 +3,7 @@ package no.oslomet.aaas.model;
 import org.deidentifier.arx.AttributeType;
 
 /***
- * Model class for Anonymity. Sets the anonymous status of the dataset after anonymization.
+ * Model class for Attribute types. Sets the Attribute types of the dataset for anonymization and analysation.
  */
 public enum AttributeTypeModel {
 
@@ -15,13 +15,26 @@ public enum AttributeTypeModel {
     private String name;
     private AttributeType attributeType;
 
+    /***
+     * Setter method for the attribute type
+     * @param attributeType ARX object of {@link AttributeType} that sets attribute type
+     */
     AttributeTypeModel(AttributeType attributeType){
         this.name = attributeType.toString();
         this.attributeType = attributeType;
     }
 
+    /***
+     * Getter method for the attribute type name
+     * @return String containing the name of the attribute type
+     */
     public String getName() {
         return name;
     }
+
+    /***
+     * Getter method for the ARX object of {@link AttributeType}
+     * @return ARX object of {@link AttributeType} containing the type of attribute.
+     */
     public AttributeType getAttributeType() { return attributeType; }
 }
