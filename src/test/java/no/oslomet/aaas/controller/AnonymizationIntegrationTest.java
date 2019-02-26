@@ -16,8 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static no.oslomet.aaas.model.PrivacyModel.KANONYMITY;
-import static no.oslomet.aaas.model.SensitivityModel.IDENTIFYING;
-import static no.oslomet.aaas.model.SensitivityModel.QUASIIDENTIFYING;
+import static no.oslomet.aaas.model.AttributeTypeModel.IDENTIFYING;
+import static no.oslomet.aaas.model.AttributeTypeModel.QUASIIDENTIFYING;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
@@ -51,11 +51,11 @@ public class AnonymizationIntegrationTest {
         MetaData testMetaData = new MetaData();
 
         //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
-        Map<String, SensitivityModel> testMapAttribute = new HashMap<>();
+        Map<String, AttributeTypeModel> testMapAttribute = new HashMap<>();
         testMapAttribute.put("age", IDENTIFYING);
         testMapAttribute.put("gender", QUASIIDENTIFYING);
         testMapAttribute.put("zipcode",QUASIIDENTIFYING);
-        testMetaData.setSensitivityList(testMapAttribute);
+        testMetaData.setAttributeTypeList(testMapAttribute);
 
         //Defining Hierarchy for a give column name
         Map<String, String[][]> testMapHierarchy = new HashMap<>();
