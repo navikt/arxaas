@@ -14,7 +14,7 @@ public enum PrivacyModel {
     private String name;
 
     /***
-     * Setter method for the privacy medel.
+     * Setter method for the privacy medel.l
      * @param name String containing the type of privacy model to be used.
      */
     PrivacyModel(String name){
