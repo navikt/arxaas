@@ -7,3 +7,5 @@
 ARX Web API Service
 
 Backed service for ARX-as-a-Service
+
+JavaDoc link: http://javadoc.io/doc/no.oslomet/aaas/
