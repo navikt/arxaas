@@ -1,7 +1,7 @@
 package no.oslomet.aaas.model;
 
 /***
- * Model for Anonymity class. Sets the anonymous status of the dataset after anonymization.
+ * Model class for Anonymity. Sets the anonymous status of the dataset after anonymization.
  */
 public enum Anonymity {
     ANONYMOUS,
