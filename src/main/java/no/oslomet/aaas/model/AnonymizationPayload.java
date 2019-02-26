@@ -8,7 +8,7 @@ public class AnonymizationPayload {
     private MetaData metaData;
 
     /***
-     * Getter method for dataset to anonymise
+     * Getter method for dataset to anonymize
      * @return String containing the tabular dataset
      */
     public String getData() {
@@ -25,7 +25,7 @@ public class AnonymizationPayload {
 
     /***
      * Getter method for the model class {@link MetaData}
-     * @return Model class {@link MetaData} containing anonymisation and analysation settings for the dataset
+     * @return Model class {@link MetaData} containing anonymization and analysation settings for the dataset
      */
     public MetaData getMetaData() {
         return metaData;
@@ -33,7 +33,7 @@ public class AnonymizationPayload {
 
     /***
      * Setter method for the model class {@link MetaData}
-     * @param metaData model containing anonymisation and analysation settings for the dataset
+     * @param metaData model containing anonymization and analysation settings for the dataset
      */
     public void setMetaData(MetaData metaData) {
         this.metaData = metaData;
