@@ -21,13 +21,13 @@ public class AnonymizationService {
     public AnonymizationResultPayload anonymize(AnonymizationPayload payload){
 
         AnalysationPayload beforeAnalysisPayload = new AnalysationPayload(payload.getData(),
-                payload.getMetaData().getSensitivityList());
+                payload.getMetaData().getAttributeTypeList());
        AnalysisResult beforeAnalysisResult = analyser.analyse(beforeAnalysisPayload);
 
         AnonymizeResult result = this.anonymiser.anonymize(payload);
 
         AnalysationPayload afterAnalysisPayload = new AnalysationPayload(result.getData(),
-                payload.getMetaData().getSensitivityList());
+                payload.getMetaData().getAttributeTypeList());
         AnalysisResult afterAnalysisResult = analyser.analyse(afterAnalysisPayload);
 
         return new AnonymizationResultPayload(result, beforeAnalysisResult.getMetrics(), afterAnalysisResult.getMetrics());

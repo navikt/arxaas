@@ -1,8 +1,7 @@
 package no.oslomet.aaas.analyser;
 
 import no.oslomet.aaas.model.AnalysationPayload;
-import no.oslomet.aaas.model.SensitivityModel;
-import no.oslomet.aaas.service.AnalysationService;
+import no.oslomet.aaas.model.AttributeTypeModel;
 import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.junit.Before;
@@ -11,9 +10,8 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static no.oslomet.aaas.model.SensitivityModel.IDENTIFYING;
-import static no.oslomet.aaas.model.SensitivityModel.QUASIIDENTIFYING;
-import static org.junit.Assert.*;
+import static no.oslomet.aaas.model.AttributeTypeModel.IDENTIFYING;
+import static no.oslomet.aaas.model.AttributeTypeModel.QUASIIDENTIFYING;
 
 public class ARXAnalyserTest {
 
@@ -38,7 +36,7 @@ public class ARXAnalyserTest {
                 "44, male, 81677";
 
         //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
-        Map<String, SensitivityModel> testMapAttribute = new HashMap<>();
+        Map<String, AttributeTypeModel> testMapAttribute = new HashMap<>();
         testMapAttribute.put("age",IDENTIFYING);
         testMapAttribute.put("gender",QUASIIDENTIFYING);
         testMapAttribute.put("zipcode",QUASIIDENTIFYING);
