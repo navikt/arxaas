@@ -4,7 +4,7 @@ import java.util.Map;
 
 
 /***
- * Model class for Analysation data payload
+ * Model class for Analysation data payload.
  */
 public class AnalysationPayload {
 

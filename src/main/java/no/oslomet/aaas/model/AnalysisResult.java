@@ -3,7 +3,7 @@ package no.oslomet.aaas.model;
 import java.util.Map;
 
 /**
- * Model class for Analysis result
+ * Model class for Analysis result.
  */
 public class AnalysisResult {
 

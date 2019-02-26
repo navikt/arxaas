@@ -1,14 +1,14 @@
 package no.oslomet.aaas.model;
 
 /***
- *Model class for AnonymizationPayload
+ *Model class for AnonymizationPayload.
  */
 public class AnonymizationPayload {
     private String data;
     private MetaData metaData;
 
     /***
-     * Getter method for dataset to anonymize
+     * Getter method for dataset to anonymize.
      * @return String containing the tabular dataset
      */
     public String getData() {
@@ -16,7 +16,7 @@ public class AnonymizationPayload {
     }
 
     /***
-     * Setter method for the tabular dataset to be anonymized
+     * Setter method for the tabular dataset to be anonymized.
      * @param data String containing the tabular dataset to be anonymized
      */
     public void setData(String data) {
@@ -24,16 +24,16 @@ public class AnonymizationPayload {
     }
 
     /***
-     * Getter method for the model class {@link MetaData}
-     * @return Model class {@link MetaData} containing anonymization and analysation settings for the dataset
+     * Getter method for the model class {@link MetaData}.
+     * @return Object of  {@link MetaData} containing anonymization and analysation settings for the dataset
      */
     public MetaData getMetaData() {
         return metaData;
     }
 
     /***
-     * Setter method for the model class {@link MetaData}
-     * @param metaData model containing anonymization and analysation settings for the dataset
+     * Setter method for the model class {@link MetaData}.
+     * @param metaData Object of {@link MetaData} containing anonymization and analysation settings for the dataset
      */
     public void setMetaData(MetaData metaData) {
         this.metaData = metaData;

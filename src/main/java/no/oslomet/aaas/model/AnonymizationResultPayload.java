@@ -4,7 +4,7 @@ import java.util.Map;
 
 
 /***
- * Model class for response object from anonymisation process
+ * Model class for response object from anonymisation process.
  */
 public class AnonymizationResultPayload {
 
@@ -13,7 +13,7 @@ public class AnonymizationResultPayload {
     private final Map<String, String> afterAnonymizationMetrics;
 
     /***
-     * Setter method for the response object from anonymisation and analysation process
+     * Setter method for the response object from the anonymisation and analysation process.
      * @param anonymizeResult model {@link AnonymizeResult} containing the anonymized dataset and the metadata
      *                        used for the anonymization
      * @param beforeAnonymizationMetrics HashMap containing the analysis data before the anonymization process
@@ -30,15 +30,15 @@ public class AnonymizationResultPayload {
 
     /***
      * Getter method for the {@link AnonymizeResult} model class containing the anonymized dataset and the metadata used
-     * for the anonymization
-     * @return {@link AnonymizeResult} containing the dataset and metadata after the anonymization process
+     * for the anonymization.
+     * @return Object of {@link AnonymizeResult} containing the dataset and metadata after the anonymization process
      */
     public AnonymizeResult getAnonymizeResult() {
         return anonymizeResult;
     }
 
     /***
-     * Getter method for the analysis data before the anonymization process
+     * Getter method for the analysis data before the anonymization process.
      * @return HashMap containing the analysis data before the anonymization process
      */
     public Map<String, String> getBeforeAnonymizationMetrics() {
@@ -46,7 +46,7 @@ public class AnonymizationResultPayload {
     }
 
     /***
-     * Getter method for the analysis data after teh anonymization process
+     * Getter method for the analysis data after teh anonymization process.
      * @return HashMap containing the analysis data after the anonymization process
      */
     public Map<String, String> getAfterAnonymizationMetrics() {
