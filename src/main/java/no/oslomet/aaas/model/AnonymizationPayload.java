@@ -1,7 +1,8 @@
 package no.oslomet.aaas.model;
 
 /***
- *Model class for AnonymizationPayload.
+ *Model class for AnonymizationPayload containing the tabular dataset and a metadata object containing the settings for
+ * the anonymization process.
  */
 public class AnonymizationPayload {
     private String data;

@@ -4,7 +4,8 @@ import java.util.Map;
 
 
 /***
- * Model class for Analysation data payload.
+ * Model class for Analysation data payload containing the data to be analysed and the attribute types of the dataset
+ * fields/columns.
  */
 public class AnalysationPayload {
 
