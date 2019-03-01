@@ -1,5 +1,6 @@
 package no.oslomet.aaas.utils;
 
+import no.oslomet.aaas.exception.AaaSRuntimeException;
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.PrivacyModel;
 import org.deidentifier.arx.ARXConfiguration;
@@ -60,7 +61,7 @@ public class ARXConfigurationSetter {
                 return new RecursiveCLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")),
                         Integer.parseInt(params.get("c")));
             default:
-                throw new RuntimeException(model.getName() + " Privacy Model not supported");
+                throw new AaaSRuntimeException(model.getName() + " Privacy Model not supported");
         }
     }
 }
