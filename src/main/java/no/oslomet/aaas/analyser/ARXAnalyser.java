@@ -33,7 +33,7 @@ public class ARXAnalyser implements Analyser {
     @Override
     public AnalysisResult analyse(AnalysationPayload payload) {
         Data data = arxWrapper.setData(payload.getData());
-        arxModelSetter.setSensitivityModels(data,payload);
+        arxModelSetter.setAttributeTypes(data,payload);
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
         Map<String,String> analasysMetrics = arxPayloadAnalyser.getPayloadAnalysisData(dataToAnalyse,pModel);
