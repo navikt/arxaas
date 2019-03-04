@@ -3,6 +3,8 @@ package no.oslomet.aaas.service;
 import no.oslomet.aaas.analyser.ARXAnalyser;
 import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AttributeTypeModel;
+import no.oslomet.aaas.utils.ARXConfigurationSetter;
+import no.oslomet.aaas.utils.ARXModelSetter;
 import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.junit.Assert;
@@ -18,9 +20,10 @@ import static no.oslomet.aaas.model.AttributeTypeModel.QUASIIDENTIFYING;
 public class AnalysationServiceTest {
 
     private AnalysationService analysationService;
-    private ARXWrapper arxWrapper = new ARXWrapper();
+    private ARXWrapper arxWrapper = new ARXWrapper(new ARXConfigurationSetter(), new ARXModelSetter());
+    private ARXModelSetter arxModelSetter = new ARXModelSetter();
     private ARXPayloadAnalyser arxPayloadAnalyser = new ARXPayloadAnalyser();
-    private ARXAnalyser arxAnalyser = new ARXAnalyser(arxWrapper, arxPayloadAnalyser);
+    private ARXAnalyser arxAnalyser = new ARXAnalyser(arxWrapper, arxModelSetter, arxPayloadAnalyser);
 
     @Before
     public void initialize(){ analysationService = new AnalysationService(arxAnalyser); }
@@ -56,7 +59,7 @@ public class AnalysationServiceTest {
     public void getPayloadAnalysis() {
         String actual = String.valueOf(analysationService.analyse(testPayload).getMetrics());
         String expected ="{measure_value=[%], " +
-                "record_affected_by_highest_risk=100.0, " +
+                "records_affected_by_highest_risk=100.0, " +
                 "sample_uniques=100.0, estimated_prosecutor_risk=100.0, " +
                 "population_model=ZAYATZ, " +
                 "records_affected_by_lowest_risk=100.0, " +

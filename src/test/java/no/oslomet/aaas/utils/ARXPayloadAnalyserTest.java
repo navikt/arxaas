@@ -153,7 +153,7 @@ public class ARXPayloadAnalyserTest {
     public void getPayloadAnalysisData() {
         String actual = String.valueOf(arxPayloadAnalyser.getPayloadAnalysisData(testData,pModel));
         String expected ="{measure_value=[%], " +
-                "record_affected_by_highest_risk=100.0, " +
+                "records_affected_by_highest_risk=100.0, " +
                 "sample_uniques=100.0, estimated_prosecutor_risk=100.0, " +
                 "population_model=ZAYATZ, " +
                 "records_affected_by_lowest_risk=100.0, " +
@@ -239,7 +239,7 @@ public class ARXPayloadAnalyserTest {
     public void showAnalysisData() {
         String actual = String.valueOf(arxPayloadAnalyser.getPayloadAnalysisData(testResultData,pModel));
         String expected ="{measure_value=[%], " +
-                "record_affected_by_highest_risk=45.45454545454545, " +
+                "records_affected_by_highest_risk=45.45454545454545, " +
                 "sample_uniques=0.0, " +
                 "estimated_prosecutor_risk=20.0, " +
                 "population_model=DANKAR, " +

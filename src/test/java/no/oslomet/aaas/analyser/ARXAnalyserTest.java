@@ -2,6 +2,8 @@ package no.oslomet.aaas.analyser;
 
 import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AttributeTypeModel;
+import no.oslomet.aaas.utils.ARXConfigurationSetter;
+import no.oslomet.aaas.utils.ARXModelSetter;
 import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.junit.Before;
@@ -20,7 +22,7 @@ public class ARXAnalyserTest {
 
     @Before
     public void setUp() {
-        testAnalyser = new ARXAnalyser(new ARXWrapper(), new ARXPayloadAnalyser());
+        testAnalyser = new ARXAnalyser(new ARXWrapper(new ARXConfigurationSetter(), new ARXModelSetter()), new ARXModelSetter(), new ARXPayloadAnalyser());
 
         String testData ="age, gender, zipcode\n" +
                 "34, male, 81667\n" +
