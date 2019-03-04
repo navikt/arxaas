@@ -59,7 +59,7 @@ public class AnalysationServiceTest {
     public void getPayloadAnalysis() {
         String actual = String.valueOf(analysationService.analyse(testPayload).getMetrics());
         String expected ="{measure_value=[%], " +
-                "record_affected_by_highest_risk=100.0, " +
+                "records_affected_by_highest_risk=100.0, " +
                 "sample_uniques=100.0, estimated_prosecutor_risk=100.0, " +
                 "population_model=ZAYATZ, " +
                 "records_affected_by_lowest_risk=100.0, " +
