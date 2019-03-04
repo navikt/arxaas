@@ -3,6 +3,8 @@ package no.oslomet.aaas.service;
 import no.oslomet.aaas.analyser.ARXAnalyser;
 import no.oslomet.aaas.anonymizer.ARXAnonymiser;
 import no.oslomet.aaas.model.*;
+import no.oslomet.aaas.utils.ARXConfigurationSetter;
+import no.oslomet.aaas.utils.ARXModelSetter;
 import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.junit.Assert;
@@ -22,16 +24,16 @@ import static no.oslomet.aaas.model.AttributeTypeModel.QUASIIDENTIFYING;
 
 public class AnonymizationServiceTest {
 
-    AnonymizationService anonymizationService;
-    AnonymizationPayload testPayload;
-    MetaData testMetaData;
-    ARXWrapper testARXWrapper;
+    private AnonymizationService anonymizationService;
+    private AnonymizationPayload testPayload;
+    private MetaData testMetaData;
+    private ARXWrapper testARXWrapper;
 
     @Before
     public void setUp() {
-        testARXWrapper = new ARXWrapper();
+        testARXWrapper = new ARXWrapper(new ARXConfigurationSetter(), new ARXModelSetter());
         anonymizationService = new AnonymizationService(new ARXAnonymiser(testARXWrapper),
-                new ARXAnalyser(testARXWrapper, new ARXPayloadAnalyser()));
+                new ARXAnalyser(testARXWrapper, new ARXModelSetter(), new ARXPayloadAnalyser()));
         testPayload = new AnonymizationPayload();
         generateTestData();
     }
