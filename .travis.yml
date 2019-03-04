@@ -39,5 +39,5 @@ deploy:
   provider: script
   script: bash gcloud_deploy.sh
   on:
-    branch: continuousdelivery/kubernetesDeployGcloud
+    branch: master
 
