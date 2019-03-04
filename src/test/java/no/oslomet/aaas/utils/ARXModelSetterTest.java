@@ -85,7 +85,7 @@ public class ARXModelSetterTest {
 
     @Test
     public void setSensitivityModels() {
-        arxModelSetter.setSensitivityModels(data, testPayload);
+        arxModelSetter.setAttributeTypes(data, testPayload);
         String actual = String.valueOf(data.getDefinition().getAttributeType("age"));
 
         Assert.assertEquals("IDENTIFYING_ATTRIBUTE",actual);

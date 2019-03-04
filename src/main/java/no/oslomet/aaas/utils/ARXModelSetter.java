@@ -17,7 +17,7 @@ public class ARXModelSetter {
      * @param payload map containing parameters that defines the attribute types used on which data set field
      * @return an ARX {@link Data} that contains the data set with assigned field attribute types
      */
-    public Data setSensitivityModels(Data data, AnonymizationPayload payload){
+    public Data setAttributeTypes(Data data, AnonymizationPayload payload){
         for (Map.Entry<String, AttributeTypeModel> entry : payload.getMetaData().getAttributeTypeList().entrySet())
         {
             data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());
@@ -31,7 +31,7 @@ public class ARXModelSetter {
      * @param analysationPayload map containing parameters that defines the attribute types used on which data set field
      * @return an ARX {@link Data} that contains the data set with assigned field attribute types
      */
-    public Data setSensitivityModels(Data data, AnalysationPayload analysationPayload){
+    public Data setAttributeTypes(Data data, AnalysationPayload analysationPayload){
         for (Map.Entry<String, AttributeTypeModel> entry : analysationPayload.getAttributeTypes().entrySet())
         {
             data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());

@@ -75,7 +75,7 @@ public class ARXWrapper {
      */
     public ARXResult anonymize(ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
         Data data = setData(payload.getData());
-        data = arxModelSetter.setSensitivityModels(data,payload);
+        data = arxModelSetter.setAttributeTypes(data,payload);
         data = arxModelSetter.setHierarchies(data, payload);
         config = arxConfigurationSetter.setSuppressionLimit(config);
         config = arxConfigurationSetter.setPrivacyModels(config,payload);
