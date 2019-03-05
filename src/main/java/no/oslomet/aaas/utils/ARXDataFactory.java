@@ -23,7 +23,7 @@ public class ARXDataFactory {
     ARXDataFactory(String rawData,MetaData metaData){
         this.rawData = rawData;
         this.metaData = metaData;
-        //todo validation?
+        validateParameters(rawData,metaData);
     }
 
     public Data create(){
@@ -32,6 +32,11 @@ public class ARXDataFactory {
         setHierarchies(data);
 
         return data;
+    }
+
+    private void validateParameters(String rawData,MetaData metaData){
+        if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
+        if(metaData == null) throw new IllegalArgumentException("metaData parameter is null");
     }
 
     /***
