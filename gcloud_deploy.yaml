@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arxaas-service
+  labels:
+    app: arxaas
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: arxaas
+  template:
+    metadata:
+      labels:
+        app: arxaas
+    spec:
+      containers:
+      - name: arxaas
+        image: arxaas/aaas:latest
+        ports:
+        - containerPort: 8080

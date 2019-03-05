@@ -13,6 +13,7 @@ env:
 before_install:
   - chmod +x mvnw
   - wget  http://arx.deidentifier.org/wp-content/uploads/downloads/libarx-3.7.1.jar -P ./src/main/resources/
+  - openssl aes-256-cbc -K $encrypted_545802352a58_key -iv $encrypted_545802352a58_iv -in google_cloud_api_key.json.enc -out google_cloud_api_key.json -d
 install:
   - mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
 
@@ -28,6 +29,11 @@ after_script:
 
 before_deploy:
   - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud --quiet version
+  - gcloud --quiet components update
+  - gcloud --quiet components update kubectl
 deploy:
   skip_cleanup: true
   provider: script
