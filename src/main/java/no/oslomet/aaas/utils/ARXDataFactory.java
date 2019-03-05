@@ -1,6 +1,5 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.AttributeTypeModel;
 import no.oslomet.aaas.model.MetaData;
 import org.deidentifier.arx.AttributeType;
@@ -12,6 +11,9 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+/**
+ * Class responsible for converting data from the payload to a fully configured ARX Data object.
+ */
 public class ARXDataFactory {
 
     private final String rawData;
@@ -32,7 +34,6 @@ public class ARXDataFactory {
         return data;
     }
 
-    //todo UPDATE javadoc
     /***
      * Returns an ARX {@link Data} object created from the provided String. The object is a table of records/fields made from
      * the provided string.
@@ -47,11 +48,10 @@ public class ARXDataFactory {
         }
     }
 
-    //todo UPDATE javadoc
     /***
-     * Returns an ARX {@link Data} object that holds the data set along with an assigned attribute type for each table row.
+     * Mutates an ARX {@link Data} object that holds the data set and assign an attribute type for each table row based
+     * on the global {@link MetaData} metaData object.
      * @param data tabular data set to be anonymized
-     * @return an ARX {@link Data} that contains the data set with assigned field attribute types
      */
     private void setAttributeTypes(Data data){
         for (Map.Entry<String, AttributeTypeModel> entry : metaData.getAttributeTypeList().entrySet())
@@ -60,13 +60,12 @@ public class ARXDataFactory {
         }
     }
 
-    //todo UPDATE javadoc
     /**
-     * Returns an ARX {@link Data} object that sets the hierarchies to be used on the different fields in the data set.
+     * Mutates an ARX {@link Data} object by setting the hierarchies to be used on the different fields in the data set
+     * based on the global {@link MetaData} metaData object.
      * @param data tabular data set to be anonymize
-     * @return an ARX {@link Data} object with the hierarchies assigned to the data set fields
      */
-    public void setHierarchies(Data data){
+    private void setHierarchies(Data data){
         for (Map.Entry<String, String[][]> entry : metaData.getHierarchy().entrySet())
         {
             AttributeType.Hierarchy hierarchy = AttributeType.Hierarchy.create(entry.getValue());
