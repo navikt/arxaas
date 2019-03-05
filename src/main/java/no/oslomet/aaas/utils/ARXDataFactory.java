@@ -18,7 +18,7 @@ public class ARXDataFactory {
 
     private final String rawData;
     private final MetaData metaData;
-    private static final char CSV_SEPERATOR_CHAR = ',';
+    private static final char DEFAULT_CSV_SEPERATOR =',';
 
     ARXDataFactory(String rawData,MetaData metaData){
         this.rawData = rawData;
@@ -47,7 +47,7 @@ public class ARXDataFactory {
     private Data readDataString() {
         try {
             ByteArrayInputStream stream = new ByteArrayInputStream(rawData.getBytes(StandardCharsets.UTF_8));
-            return Data.create(stream, Charset.defaultCharset(), CSV_SEPERATOR_CHAR);
+            return Data.create(stream, Charset.defaultCharset(), DEFAULT_CSV_SEPERATOR);
         } catch (IOException e) {
             throw new IllegalStateException(e.getMessage());
         }

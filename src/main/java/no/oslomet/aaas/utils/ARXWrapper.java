@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-
 /**
  * Delivers an interface for reaching the underlying arx functionality of
  *
@@ -52,7 +51,7 @@ public class ARXWrapper {
      * @param anonymizer an ARX {@link ARXAnonymizer} object that will hold the anonymization settings
      * @return an ARX {@link ARXAnonymizer} object that holds the anonymization settings
      */
-    public ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
+    private ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
         anonymizer.setMaximumSnapshotSizeDataset(0.2);
         anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
         anonymizer.setHistorySize(200);
