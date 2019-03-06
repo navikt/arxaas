@@ -91,6 +91,8 @@ public class ARXWrapper {
      * @throws IOException shows the error message when saving the data set to a {@link ByteArrayInputStream} object fails
      */
     public String getAnonymizeData(ARXResult result) throws IOException {
+        if(!result.isResultAvailable()) throw new RuntimeException("Dataset could not be anonymized");
+
         DataHandle handle = result.getOutput();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         handle.save(outputStream, CSV_SEPERATOR_CHAR);
