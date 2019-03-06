@@ -1,5 +1,6 @@
 package no.oslomet.aaas.utils;
 
+import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
 import no.oslomet.aaas.model.AnonymizationPayload;
 import org.deidentifier.arx.*;
 
@@ -91,7 +92,7 @@ public class ARXWrapper {
      * @throws IOException shows the error message when saving the data set to a {@link ByteArrayInputStream} object fails
      */
     public String getAnonymizeData(ARXResult result) throws IOException {
-        if(!result.isResultAvailable()) throw new RuntimeException("Dataset could not be anonymized");
+        if(!result.isResultAvailable()) throw new UnableToAnonymizeDataException("provided dataset could not be anonymized");
 
         DataHandle handle = result.getOutput();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
