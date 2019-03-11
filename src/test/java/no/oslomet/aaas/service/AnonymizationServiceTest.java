@@ -4,10 +4,7 @@ import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.analyser.ARXAnalyser;
 import no.oslomet.aaas.anonymizer.ARXAnonymiser;
 import no.oslomet.aaas.model.*;
-import no.oslomet.aaas.utils.ARXConfigurationSetter;
-import no.oslomet.aaas.utils.ARXModelSetter;
-import no.oslomet.aaas.utils.ARXPayloadAnalyser;
-import no.oslomet.aaas.utils.ARXWrapper;
+import no.oslomet.aaas.utils.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +26,8 @@ public class AnonymizationServiceTest {
     @Before
     public void setUp() {
         testARXWrapper = new ARXWrapper(new ARXConfigurationSetter(), new ARXModelSetter());
-        anonymizationService = new AnonymizationService(new ARXAnonymiser(testARXWrapper),
+        DataFactory dataFactory = new ARXDataFactory();
+        anonymizationService = new AnonymizationService(new ARXAnonymiser(testARXWrapper,dataFactory),
                 new ARXAnalyser(testARXWrapper, new ARXModelSetter(), new ARXPayloadAnalyser()));
         testPayload = GenerateTestData.zipcodeAnonymizePayload();
     }

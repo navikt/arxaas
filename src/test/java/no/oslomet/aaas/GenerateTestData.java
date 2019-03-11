@@ -45,7 +45,7 @@ public class GenerateTestData {
 
         //Defining Hierarchy for a give column name
         Map<String ,String[][]> testMapHierarchy = new HashMap<>();
-        String [][] testHeirarchy = new String[][]{
+        String [][] testHeirarchy = {
                 {"81667", "8166*", "816**", "81***", "8****", "*****"}
                 ,{"81668", "8166*", "816**", "81***", "8****", "*****"}
                 ,{"81669", "8166*", "816**", "81***", "8****", "*****"}
