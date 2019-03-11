@@ -1,22 +1,16 @@
 package no.oslomet.aaas.utils;
 
 
-import no.oslomet.aaas.model.AttributeTypeModel;
-import no.oslomet.aaas.model.MetaData;
+import no.oslomet.aaas.GenerateTestData;
+import no.oslomet.aaas.model.AnonymizationPayload;
 import org.deidentifier.arx.Data;
+import org.deidentifier.arx.DataHandle;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import static no.oslomet.aaas.model.AttributeTypeModel.IDENTIFYING;
-import static no.oslomet.aaas.model.AttributeTypeModel.QUASIIDENTIFYING;
-
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JOB: Coverts data from payload to fully configured ARX Data object
@@ -25,51 +19,78 @@ import static no.oslomet.aaas.model.AttributeTypeModel.QUASIIDENTIFYING;
  *
  * BEHAVIOUR: create ARX Data object.
  */
-public class ARXDataFactoryTest {
+class ARXDataFactoryTest {
 
-    String testData;
-    MetaData testMetaData;
-    String testDataWithSemicolons;
+    private AnonymizationPayload testPayload;
+
 
     @BeforeEach
-    public void generateTestData() {
-        testData = "age, gender, zipcode\n" +
-                "34, male, 81667\n" +
-                "35, female, 81668\n" +
-                "36, male, 81669\n" +
-                "37, female, 81670\n" +
-                "38, male, 81671\n" +
-                "39, female, 81672\n" +
-                "40, male, 81673\n" +
-                "41, female, 81674\n" +
-                "42, male, 81675\n" +
-                "43, female , 81676\n" +
-                "44, male, 81677";
+    void generateTestData() {
+        testPayload = GenerateTestData.zipcodeAnonymizePayload();
+    }
 
-        testDataWithSemicolons = "age; gender; zipcode\n" +
-                "34; male; 81667\n" +
-                "35; female; 81668\n" +
-                "36; male; 81669\n" +
-                "37; female; 81670\n" +
-                "38; male; 81671\n" +
-                "39; female; 81672\n" +
-                "40; male; 81673\n" +
-                "41; female; 81674\n" +
-                "42; male; 81675\n" +
-                "43; female ; 81676\n" +
-                "44; male; 81677";
+    @Test
+     void create_data_shape_is_correct(){
+        ARXDataFactory dataFactory = new ARXDataFactory(testPayload.getData(), testPayload.getMetaData());
+        Data resultData = dataFactory.create();
+        Assertions.assertNotNull(resultData);
+        resultData.getHandle().iterator().forEachRemaining(strings -> Assertions.assertEquals(3, strings.length));
+    }
 
-        testMetaData = new MetaData();
+    @Test
+     void create_with_null_data(){
 
-        Map<String, AttributeTypeModel> testMapAttribute = new HashMap<>();
-        testMapAttribute.put("age",IDENTIFYING);
-        testMapAttribute.put("gender",QUASIIDENTIFYING);
-        testMapAttribute.put("zipcode",QUASIIDENTIFYING);
-        testMetaData.setAttributeTypeList(testMapAttribute);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new ARXDataFactory(null, testPayload.getMetaData()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new ARXDataFactory(testPayload.getData(), null));
+    }
 
-        //Defining Hierarchy for a give column name
-        Map<String ,String[][]> testMapHierarchy = new HashMap<>();
-        String [][] testHeirarchy = new String[][]{
+    @Test
+    void create_returnData_is_correct(){
+        ARXDataFactory dataFactory = new ARXDataFactory(testPayload.getData(), testPayload.getMetaData());
+        Data data = dataFactory.create();
+        DataHandle handle = data.getHandle();
+        List<String[]> actual = new ArrayList<>();
+        handle.iterator().forEachRemaining(actual::add);
+
+        String[][] rawData = {{"age", "gender", "zipcode" },
+                {"34", "male", "81667"},
+                {"35", "female", "81668"},
+                {"36", "male", "81669"},
+                {"37", "female", "81670"},
+                {"38", "male", "81671"},
+                {"39", "female", "81672"},
+                {"40", "male", "81673"},
+                {"41", "female", "81674"},
+                {"42", "male", "81675"},
+                {"43", "female", "81676"},
+                {"44", "male", "81677"}};
+        List<String[]> expected = List.of(rawData);
+        for(int x = 0; x<12;x++) {
+            Assertions.assertArrayEquals(expected.get(x), actual.get(x));
+        }
+    }
+
+    @Test
+    void create_returnDataAttribute_is_correct(){
+        ARXDataFactory dataFactory = new ARXDataFactory(testPayload.getData(), testPayload.getMetaData());
+        Data data = dataFactory.create();
+        DataHandle handle = data.getHandle();
+        String actual1 = String.valueOf(handle.getDefinition().getAttributeType("age"));
+        String actual2 = String.valueOf(handle.getDefinition().getAttributeType("gender"));
+        String actual3 = String.valueOf(handle.getDefinition().getAttributeType("zipcode"));
+
+        Assertions.assertEquals("IDENTIFYING_ATTRIBUTE",actual1);
+        Assertions.assertEquals("QUASI_IDENTIFYING_ATTRIBUTE",actual2);
+        Assertions.assertEquals("QUASI_IDENTIFYING_ATTRIBUTE",actual3);
+    }
+
+    @Test
+    void create_returnDataHierarchy_is_correct(){
+        ARXDataFactory dataFactory = new ARXDataFactory(testPayload.getData(), testPayload.getMetaData());
+        Data data = dataFactory.create();
+        DataHandle handle = data.getHandle();
+        String [][] actual = handle.getDefinition().getHierarchy("zipcode");
+        String [][] expected ={
                 {"81667", "8166*", "816**", "81***", "8****", "*****"}
                 ,{"81668", "8166*", "816**", "81***", "8****", "*****"}
                 ,{"81669", "8166*", "816**", "81***", "8****", "*****"}
@@ -82,38 +103,8 @@ public class ARXDataFactoryTest {
                 ,{"81676", "8167*", "816**", "81***", "8****", "*****"}
                 ,{"81677", "8167*", "816**", "81***", "8****", "*****"}
         };
-        testMapHierarchy.put("zipcode",testHeirarchy);
-        testMetaData.setHierarchy(testMapHierarchy);
 
-
+        Assertions.assertArrayEquals(expected,actual);
     }
-
-    @Test
-    public void create_data_shape_is_correct(){
-        ARXDataFactory dataFactory = new ARXDataFactory(testData, testMetaData);
-        Data resultData = dataFactory.create();
-        Assertions.assertNotNull(resultData);
-        resultData.getHandle().iterator().forEachRemaining(strings -> Assertions.assertEquals(3, strings.length));
-    }
-
-    @Test
-    public void create_with_null_data(){
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            ARXDataFactory dataFactory = new ARXDataFactory(null, testMetaData);
-        });
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            ARXDataFactory dataFactory = new ARXDataFactory(testData, null);
-        });
-    }
-
-    @Test
-    public void create_with_semicolon_data(){
-        ARXDataFactory dataFactory = new ARXDataFactory(testDataWithSemicolons, testMetaData);
-        Data resultData = dataFactory.create();
-        Assertions.assertNotNull(resultData);
-        resultData.getHandle().iterator().forEachRemaining(strings -> Assertions.assertEquals(3, strings.length));
-    }
-
 
 }

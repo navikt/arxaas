@@ -25,6 +25,6 @@ public class DefaultDataGenerationTest {
         }
         List.of(rawData).iterator().forEachRemaining(data::add);
 
-        data.getHandle().iterator().forEachRemaining(strings -> System.out.println(Arrays.toString(strings)));
+       // data.getHandle().iterator().forEachRemaining(strings -> System.out.println(Arrays.toString(strings)));
     }
 }
