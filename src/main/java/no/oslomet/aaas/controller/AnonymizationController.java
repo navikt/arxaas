@@ -21,7 +21,6 @@ public class AnonymizationController {
     @GetMapping
     public AnonymizationPayload anonymization(){
         AnonymizationPayload payload = new AnonymizationPayload();
-        payload.setData("Viktor");
         payload.setMetaData(new MetaData());
         return payload;
     }

@@ -1,5 +1,6 @@
 package no.oslomet.aaas.anonymizer;
 
+import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.AnonymizeResult;
 import no.oslomet.aaas.utils.ARXWrapper;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Anonymizer class using the ARX library to implement the anonymization
@@ -30,12 +32,11 @@ public class ARXAnonymiser implements Anonymiser {
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         try {
             ARXResult result = arxWrapper.anonymize(anonymizer, config, payload);
-            String anonymisedData = arxWrapper.getAnonymizeData(result);
+            List<String[]> anonymisedData = arxWrapper.getAnonymizeData(result);
 
             return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), payload.getMetaData(), null);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new UnableToAnonymizeDataException(e.getMessage());
         }
-        return null;
     }
 }

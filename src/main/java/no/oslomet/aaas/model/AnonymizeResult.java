@@ -1,6 +1,7 @@
 package no.oslomet.aaas.model;
 
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Map;
  */
 public class AnonymizeResult {
 
-    private final String data;
+    private final List<String[]> data;
     private final String anonymizationStatus;
     private final MetaData payloadMetaData;
     private final Map<String, String> statistics;
@@ -22,7 +23,7 @@ public class AnonymizeResult {
      * @param statistics HashMap containing the statistics from the anonymization process. The HashMap contains a
      * String of fields that describe the type of statistic and a String that contains its risk value
      */
-    public AnonymizeResult(String data, String anonymizationStatus,
+    public AnonymizeResult(List<String[]> data, String anonymizationStatus,
                            MetaData payloadMetaData,
                            Map<String, String> statistics) {
         this.data = data;
@@ -35,7 +36,7 @@ public class AnonymizeResult {
      * Getter method for the anonymized tabular dataset.
      * @return String containing the anonymized tabular dataset
      */
-    public String getData() {
+    public List<String[]> getData() {
         return data;
     }
 
