@@ -1,18 +1,20 @@
 package no.oslomet.aaas.model;
 
+import java.util.List;
+
 /***
  *Model class for AnonymizationPayload containing the tabular dataset and a metadata object containing the settings for
  * the anonymization process.
  */
 public class AnonymizationPayload {
-    private String data;
+    private List<String[]> data;
     private MetaData metaData;
 
     /***
      * Getter method for dataset to anonymize.
      * @return String containing the tabular dataset
      */
-    public String getData() {
+    public List<String[]> getData() {
         return data;
     }
 
@@ -20,7 +22,7 @@ public class AnonymizationPayload {
      * Setter method for the tabular dataset to be anonymized.
      * @param data String containing the tabular dataset to be anonymized
      */
-    public void setData(String data) {
+    public void setData(List<String[]> data) {
         this.data = data;
     }
 

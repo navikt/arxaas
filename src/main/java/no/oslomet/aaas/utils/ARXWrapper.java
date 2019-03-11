@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Delivers an interface for reaching the underlying arx functionality of
  *
@@ -27,23 +28,15 @@ public class ARXWrapper {
         this.arxModelSetter = arxModelSetter;
     }
 
-    private static final char CSV_SEPERATOR_CHAR = ',';
 
     /***
      * Returns an ARX {@link Data} object created from the provided String. The object is a table of records/fields made from
      * the provided string.
-     * @param rawdata String containing tabular data set
+     * @param rawData List of String array that contains tabular data set
      * @return the {@link Data} object created with the records/fields defined by the string of raw data
      */
-    public Data setData(String rawdata) {
-        Data data = null;
-        try {
-            ByteArrayInputStream stream = new ByteArrayInputStream(rawdata.getBytes(StandardCharsets.UTF_8));
-            data = Data.create(stream, Charset.defaultCharset(), CSV_SEPERATOR_CHAR);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return data;
+    public Data createData(List<String[]> rawData) {
+        return Data.create(rawData);
     }
 
     /***
@@ -51,7 +44,7 @@ public class ARXWrapper {
      * @param anonymizer an ARX {@link ARXAnonymizer} object that will hold the anonymization settings
      * @return an ARX {@link ARXAnonymizer} object that holds the anonymization settings
      */
-    private ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
+    public ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
         anonymizer.setMaximumSnapshotSizeDataset(0.2);
         anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
         anonymizer.setHistorySize(200);
@@ -73,7 +66,7 @@ public class ARXWrapper {
      * @throws IOException that shows the error message when anonymizing the data set fails
      */
     public ARXResult anonymize(ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
-        Data data = setData(payload.getData());
+        Data data = createData(payload.getData());
         data = arxModelSetter.setAttributeTypes(data,payload);
         data = arxModelSetter.setHierarchies(data, payload);
         config = arxConfigurationSetter.setSuppressionLimit(config);
@@ -87,12 +80,11 @@ public class ARXWrapper {
      * read and imported in the response payload.
      * @param result an ARX {@link ARXResult} object that holds the anonymized data set.
      * @return a String containing the anonymized data set.
-     * @throws IOException shows the error message when saving the data set to a {@link ByteArrayInputStream} object fails
      */
-    public String getAnonymizeData(ARXResult result) throws IOException {
+    public List<String[]> getAnonymizeData(ARXResult result){
         DataHandle handle = result.getOutput();
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        handle.save(outputStream, CSV_SEPERATOR_CHAR);
-        return new String(outputStream.toByteArray());
+        List<String[]> resultData =  new ArrayList<>();
+        handle.iterator().forEachRemaining(resultData::add);
+        return resultData;
     }
 }
