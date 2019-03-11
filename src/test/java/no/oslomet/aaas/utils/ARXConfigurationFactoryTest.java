@@ -62,8 +62,8 @@ class ARXConfigurationFactoryTest {
 
     @Test
     void create_NotNull() {
-        ARXConfigurationFactory arxConfigurationFactory = new ARXConfigurationFactory(testMetaData);
-        ARXConfiguration resultConfig = arxConfigurationFactory.create();
+        ARXConfigurationFactory arxConfigurationFactory = new ARXConfigurationFactory(new PrivacyModelFactory());
+        ARXConfiguration resultConfig = arxConfigurationFactory.create(testMetaData);
         Assertions.assertNotNull(resultConfig);
     }
 }

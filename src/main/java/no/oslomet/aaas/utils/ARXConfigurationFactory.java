@@ -1,27 +1,29 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.exception.AaaSRuntimeException;
 import no.oslomet.aaas.model.MetaData;
 import no.oslomet.aaas.model.PrivacyModel;
 import org.deidentifier.arx.ARXConfiguration;
 import org.deidentifier.arx.criteria.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-public class ARXConfigurationFactory {
+@Component
+public class ARXConfigurationFactory implements ConfigurationFactory {
 
-    private final MetaData metaData;
-    private static final String COLUMNNAME = "column_name";
+    private PrivacyModelFactory privacyModelFactory;
 
-    ARXConfigurationFactory(MetaData metaData){
-        this.metaData = metaData;
+    @Autowired
+    public ARXConfigurationFactory(PrivacyModelFactory privacyModelFactory) {
+        this.privacyModelFactory = privacyModelFactory;
     }
 
-    public ARXConfiguration create(){
+    @Override
+    public ARXConfiguration create(MetaData metaData){
         ARXConfiguration config = ARXConfiguration.create();
         setSuppressionLimit(config);
         setPrivacyModels(config,metaData);
-
         return config;
     }
 
@@ -52,22 +54,6 @@ public class ARXConfigurationFactory {
      * @return the {@link PrivacyCriterion} object created with the specified parameters
      */
     private PrivacyCriterion getPrivacyModel(PrivacyModel model, Map<String,String> params){
-        switch(model){
-            case KANONYMITY:
-                return new KAnonymity(Integer.parseInt(params.get("k")));
-            case LDIVERSITY_DISTINCT:
-                return new DistinctLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")));
-            case LDIVERSITY_SHANNONENTROPY:
-                return new EntropyLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")),
-                        EntropyLDiversity.EntropyEstimator.SHANNON);
-            case LDIVERSITY_GRASSBERGERENTROPY:
-                return new EntropyLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")),
-                        EntropyLDiversity.EntropyEstimator.GRASSBERGER);
-            case LDIVERSITY_RECURSIVE:
-                return new RecursiveCLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")),
-                        Integer.parseInt(params.get("c")));
-            default:
-                throw new AaaSRuntimeException(model.getName() + " Privacy Model not supported");
-        }
+        return privacyModelFactory.create(model, params);
     }
 }
