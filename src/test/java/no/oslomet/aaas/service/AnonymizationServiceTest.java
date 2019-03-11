@@ -24,7 +24,7 @@ public class AnonymizationServiceTest {
     @Before
     public void setUp() {
         DataFactory dataFactory = new ARXDataFactory();
-        ConfigurationFactory configurationFactory = new ARXConfigurationFactory(new PrivacyModelFactory());
+        ConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
         anonymizationService = new AnonymizationService(new ARXAnonymiser(dataFactory,configurationFactory),
                 new ARXAnalyser(new ARXDataFactory(), new ARXPayloadAnalyser()));
         testPayload = GenerateTestData.zipcodeAnonymizePayload();

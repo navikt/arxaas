@@ -14,7 +14,7 @@ public class ARXAnonymiserTest {
 
     @Before
     public void setUp() {
-        testAnonymiser = new ARXAnonymiser(new ARXDataFactory(), new ARXConfigurationFactory(new PrivacyModelFactory()));
+        testAnonymiser = new ARXAnonymiser(new ARXDataFactory(), new ARXConfigurationFactory(new ARXPrivacyCriterionFactory()));
         testPayload = GenerateTestData.zipcodeAnonymizePayload();
     }
 

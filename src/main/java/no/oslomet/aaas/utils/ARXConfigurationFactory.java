@@ -12,11 +12,11 @@ import java.util.Map;
 @Component
 public class ARXConfigurationFactory implements ConfigurationFactory {
 
-    private PrivacyModelFactory privacyModelFactory;
+    private ARXPrivacyCriterionFactory arxPrivacyCriterionFactory;
 
     @Autowired
-    public ARXConfigurationFactory(PrivacyModelFactory privacyModelFactory) {
-        this.privacyModelFactory = privacyModelFactory;
+    public ARXConfigurationFactory(ARXPrivacyCriterionFactory arxPrivacyCriterionFactory) {
+        this.arxPrivacyCriterionFactory = arxPrivacyCriterionFactory;
     }
 
     @Override
@@ -54,6 +54,6 @@ public class ARXConfigurationFactory implements ConfigurationFactory {
      * @return the {@link PrivacyCriterion} object created with the specified parameters
      */
     private PrivacyCriterion getPrivacyModel(PrivacyModel model, Map<String,String> params){
-        return privacyModelFactory.create(model, params);
+        return arxPrivacyCriterionFactory.create(model, params);
     }
 }
