@@ -12,6 +12,7 @@ import java.util.List;
 
 class ARXWrapperTest {
     private ARXWrapper arxWrapper;
+    private final ARXDataFactory dataFactory = new ARXDataFactory();
 
     @BeforeEach
     void initialize(){
@@ -54,8 +55,9 @@ class ARXWrapperTest {
 
     @Test
     void anonymize() throws IOException {
+            Data data = dataFactory.create(testPayload.getData(),testPayload.getMetaData());
 
-            ARXResult testresult = arxWrapper.anonymize(anonymizer,config, testPayload);
+            ARXResult testresult = arxWrapper.anonymize(anonymizer,config, testPayload,data);
             List<String[]> actual = arxWrapper.getAnonymizeData(testresult);
 
             String[][] rawData = {{"age", "gender", "zipcode" },
@@ -74,6 +76,5 @@ class ARXWrapperTest {
             for(int x = 0; x<12;x++) {
                 Assertions.assertArrayEquals(expected.get(x), actual.get(x));
             }
-
     }
 }

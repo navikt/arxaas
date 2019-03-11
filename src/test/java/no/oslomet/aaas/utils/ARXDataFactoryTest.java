@@ -31,8 +31,8 @@ class ARXDataFactoryTest {
 
     @Test
      void create_data_shape_is_correct(){
-        ARXDataFactory dataFactory = new ARXDataFactory(testPayload.getData(), testPayload.getMetaData());
-        Data resultData = dataFactory.create();
+        ARXDataFactory dataFactory = new ARXDataFactory();
+        Data resultData = dataFactory.create(testPayload.getData(), testPayload.getMetaData());
         Assertions.assertNotNull(resultData);
         resultData.getHandle().iterator().forEachRemaining(strings -> Assertions.assertEquals(3, strings.length));
     }
@@ -40,14 +40,14 @@ class ARXDataFactoryTest {
     @Test
      void create_with_null_data(){
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new ARXDataFactory(null, testPayload.getMetaData()));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new ARXDataFactory(testPayload.getData(), null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> (new ARXDataFactory()).create(null, testPayload.getMetaData()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> (new ARXDataFactory()).create(testPayload.getData(), null));
     }
 
     @Test
     void create_returnData_is_correct(){
-        ARXDataFactory dataFactory = new ARXDataFactory(testPayload.getData(), testPayload.getMetaData());
-        Data data = dataFactory.create();
+        ARXDataFactory dataFactory = new ARXDataFactory();
+        Data data = dataFactory.create(testPayload.getData(), testPayload.getMetaData());
         DataHandle handle = data.getHandle();
         List<String[]> actual = new ArrayList<>();
         handle.iterator().forEachRemaining(actual::add);
@@ -72,8 +72,8 @@ class ARXDataFactoryTest {
 
     @Test
     void create_returnDataAttribute_is_correct(){
-        ARXDataFactory dataFactory = new ARXDataFactory(testPayload.getData(), testPayload.getMetaData());
-        Data data = dataFactory.create();
+        ARXDataFactory dataFactory = new ARXDataFactory();
+        Data data = dataFactory.create(testPayload.getData(), testPayload.getMetaData());
         DataHandle handle = data.getHandle();
         String actual1 = String.valueOf(handle.getDefinition().getAttributeType("age"));
         String actual2 = String.valueOf(handle.getDefinition().getAttributeType("gender"));
@@ -86,8 +86,8 @@ class ARXDataFactoryTest {
 
     @Test
     void create_returnDataHierarchy_is_correct(){
-        ARXDataFactory dataFactory = new ARXDataFactory(testPayload.getData(), testPayload.getMetaData());
-        Data data = dataFactory.create();
+        ARXDataFactory dataFactory = new ARXDataFactory();
+        Data data = dataFactory.create(testPayload.getData(), testPayload.getMetaData());
         DataHandle handle = data.getHandle();
         String [][] actual = handle.getDefinition().getHierarchy("zipcode");
         String [][] expected ={

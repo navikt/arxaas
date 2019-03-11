@@ -4,6 +4,7 @@ import no.oslomet.aaas.model.AttributeTypeModel;
 import no.oslomet.aaas.model.MetaData;
 import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -11,22 +12,15 @@ import java.util.Map;
 /**
  * Class responsible for converting data from the payload to a fully configured ARX Data object.
  */
-public class ARXDataFactory {
+@Component
+public class ARXDataFactory implements DataFactory {
 
-    private final List<String[]> rawData;
-    private final MetaData metaData;
-
-    ARXDataFactory(List<String[]> rawData,MetaData metaData){
-        this.rawData = rawData;
-        this.metaData = metaData;
+    @Override
+    public Data create(List<String[]> rawData, MetaData metaData){
         validateParameters(rawData,metaData);
-    }
-
-
-    public Data create(){
-        Data data = readDataString();
-        setAttributeTypes(data);
-        setHierarchies(data);
+        Data data = createData(rawData);
+        setAttributeTypes(data,metaData);
+        setHierarchies(data,metaData);
 
         return data;
     }
@@ -41,7 +35,7 @@ public class ARXDataFactory {
      * the provided string.
      * @return the {@link Data} object created with the records/fields defined by the string of raw data
      */
-    private Data readDataString() {
+    private Data createData(List<String[]> rawData) {
         return Data.create(rawData);
     }
 
@@ -50,7 +44,7 @@ public class ARXDataFactory {
      * on the global {@link MetaData} metaData object.
      * @param data tabular data set to be anonymized
      */
-    private void setAttributeTypes(Data data){
+    private void setAttributeTypes(Data data,MetaData metaData){
         for (Map.Entry<String, AttributeTypeModel> entry : metaData.getAttributeTypeList().entrySet())
         {
             data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());
@@ -62,7 +56,7 @@ public class ARXDataFactory {
      * based on the global {@link MetaData} metaData object.
      * @param data tabular data set to be anonymize
      */
-    private void setHierarchies(Data data){
+    private void setHierarchies(Data data,MetaData metaData){
         for (Map.Entry<String, String[][]> entry : metaData.getHierarchy().entrySet())
         {
             AttributeType.Hierarchy hierarchy = AttributeType.Hierarchy.create(entry.getValue());

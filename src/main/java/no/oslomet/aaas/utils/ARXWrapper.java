@@ -20,12 +20,10 @@ import java.util.List;
 public class ARXWrapper {
 
     private ARXConfigurationSetter arxConfigurationSetter;
-    private ARXModelSetter arxModelSetter;
 
     @Autowired
     public ARXWrapper(ARXConfigurationSetter arxConfigurationSetter, ARXModelSetter arxModelSetter){
         this.arxConfigurationSetter = arxConfigurationSetter;
-        this.arxModelSetter = arxModelSetter;
     }
 
 
@@ -44,7 +42,7 @@ public class ARXWrapper {
      * @param anonymizer an ARX {@link ARXAnonymizer} object that will hold the anonymization settings
      * @return an ARX {@link ARXAnonymizer} object that holds the anonymization settings
      */
-    public ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
+    ARXAnonymizer setAnonymizer(ARXAnonymizer anonymizer){
         anonymizer.setMaximumSnapshotSizeDataset(0.2);
         anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
         anonymizer.setHistorySize(200);
@@ -65,10 +63,7 @@ public class ARXWrapper {
      * @return an ARX {@link ARXResult} object that holds the anonymized data set
      * @throws IOException that shows the error message when anonymizing the data set fails
      */
-    public ARXResult anonymize(ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload) throws IOException {
-        Data data = createData(payload.getData());
-        data = arxModelSetter.setAttributeTypes(data,payload);
-        data = arxModelSetter.setHierarchies(data, payload);
+    public ARXResult anonymize(ARXAnonymizer anonymizer, ARXConfiguration config, AnonymizationPayload payload, Data data) throws IOException {
         config = arxConfigurationSetter.setSuppressionLimit(config);
         config = arxConfigurationSetter.setPrivacyModels(config,payload);
         anonymizer = setAnonymizer(anonymizer);
