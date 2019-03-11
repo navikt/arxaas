@@ -20,15 +20,13 @@ public class AnonymizationServiceTest {
 
     private AnonymizationService anonymizationService;
     private AnonymizationPayload testPayload;
-    private MetaData testMetaData;
-    private ARXWrapper testARXWrapper;
 
     @Before
     public void setUp() {
-        testARXWrapper = new ARXWrapper(new ARXConfigurationSetter(), new ARXModelSetter());
         DataFactory dataFactory = new ARXDataFactory();
-        anonymizationService = new AnonymizationService(new ARXAnonymiser(testARXWrapper,dataFactory),
-                new ARXAnalyser(testARXWrapper, new ARXModelSetter(), new ARXPayloadAnalyser()));
+        ConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
+        anonymizationService = new AnonymizationService(new ARXAnonymiser(dataFactory,configurationFactory),
+                new ARXAnalyser(new ARXDataFactory(), new ARXPayloadAnalyser()));
         testPayload = GenerateTestData.zipcodeAnonymizePayload();
     }
 

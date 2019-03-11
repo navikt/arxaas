@@ -3,10 +3,7 @@ package no.oslomet.aaas.service;
 import no.oslomet.aaas.analyser.ARXAnalyser;
 import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AttributeTypeModel;
-import no.oslomet.aaas.utils.ARXConfigurationSetter;
-import no.oslomet.aaas.utils.ARXModelSetter;
-import no.oslomet.aaas.utils.ARXPayloadAnalyser;
-import no.oslomet.aaas.utils.ARXWrapper;
+import no.oslomet.aaas.utils.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,10 +18,9 @@ import static no.oslomet.aaas.model.AttributeTypeModel.QUASIIDENTIFYING;
 public class AnalysationServiceTest {
 
     private AnalysationService analysationService;
-    private ARXWrapper arxWrapper = new ARXWrapper(new ARXConfigurationSetter(), new ARXModelSetter());
-    private ARXModelSetter arxModelSetter = new ARXModelSetter();
+    private DataFactory dataFactory = new ARXDataFactory();
     private ARXPayloadAnalyser arxPayloadAnalyser = new ARXPayloadAnalyser();
-    private ARXAnalyser arxAnalyser = new ARXAnalyser(arxWrapper, arxModelSetter, arxPayloadAnalyser);
+    private ARXAnalyser arxAnalyser = new ARXAnalyser(dataFactory, arxPayloadAnalyser);
 
     @Before
     public void initialize(){ analysationService = new AnalysationService(arxAnalyser); }

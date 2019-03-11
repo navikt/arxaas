@@ -3,6 +3,7 @@ package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.AnonymizationPayload;
+import no.oslomet.aaas.model.MetaData;
 import org.deidentifier.arx.Data;
 import org.deidentifier.arx.DataHandle;
 import org.junit.jupiter.api.Assertions;
@@ -32,22 +33,24 @@ class ARXDataFactoryTest {
     @Test
      void create_data_shape_is_correct(){
         ARXDataFactory dataFactory = new ARXDataFactory();
-        Data resultData = dataFactory.create(testPayload.getData(), testPayload.getMetaData());
+        Data resultData = dataFactory.create(testPayload);
         Assertions.assertNotNull(resultData);
         resultData.getHandle().iterator().forEachRemaining(strings -> Assertions.assertEquals(3, strings.length));
     }
 
     @Test
      void create_with_null_data(){
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> (new ARXDataFactory()).create(null, testPayload.getMetaData()));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> (new ARXDataFactory()).create(testPayload.getData(), null));
+        testPayload.setMetaData(null);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> (new ARXDataFactory()).create(testPayload));
+        testPayload.setMetaData(new MetaData());
+        testPayload.setData(null);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> (new ARXDataFactory()).create(testPayload));
     }
 
     @Test
     void create_returnData_is_correct(){
         ARXDataFactory dataFactory = new ARXDataFactory();
-        Data data = dataFactory.create(testPayload.getData(), testPayload.getMetaData());
+        Data data = dataFactory.create(testPayload);
         DataHandle handle = data.getHandle();
         List<String[]> actual = new ArrayList<>();
         handle.iterator().forEachRemaining(actual::add);
@@ -73,7 +76,7 @@ class ARXDataFactoryTest {
     @Test
     void create_returnDataAttribute_is_correct(){
         ARXDataFactory dataFactory = new ARXDataFactory();
-        Data data = dataFactory.create(testPayload.getData(), testPayload.getMetaData());
+        Data data = dataFactory.create(testPayload);
         DataHandle handle = data.getHandle();
         String actual1 = String.valueOf(handle.getDefinition().getAttributeType("age"));
         String actual2 = String.valueOf(handle.getDefinition().getAttributeType("gender"));
@@ -87,7 +90,7 @@ class ARXDataFactoryTest {
     @Test
     void create_returnDataHierarchy_is_correct(){
         ARXDataFactory dataFactory = new ARXDataFactory();
-        Data data = dataFactory.create(testPayload.getData(), testPayload.getMetaData());
+        Data data = dataFactory.create(testPayload);
         DataHandle handle = data.getHandle();
         String [][] actual = handle.getDefinition().getHierarchy("zipcode");
         String [][] expected ={

@@ -1,5 +1,7 @@
 package no.oslomet.aaas.utils;
 
+import no.oslomet.aaas.model.AnalysationPayload;
+import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.AttributeTypeModel;
 import no.oslomet.aaas.model.MetaData;
 import org.deidentifier.arx.AttributeType;
@@ -16,11 +18,20 @@ import java.util.Map;
 public class ARXDataFactory implements DataFactory {
 
     @Override
-    public Data create(List<String[]> rawData, MetaData metaData){
-        validateParameters(rawData,metaData);
-        Data data = createData(rawData);
-        setAttributeTypes(data,metaData);
-        setHierarchies(data,metaData);
+    public Data create(AnonymizationPayload payload) {
+        validateParameters(payload.getData(),payload.getMetaData());
+        Data data = createData(payload.getData());
+        setAttributeTypes(data,payload.getMetaData().getAttributeTypeList());
+        setHierarchies(data,payload.getMetaData());
+
+        return data;
+    }
+
+    @Override
+    public Data create(AnalysationPayload payload) {
+        validateParameters(payload.getData(),payload.getAttributeTypes());
+        Data data = createData(payload.getData());
+        setAttributeTypes(data, payload.getAttributeTypes());
 
         return data;
     }
@@ -28,6 +39,11 @@ public class ARXDataFactory implements DataFactory {
     private void validateParameters(List<String[]> rawData,MetaData metaData){
         if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
         if(metaData == null) throw new IllegalArgumentException("metaData parameter is null");
+    }
+
+    private void validateParameters(List<String[]> rawData, Map<String, AttributeTypeModel> attributeTypes){
+        if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
+        if(attributeTypes == null) throw new IllegalArgumentException("Attribute types parameter is null");
     }
 
     /***
@@ -44,8 +60,8 @@ public class ARXDataFactory implements DataFactory {
      * on the global {@link MetaData} metaData object.
      * @param data tabular data set to be anonymized
      */
-    private void setAttributeTypes(Data data,MetaData metaData){
-        for (Map.Entry<String, AttributeTypeModel> entry : metaData.getAttributeTypeList().entrySet())
+    private void setAttributeTypes(Data data, Map<String, AttributeTypeModel> attributeTypes){
+        for (Map.Entry<String, AttributeTypeModel> entry : attributeTypes.entrySet())
         {
             data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());
         }
