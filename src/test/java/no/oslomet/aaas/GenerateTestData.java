@@ -1,11 +1,6 @@
 package no.oslomet.aaas;
 
-import no.oslomet.aaas.analyser.ARXAnalyser;
 import no.oslomet.aaas.model.*;
-import no.oslomet.aaas.utils.ARXConfigurationSetter;
-import no.oslomet.aaas.utils.ARXModelSetter;
-import no.oslomet.aaas.utils.ARXPayloadAnalyser;
-import no.oslomet.aaas.utils.ARXWrapper;
 
 import java.util.HashMap;
 import java.util.List;

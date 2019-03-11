@@ -34,7 +34,7 @@ public class ARXAnonymiser implements Anonymiser {
     public AnonymizeResult anonymize(AnonymizationPayload payload) {
         ARXConfiguration config = ARXConfiguration.create();
         ARXAnonymizer anonymizer = new ARXAnonymizer();
-        Data data = dataFactory.create(payload.getData(), payload.getMetaData());
+        Data data = dataFactory.create(payload);
 
         try {
             ARXResult result = arxWrapper.anonymize(anonymizer, config, payload, data);

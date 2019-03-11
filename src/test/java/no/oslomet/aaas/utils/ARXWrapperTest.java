@@ -16,7 +16,7 @@ class ARXWrapperTest {
 
     @BeforeEach
     void initialize(){
-        arxWrapper = new ARXWrapper(new ARXConfigurationSetter(), new ARXModelSetter());
+        arxWrapper = new ARXWrapper(new ARXConfigurationSetter());
     }
 
     private ARXConfiguration config = ARXConfiguration.create();
@@ -55,7 +55,7 @@ class ARXWrapperTest {
 
     @Test
     void anonymize() throws IOException {
-            Data data = dataFactory.create(testPayload.getData(),testPayload.getMetaData());
+            Data data = dataFactory.create(testPayload);
 
             ARXResult testresult = arxWrapper.anonymize(anonymizer,config, testPayload,data);
             List<String[]> actual = arxWrapper.getAnonymizeData(testresult);

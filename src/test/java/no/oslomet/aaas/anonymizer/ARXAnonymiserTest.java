@@ -4,7 +4,6 @@ import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.utils.ARXConfigurationSetter;
 import no.oslomet.aaas.utils.ARXDataFactory;
-import no.oslomet.aaas.utils.ARXModelSetter;
 import no.oslomet.aaas.utils.ARXWrapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +16,7 @@ public class ARXAnonymiserTest {
 
     @Before
     public void setUp() {
-        testAnonymiser = new ARXAnonymiser(new ARXWrapper(new ARXConfigurationSetter(), new ARXModelSetter()),new ARXDataFactory());
+        testAnonymiser = new ARXAnonymiser(new ARXWrapper(new ARXConfigurationSetter()),new ARXDataFactory());
         testPayload = GenerateTestData.zipcodeAnonymizePayload();
     }
 

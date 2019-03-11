@@ -1,10 +1,10 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.model.MetaData;
+import no.oslomet.aaas.model.AnalysationPayload;
+import no.oslomet.aaas.model.AnonymizationPayload;
 import org.deidentifier.arx.Data;
 
-import java.util.List;
-
 public interface DataFactory {
-    Data create(List<String[]> rawData, MetaData metaData);
+    Data create(AnonymizationPayload payload);
+    Data create(AnalysationPayload payload);
 }

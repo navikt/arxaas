@@ -5,14 +5,14 @@ import no.oslomet.aaas.model.MetaData;
 import no.oslomet.aaas.model.PrivacyModel;
 import org.deidentifier.arx.ARXConfiguration;
 import org.deidentifier.arx.Data;
+import org.deidentifier.arx.criteria.DistinctLDiversity;
+import org.deidentifier.arx.criteria.KAnonymity;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static no.oslomet.aaas.model.AttributeTypeModel.*;
 import static no.oslomet.aaas.model.PrivacyModel.KANONYMITY;
@@ -65,8 +65,5 @@ class ARXConfigurationFactoryTest {
         ARXConfigurationFactory arxConfigurationFactory = new ARXConfigurationFactory(testMetaData);
         ARXConfiguration resultConfig = arxConfigurationFactory.create();
         Assertions.assertNotNull(resultConfig);
-        String actual = String.valueOf(resultConfig.getPrivacyModels());
-        String expected = "[5-anonymity, distinct-3-diversity for attribute 'gender']";
-        Assert.assertEquals(expected,actual);
     }
 }

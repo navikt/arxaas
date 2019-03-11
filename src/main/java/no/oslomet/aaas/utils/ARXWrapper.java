@@ -22,7 +22,7 @@ public class ARXWrapper {
     private ARXConfigurationSetter arxConfigurationSetter;
 
     @Autowired
-    public ARXWrapper(ARXConfigurationSetter arxConfigurationSetter, ARXModelSetter arxModelSetter){
+    public ARXWrapper(ARXConfigurationSetter arxConfigurationSetter){
         this.arxConfigurationSetter = arxConfigurationSetter;
     }
 
@@ -33,7 +33,7 @@ public class ARXWrapper {
      * @param rawData List of String array that contains tabular data set
      * @return the {@link Data} object created with the records/fields defined by the string of raw data
      */
-    public Data createData(List<String[]> rawData) {
+    Data createData(List<String[]> rawData) {
         return Data.create(rawData);
     }
 
