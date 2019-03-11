@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Anonymizer class using the ARX library to implement the anonymization
@@ -30,12 +31,11 @@ public class ARXAnonymiser implements Anonymiser {
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         try {
             ARXResult result = arxWrapper.anonymize(anonymizer, config, payload);
-            String anonymisedData = arxWrapper.getAnonymizeData(result);
+            List<String[]> anonymisedData = arxWrapper.getAnonymizeData(result);
 
             return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), payload.getMetaData(), null);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
-        return null;
     }
 }
