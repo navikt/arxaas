@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static no.oslomet.aaas.model.PrivacyModel.KANONYMITY;
 import static no.oslomet.aaas.model.AttributeTypeModel.IDENTIFYING;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AnonymizationIntegrationTest {
+class AnonymizationIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -89,7 +90,7 @@ public class AnonymizationIntegrationTest {
     void anonymization_get() {
         ResponseEntity<AnonymizationPayload> responseEntity = restTemplate.getForEntity("/api/anonymize", AnonymizationPayload.class);
         assertSame(responseEntity.getStatusCode(), HttpStatus.OK);
-        assertEquals(responseEntity.getBody().getData(), "Viktor");
+        assertEquals(Objects.requireNonNull(responseEntity.getBody()).getData(), "Viktor");
     }
 
     @Test
@@ -97,7 +98,9 @@ public class AnonymizationIntegrationTest {
         ResponseEntity<AnonymizationResultPayload> responseEntity = restTemplate.postForEntity("/api/anonymize",testPayload, AnonymizationResultPayload.class);
         assertNotNull(responseEntity);
         assertSame(responseEntity.getStatusCode(), HttpStatus.OK);
-        assertNotNull(responseEntity.getBody().getAfterAnonymizationMetrics().get("record_affected_by_highest_risk"));
-        assertNotNull(responseEntity.getBody().getAnonymizeResult().getData());
+        var resultData = responseEntity.getBody();
+        assert resultData != null;
+        assertNotNull(resultData.getAfterAnonymizationMetrics().get("records_affected_by_highest_risk"));
+        assertNotNull(resultData.getAnonymizeResult().getData());
     }
 }
