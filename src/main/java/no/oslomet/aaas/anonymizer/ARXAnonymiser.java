@@ -1,5 +1,6 @@
 package no.oslomet.aaas.anonymizer;
 
+import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.AnonymizeResult;
 import no.oslomet.aaas.utils.ARXWrapper;
@@ -35,7 +36,7 @@ public class ARXAnonymiser implements Anonymiser {
 
             return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), payload.getMetaData(), null);
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new UnableToAnonymizeDataException(e.getMessage());
         }
     }
 }
