@@ -1,5 +1,6 @@
 package no.oslomet.aaas.model;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -9,7 +10,7 @@ import java.util.Map;
  */
 public class AnalysationPayload {
 
-    private final String data;
+    private final List<String[]> data;
     private final Map<String, AttributeTypeModel> attributeTypes;
 
     /***
@@ -19,16 +20,17 @@ public class AnalysationPayload {
      * @param attributeTypes HashMap containing a String of dataset fields/column and a object
      *                       of {@link AttributeTypeModel} containing the attribute types
      */
-    public AnalysationPayload(String data, Map<String, AttributeTypeModel> attributeTypes) {
+    public AnalysationPayload(List<String[]> data, Map<String, AttributeTypeModel> attributeTypes) {
         this.data = data;
         this.attributeTypes = attributeTypes;
     }
+
 
     /***
      * Getter method for the dataset in the Analysation model.
      * @return String containing the tabular dataset to analyse against re-identification risk
      */
-    public String getData() {
+    public List<String[]> getData() {
         return data;
     }
 
