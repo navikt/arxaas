@@ -2,11 +2,16 @@ package no.oslomet.aaas.utils;
 
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
+import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 
 public class ARXPayloadAnalyserTest {
@@ -84,173 +89,179 @@ public class ARXPayloadAnalyserTest {
     //-------------------------Test against re-identification risk for dataset before anonymisation----------------//
     @Test
     public void getPayloadLowestProsecutorRisk() {
-        String  actual = String.valueOf(arxPayloadAnalyser.getPayloadLowestProsecutorRisk(testData,pModel));
-        Assert.assertEquals("1.0",actual);
+        double  actual = arxPayloadAnalyser.getPayloadLowestProsecutorRisk(testData,pModel);
+        Assertions.assertEquals(1.0, actual);
     }
 
     @Test
     public void getPayloadRecordsAffectByRisk() {
         double testRisk = arxPayloadAnalyser.getPayloadLowestProsecutorRisk(testData,pModel);
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadRecordsAffectByRisk(testData,pModel,testRisk));
-        Assert.assertEquals("1.0",actual);
+        double actual = arxPayloadAnalyser.getPayloadRecordsAffectByRisk(testData,pModel,testRisk);
+        Assertions.assertEquals(1.0,actual);
     }
 
     @Test
     public void getPayloadAverageProsecutorRisk() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadAverageProsecutorRisk(testData,pModel));
-        Assert.assertEquals("1.0",actual);
+        double actual = arxPayloadAnalyser.getPayloadAverageProsecutorRisk(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
     }
 
     @Test
     public void getPayloadHighestProsecutorRisk() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadHighestProsecutorRisk(testData,pModel));
-        Assert.assertEquals("1.0",actual);
+        double actual = arxPayloadAnalyser.getPayloadHighestProsecutorRisk(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
     }
 
     @Test
     public void getPayloadEstimatedProsecutorRisk() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadEstimatedProsecutorRisk(testData,pModel));
-        Assert.assertEquals("1.0",actual);
+        double actual = arxPayloadAnalyser.getPayloadEstimatedProsecutorRisk(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
     }
 
     @Test
     public void getPayloadEstimatedJournalistRisk() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadEstimatedJournalistRisk(testData,pModel));
-        Assert.assertEquals("1.0",actual);
+        double actual = arxPayloadAnalyser.getPayloadEstimatedJournalistRisk(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
     }
 
     @Test
     public void getPayloadEstimatedMarketerRisk() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadEstimatedMarketerRisk(testData,pModel));
-        Assert.assertEquals("1.0",actual);
+        double actual = arxPayloadAnalyser.getPayloadEstimatedMarketerRisk(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
     }
 
     @Test
     public void getPayloadSampleUniques() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadSampleUniques(testData,pModel));
-        Assert.assertEquals("1.0",actual);
+        double actual = arxPayloadAnalyser.getPayloadSampleUniques(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
     }
 
     @Test
     public void getPayloadPopulationUniques() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadPopulationUniques(testData,pModel));
-        Assert.assertEquals("1.0",actual);
+        double actual = arxPayloadAnalyser.getPayloadPopulationUniques(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
     }
 
     @Test
     public void getPayloadPopulationModel() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadPopulationModel(testData,pModel));
-        Assert.assertEquals("ZAYATZ",actual);
+        RiskModelPopulationUniqueness.PopulationUniquenessModel actual = arxPayloadAnalyser.getPayloadPopulationModel(testData,pModel);
+        Assertions.assertEquals(RiskModelPopulationUniqueness.PopulationUniquenessModel.ZAYATZ,actual);
     }
 
     @Test
     public void getPayloadQuasiIdentifiers() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadQuasiIdentifiers(testData));
-        Assert.assertEquals("[zipcode, gender]",actual);
+        Set<String> actual = arxPayloadAnalyser.getPayloadQuasiIdentifiers(testData);
+        Set<String> expected = Set.of("zipcode", "gender");
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
     public void getPayloadAnalysisData() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadAnalysisData(testData,pModel));
-        String expected ="{measure_value=[%], " +
-                "records_affected_by_highest_risk=100.0, " +
-                "sample_uniques=100.0, estimated_prosecutor_risk=100.0, " +
-                "population_model=ZAYATZ, " +
-                "records_affected_by_lowest_risk=100.0, " +
-                "estimated_marketer_risk=100.0, " +
-                "highest_prosecutor_risk=100.0, " +
-                "estimated_journalist_risk=100.0, " +
-                "lowest_risk=100.0, " +
-                "average_prosecutor_risk=100.0, " +
-                "population_uniques=100.0, " +
-                "quasi_identifiers=[zipcode, gender]}";
-        Assert.assertEquals(expected,actual);
+        Map<String, String> actual = arxPayloadAnalyser.getPayloadAnalysisData(testData,pModel);
+        Map<String,String > expected = new HashMap<>();
+                expected.put("measure_value","[%]");
+                expected.put("records_affected_by_highest_risk","100.0");
+                expected.put("sample_uniques","100.0");
+                expected.put("estimated_prosecutor_risk","100.0");
+                expected.put("population_model","ZAYATZ");
+                expected.put("records_affected_by_lowest_risk","100.0");
+                expected.put("estimated_marketer_risk","100.0");
+                expected.put("highest_prosecutor_risk","100.0");
+                expected.put("estimated_journalist_risk","100.0");
+                expected.put("lowest_risk","100.0");
+                expected.put("average_prosecutor_risk","100.0");
+                expected.put("population_uniques","100.0");
+                expected.put("quasi_identifiers","[zipcode, gender]");
+
+        Assertions.assertEquals(expected,actual);
     }
 
     //-------------------------Test against re-identification risk for dataset after anonymisation----------------//
     @Test
     public void getLowestProsecutorRisk() {
-        String  actual = String.valueOf(arxPayloadAnalyser.getPayloadLowestProsecutorRisk(testResultData,pModel));
-        Assert.assertEquals("0.16666666666666666",actual);
+        double actual = arxPayloadAnalyser.getPayloadLowestProsecutorRisk(testResultData,pModel);
+        Assertions.assertEquals(0.16666666666666666,actual);
     }
 
     @Test
     public void getRecordsAffectByRisk() {
         double testRisk = arxPayloadAnalyser.getPayloadLowestProsecutorRisk(testResultData,pModel);
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadRecordsAffectByRisk(testResultData,pModel,testRisk));
-        Assert.assertEquals("0.5454545454545454",actual);
+        double actual = arxPayloadAnalyser.getPayloadRecordsAffectByRisk(testResultData,pModel,testRisk);
+        Assertions.assertEquals(0.5454545454545454,actual);
     }
 
     @Test
     public void getAverageProsecutorRisk() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadAverageProsecutorRisk(testResultData,pModel));
-        Assert.assertEquals("0.18181818181818182",actual);
+        double actual = arxPayloadAnalyser.getPayloadAverageProsecutorRisk(testResultData,pModel);
+        Assertions.assertEquals(0.18181818181818182,actual);
     }
 
     @Test
     public void getHighestProsecutorRisk() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadHighestProsecutorRisk(testResultData,pModel));
-        Assert.assertEquals("0.2",actual);
+        double actual = arxPayloadAnalyser.getPayloadHighestProsecutorRisk(testResultData,pModel);
+        Assertions.assertEquals(0.2,actual);
     }
 
     @Test
     public void getEstimatedProsecutorRisk() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadEstimatedProsecutorRisk(testResultData,pModel));
-        Assert.assertEquals("0.2",actual);
+        double actual = arxPayloadAnalyser.getPayloadEstimatedProsecutorRisk(testResultData,pModel);
+        Assertions.assertEquals(0.2,actual);
     }
 
     @Test
     public void getEstimatedJournalistRisk() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadEstimatedJournalistRisk(testResultData,pModel));
-        Assert.assertEquals("0.2",actual);
+        double actual = arxPayloadAnalyser.getPayloadEstimatedJournalistRisk(testResultData,pModel);
+        Assertions.assertEquals(0.2,actual);
     }
 
     @Test
     public void getEstimatedMarketerRisk() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadEstimatedMarketerRisk(testResultData,pModel));
-        Assert.assertEquals("0.18181818181818182",actual);
+        double actual = arxPayloadAnalyser.getPayloadEstimatedMarketerRisk(testResultData,pModel);
+        Assertions.assertEquals(0.18181818181818182,actual);
     }
 
     @Test
     public void getSampleUniques() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadSampleUniques(testResultData,pModel));
-        Assert.assertEquals("0.0",actual);
+        double actual = arxPayloadAnalyser.getPayloadSampleUniques(testResultData,pModel);
+        Assertions.assertEquals(0.0,actual);
     }
 
     @Test
     public void getPopulationUniques() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadPopulationUniques(testResultData,pModel));
-        Assert.assertEquals("0.0",actual);
+        double actual = arxPayloadAnalyser.getPayloadPopulationUniques(testResultData,pModel);
+        Assertions.assertEquals(0.0,actual);
     }
 
     @Test
     public void getPopulationModel() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadPopulationModel(testResultData,pModel));
-        Assert.assertEquals("DANKAR",actual);
+        RiskModelPopulationUniqueness.PopulationUniquenessModel actual = arxPayloadAnalyser.getPayloadPopulationModel(testResultData,pModel);
+        Assertions.assertEquals(RiskModelPopulationUniqueness.PopulationUniquenessModel.DANKAR,actual);
     }
 
     @Test
     public void getQuasiIdentifiers() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadQuasiIdentifiers(testResultData));
-        Assert.assertEquals("[zipcode, gender]",actual);
+        Set<String> actual = arxPayloadAnalyser.getPayloadQuasiIdentifiers(testResultData);
+        Set<String> expected = Set.of("zipcode", "gender");
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
     public void showAnalysisData() {
-        String actual = String.valueOf(arxPayloadAnalyser.getPayloadAnalysisData(testResultData,pModel));
-        String expected ="{measure_value=[%], " +
-                "records_affected_by_highest_risk=45.45454545454545, " +
-                "sample_uniques=0.0, " +
-                "estimated_prosecutor_risk=20.0, " +
-                "population_model=DANKAR, " +
-                "records_affected_by_lowest_risk=54.54545454545454, " +
-                "estimated_marketer_risk=18.181818181818183, " +
-                "highest_prosecutor_risk=20.0, " +
-                "estimated_journalist_risk=20.0, " +
-                "lowest_risk=16.666666666666664, " +
-                "average_prosecutor_risk=18.181818181818183, " +
-                "population_uniques=0.0, " +
-                "quasi_identifiers=[zipcode, gender]}";
+        Map<String, String> actual = arxPayloadAnalyser.getPayloadAnalysisData(testResultData,pModel);
+        Map<String,String> expected = new HashMap<>();
+                expected.put("measure_value","[%]");
+                expected.put("records_affected_by_highest_risk","45.45454545454545");
+                expected.put("sample_uniques","0.0");
+                expected.put("estimated_prosecutor_risk","20.0");
+                expected.put("population_model","DANKAR");
+                expected.put("records_affected_by_lowest_risk","54.54545454545454");
+                expected.put("estimated_marketer_risk","18.181818181818183");
+                expected.put("highest_prosecutor_risk","20.0");
+                expected.put("estimated_journalist_risk","20.0");
+                expected.put("lowest_risk","16.666666666666664");
+                expected.put("average_prosecutor_risk","18.181818181818183");
+                expected.put("population_uniques","0.0");
+                expected.put("quasi_identifiers","[zipcode, gender]");
 
         Assert.assertEquals(expected,actual);
     }

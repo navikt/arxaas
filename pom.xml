@@ -5,7 +5,7 @@
 
 	<groupId>no.oslomet</groupId>
 	<artifactId>aaas</artifactId>
-	<version>0.1.0-RELEASE</version>
+	<version>0.1.1-RELEASE</version>
 	<name>AaaS</name>
 	<description>AaaS is a Anonymization as a Service project implemented as a RESTful web application using Spring Boot.</description>
 	<url>https://github.com/oslomet-arx-as-a-service/AaaS</url>
