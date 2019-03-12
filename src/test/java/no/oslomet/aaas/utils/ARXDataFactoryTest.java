@@ -5,6 +5,7 @@ import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.AttributeTypeModel;
 import no.oslomet.aaas.model.MetaData;
+import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.Data;
 import org.deidentifier.arx.DataHandle;
 import org.junit.jupiter.api.Assertions;
@@ -83,13 +84,13 @@ class ARXDataFactoryTest {
         ARXDataFactory dataFactory = new ARXDataFactory();
         Data data = dataFactory.create(testPayload);
         DataHandle handle = data.getHandle();
-        String actual1 = String.valueOf(handle.getDefinition().getAttributeType("age"));
-        String actual2 = String.valueOf(handle.getDefinition().getAttributeType("gender"));
-        String actual3 = String.valueOf(handle.getDefinition().getAttributeType("zipcode"));
+        AttributeType actual1 = handle.getDefinition().getAttributeType("age");
+        AttributeType actual2 = handle.getDefinition().getAttributeType("gender");
+        AttributeType actual3 = handle.getDefinition().getAttributeType("zipcode");
 
-        Assertions.assertEquals("IDENTIFYING_ATTRIBUTE",actual1);
-        Assertions.assertEquals("QUASI_IDENTIFYING_ATTRIBUTE",actual2);
-        Assertions.assertEquals("QUASI_IDENTIFYING_ATTRIBUTE",actual3);
+        Assertions.assertEquals(IDENTIFYING.getAttributeType(),actual1);
+        Assertions.assertEquals(QUASIIDENTIFYING.getAttributeType(),actual2);
+        Assertions.assertEquals(QUASIIDENTIFYING.getAttributeType(),actual3);
     }
 
     @Test
@@ -131,17 +132,7 @@ class ARXDataFactoryTest {
         Map<String ,String[][]> testMapHierarchy = new HashMap<>();
         String [][] testHeirarchy = {
                 {"81667", "8166*", "816**", "81***", "8****", "*****"}
-                ,{"81668", "8166*", "816**", "81***", "8****", "*****"}
-                ,{"81669", "8166*", "816**", "81***", "8****", "*****"}
-                ,{"81670", "8167*", "816**", "81***", "8****", "*****"}
-                ,{"81671", "8167*", "816**", "81***", "8****", "*****"}
-                ,{"81672", "8167*", "816**", "81***", "8****", "*****"}
-                ,{"81673", "8167*", "816**", "81***", "8****", "*****"}
-                ,{"81674", "8167*", "816**", "81***", "8****", "*****"}
-                ,{"81675", "8167*", "816**", "81***", "8****", "*****"}
-                ,{"81676", "8167*", "816**", "81***", "8****", "*****"}
-                ,{"81677", "8167*", "816**", "81***", "8****", "*****"}
-        };
+                        };
         testMapHierarchy.put("zipcode",testHeirarchy);
         testMapHierarchy.put("age",testHeirarchy);
         testMapHierarchy.put("gender",testHeirarchy);
@@ -151,13 +142,13 @@ class ARXDataFactoryTest {
 
         Data data = dataFactory.create(testPayload);
         DataHandle handle = data.getHandle();
-        String actual1 = String.valueOf(handle.getDefinition().getAttributeType("age"));
-        String actual2 = String.valueOf(handle.getDefinition().getAttributeType("gender"));
-        String actual3 = String.valueOf(handle.getDefinition().getAttributeType("zipcode"));
+        AttributeType actual1 = handle.getDefinition().getAttributeType("age");
+        AttributeType actual2 = handle.getDefinition().getAttributeType("gender");
+        AttributeType actual3 = handle.getDefinition().getAttributeType("zipcode");
 
-        Assertions.assertEquals("IDENTIFYING_ATTRIBUTE",actual1);
-        Assertions.assertEquals("SENSITIVE_ATTRIBUTE",actual2);
-        Assertions.assertEquals("INSENSITIVE_ATTRIBUTE",actual3);
+        Assertions.assertEquals(IDENTIFYING.getAttributeType(),actual1);
+        Assertions.assertEquals(SENSITIVE.getAttributeType(),actual2);
+        Assertions.assertEquals(INSENSITIVE.getAttributeType(),actual3);
     }
 
 }
