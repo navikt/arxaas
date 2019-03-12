@@ -10,7 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * [TODO] MOCK Anonymizer and Analyser dependencies
@@ -55,38 +57,42 @@ public class AnonymizationServiceTest {
     @Test
     public void anonymize_beforeAnonymizationMetrics() {
         AnonymizationResultPayload test= anonymizationService.anonymize(testPayload);
-        String actual = String.valueOf(test.getBeforeAnonymizationMetrics());
-        String expected = "{measure_value=[%], " +
-                "records_affected_by_highest_risk=100.0, " +
-                "sample_uniques=100.0, estimated_prosecutor_risk=100.0, " +
-                "population_model=ZAYATZ, " +
-                "records_affected_by_lowest_risk=100.0, " +
-                "estimated_marketer_risk=100.0, " +
-                "highest_prosecutor_risk=100.0, " +
-                "estimated_journalist_risk=100.0, " +
-                "lowest_risk=100.0, " +
-                "average_prosecutor_risk=100.0, " +
-                "population_uniques=100.0, " +
-                "quasi_identifiers=[zipcode, gender]}";
+        Map<String, String> actual = test.getBeforeAnonymizationMetrics();
+        Map<String,String > expected = new HashMap<>();
+            expected.put("measure_value","[%]");
+            expected.put("records_affected_by_highest_risk","100.0");
+            expected.put("sample_uniques","100.0");
+            expected.put("estimated_prosecutor_risk","100.0");
+            expected.put("population_model","ZAYATZ");
+            expected.put("records_affected_by_lowest_risk","100.0");
+            expected.put("estimated_marketer_risk","100.0");
+            expected.put("highest_prosecutor_risk","100.0");
+            expected.put("estimated_journalist_risk","100.0");
+            expected.put("lowest_risk","100.0");
+            expected.put("average_prosecutor_risk","100.0");
+            expected.put("population_uniques","100.0");
+            expected.put("quasi_identifiers","[zipcode, gender]");
         Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void anonymize_afterAnonymizationMetrics() {
         AnonymizationResultPayload test= anonymizationService.anonymize(testPayload);
-        String actual = String.valueOf(test.getAfterAnonymizationMetrics());
-        String expected = "{measure_value=[%], " +
-                "records_affected_by_highest_risk=45.45454545454545, " +
-                "sample_uniques=0.0, estimated_prosecutor_risk=20.0, " +
-                "population_model=DANKAR, " +
-                "records_affected_by_lowest_risk=54.54545454545454, " +
-                "estimated_marketer_risk=18.181818181818183, " +
-                "highest_prosecutor_risk=20.0, " +
-                "estimated_journalist_risk=20.0, " +
-                "lowest_risk=16.666666666666664, " +
-                "average_prosecutor_risk=18.181818181818183, " +
-                "population_uniques=0.0, " +
-                "quasi_identifiers=[zipcode, gender]}";
+        Map<String, String> actual = test.getAfterAnonymizationMetrics();
+        Map<String,String> expected = new HashMap<>();
+            expected.put("measure_value","[%]");
+            expected.put("records_affected_by_highest_risk","45.45454545454545");
+            expected.put("sample_uniques","0.0");
+            expected.put("estimated_prosecutor_risk","20.0");
+            expected.put("population_model","DANKAR");
+            expected.put("records_affected_by_lowest_risk","54.54545454545454");
+            expected.put("estimated_marketer_risk","18.181818181818183");
+            expected.put("highest_prosecutor_risk","20.0");
+            expected.put("estimated_journalist_risk","20.0");
+            expected.put("lowest_risk","16.666666666666664");
+            expected.put("average_prosecutor_risk","18.181818181818183");
+            expected.put("population_uniques","0.0");
+            expected.put("quasi_identifiers","[zipcode, gender]");
         Assert.assertEquals(expected,actual);
     }
 }
