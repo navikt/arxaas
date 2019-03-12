@@ -21,8 +21,8 @@ public class ARXDataFactory implements DataFactory {
     public Data create(AnonymizationPayload payload) {
         validateParameters(payload.getData(),payload.getMetaData());
         Data data = createData(payload.getData());
-        setAttributeTypes(data,payload.getMetaData().getAttributeTypeList());
         setHierarchies(data,payload.getMetaData());
+        setAttributeTypes(data,payload.getMetaData().getAttributeTypeList());
 
         return data;
     }

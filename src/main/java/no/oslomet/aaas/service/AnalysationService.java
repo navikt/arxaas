@@ -23,6 +23,4 @@ public class AnalysationService {
     public AnalysisResult analyse(AnalysationPayload payload){
         return analyser.analyse(payload);
     }
-
-
 }

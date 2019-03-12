@@ -3,6 +3,7 @@ package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.AnonymizationPayload;
+import no.oslomet.aaas.model.AttributeTypeModel;
 import no.oslomet.aaas.model.MetaData;
 import org.deidentifier.arx.Data;
 import org.deidentifier.arx.DataHandle;
@@ -11,7 +12,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static no.oslomet.aaas.model.AttributeTypeModel.*;
 
 /**
  * JOB: Coverts data from payload to fully configured ARX Data object
@@ -108,6 +113,51 @@ class ARXDataFactoryTest {
         };
 
         Assertions.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    void create_returnDataAttribute_is_not_overwritten_by_hierarchy(){
+        ARXDataFactory dataFactory = new ARXDataFactory();
+
+        MetaData testMetaData = new MetaData();
+        //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
+        Map<String, AttributeTypeModel> testMapAttribute = new HashMap<>();
+        testMapAttribute.put("age",IDENTIFYING);
+        testMapAttribute.put("gender",SENSITIVE);
+        testMapAttribute.put("zipcode",INSENSITIVE);
+        testMetaData.setAttributeTypeList(testMapAttribute);
+
+        //Defining Hierarchy for a give column name
+        Map<String ,String[][]> testMapHierarchy = new HashMap<>();
+        String [][] testHeirarchy = {
+                {"81667", "8166*", "816**", "81***", "8****", "*****"}
+                ,{"81668", "8166*", "816**", "81***", "8****", "*****"}
+                ,{"81669", "8166*", "816**", "81***", "8****", "*****"}
+                ,{"81670", "8167*", "816**", "81***", "8****", "*****"}
+                ,{"81671", "8167*", "816**", "81***", "8****", "*****"}
+                ,{"81672", "8167*", "816**", "81***", "8****", "*****"}
+                ,{"81673", "8167*", "816**", "81***", "8****", "*****"}
+                ,{"81674", "8167*", "816**", "81***", "8****", "*****"}
+                ,{"81675", "8167*", "816**", "81***", "8****", "*****"}
+                ,{"81676", "8167*", "816**", "81***", "8****", "*****"}
+                ,{"81677", "8167*", "816**", "81***", "8****", "*****"}
+        };
+        testMapHierarchy.put("zipcode",testHeirarchy);
+        testMapHierarchy.put("age",testHeirarchy);
+        testMapHierarchy.put("gender",testHeirarchy);
+        testMetaData.setHierarchy(testMapHierarchy);
+
+        testPayload.setMetaData(testMetaData);
+
+        Data data = dataFactory.create(testPayload);
+        DataHandle handle = data.getHandle();
+        String actual1 = String.valueOf(handle.getDefinition().getAttributeType("age"));
+        String actual2 = String.valueOf(handle.getDefinition().getAttributeType("gender"));
+        String actual3 = String.valueOf(handle.getDefinition().getAttributeType("zipcode"));
+
+        Assertions.assertEquals("IDENTIFYING_ATTRIBUTE",actual1);
+        Assertions.assertEquals("SENSITIVE_ATTRIBUTE",actual2);
+        Assertions.assertEquals("INSENSITIVE_ATTRIBUTE",actual3);
     }
 
 }
