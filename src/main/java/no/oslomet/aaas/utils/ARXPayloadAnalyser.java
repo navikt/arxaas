@@ -1,7 +1,6 @@
 package no.oslomet.aaas.utils;
 
 import org.deidentifier.arx.ARXPopulationModel;
-import org.deidentifier.arx.Data;
 import org.deidentifier.arx.DataHandle;
 import org.deidentifier.arx.risk.RiskModelPopulationUniqueness.PopulationUniquenessModel;
 import org.springframework.stereotype.Component;
