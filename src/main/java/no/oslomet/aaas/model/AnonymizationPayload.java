@@ -12,7 +12,7 @@ public class AnonymizationPayload {
 
     /***
      * Getter method for dataset to anonymize.
-     * @return String containing the tabular dataset
+     * @return List of String[] containing the tabular dataset
      */
     public List<String[]> getData() {
         return data;

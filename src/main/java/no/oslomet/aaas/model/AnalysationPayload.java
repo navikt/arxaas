@@ -28,7 +28,7 @@ public class AnalysationPayload {
 
     /***
      * Getter method for the dataset in the Analysation model.
-     * @return String containing the tabular dataset to analyse against re-identification risk
+     * @return List of String[] containing the tabular dataset to analyse against re-identification risk
      */
     public List<String[]> getData() {
         return data;

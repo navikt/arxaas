@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+/***
+ * Utility class for assigning a privacy model
+ */
 @Component
 public class ARXPrivacyCriterionFactory {
 
@@ -16,7 +19,7 @@ public class ARXPrivacyCriterionFactory {
      * Returns an Arx {@link PrivacyCriterion} object for the desired privacy object selected by the user.
      * @param model  enum representing the privacy model type we want created
      * @param params map containing parameters that defines which settings to be used to created the privacy model
-     * @return the {@link PrivacyCriterion} object created with the specified parameters
+     * @return an ARX {@link PrivacyCriterion} object created with the specified parameters
      */
     PrivacyCriterion create(PrivacyModel model, Map<String,String> params){
         switch(model){
