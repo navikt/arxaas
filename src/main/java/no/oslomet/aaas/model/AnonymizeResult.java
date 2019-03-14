@@ -16,7 +16,7 @@ public class AnonymizeResult {
 
     /***
      * Setter method for the response object the anonymization process.
-     * @param data list of string array containing the anonymized tabular dataset
+     * @param data list of String[] containing the anonymized tabular dataset
      * @param anonymizationStatus String containing the {@link Anonymity} status
      * @param payloadMetaData Model class {@link MetaData} containing anonymization and analysation settings
      *                        for the dataset
@@ -34,7 +34,7 @@ public class AnonymizeResult {
 
     /***
      * Getter method for the anonymized tabular dataset.
-     * @return List of string array containing the anonymized tabular dataset
+     * @return List of String[] containing the anonymized tabular dataset
      */
     public List<String[]> getData() {
         return data;
