@@ -5,7 +5,7 @@ metadata:
   labels:
     app: arxaas
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: arxaas
@@ -17,5 +17,6 @@ spec:
       containers:
       - name: arxaas
         image: arxaas/aaas:latest
+        imagePullPolicy: "Always"
         ports:
         - containerPort: 8080
