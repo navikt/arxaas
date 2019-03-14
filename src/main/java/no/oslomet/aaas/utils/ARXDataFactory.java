@@ -24,14 +24,6 @@ public class ARXDataFactory implements DataFactory {
         return data;
     }
 
-    @Override
-    public Data create(AnalysationPayload payload) {
-        validateParameters(payload.getData(),payload.getAttributeTypes());
-        Data data = createData(payload.getData());
-        setAttributeTypes(data, payload.getAttributeTypes());
-
-        return data;
-    }
 
     @Override
     public Data create(Request payload) {
@@ -56,13 +48,8 @@ public class ARXDataFactory implements DataFactory {
     /***
      * Validation method for checking against invalid parameters for data analyzation
      * @param rawData an list of String[] containing tabular dataset
-     * @param attributeTypes a map of string and {@link AttributeType} object containing parameters of dataset field attribute type
+     * @param attributes a list of {@link Attribute} object containing parameters for dataset field attribute type and hierarchy
      */
-    private void validateParameters(List<String[]> rawData, Map<String, AttributeTypeModel> attributeTypes){
-        if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
-        if(attributeTypes == null) throw new IllegalArgumentException("Attribute types parameter is null");
-    }
-
     private void validateParameters(List<String[]> rawData, List<Attribute> attributes){
         if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
         if(attributes == null) throw new IllegalArgumentException("attributes parameter is null");

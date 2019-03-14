@@ -2,7 +2,6 @@ package no.oslomet.aaas.service;
 
 
 import no.oslomet.aaas.analyser.Analyser;
-import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AnalysisResult;
 
 import no.oslomet.aaas.model.Request;
