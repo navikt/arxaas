@@ -1,9 +1,6 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.model.AnalysationPayload;
-import no.oslomet.aaas.model.AnonymizationPayload;
-import no.oslomet.aaas.model.AttributeTypeModel;
-import no.oslomet.aaas.model.MetaData;
+import no.oslomet.aaas.model.*;
 import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.Data;
 import org.springframework.stereotype.Component;
@@ -36,6 +33,15 @@ public class ARXDataFactory implements DataFactory {
         return data;
     }
 
+    @Override
+    public Data create(Request payload) {
+        validateParameters(payload.getData(),payload.getAttributes());
+        Data data = createData(payload.getData());
+        setAttributeTypes(data, payload.getAttributes());
+
+        return data;
+    }
+
     private void validateParameters(List<String[]> rawData,MetaData metaData){
         if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
         if(metaData == null) throw new IllegalArgumentException("metaData parameter is null");
@@ -44,6 +50,11 @@ public class ARXDataFactory implements DataFactory {
     private void validateParameters(List<String[]> rawData, Map<String, AttributeTypeModel> attributeTypes){
         if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
         if(attributeTypes == null) throw new IllegalArgumentException("Attribute types parameter is null");
+    }
+
+    private void validateParameters(List<String[]> rawData, List<Attribute> attributes){
+        if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
+        if(attributes == null) throw new IllegalArgumentException("metaData parameter is null");
     }
 
     /***
@@ -64,6 +75,14 @@ public class ARXDataFactory implements DataFactory {
         for (Map.Entry<String, AttributeTypeModel> entry : attributeTypes.entrySet())
         {
             data.getDefinition().setAttributeType(entry.getKey(),entry.getValue().getAttributeType());
+        }
+    }
+
+    private void setAttributeTypes(Data data, List<Attribute> attributes){
+        for (Attribute attribute: attributes)
+        {
+            data.getDefinition().setAttributeType(attribute.getField(),
+                    attribute.getAttributeTypeModel().getAttributeType());
         }
     }
 

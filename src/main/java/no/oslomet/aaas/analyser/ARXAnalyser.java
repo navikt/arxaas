@@ -1,7 +1,7 @@
 package no.oslomet.aaas.analyser;
 
-import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AnalysisResult;
+import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import no.oslomet.aaas.utils.DataFactory;
 import org.deidentifier.arx.ARXPopulationModel;
@@ -28,11 +28,11 @@ public class ARXAnalyser implements Analyser {
     }
 
     @Override
-    public AnalysisResult analyse(AnalysationPayload payload) {
+    public AnalysisResult analyse(Request payload) {
         Data data = dataFactory.create(payload);
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
-        Map<String,String> analasysMetrics = arxPayloadAnalyser.getPayloadAnalysisData(dataToAnalyse,pModel);
-        return new AnalysisResult(analasysMetrics);
+        Map<String,String> analysisMetrics = arxPayloadAnalyser.getPayloadAnalysisData(dataToAnalyse,pModel);
+        return new AnalysisResult(analysisMetrics);
     }
 }

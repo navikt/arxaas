@@ -14,7 +14,7 @@ import java.util.Map;
 import static no.oslomet.aaas.model.PrivacyModel.*;
 import static no.oslomet.aaas.model.PrivacyModel.LDIVERSITY_RECURSIVE;
 
-class ARXPrivacyCriterionFactoryTest {
+class ARXPrivacyModelModelFactoryTest {
 
     private AnonymizationPayload testpayload;
     private Map<PrivacyModel, Map<String, String>> models;

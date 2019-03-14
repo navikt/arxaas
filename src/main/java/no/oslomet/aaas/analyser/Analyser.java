@@ -2,6 +2,7 @@ package no.oslomet.aaas.analyser;
 
 import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AnalysisResult;
+import no.oslomet.aaas.model.Request;
 
 /**
  * Public contract to be forfilled by data anonymization analyse classes
@@ -14,5 +15,5 @@ public interface Analyser {
      * @param payload AnalysationPayload containing the data to be analysed and parameters for the analysation process
      * @return AnalysisResult object containing the metrics for the provided data
      */
-    AnalysisResult analyse(AnalysationPayload payload);
+    AnalysisResult analyse(Request payload);
 }

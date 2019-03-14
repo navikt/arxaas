@@ -2,6 +2,7 @@ package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AnalysisResult;
+import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.service.AnalysationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,7 @@ public class AnalysationController {
 
 
     @PostMapping
-    public AnalysisResult getPayloadAnalysis(@RequestBody AnalysationPayload payload) {
+    public AnalysisResult getPayloadAnalysis(@RequestBody Request payload) {
         return analysationService.analyse(payload);
     }
 

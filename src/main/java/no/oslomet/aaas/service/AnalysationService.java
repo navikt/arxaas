@@ -5,6 +5,7 @@ import no.oslomet.aaas.analyser.Analyser;
 import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AnalysisResult;
 
+import no.oslomet.aaas.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class AnalysationService {
     }
 
 
-    public AnalysisResult analyse(AnalysationPayload payload){
+    public AnalysisResult analyse(Request payload){
         return analyser.analyse(payload);
     }
 }
