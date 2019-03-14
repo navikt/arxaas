@@ -23,11 +23,11 @@ class AnonymizationIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private AnonymizationPayload testPayload;
+    private Request testPayload;
 
     @BeforeEach
     void setUp() {
-        testPayload = GenerateTestData.zipcodeAnonymizePayload();
+        testPayload = GenerateTestData.zipcodeRequestPayload();
     }
 
     @Test

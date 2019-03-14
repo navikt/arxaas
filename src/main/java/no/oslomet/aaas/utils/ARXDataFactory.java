@@ -55,7 +55,7 @@ public class ARXDataFactory implements DataFactory {
 
     private void validateParameters(List<String[]> rawData, List<Attribute> attributes){
         if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
-        if(attributes == null) throw new IllegalArgumentException("metaData parameter is null");
+        if(attributes == null) throw new IllegalArgumentException("attributes parameter is null");
     }
 
     /***
