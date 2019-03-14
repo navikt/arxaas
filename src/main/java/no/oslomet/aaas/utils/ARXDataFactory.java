@@ -38,8 +38,8 @@ public class ARXDataFactory implements DataFactory {
 
     /***
      * Validation method for checking against invalid parameters for data anonymization
-     * @param rawData
-     * @param metaData
+     * @param rawData an list of string array containing tabular dataset
+     * @param metaData a {@link MetaData} object containing parameters for anonymizing the dataset
      */
     private void validateParameters(List<String[]> rawData,MetaData metaData){
         if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
@@ -48,8 +48,8 @@ public class ARXDataFactory implements DataFactory {
 
     /***
      * Validation method for checking against invalid parameters for data analyzation
-     * @param rawData
-     * @param attributeTypes
+     * @param rawData an list of string array containing tabular dataset
+     * @param attributeTypes a map of string and {@link AttributeType} object containing parameters of dataset field attribute type
      */
     private void validateParameters(List<String[]> rawData, Map<String, AttributeTypeModel> attributeTypes){
         if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
@@ -59,7 +59,7 @@ public class ARXDataFactory implements DataFactory {
     /***
      * Returns an ARX {@link Data} object created from the provided String. The object is a table of records/fields made from
      * the provided string.
-     * @param rawData an object containing
+     * @param rawData an list of string array containing tabular dataset
      * @return the {@link Data} object created with the records/fields defined by the string of raw data
      */
     private Data createData(List<String[]> rawData) {
@@ -70,6 +70,7 @@ public class ARXDataFactory implements DataFactory {
      * Mutates an ARX {@link Data} object that holds the data set and assign an attribute type for each table row based
      * on the global {@link MetaData} metaData object.
      * @param data tabular data set to be anonymized
+     * @param attributeTypes a map of string and {@link AttributeType} object containing parameters of dataset field attribute type
      */
     private void setAttributeTypes(Data data, Map<String, AttributeTypeModel> attributeTypes){
         for (Map.Entry<String, AttributeTypeModel> entry : attributeTypes.entrySet())
@@ -82,6 +83,7 @@ public class ARXDataFactory implements DataFactory {
      * Mutates an ARX {@link Data} object by setting the hierarchies to be used on the different fields in the data set
      * based on the global {@link MetaData} metaData object.
      * @param data tabular data set to be anonymize
+     * @param metaData a {@link MetaData} object containing parameters for anonymizing the dataset
      */
     private void setHierarchies(Data data,MetaData metaData){
         for (Map.Entry<String, String[][]> entry : metaData.getHierarchy().entrySet())
