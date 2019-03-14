@@ -36,11 +36,21 @@ public class ARXDataFactory implements DataFactory {
         return data;
     }
 
+    /***
+     * Validation method for checking against invalid parameters for data anonymization
+     * @param rawData
+     * @param metaData
+     */
     private void validateParameters(List<String[]> rawData,MetaData metaData){
         if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
         if(metaData == null) throw new IllegalArgumentException("metaData parameter is null");
     }
 
+    /***
+     * Validation method for checking against invalid parameters for data analyzation
+     * @param rawData
+     * @param attributeTypes
+     */
     private void validateParameters(List<String[]> rawData, Map<String, AttributeTypeModel> attributeTypes){
         if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
         if(attributeTypes == null) throw new IllegalArgumentException("Attribute types parameter is null");
@@ -49,6 +59,7 @@ public class ARXDataFactory implements DataFactory {
     /***
      * Returns an ARX {@link Data} object created from the provided String. The object is a table of records/fields made from
      * the provided string.
+     * @param rawData an object containing
      * @return the {@link Data} object created with the records/fields defined by the string of raw data
      */
     private Data createData(List<String[]> rawData) {
