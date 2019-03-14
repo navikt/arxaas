@@ -1,7 +1,7 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AnonymizationPayload;
+import no.oslomet.aaas.model.Request;
 import org.deidentifier.arx.Data;
 
 /**
@@ -19,8 +19,8 @@ public interface DataFactory {
 
     /***
      * Returns an ARX {@link Data} object created from the provided payload.
-     * @param payload Model object containing the data to be analysed and parameters to use in analysation
+     * @param payload Model object containing the data to be analysed and anonymized, and parameters to use in analysation and anonymization
      * @return an ARX {@link Data} object containing a tabular dataset and attribute types assigned to each dataset field
      */
-    Data create(AnalysationPayload payload);
+    Data create(Request payload);
 }

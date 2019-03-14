@@ -1,8 +1,8 @@
 package no.oslomet.aaas.anonymizer;
 
 import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
-import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.AnonymizeResult;
+import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.ConfigurationFactory;
 import no.oslomet.aaas.utils.DataFactory;
 import org.deidentifier.arx.*;
@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class ARXAnonymiser implements Anonymiser {
 
-        private final DataFactory dataFactory;
+    private final DataFactory dataFactory;
     private final ConfigurationFactory configFactory;
 
     @Autowired
@@ -29,16 +29,16 @@ public class ARXAnonymiser implements Anonymiser {
     }
 
     @Override
-    public AnonymizeResult anonymize(AnonymizationPayload payload) {
+    public AnonymizeResult anonymize(Request payload) {
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         configureAnonymizer(anonymizer);
 
         Data data = dataFactory.create(payload);
-        ARXConfiguration config = configFactory.create(payload.getMetaData());
+        ARXConfiguration config = configFactory.create(payload.getPrivacyModels());
         try {
             ARXResult result = anonymizer.anonymize(data,config);
             List<String[]> anonymisedData = createRawDataList(result);
-            return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), payload.getMetaData(), null);
+            return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), null, null);
         } catch (IOException e) {
             throw new UnableToAnonymizeDataException(e.getMessage());
         }

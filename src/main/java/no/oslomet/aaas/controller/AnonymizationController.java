@@ -3,6 +3,7 @@ package no.oslomet.aaas.controller;
 import no.oslomet.aaas.model.AnonymizationResultPayload;
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.MetaData;
+import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.service.AnonymizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class AnonymizationController {
     }
 
     @PostMapping
-    public AnonymizationResultPayload anonymization(@RequestBody AnonymizationPayload payload) {
+    public AnonymizationResultPayload anonymization(@RequestBody Request payload) {
         return anonymizationService.anonymize(payload);
     }
 

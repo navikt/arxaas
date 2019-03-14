@@ -1,12 +1,14 @@
 package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.model.MetaData;
+import no.oslomet.aaas.model.PrivacyModelModel;
 import no.oslomet.aaas.model.PrivacyModel;
 import org.deidentifier.arx.ARXConfiguration;
-import org.deidentifier.arx.criteria.*;
+import org.deidentifier.arx.criteria.PrivacyCriterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -24,6 +26,14 @@ public class ARXConfigurationFactory implements ConfigurationFactory {
         ARXConfiguration config = ARXConfiguration.create();
         setSuppressionLimit(config);
         setPrivacyModels(config,metaData);
+        return config;
+    }
+
+    @Override
+    public ARXConfiguration create(List<PrivacyModelModel> privacyModels){
+        ARXConfiguration config = ARXConfiguration.create();
+        setSuppressionLimit(config);
+        setPrivacyModels(config, privacyModels);
         return config;
     }
 
@@ -47,11 +57,18 @@ public class ARXConfigurationFactory implements ConfigurationFactory {
         }
     }
 
+    private void setPrivacyModels(ARXConfiguration config, List<PrivacyModelModel> privacyModels){
+        for (PrivacyModelModel model: privacyModels) {
+            config.addPrivacyModel(getPrivacyModel(model.getPrivacyModel(), model.getParams()));
+        }
+    }
+
+
     /**
-     * Returns an Arx {@link PrivacyCriterion} object for the desired privacy object selected by the user.
+     * Returns an Arx {@link PrivacyModelModel} object for the desired privacy object selected by the user.
      * @param model  enum representing the privacy model type we want created
      * @param params map containing parameters that defines which settings to be used to created the privacy model
-     * @return the {@link PrivacyCriterion} object created with the specified parameters
+     * @return the {@link PrivacyModelModel} object created with the specified parameters
      */
     private PrivacyCriterion getPrivacyModel(PrivacyModel model, Map<String,String> params){
         return arxPrivacyCriterionFactory.create(model, params);

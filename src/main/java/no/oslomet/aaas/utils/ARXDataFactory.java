@@ -1,9 +1,6 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.model.AnalysationPayload;
-import no.oslomet.aaas.model.AnonymizationPayload;
-import no.oslomet.aaas.model.AttributeTypeModel;
-import no.oslomet.aaas.model.MetaData;
+import no.oslomet.aaas.model.*;
 import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.Data;
 import org.springframework.stereotype.Component;
@@ -27,11 +24,13 @@ public class ARXDataFactory implements DataFactory {
         return data;
     }
 
+
     @Override
-    public Data create(AnalysationPayload payload) {
-        validateParameters(payload.getData(),payload.getAttributeTypes());
+    public Data create(Request payload) {
+        validateParameters(payload.getData(),payload.getAttributes());
         Data data = createData(payload.getData());
-        setAttributeTypes(data, payload.getAttributeTypes());
+        setHierarchies(data, payload.getAttributes());
+        setAttributeTypes(data, payload.getAttributes());
 
         return data;
     }
@@ -49,11 +48,11 @@ public class ARXDataFactory implements DataFactory {
     /***
      * Validation method for checking against invalid parameters for data analyzation
      * @param rawData an list of String[] containing tabular dataset
-     * @param attributeTypes a map of string and {@link AttributeType} object containing parameters of dataset field attribute type
+     * @param attributes a list of {@link Attribute} object containing parameters for dataset field attribute type and hierarchy
      */
-    private void validateParameters(List<String[]> rawData, Map<String, AttributeTypeModel> attributeTypes){
+    private void validateParameters(List<String[]> rawData, List<Attribute> attributes){
         if(rawData == null) throw new IllegalArgumentException("rawData parameter is null");
-        if(attributeTypes == null) throw new IllegalArgumentException("Attribute types parameter is null");
+        if(attributes == null) throw new IllegalArgumentException("attributes parameter is null");
     }
 
     /***
@@ -79,6 +78,14 @@ public class ARXDataFactory implements DataFactory {
         }
     }
 
+    private void setAttributeTypes(Data data, List<Attribute> attributes){
+        for (Attribute attribute: attributes)
+        {
+            data.getDefinition().setAttributeType(attribute.getField(),
+                    attribute.getAttributeTypeModel().getAttributeType());
+        }
+    }
+
     /**
      * Mutates an ARX {@link Data} object by setting the hierarchies to be used on the different fields in the data set
      * based on the global {@link MetaData} metaData object.
@@ -90,6 +97,17 @@ public class ARXDataFactory implements DataFactory {
         {
             AttributeType.Hierarchy hierarchy = AttributeType.Hierarchy.create(entry.getValue());
             data.getDefinition().setAttributeType(entry.getKey(),hierarchy);
+        }
+    }
+
+    private void setHierarchies(Data data, List<Attribute> attributeList){
+        for (Attribute attribute : attributeList)
+        {
+            List<String[]> rawHierarchy = attribute.getHierarchy();
+            if (rawHierarchy != null) {
+                AttributeType.Hierarchy hierarchy = AttributeType.Hierarchy.create(rawHierarchy);
+                data.getDefinition().setAttributeType(attribute.getField(), hierarchy);
+            }
         }
     }
 
