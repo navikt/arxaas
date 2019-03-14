@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class ARXAnonymiser implements Anonymiser {
 
-        private final DataFactory dataFactory;
+    private final DataFactory dataFactory;
     private final ConfigurationFactory configFactory;
 
     @Autowired

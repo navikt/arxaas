@@ -37,6 +37,7 @@ public class ARXDataFactory implements DataFactory {
     public Data create(Request payload) {
         validateParameters(payload.getData(),payload.getAttributes());
         Data data = createData(payload.getData());
+        setHierarchies(data, payload.getAttributes());
         setAttributeTypes(data, payload.getAttributes());
 
         return data;
@@ -96,6 +97,17 @@ public class ARXDataFactory implements DataFactory {
         {
             AttributeType.Hierarchy hierarchy = AttributeType.Hierarchy.create(entry.getValue());
             data.getDefinition().setAttributeType(entry.getKey(),hierarchy);
+        }
+    }
+
+    private void setHierarchies(Data data, List<Attribute> attributeList){
+        for (Attribute attribute : attributeList)
+        {
+            List<String[]> rawHierarchy = attribute.getHierarchy();
+            if (rawHierarchy != null) {
+                AttributeType.Hierarchy hierarchy = AttributeType.Hierarchy.create(rawHierarchy);
+                data.getDefinition().setAttributeType(attribute.getField(), hierarchy);
+            }
         }
     }
 

@@ -2,7 +2,7 @@ package no.oslomet.aaas.service;
 
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.analyser.ARXAnalyser;
-import no.oslomet.aaas.model.AnalysationPayload;
+import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,15 +21,15 @@ public class AnalysationServiceTest {
     @Before
     public void initialize(){ analysationService = new AnalysationService(arxAnalyser); }
 
-    private AnalysationPayload testPayload;
+    private Request testRequestPayload;
     @Before
     public void generateTestData() {
-        testPayload = GenerateTestData.zipcodeAnalysisPayload();
+        testRequestPayload = GenerateTestData.zipcodeRequestPayload();
     }
 
     @Test
     public void getPayloadAnalysis() {
-        Map<String, String> actual = analysationService.analyse(testPayload).getMetrics();
+        Map<String, String> actual = analysationService.analyse(testRequestPayload).getMetrics();
         Map<String,String > expected = new HashMap<>();
             expected.put("measure_value","[%]");
             expected.put("records_affected_by_highest_risk","100.0");

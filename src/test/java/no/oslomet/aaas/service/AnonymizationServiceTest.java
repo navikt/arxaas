@@ -21,7 +21,7 @@ import java.util.Map;
 public class AnonymizationServiceTest {
 
     private AnonymizationService anonymizationService;
-    private AnonymizationPayload testPayload;
+    private Request testRequestPayload;
 
     @Before
     public void setUp() {
@@ -29,12 +29,12 @@ public class AnonymizationServiceTest {
         ConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
         anonymizationService = new AnonymizationService(new ARXAnonymiser(dataFactory,configurationFactory),
                 new ARXAnalyser(new ARXDataFactory(), new ARXPayloadAnalyser()));
-        testPayload = GenerateTestData.zipcodeAnonymizePayload();
+        testRequestPayload = GenerateTestData.zipcodeRequestPayload();
     }
 
     @Test
     public void anonymize_result() {
-        AnonymizationResultPayload test= anonymizationService.anonymize(testPayload);
+        AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
         List<String[]> actual= test.getAnonymizeResult().getData();
         String[][] rawData = {{"age", "gender", "zipcode" },
                 {"*", "male", "816**"},
@@ -56,7 +56,7 @@ public class AnonymizationServiceTest {
 
     @Test
     public void anonymize_beforeAnonymizationMetrics() {
-        AnonymizationResultPayload test= anonymizationService.anonymize(testPayload);
+        AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
         Map<String, String> actual = test.getBeforeAnonymizationMetrics();
         Map<String,String > expected = new HashMap<>();
             expected.put("measure_value","[%]");
@@ -77,7 +77,7 @@ public class AnonymizationServiceTest {
 
     @Test
     public void anonymize_afterAnonymizationMetrics() {
-        AnonymizationResultPayload test= anonymizationService.anonymize(testPayload);
+        AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
         Map<String, String> actual = test.getAfterAnonymizationMetrics();
         Map<String,String> expected = new HashMap<>();
             expected.put("measure_value","[%]");
