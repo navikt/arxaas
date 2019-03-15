@@ -1,7 +1,6 @@
 package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.GenerateTestData;
-import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.Request;
 import org.deidentifier.arx.ARXConfiguration;
 import org.deidentifier.arx.criteria.KAnonymity;
