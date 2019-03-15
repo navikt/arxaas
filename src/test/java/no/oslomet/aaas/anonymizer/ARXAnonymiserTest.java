@@ -1,7 +1,6 @@
 package no.oslomet.aaas.anonymizer;
 
 import no.oslomet.aaas.GenerateTestData;
-import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.*;
 import org.junit.Before;

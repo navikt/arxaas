@@ -1,6 +1,5 @@
 package no.oslomet.aaas.anonymizer;
 
-import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.AnonymizeResult;
 import no.oslomet.aaas.model.Request;
 
