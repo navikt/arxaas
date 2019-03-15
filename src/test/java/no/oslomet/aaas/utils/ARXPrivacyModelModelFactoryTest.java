@@ -3,6 +3,7 @@ package no.oslomet.aaas.utils;
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.AnonymizationPayload;
 import no.oslomet.aaas.model.PrivacyModel;
+import no.oslomet.aaas.model.Request;
 import org.deidentifier.arx.criteria.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,12 +17,12 @@ import static no.oslomet.aaas.model.PrivacyModel.LDIVERSITY_RECURSIVE;
 
 class ARXPrivacyModelModelFactoryTest {
 
-    private AnonymizationPayload testpayload;
+    private Request testpayload;
     private Map<PrivacyModel, Map<String, String>> models;
 
     @BeforeEach
     void setUp(){
-        testpayload = GenerateTestData.zipcodeAnonymizePayload();
+        testpayload = GenerateTestData.zipcodeRequestPayload();
         models = new HashMap<>();
         models.put(KANONYMITY, Map.of("k","4","expected",new KAnonymity(4).toString()));
         models.put(LDIVERSITY_DISTINCT, Map.of("l","4","column_name","gender",

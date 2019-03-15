@@ -2,6 +2,7 @@ package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.AnonymizationPayload;
+import no.oslomet.aaas.model.Request;
 import org.deidentifier.arx.ARXConfiguration;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.deidentifier.arx.criteria.PrivacyCriterion;
@@ -13,25 +14,25 @@ import java.util.Set;
 
 class ARXConfigurationFactoryTest {
 
-    private AnonymizationPayload testPayload;
+    private Request testPayload;
     private final ARXConfigurationFactory arxConfigurationFactory= new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
 
     @BeforeEach
     void generateTestData() {
-        testPayload = GenerateTestData.zipcodeAnonymizePayload();
+        testPayload = GenerateTestData.zipcodeRequestPayload();
     }
 
 
     @Test
     void create_NotNull() {
         ARXConfigurationFactory arxConfigurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
-        ARXConfiguration resultConfig = arxConfigurationFactory.create(testPayload.getMetaData());
+        ARXConfiguration resultConfig = arxConfigurationFactory.create(testPayload.getPrivacyModels());
         Assertions.assertNotNull(resultConfig);
     }
 
     @Test
     void setSuppression(){
-        ARXConfiguration config = arxConfigurationFactory.create(testPayload.getMetaData());
+        ARXConfiguration config = arxConfigurationFactory.create(testPayload.getPrivacyModels());
         double actual = config.getSuppressionLimit();
 
         Assertions.assertEquals(0.02,actual);
@@ -39,7 +40,7 @@ class ARXConfigurationFactoryTest {
 
     @Test
     void setPrivacyModels_KAnon(){
-        ARXConfiguration config = arxConfigurationFactory.create(testPayload.getMetaData());
+        ARXConfiguration config = arxConfigurationFactory.create(testPayload.getPrivacyModels());
         Set<PrivacyCriterion> actual = config.getPrivacyModels();
         PrivacyCriterion expected = new KAnonymity(5);
         Assertions.assertEquals(expected.toString(), actual.toArray()[0].toString());
