@@ -1,6 +1,5 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.model.MetaData;
 import no.oslomet.aaas.model.PrivacyModelModel;
 import no.oslomet.aaas.model.PrivacyModel;
 import org.deidentifier.arx.ARXConfiguration;
@@ -22,14 +21,6 @@ public class ARXConfigurationFactory implements ConfigurationFactory {
     }
 
     @Override
-    public ARXConfiguration create(MetaData metaData){
-        ARXConfiguration config = ARXConfiguration.create();
-        setSuppressionLimit(config);
-        setPrivacyModels(config,metaData);
-        return config;
-    }
-
-    @Override
     public ARXConfiguration create(List<PrivacyModelModel> privacyModels){
         ARXConfiguration config = ARXConfiguration.create();
         setSuppressionLimit(config);
@@ -48,21 +39,13 @@ public class ARXConfigurationFactory implements ConfigurationFactory {
     /***
      * Mutates an ARX {@link ARXConfiguration} object by setting the privacy models defined by the payload.
      * @param config an ARX {@link ARXConfiguration} object that holds the anonymize/data set settings
-     * @param metaData object containing parameters that defines the privacy models to be used
+     * @param privacyModels a List of {@link PrivacyModelModel} object containing parameters that defines the privacy models to be used
      */
-    private void setPrivacyModels(ARXConfiguration config, MetaData metaData){
-        for (Map.Entry<PrivacyModel, Map<String,String>> entry : metaData.getModels().entrySet())
-        {
-            config.addPrivacyModel(getPrivacyModel(entry.getKey(),entry.getValue()));
-        }
-    }
-
     private void setPrivacyModels(ARXConfiguration config, List<PrivacyModelModel> privacyModels){
         for (PrivacyModelModel model: privacyModels) {
             config.addPrivacyModel(getPrivacyModel(model.getPrivacyModel(), model.getParams()));
         }
     }
-
 
     /**
      * Returns an Arx {@link PrivacyModelModel} object for the desired privacy object selected by the user.
