@@ -24,7 +24,7 @@ public class AnalysationServiceTest {
     private Request testRequestPayload;
     @Before
     public void generateTestData() {
-        testRequestPayload = GenerateTestData.zipcodeRequestPayload();
+        testRequestPayload = GenerateTestData.zipcodeRequestPayload2Quasi();
     }
 
     @Test
@@ -43,7 +43,7 @@ public class AnalysationServiceTest {
             expected.put("lowest_risk","100.0");
             expected.put("average_prosecutor_risk","100.0");
             expected.put("population_uniques","100.0");
-            expected.put("quasi_identifiers","[zipcode]");
+            expected.put("quasi_identifiers","[zipcode, gender]");
         Assert.assertEquals(expected,actual);
     }
 }
