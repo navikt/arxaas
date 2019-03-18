@@ -1,6 +1,5 @@
 package no.oslomet.aaas.controller;
 
-import no.oslomet.aaas.model.AnalysationPayload;
 import no.oslomet.aaas.model.AnalysisResult;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.service.AnalysationService;

@@ -38,7 +38,7 @@ public class ARXAnonymiser implements Anonymiser {
         try {
             ARXResult result = anonymizer.anonymize(data,config);
             List<String[]> anonymisedData = createRawDataList(result);
-            return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), null, null);
+            return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), null);
         } catch (IOException e) {
             throw new UnableToAnonymizeDataException(e.getMessage());
         }

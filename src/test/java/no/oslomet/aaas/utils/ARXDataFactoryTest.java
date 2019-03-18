@@ -2,9 +2,7 @@ package no.oslomet.aaas.utils;
 
 
 import no.oslomet.aaas.GenerateTestData;
-import no.oslomet.aaas.model.AnonymizationPayload;
-import no.oslomet.aaas.model.AttributeTypeModel;
-import no.oslomet.aaas.model.MetaData;
+import no.oslomet.aaas.model.Request;
 import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.Data;
 import org.deidentifier.arx.DataHandle;
@@ -13,9 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static no.oslomet.aaas.model.AttributeTypeModel.*;
 
@@ -28,12 +24,12 @@ import static no.oslomet.aaas.model.AttributeTypeModel.*;
  */
 class ARXDataFactoryTest {
 
-    private AnonymizationPayload testPayload;
+    private Request testPayload;
 
 
     @BeforeEach
     void generateTestData() {
-        testPayload = GenerateTestData.zipcodeAnonymizePayload();
+        testPayload = GenerateTestData.zipcodeRequestPayload2Quasi();
     }
 
     @Test
@@ -46,10 +42,23 @@ class ARXDataFactoryTest {
 
     @Test
      void create_with_null_data(){
-        testPayload.setMetaData(null);
+        String[][] rawData = {{"age", "gender", "zipcode" },
+                {"34", "male", "81667"},
+                {"35", "female", "81668"},
+                {"36", "male", "81669"},
+                {"37", "female", "81670"},
+                {"38", "male", "81671"},
+                {"39", "female", "81672"},
+                {"40", "male", "81673"},
+                {"41", "female", "81674"},
+                {"42", "male", "81675"},
+                {"43", "female", "81676"},
+                {"44", "male", "81677"}};
+        List<String[]> testData = List.of(rawData);
+
+        testPayload = new Request(null,null,null);
         Assertions.assertThrows(IllegalArgumentException.class, () -> (new ARXDataFactory()).create(testPayload));
-        testPayload.setMetaData(new MetaData());
-        testPayload.setData(null);
+        testPayload = new Request( testData ,null,null);
         Assertions.assertThrows(IllegalArgumentException.class, () -> (new ARXDataFactory()).create(testPayload));
     }
 
@@ -120,25 +129,7 @@ class ARXDataFactoryTest {
     void create_returnDataAttribute_is_not_overwritten_by_hierarchy(){
         ARXDataFactory dataFactory = new ARXDataFactory();
 
-        MetaData testMetaData = new MetaData();
-        //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
-        Map<String, AttributeTypeModel> testMapAttribute = new HashMap<>();
-        testMapAttribute.put("age",IDENTIFYING);
-        testMapAttribute.put("gender",SENSITIVE);
-        testMapAttribute.put("zipcode",INSENSITIVE);
-        testMetaData.setAttributeTypeList(testMapAttribute);
-
-        //Defining Hierarchy for a give column name
-        Map<String ,String[][]> testMapHierarchy = new HashMap<>();
-        String [][] testHeirarchy = {
-                {"81667", "8166*", "816**", "81***", "8****", "*****"}
-                        };
-        testMapHierarchy.put("zipcode",testHeirarchy);
-        testMapHierarchy.put("age",testHeirarchy);
-        testMapHierarchy.put("gender",testHeirarchy);
-        testMetaData.setHierarchy(testMapHierarchy);
-
-        testPayload.setMetaData(testMetaData);
+        testPayload = GenerateTestData.zipcodeRequestPayloadHierarchyOverwrite();
 
         Data data = dataFactory.create(testPayload);
         DataHandle handle = data.getHandle();

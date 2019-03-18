@@ -71,7 +71,8 @@ public class AnonymizationServiceTest {
             expected.put("lowest_risk","100.0");
             expected.put("average_prosecutor_risk","100.0");
             expected.put("population_uniques","100.0");
-            expected.put("quasi_identifiers","[zipcode, gender]");
+            expected.put("quasi_identifiers","[zipcode]");
+
         Assert.assertEquals(expected.keySet(),actual.keySet());
     }
 
@@ -92,7 +93,7 @@ public class AnonymizationServiceTest {
             expected.put("lowest_risk","16.666666666666664");
             expected.put("average_prosecutor_risk","18.181818181818183");
             expected.put("population_uniques","0.0");
-            expected.put("quasi_identifiers","[zipcode, gender]");
+            expected.put("quasi_identifiers","[zipcode]");
         Assert.assertEquals(expected.keySet(),actual.keySet());
     }
 }
