@@ -31,7 +31,6 @@ public class GenerateTestData {
         List<String[]> testData = List.of(rawData);
 
         //Defining Hierarchy for a give column name
-        Map<String ,String[][]> testMapHierarchy = new HashMap<>();
         String [][] testHeirarchy = {
                 {"81667", "8166*", "816**", "81***", "8****", "*****"}
                 ,{"81668", "8166*", "816**", "81***", "8****", "*****"}
@@ -47,7 +46,6 @@ public class GenerateTestData {
 
         List<String []> listHierarchy = List.of(testHeirarchy);
 
-        testMetaData.setHierarchy(testMapHierarchy);
 
         //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
         List<Attribute> testAttributes = new ArrayList<>();
@@ -63,7 +61,6 @@ public class GenerateTestData {
         Map<String,String> lMapValue = new HashMap<>();
         lMapValue.put("l", "2");
         lMapValue.put("column_name", "gender");
-
         privacyModelModelList.add(new PrivacyModelModel(LDIVERSITY_DISTINCT, lMapValue));
 
        return new Request(testData, testAttributes, privacyModelModelList);
@@ -87,7 +84,6 @@ public class GenerateTestData {
         List<String[]> testData = List.of(rawData);
 
         //Defining Hierarchy for a give column name
-        Map<String ,String[][]> testMapHierarchy = new HashMap<>();
         String [][] testHeirarchy = {
                 {"81667", "8166*", "816**", "81***", "8****", "*****"}
                 ,{"81668", "8166*", "816**", "81***", "8****", "*****"}
@@ -103,7 +99,6 @@ public class GenerateTestData {
 
         List<String []> listHierarchy = List.of(testHeirarchy);
 
-        testMetaData.setHierarchy(testMapHierarchy);
 
         //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
         List<Attribute> testAttributes = new ArrayList<>();
@@ -138,14 +133,11 @@ public class GenerateTestData {
         List<String[]> testData = List.of(rawData);
 
         //Defining Hierarchy for a give column name
-        Map<String ,String[][]> testMapHierarchy = new HashMap<>();
         String [][] testHeirarchy = {
                 {"81667", "8166*", "816**", "81***", "8****", "*****"}
                 ,{"81668", "8166*", "816**", "81***", "8****", "*****"}};
 
         List<String []> listHierarchy = List.of(testHeirarchy);
-
-        testMetaData.setHierarchy(testMapHierarchy);
 
         //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
         List<Attribute> testAttributes = new ArrayList<>();

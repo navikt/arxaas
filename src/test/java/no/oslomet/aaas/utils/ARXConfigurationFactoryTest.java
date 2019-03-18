@@ -18,7 +18,7 @@ class ARXConfigurationFactoryTest {
 
     @BeforeEach
     void generateTestData() {
-        testPayload = GenerateTestData.zipcodeRequestPayload();
+        testPayload = GenerateTestData.zipcodeRequestPayload2Quasi();
     }
 
 

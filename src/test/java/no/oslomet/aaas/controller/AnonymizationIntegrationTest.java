@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
@@ -28,13 +26,6 @@ class AnonymizationIntegrationTest {
     @BeforeEach
     void setUp() {
         testPayload = GenerateTestData.zipcodeRequestPayload();
-    }
-
-    @Test
-    void anonymization_get() {
-        ResponseEntity<AnonymizationPayload> responseEntity = restTemplate.getForEntity("/api/anonymize", AnonymizationPayload.class);
-        assertSame(responseEntity.getStatusCode(), HttpStatus.OK);
-        assertNull(Objects.requireNonNull(responseEntity.getBody()).getData());
     }
 
     @Test
