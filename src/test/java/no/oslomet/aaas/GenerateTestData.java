@@ -14,7 +14,6 @@ import static no.oslomet.aaas.model.PrivacyModel.LDIVERSITY_DISTINCT;
 public class GenerateTestData {
 
     public static Request zipcodeRequestPayload() {
-        MetaData testMetaData = new MetaData();
 
         String[][] rawData = {{"age", "gender", "zipcode" },
                 {"34", "male", "81667"},
@@ -67,7 +66,6 @@ public class GenerateTestData {
     }
 
     public static Request zipcodeRequestPayload2Quasi() {
-        MetaData testMetaData = new MetaData();
 
         String[][] rawData = {{"age", "gender", "zipcode" },
                 {"34", "male", "81667"},
@@ -116,7 +114,6 @@ public class GenerateTestData {
     }
 
     public static Request zipcodeRequestPayloadHierarchyOverwrite() {
-        MetaData testMetaData = new MetaData();
 
         String[][] rawData = {{"age", "gender", "zipcode" },
                 {"34", "male", "81667"},

@@ -45,7 +45,7 @@ public class ARXDataFactory implements DataFactory {
 
     /***
      * Mutates an ARX {@link Data} object that holds the data set and assign an attribute type for each table row based
-     * on the global {@link MetaData} metaData object.
+     * on the global {@link Attribute} object.
      * @param data tabular data set to be anonymized
      * @param attributes a List of {@link Attribute} object containing parameters of dataset field attribute type and hierarchy
      */
@@ -59,7 +59,7 @@ public class ARXDataFactory implements DataFactory {
 
     /**
      * Mutates an ARX {@link Data} object by setting the hierarchies to be used on the different fields in the data set
-     * based on the global {@link MetaData} metaData object.
+     * based on the global {@link Attribute} object.
      * @param data tabular data set to be anonymize
      * @param attributeList a List {@link Attribute} object containing parameters of dataset field attribute type and hierarchy
      */
