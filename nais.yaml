@@ -1,0 +1,10 @@
+image: arxaas/aaas:latest
+team: ailab
+port: 8080
+
+ingress:
+  enabled: true
+  
+replicas:
+  min: 1
+  max: 1
