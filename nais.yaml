@@ -1,4 +1,4 @@
-image: arxaas/aaas:latest
+image: repo.adeo.no:5443/aaas
 team: ailab
 port: 8080
 
