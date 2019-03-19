@@ -7,9 +7,9 @@ node {
    def yaml_path
    def version_tag
 
-   def app_name = 'ai-lab-nace-poc'
-   def namespace = 'ai-lab-nace-poc'
-   def cluster = 'oera-q.local'
+   def app_name = 'arxaas'
+   def namespace = 'default'
+   def cluster = 'preprod.local'
 
    def date = new Date()
    def datestring = new SimpleDateFormat("yyyy-MM-dd").format(date);
