@@ -24,6 +24,10 @@ node {
            def git_commit_hash = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
            version_tag = "${datestring}-${git_commit_hash}"
        }
+      
+      stage('fetch arx') {
+         sh 'wget  http://arx.deidentifier.org/wp-content/uploads/downloads/libarx-3.7.1.jar -P ./src/main/resources/'
+      }
 
        stage('Build docker image') {
            app = docker.build("${app_name}")
