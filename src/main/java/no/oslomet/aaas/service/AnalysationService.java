@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnalysationService {
 
+    @Autowired
     private final Analyser analyser;
 
     @Autowired
