@@ -156,6 +156,20 @@ public class ARXPayloadAnalyserTest {
     }
 
     @Test
+    public void getPayloadDistributionOfRecordsWithRisk(){
+        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithRisk(testData,pModel);
+        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+        Assertions.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void getPayloadDistributionOfRecordsWithMaximalRisk(){
+        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithMaximalRisk(testData,pModel);
+        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+        Assertions.assertArrayEquals(expected,actual);
+    }
+
+    @Test
     public void getPayloadAnalysisData() {
         Map<String, String> actual = arxPayloadAnalyser.getPayloadAnalysisData(testData,pModel);
         Map<String,String > expected = new HashMap<>();
@@ -243,6 +257,20 @@ public class ARXPayloadAnalyserTest {
         Set<String> actual = arxPayloadAnalyser.getPayloadQuasiIdentifiers(testResultData);
         Set<String> expected = Set.of("zipcode", "gender");
         Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void getDistributionOfRecordsWithRisk(){
+        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithRisk(testResultData,pModel);
+        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,0.45454545454545453,0.0,0.0,0.0,0.0};
+        Assertions.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void getDistributionOfRecordsWithMaximalRisk(){
+        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithMaximalRisk(testResultData,pModel);
+        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,1.0,1.0,1.0,1.0,1.0};
+        Assertions.assertArrayEquals(expected,actual);
     }
 
     @Test

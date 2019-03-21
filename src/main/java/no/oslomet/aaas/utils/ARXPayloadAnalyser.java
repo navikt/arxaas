@@ -157,6 +157,26 @@ public class ARXPayloadAnalyser {
     }
 
     /***
+     * Returns a double[] that contains Risk records on the different prosecutor risk ranges.
+     * @param data tabular data set to be analysed against re-identification risk
+     * @param pModel population model for our data set that defines the population size and sampling fraction
+     * @return double[] that contains Risk records on the different prosecutor risk ranges
+     */
+    public double[] getDistributionOfRecordsWithRisk(DataHandle data,ARXPopulationModel pModel){
+        return data.getRiskEstimator(pModel).getSampleBasedRiskDistribution().getFractionOfRecordsForRiskThresholds();
+    }
+
+    /***
+     * Returns a double[] that contains maximal risk records on the different prosecutor risk ranges.
+     * @param data tabular data set to be analysed against re-identification risk
+     * @param pModel population model for our data set that defines the population size and sampling fraction
+     * @return double[] that contains maximal risk records on the different prosecutor risk ranges
+     */
+    public double[] getDistributionOfRecordsWithMaximalRisk(DataHandle data,ARXPopulationModel pModel){
+        return data.getRiskEstimator(pModel).getSampleBasedRiskDistribution().getFractionOfRecordsForCumulativeRiskThresholds();
+    }
+
+    /***
      * Returns a map containing the different statistics found from the data set.
      * @param data tabular data set to be analysed against re-identification risk
      * @param pModel population model for our data set that defines the population size and sampling fraction
@@ -179,4 +199,5 @@ public class ARXPayloadAnalyser {
         metricsMap.put("quasi_identifiers", getPayloadQuasiIdentifiers(data).toString());
         return metricsMap;
     }
+
 }
