@@ -1,7 +1,5 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.model.DistributionIntervalModel;
-import no.oslomet.aaas.model.DistributionOfRiskModel;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
@@ -193,23 +191,6 @@ public class ARXPayloadAnalyserTest {
         Assertions.assertEquals(expected,actual);
     }
 
-    @Test
-    public void createPayloadListOfDistributionRisk(){
-        DistributionOfRiskModel distributionOfRiskModel = arxPayloadAnalyser.createListOfDistributionOfRisk(testData,pModel);
-        List<DistributionIntervalModel> distributionIntervalModelList = distributionOfRiskModel.getDistributionIntervalModelList();
-
-        double[] recordsOfRiskWithInInterval ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
-        double[] recordsOfMaximalRiskWithInInterval ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
-
-        int index = distributionIntervalModelList.size();
-        for(DistributionIntervalModel actual: distributionIntervalModelList){
-                Assertions.assertEquals(interval[index], actual.getInterval());
-                Assertions.assertEquals(recordsOfRiskWithInInterval[index],actual.getRecordsWithRiskWithinInteval());
-                Assertions.assertEquals(recordsOfMaximalRiskWithInInterval[index],actual.getRecordsWithMaxmalRiskWithinInterval());
-                index--;
-        }
-    }
-
     //-------------------------Test against re-identification risk for dataset after anonymisation----------------//
     @Test
     public void getLowestProsecutorRisk() {
@@ -312,22 +293,5 @@ public class ARXPayloadAnalyserTest {
                 expected.put("quasi_identifiers","[zipcode, gender]");
 
         Assert.assertEquals(expected,actual);
-    }
-
-    @Test
-    public void createListOfDistributionRisk(){
-        DistributionOfRiskModel distributionOfRiskModel = arxPayloadAnalyser.createListOfDistributionOfRisk(testResultData,pModel);
-        List<DistributionIntervalModel> distributionIntervalModelList = distributionOfRiskModel.getDistributionIntervalModelList();
-
-        double[] recordsOfRiskWithInInterval ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,0.45454545454545453,0.0,0.0,0.0,0.0};
-        double[] recordsOfMaximalRiskWithInInterval ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,1.0,1.0,1.0,1.0,1.0};
-
-        int index = distributionIntervalModelList.size();
-        for(DistributionIntervalModel actual: distributionIntervalModelList){
-            Assertions.assertEquals(interval[index], actual.getInterval());
-            Assertions.assertEquals(recordsOfRiskWithInInterval[index],actual.getRecordsWithRiskWithinInteval());
-            Assertions.assertEquals(recordsOfMaximalRiskWithInInterval[index],actual.getRecordsWithMaxmalRiskWithinInterval());
-            index--;
-        }
     }
 }

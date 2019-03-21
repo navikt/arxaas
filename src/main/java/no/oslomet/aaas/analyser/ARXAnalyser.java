@@ -1,6 +1,7 @@
 package no.oslomet.aaas.analyser;
 
 import no.oslomet.aaas.model.AnalysisResult;
+import no.oslomet.aaas.model.DistributionOfRisk;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import no.oslomet.aaas.utils.DataFactory;
@@ -33,6 +34,13 @@ public class ARXAnalyser implements Analyser {
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
         Map<String,String> analysisMetrics = arxPayloadAnalyser.getPayloadAnalysisData(dataToAnalyse,pModel);
-        return new AnalysisResult(analysisMetrics);
+        return new AnalysisResult(analysisMetrics,distributionOfRisk(dataToAnalyse,pModel));
     }
+
+    private DistributionOfRisk distributionOfRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
+        double[] recordsWithRisk = arxPayloadAnalyser.getDistributionOfRecordsWithRisk(dataToAnalyse,pModel);
+        double[] recordsWithMaximalRisk = arxPayloadAnalyser.getDistributionOfRecordsWithMaximalRisk(dataToAnalyse,pModel);
+        return DistributionOfRisk.createFromRiskAndMaxRisk(recordsWithRisk,recordsWithMaximalRisk);
+    }
+
 }
