@@ -1,13 +1,13 @@
 package no.oslomet.aaas.utils;
 
+import no.oslomet.aaas.model.DistributionIntervalModel;
+import no.oslomet.aaas.model.DistributionOfRiskModel;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.DataHandle;
 import org.deidentifier.arx.risk.RiskModelPopulationUniqueness.PopulationUniquenessModel;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /***
  * Utility class analysing the tabular data set against re-identification risk
@@ -200,4 +200,21 @@ public class ARXPayloadAnalyser {
         return metricsMap;
     }
 
+    public DistributionOfRiskModel createListOfDistributionOfRisk(DataHandle data, ARXPopulationModel pModel){
+        List<DistributionIntervalModel> distributionOfRisk = new ArrayList<>();
+        String [] interval = {"]0, 1e-6]","]1e-6, 1e-5]","]1e-5, 0.0001]","]0.0001, 0.001]","]0.001, 0.01]","]0.01, 0.1]"
+                ,"]0.1, 1]","]1, 2]","]2, 3]","]3, 4]","]4, 5]","]5, 6]","]6, 7]","]7, 8]","]8, 9]","]9, 10]","]10, 12.5]"
+                ,"]12.5, 14.3]","]14.3, 16.7]","]16.7, 20]","]20, 25]","]25, 33.4]","]33.4, 50]","]50, 100]"};
+
+        double [] recordsOfRiskWithinInterval = getDistributionOfRecordsWithRisk(data,pModel);
+        double [] recordsOfMaximalRiskWithinInterval = getDistributionOfRecordsWithMaximalRisk(data,pModel);
+        for(int x = recordsOfRiskWithinInterval.length-1;x>0;x--){
+            DistributionIntervalModel distributionIntervalModel = new DistributionIntervalModel(
+                    interval[x],
+                    recordsOfRiskWithinInterval[x],
+                    recordsOfMaximalRiskWithinInterval[x]);
+            distributionOfRisk.add(distributionIntervalModel);
+        }
+        return new DistributionOfRiskModel(distributionOfRisk);
+    }
 }
