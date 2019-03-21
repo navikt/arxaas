@@ -8,8 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class LoggerAnonymizationServiceTest {
 
-    private Logger anonymizationLogger = LoggerFactory.getLogger(AnonymizationController.class);
-    private Logger analyzationLogger = LoggerFactory.getLogger(AnalyzationController.class);
+
 
 }
 
