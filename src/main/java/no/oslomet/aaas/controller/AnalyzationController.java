@@ -1,8 +1,8 @@
 package no.oslomet.aaas.controller;
 
-import no.oslomet.aaas.model.AnalysisResult;
+import no.oslomet.aaas.model.AnalyzeResult;
 import no.oslomet.aaas.model.Request;
-import no.oslomet.aaas.service.AnalysationService;
+import no.oslomet.aaas.service.AnalyzationService;
 import no.oslomet.aaas.service.LoggerAnalyzationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/analyse")
+@RequestMapping("/api/analyze")
 public class AnalyzationController {
 
-    private  final AnalysationService analysationService;
+    private  final AnalyzationService analyzationService;
     private  final LoggerAnalyzationService loggerAnalyzationService;
 
 
     @Autowired
-    AnalyzationController(AnalysationService analysationService, LoggerAnalyzationService loggerAnalyzationService){
-        this.analysationService = analysationService;
+    AnalyzationController(AnalyzationService analyzationService, LoggerAnalyzationService loggerAnalyzationService){
+        this.analyzationService = analyzationService;
         this.loggerAnalyzationService = loggerAnalyzationService;
     }
 
 
     @PostMapping
-    public AnalysisResult getPayloadAnalysis(@RequestBody Request payload) {
+    public AnalyzeResult getPayloadAnalyze(@RequestBody Request payload) {
         loggerAnalyzationService.loggAnalyzationPayload(payload);
-        return analysationService.analyse(payload);
+        return analyzationService.analyze(payload);
     }
 
 }

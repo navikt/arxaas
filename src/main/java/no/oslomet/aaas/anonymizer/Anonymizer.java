@@ -7,7 +7,7 @@ import no.oslomet.aaas.model.Request;
 /**
  *  Public Interface to be forfilled by data anonymizer classes
  */
-public interface Anonymiser {
+public interface Anonymizer {
 
     /**
      * Method to run anonymization on data in the payload with the provided parameters in the payload

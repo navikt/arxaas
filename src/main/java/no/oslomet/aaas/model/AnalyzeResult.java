@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Model class for Analysis result containing a HashMap that holds the analysis results.
  */
-public class AnalysisResult {
+public class AnalyzeResult {
 
     private final Map<String, String> metrics;
 
@@ -18,7 +18,7 @@ public class AnalysisResult {
      * @param metrics HashMap containing a String of fields that describe the type of risk and a
      *                String containing its risk value
      */
-    public AnalysisResult(Map<String, String> metrics, List<RiskInterval> distributionOfRisk ) {
+    public AnalyzeResult(Map<String, String> metrics, List<RiskInterval> distributionOfRisk ) {
         this.metrics = metrics;
         this.distributionOfRisk = distributionOfRisk;
     }

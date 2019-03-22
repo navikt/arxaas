@@ -1,6 +1,6 @@
-package no.oslomet.aaas.analyser;
+package no.oslomet.aaas.analyzer;
 
-import no.oslomet.aaas.model.AnalysisResult;
+import no.oslomet.aaas.model.AnalyzeResult;
 import no.oslomet.aaas.model.DistributionOfRisk;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.model.RiskInterval;
@@ -16,28 +16,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Analyser class using the ARX library to implement the analysation
+ * Analyzer class using the ARX library to implement the analysation
  */
 @Component
-public class ARXAnalyser implements Analyser {
+public class ARXAnalyzer implements Analyzer {
 
     private final DataFactory dataFactory;
     private final ARXPayloadAnalyser arxPayloadAnalyser;
 
     @Autowired
-    public ARXAnalyser(DataFactory dataFactory, ARXPayloadAnalyser analyser) {
+    public ARXAnalyzer(DataFactory dataFactory, ARXPayloadAnalyser analyser) {
         this.dataFactory = dataFactory;
         this.arxPayloadAnalyser = analyser;
     }
 
     @Override
-    public AnalysisResult analyse(Request payload) {
+    public AnalyzeResult analyze(Request payload) {
         Data data = dataFactory.create(payload);
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
         Map<String,String> analysisMetrics = arxPayloadAnalyser.getPayloadAnalysisData(dataToAnalyse,pModel);
         List<RiskInterval> listRiskInterval = distributionOfRisk(dataToAnalyse,pModel).getRiskIntervalList();
-        return new AnalysisResult(analysisMetrics,listRiskInterval);
+        return new AnalyzeResult(analysisMetrics,listRiskInterval);
     }
 
     private DistributionOfRisk distributionOfRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){

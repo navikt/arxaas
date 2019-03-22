@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class ARXPayloadAnalyserTest {
+public class ARXPayloadAnalyzerTest {
 
     private ARXPayloadAnalyser arxPayloadAnalyser;
 
@@ -25,13 +25,10 @@ public class ARXPayloadAnalyserTest {
     private Data.DefaultData data = Data.create();
     private ARXConfiguration config = ARXConfiguration.create();
     private ARXAnonymizer anonymizer = new ARXAnonymizer();
-    private ARXResult AnonymizeResult;
+    private ARXResult anonymizeResult;
     private DataHandle testData;
     private DataHandle testResultData;
     private ARXPopulationModel pModel;
-    private String [] interval = {"]0, 1e-6]","]1e-6, 1e-5]","]1e-5, 0.0001]","]0.0001, 0.001]","]0.001, 0.01]","]0.01, 0.1]"
-            ,"]0.1, 1]","]1, 2]","]2, 3]","]3, 4]","]4, 5]","]5, 6]","]6, 7]","]7, 8]","]8, 9]","]9, 10]","]10, 12.5]"
-            ,"]12.5, 14.3]","]14.3, 16.7]","]16.7, 20]","]20, 25]","]25, 33.4]","]33.4, 50]","]50, 100]"};
 
     @Before
     public void generateTestData() {
@@ -75,13 +72,13 @@ public class ARXPayloadAnalyserTest {
         anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
         anonymizer.setHistorySize(200);
         try {
-            AnonymizeResult = anonymizer.anonymize(data,config);
+            anonymizeResult = anonymizer.anonymize(data,config);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         testData=data.getHandle();
-        testResultData=AnonymizeResult.getOutput();
+        testResultData= anonymizeResult.getOutput();
 
         pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
     }

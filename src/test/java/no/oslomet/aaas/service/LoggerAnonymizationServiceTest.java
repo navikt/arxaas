@@ -1,7 +1,7 @@
 package no.oslomet.aaas.service;
 import no.oslomet.aaas.GenerateTestData;
-import no.oslomet.aaas.analyser.ARXAnalyser;
-import no.oslomet.aaas.anonymizer.ARXAnonymiser;
+import no.oslomet.aaas.analyzer.ARXAnalyzer;
+import no.oslomet.aaas.anonymizer.ARXAnonymizer;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.*;
 import org.junit.Before;
@@ -18,8 +18,8 @@ public class LoggerAnonymizationServiceTest {
     public void setUp() {
         DataFactory dataFactory = new ARXDataFactory();
         ConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
-        anonymizationService = new AnonymizationService(new ARXAnonymiser(dataFactory,configurationFactory),
-                new ARXAnalyser(new ARXDataFactory(), new ARXPayloadAnalyser()));
+        anonymizationService = new AnonymizationService(new ARXAnonymizer(dataFactory,configurationFactory),
+                new ARXAnalyzer(new ARXDataFactory(), new ARXPayloadAnalyser()));
         testRequestPayload = GenerateTestData.zipcodeRequestPayload();
     }
 

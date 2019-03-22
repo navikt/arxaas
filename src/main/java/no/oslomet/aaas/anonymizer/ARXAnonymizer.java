@@ -17,20 +17,20 @@ import java.util.List;
  * Anonymizer class using the ARX library to implement the anonymization
  */
 @Component
-public class ARXAnonymiser implements Anonymiser {
+public class ARXAnonymizer implements Anonymizer {
 
     private final DataFactory dataFactory;
     private final ConfigurationFactory configFactory;
 
     @Autowired
-    public ARXAnonymiser( DataFactory dataFactory, ConfigurationFactory configFactory) {
+    public ARXAnonymizer(DataFactory dataFactory, ConfigurationFactory configFactory) {
         this.dataFactory = dataFactory;
         this.configFactory = configFactory;
     }
 
     @Override
     public AnonymizeResult anonymize(Request payload) {
-        ARXAnonymizer anonymizer = new ARXAnonymizer();
+        org.deidentifier.arx.ARXAnonymizer anonymizer = new org.deidentifier.arx.ARXAnonymizer();
         configureAnonymizer(anonymizer);
 
         Data data = dataFactory.create(payload);
@@ -48,7 +48,7 @@ public class ARXAnonymiser implements Anonymiser {
      * Returns an ARX {@link ARXAnonymizer} objects that sets the settings for anonymizing the data set.
      * @param anonymizer an ARX {@link ARXAnonymizer} object that will hold the anonymization settings
      */
-    private void configureAnonymizer(ARXAnonymizer anonymizer){
+    private void configureAnonymizer(org.deidentifier.arx.ARXAnonymizer anonymizer){
         anonymizer.setMaximumSnapshotSizeDataset(0.2);
         anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
         anonymizer.setHistorySize(200);

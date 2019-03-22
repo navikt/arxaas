@@ -1,7 +1,7 @@
 package no.oslomet.aaas.service;
 
-import no.oslomet.aaas.analyser.Analyser;
-import no.oslomet.aaas.anonymizer.Anonymiser;
+import no.oslomet.aaas.analyzer.Analyzer;
+import no.oslomet.aaas.anonymizer.Anonymizer;
 import no.oslomet.aaas.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,26 +9,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnonymizationService {
 
-    private final Anonymiser anonymiser;
-    private final Analyser analyser;
+    private final Anonymizer anonymizer;
+    private final Analyzer analyzer;
 
     @Autowired
-    public AnonymizationService(Anonymiser anonymiser, Analyser analyser){
-        this.anonymiser = anonymiser;
-        this.analyser = analyser;
+    public AnonymizationService(Anonymizer anonymizer, Analyzer analyzer){
+        this.anonymizer = anonymizer;
+        this.analyzer = analyzer;
     }
 
     public AnonymizationResultPayload anonymize(Request payload){
 
-       AnalysisResult beforeAnalysisResult = analyser.analyse(payload);
+       AnalyzeResult beforeAnalyzeResult = analyzer.analyze(payload);
 
-        AnonymizeResult result = this.anonymiser.anonymize(payload);
+        AnonymizeResult result = this.anonymizer.anonymize(payload);
 
         Request afterAnalysisPayload =
                 new Request(result.getData(), payload.getAttributes(), null);
-        AnalysisResult afterAnalysisResult = analyser.analyse(afterAnalysisPayload);
+        AnalyzeResult afterAnalyzeResult = analyzer.analyze(afterAnalysisPayload);
 
-        return new AnonymizationResultPayload(result, beforeAnalysisResult.getMetrics(), afterAnalysisResult.getMetrics());
+        return new AnonymizationResultPayload(result, beforeAnalyzeResult.getMetrics(), afterAnalyzeResult.getMetrics());
     }
 
 }
