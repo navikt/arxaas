@@ -2,7 +2,6 @@ package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.AnalysisResult;
-import no.oslomet.aaas.model.AnonymizationResultPayload;
 import no.oslomet.aaas.model.Request;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,10 +35,13 @@ class AnalysationControllerTest {
 
         ResponseEntity<AnalysisResult> responseEntity = restTemplate.postForEntity("/api/analyse",testPayload, AnalysisResult.class);
         assertNotNull(responseEntity);
-        assertSame(responseEntity.getStatusCode(), HttpStatus.OK);
+        assertSame(HttpStatus.OK , responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
         assert resultData != null;
         assertNotNull(resultData.getMetrics().get("records_affected_by_highest_risk"));
+        assertEquals("]50,100]",resultData.getDistributionOfRisk().get(0).getInterval());
+        assertEquals(1.0,resultData.getDistributionOfRisk().get(0).getRecordsWithRiskWithinInteval());
+        assertEquals(1.0,resultData.getDistributionOfRisk().get(0).getRecordsWithMaxmalRiskWithinInterval());
         assertNotNull(resultData.getDistributionOfRisk());
 
     }

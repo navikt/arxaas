@@ -10,7 +10,7 @@ public class AnalysisResult {
 
     private final Map<String, String> metrics;
 
-    private final List<DistributionOfRisk.RiskInterval> distributionOfRisk;
+    private final List<RiskInterval> distributionOfRisk;
 
     /***
      * Setter method for analysis result metrics. Fills the object with the results from the analysis against
@@ -18,9 +18,9 @@ public class AnalysisResult {
      * @param metrics HashMap containing a String of fields that describe the type of risk and a
      *                String containing its risk value
      */
-    public AnalysisResult(Map<String, String> metrics, DistributionOfRisk distributionOfRisk ) {
+    public AnalysisResult(Map<String, String> metrics, List<RiskInterval> distributionOfRisk ) {
         this.metrics = metrics;
-        this.distributionOfRisk = distributionOfRisk.getRiskIntervalList();
+        this.distributionOfRisk = distributionOfRisk;
     }
 
     /***
@@ -33,7 +33,7 @@ public class AnalysisResult {
     }
 
 
-    public List<DistributionOfRisk.RiskInterval> getDistributionOfRisk() {
+    public List<RiskInterval> getDistributionOfRisk() {
         return distributionOfRisk;
     }
 }

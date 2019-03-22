@@ -3,6 +3,7 @@ package no.oslomet.aaas.analyser;
 import no.oslomet.aaas.model.AnalysisResult;
 import no.oslomet.aaas.model.DistributionOfRisk;
 import no.oslomet.aaas.model.Request;
+import no.oslomet.aaas.model.RiskInterval;
 import no.oslomet.aaas.utils.ARXPayloadAnalyser;
 import no.oslomet.aaas.utils.DataFactory;
 import org.deidentifier.arx.ARXPopulationModel;
@@ -11,6 +12,7 @@ import org.deidentifier.arx.DataHandle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,7 +36,8 @@ public class ARXAnalyser implements Analyser {
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
         Map<String,String> analysisMetrics = arxPayloadAnalyser.getPayloadAnalysisData(dataToAnalyse,pModel);
-        return new AnalysisResult(analysisMetrics,distributionOfRisk(dataToAnalyse,pModel));
+        List<RiskInterval> listRiskInterval = distributionOfRisk(dataToAnalyse,pModel).getRiskIntervalList();
+        return new AnalysisResult(analysisMetrics,listRiskInterval);
     }
 
     private DistributionOfRisk distributionOfRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
