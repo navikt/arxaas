@@ -24,7 +24,6 @@ class ARXConfigurationFactoryTest {
 
     @Test
     void create_NotNull() {
-        ARXConfigurationFactory arxConfigurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
         ARXConfiguration resultConfig = arxConfigurationFactory.create(testPayload.getPrivacyModels());
         Assertions.assertNotNull(resultConfig);
     }

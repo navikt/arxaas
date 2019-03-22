@@ -144,4 +144,49 @@ public class GenerateTestData {
 
         return new Request(testData, testAttributes, null);
     }
+
+    public static Request zipcodeRequestPayload3Quasi(){
+        // Define data
+        String[][] rawData = {{"age", "gender", "zipcode"},
+                {"45", "female", "81675"},
+                {"34", "male", "81667"},
+                {"66", "male", "81925"},
+                {"70", "female", "81931"},
+                {"34", "female", "81931"},
+                {"70", "male", "81931"},
+                {"45", "male", "81931"}};
+        List<String[]> testData = List.of(rawData);
+
+        // Define hierarchies
+        String[][] ageHierarchy ={{"34", "<50", "*"},
+                {"45", "<50", "*"},
+                {"66", ">=50", "*"},
+                {"70", ">=50", "*"}};
+        List<String []> listAgeHierarchy = List.of(ageHierarchy);
+
+        String[][] genderHierarchy={{"male", "*"},
+                {"female", "*"}};
+
+        List<String []> listGenderHierarchy = List.of(genderHierarchy);
+
+        String[][] zipcodeHierarcy={{"81667", "8166*", "816**", "81***", "8****", "*****"},
+                {"81675", "8167*", "816**", "81***", "8****", "*****"},
+                {"81925", "8192*", "819**", "81***", "8****", "*****"},
+                {"81931", "8193*", "819**", "81***", "8****", "*****"}};
+        List<String []> listZipHierarchy = List.of(zipcodeHierarcy);
+
+        //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
+        List<Attribute> testAttributes = new ArrayList<>();
+        testAttributes.add(new Attribute("age",QUASIIDENTIFYING, listAgeHierarchy));
+        testAttributes.add(new Attribute("gender",QUASIIDENTIFYING, listGenderHierarchy));
+        testAttributes.add(new Attribute("zipcode",QUASIIDENTIFYING, listZipHierarchy));
+
+        //Define K-anonymity
+        List<PrivacyModelModel> privacyModelModelList = new ArrayList<>();
+        Map<String,String> kMapValue = new HashMap<>();
+        kMapValue.put("k","2");
+        privacyModelModelList.add(new PrivacyModelModel(KANONYMITY, kMapValue));
+
+        return new Request(testData, testAttributes, privacyModelModelList);
+    }
 }
