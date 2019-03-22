@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class HierarchyBuilderOrderBasedTest {
+class HierarchyBuilderOrderBasedTest {
 
     private final String[] testData = getExampleData();
 
@@ -20,7 +20,7 @@ public class HierarchyBuilderOrderBasedTest {
         data.add("id", "name");
 
         for (int i=1; i< 100; i++){
-            data.add(String.valueOf(i), String.valueOf(i) + "Name");
+            data.add(String.valueOf(i), i + "Name");
         }
         return data;
     }
@@ -35,7 +35,7 @@ public class HierarchyBuilderOrderBasedTest {
     }
 
     @Test
-    public void generateHierarchy() {
+    void generateHierarchy() {
 
         // Create the builder
         HierarchyBuilderOrderBased<Long> builder = HierarchyBuilderOrderBased.create(DataType.INTEGER, false);
@@ -63,7 +63,7 @@ public class HierarchyBuilderOrderBasedTest {
     }
 
     @Test
-    public void anonymizeUsingGeneratedHierarchy() throws IOException {
+    void anonymizeUsingGeneratedHierarchy() throws IOException {
 
         Data.DefaultData arxData = getExamleDefaultData();
 
@@ -95,7 +95,7 @@ public class HierarchyBuilderOrderBasedTest {
     }
 
     @Test
-    public void anonymizeDefaultDataUsingGeneratedHierarchy() throws IOException {
+    void anonymizeDefaultDataUsingGeneratedHierarchy() throws IOException {
 
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         Data.DefaultData data = Data.create();
@@ -134,7 +134,7 @@ public class HierarchyBuilderOrderBasedTest {
         Assertions.assertEquals("zipcode", coll.get(0)[2]);
 
         //Assert value of the last row
-        Assertions.assertEquals("[34, 45]", coll.get(7)[0]);
+        Assertions.assertEquals("[34, 66]", coll.get(7)[0]);
         Assertions.assertEquals("*", coll.get(7)[1]);
         Assertions.assertEquals("*", coll.get(7)[2]);
     }
