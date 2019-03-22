@@ -4,7 +4,7 @@ import no.oslomet.aaas.model.AnalyzeResult;
 import no.oslomet.aaas.model.Request;
 
 /**
- * Public contract to be forfilled by data anonymization analyse classes
+ * Public contract to be forfilled by data anonymization analyze classes
  */
 public interface Analyser {
 

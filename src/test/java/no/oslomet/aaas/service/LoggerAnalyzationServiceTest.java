@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 
 public class LoggerAnalyzationServiceTest {
 
-    private AnalysationService analysationService;
+    private AnalyzationService analyzationService;
     private Request testRequestPayload;
 
 
@@ -18,17 +18,17 @@ public class LoggerAnalyzationServiceTest {
     @Before
     public void setUp() {
         DataFactory dataFactory = new ARXDataFactory();
-        analysationService = new AnalysationService(new ARXAnalyser(dataFactory,new ARXPayloadAnalyser()));
+        analyzationService = new AnalyzationService(new ARXAnalyser(dataFactory,new ARXPayloadAnalyser()));
         testRequestPayload = GenerateTestData.zipcodeRequestPayload();
     }
 
 
     @Test
     public void loggerAnalysationServiceResult() {
-        analysationService.analyse(testRequestPayload);
+        analyzationService.analyze(testRequestPayload);
         LoggerAnalyzationService loggerAnalysationService = new LoggerAnalyzationService();
         loggerAnalysationService.loggAnalyzationPayload(testRequestPayload);
-        Assertions.assertNotNull(analysationService.analyse(testRequestPayload));
+        Assertions.assertNotNull(analyzationService.analyze(testRequestPayload));
     }
 }
 

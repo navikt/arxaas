@@ -10,17 +10,17 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class AnalysationService {
+public class AnalyzationService {
 
     private final Analyser analyser;
 
     @Autowired
-    public AnalysationService(Analyser analyser){
+    public AnalyzationService(Analyser analyser){
        this.analyser = analyser;
     }
 
 
-    public AnalyzeResult analyse(Request payload){
+    public AnalyzeResult analyze(Request payload){
         return analyser.analyse(payload);
     }
 }

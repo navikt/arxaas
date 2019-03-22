@@ -33,7 +33,7 @@ class AnalysationControllerTest {
     @Test
     void getPayloadAnalysis() {
 
-        ResponseEntity<AnalyzeResult> responseEntity = restTemplate.postForEntity("/api/analyse",testPayload, AnalyzeResult.class);
+        ResponseEntity<AnalyzeResult> responseEntity = restTemplate.postForEntity("/api/analyze",testPayload, AnalyzeResult.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.OK , responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
