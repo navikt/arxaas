@@ -9,3 +9,15 @@
 ARX Web API Service
 
 Backed service for ARX-as-a-Service
+
+
+#### Development
+
+1. clone the project
+2. Download ARX java library with sources from https://arx.deidentifier.org/downloads/
+3. Install the ARX library in your local maven repostitory
+```bash
+mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
+```
+
+You are ready to go!
