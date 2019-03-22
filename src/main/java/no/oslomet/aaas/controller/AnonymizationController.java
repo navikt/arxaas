@@ -1,10 +1,8 @@
 package no.oslomet.aaas.controller;
-
 import no.oslomet.aaas.model.AnonymizationResultPayload;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.service.AnonymizationService;
 import no.oslomet.aaas.service.LoggerAnonymizationService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

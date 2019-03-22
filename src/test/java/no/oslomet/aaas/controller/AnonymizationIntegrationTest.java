@@ -1,5 +1,4 @@
 package no.oslomet.aaas.controller;
-
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.*;
 import org.junit.jupiter.api.BeforeEach;
