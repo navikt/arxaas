@@ -1,6 +1,6 @@
 package no.oslomet.aaas.service;
 import no.oslomet.aaas.GenerateTestData;
-import no.oslomet.aaas.analyser.ARXAnalyser;
+import no.oslomet.aaas.analyzer.ARXAnalyzer;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.*;
 import org.junit.Before;
@@ -18,7 +18,7 @@ public class LoggerAnalyzationServiceTest {
     @Before
     public void setUp() {
         DataFactory dataFactory = new ARXDataFactory();
-        analyzationService = new AnalyzationService(new ARXAnalyser(dataFactory,new ARXPayloadAnalyser()));
+        analyzationService = new AnalyzationService(new ARXAnalyzer(dataFactory,new ARXPayloadAnalyser()));
         testRequestPayload = GenerateTestData.zipcodeRequestPayload();
     }
 

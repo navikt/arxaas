@@ -1,7 +1,7 @@
 package no.oslomet.aaas.service;
 
 import no.oslomet.aaas.GenerateTestData;
-import no.oslomet.aaas.analyser.ARXAnalyser;
+import no.oslomet.aaas.analyzer.ARXAnalyzer;
 import no.oslomet.aaas.anonymizer.ARXAnonymiser;
 import no.oslomet.aaas.model.*;
 import no.oslomet.aaas.utils.*;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * [TODO] MOCK Anonymizer and Analyser dependencies
+ * [TODO] MOCK Anonymizer and Analyzer dependencies
  */
 
 public class AnonymizationServiceTest {
@@ -28,7 +28,7 @@ public class AnonymizationServiceTest {
         DataFactory dataFactory = new ARXDataFactory();
         ConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
         anonymizationService = new AnonymizationService(new ARXAnonymiser(dataFactory,configurationFactory),
-                new ARXAnalyser(new ARXDataFactory(), new ARXPayloadAnalyser()));
+                new ARXAnalyzer(new ARXDataFactory(), new ARXPayloadAnalyser()));
         testRequestPayload = GenerateTestData.zipcodeRequestPayload();
     }
 

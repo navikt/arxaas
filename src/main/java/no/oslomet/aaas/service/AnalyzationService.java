@@ -1,7 +1,7 @@
 package no.oslomet.aaas.service;
 
 
-import no.oslomet.aaas.analyser.Analyser;
+import no.oslomet.aaas.analyzer.Analyzer;
 import no.oslomet.aaas.model.AnalyzeResult;
 
 import no.oslomet.aaas.model.Request;
@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnalyzationService {
 
-    private final Analyser analyser;
+    private final Analyzer analyzer;
 
     @Autowired
-    public AnalyzationService(Analyser analyser){
-       this.analyser = analyser;
+    public AnalyzationService(Analyzer analyzer){
+       this.analyzer = analyzer;
     }
 
 
     public AnalyzeResult analyze(Request payload){
-        return analyser.analyse(payload);
+        return analyzer.analyze(payload);
     }
 }
