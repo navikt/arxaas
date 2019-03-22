@@ -95,8 +95,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
-
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -133,6 +131,8 @@
 			<version>2.9.2</version>
 		</dependency>
 
+		<!-- ARX library -->
+
 		<dependency>
 			<groupId>org.deidentifier</groupId>
 			<artifactId>libarx</artifactId>
@@ -140,8 +140,6 @@
 		</dependency>
 
 	</dependencies>
-
-
 
 	<distributionManagement>
         <snapshotRepository>
