@@ -11,24 +11,26 @@ import org.junit.jupiter.api.Assertions;
 
 public class LoggerAnalyzationServiceTest {
 
-    private AnonymizationService anonymizationService;
+    private AnalysationService analysationService;
     private Request testRequestPayload;
+
+
 
     @Before
     public void setUp() {
         DataFactory dataFactory = new ARXDataFactory();
         ConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
-        anonymizationService = new AnonymizationService(new ARXAnonymiser(dataFactory,configurationFactory),
-                new ARXAnalyser(new ARXDataFactory(), new ARXPayloadAnalyser()));
+        analysationService = new AnalysationService(new ARXAnalyser(dataFactory,new ARXPayloadAnalyser()));
         testRequestPayload = GenerateTestData.zipcodeRequestPayload();
     }
 
+
     @Test
-    public void loggerAnonymizationServiceResult() {
-        anonymizationService.anonymize(testRequestPayload);
-        LoggerAnonymizationService loggerAnonymizationService = new LoggerAnonymizationService();
-        loggerAnonymizationService.loggAnonymizationPayload(testRequestPayload);
-        Assertions.assertNotNull(anonymizationService.anonymize(testRequestPayload));
+    public void loggerAnalysationServiceResult() {
+        analysationService.analyse(testRequestPayload);
+        LoggerAnalyzationService loggerAnalysationService = new LoggerAnalyzationService();
+        loggerAnalysationService.loggAnalyzationPayload(testRequestPayload);
+        Assertions.assertNotNull(analysationService.analyse(testRequestPayload));
     }
 }
 
