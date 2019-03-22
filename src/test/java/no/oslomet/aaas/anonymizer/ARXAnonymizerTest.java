@@ -6,20 +6,20 @@ import no.oslomet.aaas.utils.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ARXAnonymiserTest {
+public class ARXAnonymizerTest {
 
-    private Anonymiser testAnonymiser;
+    private Anonymizer testAnonymizer;
     private Request testRequestPayload;
 
 
     @Before
     public void setUp() {
-        testAnonymiser = new ARXAnonymiser(new ARXDataFactory(), new ARXConfigurationFactory(new ARXPrivacyCriterionFactory()));
+        testAnonymizer = new ARXAnonymizer(new ARXDataFactory(), new ARXConfigurationFactory(new ARXPrivacyCriterionFactory()));
         testRequestPayload = GenerateTestData.zipcodeRequestPayload();
     }
 
     @Test
     public void anonymize__run() {
-        var result = testAnonymiser.anonymize(testRequestPayload);
+        var result = testAnonymizer.anonymize(testRequestPayload);
     }
 }
