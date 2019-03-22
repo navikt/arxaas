@@ -111,7 +111,7 @@ public class HierarchyBuilderOrderBasedTest {
         HierarchyBuilderOrderBased<Long> builder = HierarchyBuilderOrderBased.create(DataType.INTEGER, false);
 
         // Define grouping fanouts
-        builder.getLevel(0).addGroup(2, DataType.INTEGER.createAggregate().createIntervalFunction());
+        builder.getLevel(0).addGroup(3, DataType.INTEGER.createAggregate().createIntervalFunction());
 
         data.getDefinition().setAttributeType("age", builder);
 
