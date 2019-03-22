@@ -1,6 +1,6 @@
 package no.oslomet.aaas.controller;
 
-import no.oslomet.aaas.model.AnalysisResult;
+import no.oslomet.aaas.model.AnalyzeResult;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.service.AnalysationService;
 import no.oslomet.aaas.service.LoggerAnalyzationService;
@@ -27,7 +27,7 @@ public class AnalyzationController {
 
 
     @PostMapping
-    public AnalysisResult getPayloadAnalysis(@RequestBody Request payload) {
+    public AnalyzeResult getPayloadAnalysis(@RequestBody Request payload) {
         loggerAnalyzationService.loggAnalyzationPayload(payload);
         return analysationService.analyse(payload);
     }

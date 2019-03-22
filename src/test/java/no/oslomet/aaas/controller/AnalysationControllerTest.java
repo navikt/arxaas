@@ -1,7 +1,7 @@
 package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateTestData;
-import no.oslomet.aaas.model.AnalysisResult;
+import no.oslomet.aaas.model.AnalyzeResult;
 import no.oslomet.aaas.model.Request;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ class AnalysationControllerTest {
     @Test
     void getPayloadAnalysis() {
 
-        ResponseEntity<AnalysisResult> responseEntity = restTemplate.postForEntity("/api/analyse",testPayload, AnalysisResult.class);
+        ResponseEntity<AnalyzeResult> responseEntity = restTemplate.postForEntity("/api/analyse",testPayload, AnalyzeResult.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.OK , responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
