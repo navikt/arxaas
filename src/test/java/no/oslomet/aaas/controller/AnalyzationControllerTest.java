@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AnalysationControllerTest {
+class AnalyzationControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -31,7 +31,7 @@ class AnalysationControllerTest {
 
 
     @Test
-    void getPayloadAnalysis() {
+    void getPayloadAnalyze() {
 
         ResponseEntity<AnalyzeResult> responseEntity = restTemplate.postForEntity("/api/analyze",testPayload, AnalyzeResult.class);
         assertNotNull(responseEntity);

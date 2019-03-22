@@ -27,7 +27,7 @@ public class AnalyzationController {
 
 
     @PostMapping
-    public AnalyzeResult getPayloadAnalysis(@RequestBody Request payload) {
+    public AnalyzeResult getPayloadAnalyze(@RequestBody Request payload) {
         loggerAnalyzationService.loggAnalyzationPayload(payload);
         return analyzationService.analyze(payload);
     }
