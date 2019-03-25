@@ -18,7 +18,7 @@ public class LoggerAnalyzationServiceTest {
     @Before
     public void setUp() {
         DataFactory dataFactory = new ARXDataFactory();
-        analyzationService = new AnalyzationService(new ARXAnalyzer(dataFactory,new ARXPayloadAnalyser()));
+        analyzationService = new AnalyzationService(new ARXAnalyzer(dataFactory));
         testRequestPayload = GenerateTestData.zipcodeRequestPayload();
     }
 

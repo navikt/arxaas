@@ -22,12 +22,10 @@ import java.util.Map;
 public class ARXAnalyzer implements Analyzer {
 
     private final DataFactory dataFactory;
-    private final ARXPayloadAnalyser arxPayloadAnalyser;
 
     @Autowired
-    public ARXAnalyzer(DataFactory dataFactory, ARXPayloadAnalyser analyser) {
+    public ARXAnalyzer(DataFactory dataFactory) {
         this.dataFactory = dataFactory;
-        this.arxPayloadAnalyser = analyser;
     }
 
     @Override
@@ -35,14 +33,14 @@ public class ARXAnalyzer implements Analyzer {
         Data data = dataFactory.create(payload);
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
-        Map<String,String> analysisMetrics = arxPayloadAnalyser.getPayloadAnalysisData(dataToAnalyse,pModel);
+        Map<String,String> analysisMetrics = ARXPayloadAnalyser.getPayloadAnalyzeData(dataToAnalyse,pModel);
         List<RiskInterval> listRiskInterval = distributionOfRisk(dataToAnalyse,pModel).getRiskIntervalList();
         return new AnalyzeResult(analysisMetrics,listRiskInterval);
     }
 
     private DistributionOfRisk distributionOfRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
-        double[] recordsWithRisk = arxPayloadAnalyser.getDistributionOfRecordsWithRisk(dataToAnalyse,pModel);
-        double[] recordsWithMaximalRisk = arxPayloadAnalyser.getDistributionOfRecordsWithMaximalRisk(dataToAnalyse,pModel);
+        double[] recordsWithRisk = ARXPayloadAnalyser.getPayloadDistributionOfRecordsWithRisk(dataToAnalyse,pModel);
+        double[] recordsWithMaximalRisk = ARXPayloadAnalyser.getPayloadDistributionOfRecordsWithMaximalRisk(dataToAnalyse,pModel);
         return DistributionOfRisk.createFromRiskAndMaxRisk(recordsWithRisk,recordsWithMaximalRisk);
     }
 

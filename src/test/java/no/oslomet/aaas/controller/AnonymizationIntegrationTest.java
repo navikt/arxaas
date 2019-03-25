@@ -40,8 +40,8 @@ class AnonymizationIntegrationTest {
         assertNotNull(responseEntity);
         assertSame(HttpStatus.OK, responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
-        assertNotNull(resultData);
-        assertNotNull(resultData.getAfterAnonymizationMetrics().get("records_affected_by_highest_risk"));
+        assert resultData != null;
+        assertNotNull(resultData.getAfterAnonymizationMetrics().get("records_affected_by_highest_prosecutor_risk"));
         assertNotNull(resultData.getAnonymizeResult().getData());
     }
 
