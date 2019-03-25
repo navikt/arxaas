@@ -41,8 +41,8 @@ public class ARXAnalyzer implements Analyzer {
     }
 
     private DistributionOfRisk distributionOfRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
-        double[] recordsWithRisk = arxPayloadAnalyser.getDistributionOfRecordsWithRisk(dataToAnalyse,pModel);
-        double[] recordsWithMaximalRisk = arxPayloadAnalyser.getDistributionOfRecordsWithMaximalRisk(dataToAnalyse,pModel);
+        double[] recordsWithRisk = arxPayloadAnalyser.getPayloadDistributionOfRecordsWithRisk(dataToAnalyse,pModel);
+        double[] recordsWithMaximalRisk = arxPayloadAnalyser.getPayloadDistributionOfRecordsWithMaximalRisk(dataToAnalyse,pModel);
         return DistributionOfRisk.createFromRiskAndMaxRisk(recordsWithRisk,recordsWithMaximalRisk);
     }
 

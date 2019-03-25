@@ -155,14 +155,14 @@ public class ARXPayloadAnalyzerTest {
 
     @Test
     public void getPayloadDistributionOfRecordsWithRisk(){
-        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithRisk(testData,pModel);
+        double[] actual = arxPayloadAnalyser.getPayloadDistributionOfRecordsWithRisk(testData,pModel);
         double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
         Assertions.assertArrayEquals(expected,actual);
     }
 
     @Test
     public void getPayloadDistributionOfRecordsWithMaximalRisk(){
-        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithMaximalRisk(testData,pModel);
+        double[] actual = arxPayloadAnalyser.getPayloadDistributionOfRecordsWithMaximalRisk(testData,pModel);
         double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
         Assertions.assertArrayEquals(expected,actual);
     }
@@ -259,14 +259,14 @@ public class ARXPayloadAnalyzerTest {
 
     @Test
     public void getDistributionOfRecordsWithRisk(){
-        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithRisk(testResultData,pModel);
+        double[] actual = arxPayloadAnalyser.getPayloadDistributionOfRecordsWithRisk(testResultData,pModel);
         double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,0.45454545454545453,0.0,0.0,0.0,0.0};
         Assertions.assertArrayEquals(expected,actual);
     }
 
     @Test
     public void getDistributionOfRecordsWithMaximalRisk(){
-        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithMaximalRisk(testResultData,pModel);
+        double[] actual = arxPayloadAnalyser.getPayloadDistributionOfRecordsWithMaximalRisk(testResultData,pModel);
         double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,1.0,1.0,1.0,1.0,1.0};
         Assertions.assertArrayEquals(expected,actual);
     }
