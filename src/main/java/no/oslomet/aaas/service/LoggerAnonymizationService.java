@@ -11,6 +11,17 @@ public class LoggerAnonymizationService {
     private Logger anonymizationLogger = LoggerFactory.getLogger(AnonymizationController.class);
 
     public void loggAnonymizationPayload(Request payload){
-        anonymizationLogger.info("\n-Request received "+"\n-Size of data set"+"\n-Number of rows = "+payload.getData().size()+"\n-Number of columns "+payload.getData().get(0).length);
+        anonymizationLogger.info("\n-Request received "+"\n-Size of data set"+"\n-Number of rows = "+ numRows(payload) +"\n-Number of columns "+ numColumns(payload));
+    }
+
+
+    private int numColumns(Request payload){
+        if(payload == null || payload.getData() == null) return 0;
+        return  payload.getData().get(0).length;
+    }
+
+    private int numRows(Request payload){
+        if(payload == null || payload.getData() == null) return 0;
+        return payload.getData().size();
     }
 }
