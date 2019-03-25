@@ -1,6 +1,6 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.model.PrivacyModelModel;
+import no.oslomet.aaas.model.PrivacyCriterionModel;
 import org.deidentifier.arx.ARXConfiguration;
 
 import java.util.List;
@@ -15,5 +15,5 @@ public interface ConfigurationFactory {
      * @param privacyModels Model object containing the parameters to use in anonymization
      * @return ARX {@link ARXConfiguration} object containing the anonymization algorithm settings.
      */
-    ARXConfiguration create(List<PrivacyModelModel> privacyModels);
+    ARXConfiguration create(List<PrivacyCriterionModel> privacyModels);
 }
