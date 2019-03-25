@@ -12,7 +12,7 @@ replicas:
 healthcheck: #Optional
   liveness:
     path: /nais/isAlive
-    initialDelay: 20
+    initialDelay: 60
     timeout: 1
     periodSeconds: 5     # How often (in seconds) to perform the probe. Default to 10 seconds
     failureThreshold: 10 # when a Pod starts and the probe fails,
@@ -20,7 +20,7 @@ healthcheck: #Optional
     # Defaults to 3
   readiness:
     path: /nais/isReady
-    initialDelay: 20
+    initialDelay: 60
     timeout: 1
 
 prometheus: 
