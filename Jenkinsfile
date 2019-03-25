@@ -3,7 +3,7 @@
 import java.text.*
 
 node {
-   def yaml_path
+   def yaml_path = 'https://raw.githubusercontent.com/oslomet-arx-as-a-service/AaaS/master/nais.yaml'
 
    def app_name = 'aaas'
    def namespace = 'default'
@@ -13,11 +13,6 @@ node {
    try {
        stage('Clean workspace') {
            cleanWs()
-       }
-
-       stage('Upload nais.yaml to nexus server') {
-           yaml_path = "https://repo.adeo.no/repository/raw/nais/${app_name}/latest/nais.yaml"
-           sh "curl -s -S --upload-file nais.yaml ${yaml_path}"
        }
 
        stage('Deploy app to nais') {
