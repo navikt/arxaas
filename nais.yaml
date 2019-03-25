@@ -1,4 +1,4 @@
-image: arxaas/aaas
+image: arxaas/aaas:latest
 team: ailab
 port: 8080
 
