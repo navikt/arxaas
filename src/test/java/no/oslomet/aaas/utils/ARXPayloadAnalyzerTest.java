@@ -3,7 +3,6 @@ package no.oslomet.aaas.utils;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -111,6 +110,12 @@ public class ARXPayloadAnalyzerTest {
     }
 
     @Test
+    public void getPaylaodHighestJournalistRisk(){
+        double actual = arxPayloadAnalyser.getPayloadHighestJournalistRisk(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
+    }
+
+    @Test
     public void getPayloadEstimatedProsecutorRisk() {
         double actual = arxPayloadAnalyser.getPayloadEstimatedProsecutorRisk(testData,pModel);
         Assertions.assertEquals(1.0,actual);
@@ -154,6 +159,24 @@ public class ARXPayloadAnalyzerTest {
     }
 
     @Test
+    public void getPayloadProsecutorAttackerSuccessRate(){
+        double actual = arxPayloadAnalyser.getPayloadProsecutorAttackSuccessRate(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
+    }
+
+    @Test
+    public void getPayloadJournalistAttackerSuccessRate(){
+        double actual = arxPayloadAnalyser.getPayloadJournalistAttackerSuccessRate(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
+    }
+
+    @Test
+    public void getPayloadMarketerAttackerSuccessRate(){
+        double actual = arxPayloadAnalyser.getPayloadMarketerAttackerSuccessRate(testData,pModel);
+        Assertions.assertEquals(1.0,actual);
+    }
+
+    @Test
     public void getPayloadDistributionOfRecordsWithRisk(){
         double[] actual = arxPayloadAnalyser.getPayloadDistributionOfRecordsWithRisk(testData,pModel);
         double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
@@ -169,19 +192,24 @@ public class ARXPayloadAnalyzerTest {
 
     @Test
     public void getPayloadAnalysisData() {
-        Map<String, String> actual = arxPayloadAnalyser.getPayloadAnalysisData(testData,pModel);
+        Map<String, String> actual = arxPayloadAnalyser.getPayloadAnalyzeData(testData,pModel);
         Map<String,String > expected = new HashMap<>();
                 expected.put("measure_value","[%]");
-                expected.put("records_affected_by_highest_risk","100.0");
+                expected.put("Prosecutor_attacker_success_rate","100.0");
+                expected.put("records_affected_by_highest_prosecutor_risk","100.0");
                 expected.put("sample_uniques","100.0");
                 expected.put("estimated_prosecutor_risk","100.0");
                 expected.put("population_model","ZAYATZ");
+                expected.put("highest_journalist_risk","100.0");
                 expected.put("records_affected_by_lowest_risk","100.0");
                 expected.put("estimated_marketer_risk","100.0");
+                expected.put("Journalist_attacker_success_rate","100.0");
                 expected.put("highest_prosecutor_risk","100.0");
                 expected.put("estimated_journalist_risk","100.0");
                 expected.put("lowest_risk","100.0");
+                expected.put("Marketer_attacker_success_rate","100.0");
                 expected.put("average_prosecutor_risk","100.0");
+                expected.put("records_affected_by_highest_journalist_risk","100.0");
                 expected.put("population_uniques","100.0");
                 expected.put("quasi_identifiers","[zipcode, gender]");
 
@@ -211,6 +239,12 @@ public class ARXPayloadAnalyzerTest {
     @Test
     public void getHighestProsecutorRisk() {
         double actual = arxPayloadAnalyser.getPayloadHighestProsecutorRisk(testResultData,pModel);
+        Assertions.assertEquals(0.2,actual);
+    }
+
+    @Test
+    public void getHighestJournalistRisk(){
+        double actual = arxPayloadAnalyser.getPayloadHighestJournalistRisk(testResultData,pModel);
         Assertions.assertEquals(0.2,actual);
     }
 
@@ -258,6 +292,24 @@ public class ARXPayloadAnalyzerTest {
     }
 
     @Test
+    public void getProsecutorAttackerSuccessRate(){
+        double actual = arxPayloadAnalyser.getPayloadProsecutorAttackSuccessRate(testResultData,pModel);
+        Assertions.assertEquals(0.18181818181818182,actual);
+    }
+
+    @Test
+    public void getJournalistAttackerSuccessRate(){
+        double actual = arxPayloadAnalyser.getPayloadJournalistAttackerSuccessRate(testResultData,pModel);
+        Assertions.assertEquals(0.18181818181818182,actual);
+    }
+
+    @Test
+    public void getMarketerAttackerSuccessRate(){
+        double actual = arxPayloadAnalyser.getPayloadMarketerAttackerSuccessRate(testResultData,pModel);
+        Assertions.assertEquals(0.18181818181818182,actual);
+    }
+
+    @Test
     public void getDistributionOfRecordsWithRisk(){
         double[] actual = arxPayloadAnalyser.getPayloadDistributionOfRecordsWithRisk(testResultData,pModel);
         double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,0.45454545454545453,0.0,0.0,0.0,0.0};
@@ -273,22 +325,27 @@ public class ARXPayloadAnalyzerTest {
 
     @Test
     public void showAnalysisData() {
-        Map<String, String> actual = arxPayloadAnalyser.getPayloadAnalysisData(testResultData,pModel);
+        Map<String, String> actual = arxPayloadAnalyser.getPayloadAnalyzeData(testResultData,pModel);
         Map<String,String> expected = new HashMap<>();
                 expected.put("measure_value","[%]");
-                expected.put("records_affected_by_highest_risk","45.45454545454545");
+                expected.put("Prosecutor_attacker_success_rate","18.181818181818183");
+                expected.put("records_affected_by_highest_prosecutor_risk","45.45454545454545");
                 expected.put("sample_uniques","0.0");
                 expected.put("estimated_prosecutor_risk","20.0");
                 expected.put("population_model","DANKAR");
+                expected.put("highest_journalist_risk","20.0");
                 expected.put("records_affected_by_lowest_risk","54.54545454545454");
                 expected.put("estimated_marketer_risk","18.181818181818183");
+                expected.put("Journalist_attacker_success_rate","18.181818181818183");
                 expected.put("highest_prosecutor_risk","20.0");
                 expected.put("estimated_journalist_risk","20.0");
                 expected.put("lowest_risk","16.666666666666664");
+                expected.put("Marketer_attacker_success_rate","18.181818181818183");
                 expected.put("average_prosecutor_risk","18.181818181818183");
+                expected.put("records_affected_by_highest_journalist_risk","45.45454545454545");
                 expected.put("population_uniques","0.0");
                 expected.put("quasi_identifiers","[zipcode, gender]");
 
-        Assert.assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 }

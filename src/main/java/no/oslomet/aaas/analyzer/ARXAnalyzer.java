@@ -35,7 +35,7 @@ public class ARXAnalyzer implements Analyzer {
         Data data = dataFactory.create(payload);
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
-        Map<String,String> analysisMetrics = arxPayloadAnalyser.getPayloadAnalysisData(dataToAnalyse,pModel);
+        Map<String,String> analysisMetrics = arxPayloadAnalyser.getPayloadAnalyzeData(dataToAnalyse,pModel);
         List<RiskInterval> listRiskInterval = distributionOfRisk(dataToAnalyse,pModel).getRiskIntervalList();
         return new AnalyzeResult(analysisMetrics,listRiskInterval);
     }

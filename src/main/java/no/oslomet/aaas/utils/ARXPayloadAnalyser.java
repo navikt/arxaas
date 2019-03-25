@@ -239,7 +239,7 @@ public class ARXPayloadAnalyser {
      * @param pModel population model for our data set that defines the population size and sampling fraction
      * @return a hash map containing data set re-identification statistics
      */
-    public Map<String, String> getPayloadAnalysisData(DataHandle data, ARXPopulationModel pModel){
+    public Map<String, String> getPayloadAnalyzeData(DataHandle data, ARXPopulationModel pModel){
         Map<String, String> metricsMap = new HashMap<>();
         metricsMap.put("measure_value", "[%]");
         metricsMap.put("lowest_risk", String.valueOf(getPayloadLowestProsecutorRisk(data,pModel)* PRECENT_CONVERT));
