@@ -26,7 +26,7 @@ public class RootController {
     public Resources<Object> root(){
         Link link_root = linkTo(this.getClass()).withSelfRel();
         Link link_anonymize = linkTo(AnonymizationController.class).withRel("anonymize");
-        Link link_analyze = linkTo(AnonymizationController.class).withRel("analyze");
+        Link link_analyze = linkTo(AnalyzationController.class).withRel("analyze");
         return new Resources<>(Collections.emptySet(), List.of(link_root, link_anonymize, link_analyze));
     }
 
