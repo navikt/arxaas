@@ -29,7 +29,7 @@ public class AnalyzationServiceTest {
     @Test
     public void getPayloadAnalysis() {
 
-        Map<String, String> actual = analyzationService.analyze(testRequestPayload).getMetrics();
+        Map<String, String> actual = analyzationService.analyze(testRequestPayload).getReIdentificationRisk();
         String result100 = "100.0";
         Map<String,String > expected = new HashMap<>();
                 expected.put("measure_value","[%]");
