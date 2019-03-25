@@ -1,5 +1,8 @@
 package no.oslomet.aaas.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +15,12 @@ public class DistributionOfRisk {
 
     private final List<RiskInterval> riskIntervalList;
 
+    @JsonCreator
     private DistributionOfRisk(List<RiskInterval> riskIntervalList){
         this.riskIntervalList = riskIntervalList;
     }
 
+    @JsonGetter
     public List<RiskInterval> getRiskIntervalList(){
         return this.riskIntervalList;
     }
@@ -30,5 +35,29 @@ public class DistributionOfRisk {
             listOfDistributionOfRiskInterval.add(riskInterval);
         }
         return new DistributionOfRisk(listOfDistributionOfRiskInterval);
+    }
+
+    public static class RiskInterval {
+        private final String interval;
+        private final double recordsWithRiskWithinInteval;
+        private final double recordsWithMaxmalRiskWithinInterval;
+
+        RiskInterval(String interval, double recordsWithRiskWithinInteval, double recordsWithMaxmalRiskWithinInterval){
+            this.interval = interval;
+            this.recordsWithRiskWithinInteval = recordsWithRiskWithinInteval;
+            this.recordsWithMaxmalRiskWithinInterval = recordsWithMaxmalRiskWithinInterval;
+        }
+
+        public String getInterval() {
+            return interval;
+        }
+
+        public double getRecordsWithRiskWithinInteval() {
+            return recordsWithRiskWithinInteval;
+        }
+
+        public double getRecordsWithMaxmalRiskWithinInterval() {
+            return recordsWithMaxmalRiskWithinInterval;
+        }
     }
 }

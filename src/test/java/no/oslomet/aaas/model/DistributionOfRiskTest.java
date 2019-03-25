@@ -18,7 +18,7 @@ class DistributionOfRiskTest {
         var distributionIntervalModelList = distributionOfRisk.getRiskIntervalList();
 
         int index = distributionIntervalModelList.size()-1;
-        for( RiskInterval actual: distributionIntervalModelList){
+        for( DistributionOfRisk.RiskInterval actual: distributionIntervalModelList){
             Assertions.assertEquals(interval[index], actual.getInterval());
             Assertions.assertEquals(recordsOfRiskWithInInterval[index],actual.getRecordsWithRiskWithinInteval());
             Assertions.assertEquals(recordsOfMaximalRiskWithInInterval[index],actual.getRecordsWithMaxmalRiskWithinInterval());
@@ -36,7 +36,7 @@ class DistributionOfRiskTest {
         var distributionIntervalModelList = distributionOfRisk.getRiskIntervalList();
 
         int index = distributionIntervalModelList.size()-1;
-        for( RiskInterval actual: distributionIntervalModelList){
+        for( DistributionOfRisk.RiskInterval actual: distributionIntervalModelList){
             Assertions.assertEquals(interval[index], actual.getInterval());
             Assertions.assertEquals(recordsOfRiskWithInInterval[index],actual.getRecordsWithRiskWithinInteval());
             Assertions.assertEquals(recordsOfMaximalRiskWithInInterval[index],actual.getRecordsWithMaxmalRiskWithinInterval());
