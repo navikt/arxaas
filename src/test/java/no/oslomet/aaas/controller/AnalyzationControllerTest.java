@@ -2,6 +2,7 @@ package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.AnalyzeResult;
+import no.oslomet.aaas.model.DistributionOfRisk;
 import no.oslomet.aaas.model.Request;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,9 +42,9 @@ class AnalyzationControllerTest {
         var resultData = responseEntity.getBody();
         assert resultData != null;
         assertNotNull(resultData.getMetrics().get("records_affected_by_highest_prosecutor_risk"));
-        assertEquals("]50,100]",resultData.getDistributionOfRisk().get(0).getInterval());
-        assertEquals(1.0,resultData.getDistributionOfRisk().get(0).getRecordsWithRiskWithinInteval());
-        assertEquals(1.0,resultData.getDistributionOfRisk().get(0).getRecordsWithMaxmalRiskWithinInterval());
+        assertEquals("]50,100]", resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getInterval());
+        assertEquals(1.0,resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getRecordsWithRiskWithinInteval());
+        assertEquals(1.0,resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getRecordsWithMaxmalRiskWithinInterval());
         assertNotNull(resultData.getDistributionOfRisk());
 
     }
