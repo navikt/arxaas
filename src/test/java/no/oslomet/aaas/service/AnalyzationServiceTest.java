@@ -15,8 +15,7 @@ public class AnalyzationServiceTest {
 
     private AnalyzationService analyzationService;
     private DataFactory dataFactory = new ARXDataFactory();
-    private ARXPayloadAnalyser arxPayloadAnalyser = new ARXPayloadAnalyser();
-    private ARXAnalyzer arxAnalyser = new ARXAnalyzer(dataFactory, arxPayloadAnalyser);
+    private ARXAnalyzer arxAnalyser = new ARXAnalyzer(dataFactory);
 
     @Before
     public void initialize(){ analyzationService = new AnalyzationService(arxAnalyser); }

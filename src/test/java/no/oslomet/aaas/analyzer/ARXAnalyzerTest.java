@@ -13,7 +13,7 @@ public class ARXAnalyzerTest {
 
     @Before
     public void setUp() {
-        testAnalyzer = new ARXAnalyzer(new ARXDataFactory(), new ARXPayloadAnalyser());
+        testAnalyzer = new ARXAnalyzer(new ARXDataFactory());
         testRequest = GenerateTestData.zipcodeRequestPayload();
     }
 
