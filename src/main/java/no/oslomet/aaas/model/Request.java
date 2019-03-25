@@ -9,9 +9,9 @@ public class Request {
     private final List<String[]> data;
     @NotNull
     private final List<Attribute> attributes;
-    private final List<PrivacyModelModel> privacyModels;
+    private final List<PrivacyCriterionModel> privacyModels;
 
-    public Request(List<String[]> data, List<Attribute> attributes, List<PrivacyModelModel> privacyModels) {
+    public Request(List<String[]> data, List<Attribute> attributes, List<PrivacyCriterionModel> privacyModels) {
         this.data = data;
         this.attributes = attributes;
         this.privacyModels = privacyModels;
@@ -27,7 +27,7 @@ public class Request {
         return attributes;
     }
 
-    public List<PrivacyModelModel> getPrivacyModels() {
+    public List<PrivacyCriterionModel> getPrivacyModels() {
         return privacyModels;
     }
 
