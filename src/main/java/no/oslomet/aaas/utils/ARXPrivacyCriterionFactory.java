@@ -1,7 +1,7 @@
 package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.exception.AaaSRuntimeException;
-import no.oslomet.aaas.model.PrivacyModel;
+import no.oslomet.aaas.model.PrivacyCriterionModel;
 import org.deidentifier.arx.criteria.*;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +21,7 @@ public class ARXPrivacyCriterionFactory {
      * @param params map containing parameters that defines which settings to be used to created the privacy model
      * @return an ARX {@link PrivacyCriterion} object created with the specified parameters
      */
-    PrivacyCriterion create(PrivacyModel model, Map<String,String> params){
+    PrivacyCriterion create(PrivacyCriterionModel.PrivacyModel model, Map<String, String> params){
         switch(model){
             case KANONYMITY:
                 return new KAnonymity(Integer.parseInt(params.get("k")));
