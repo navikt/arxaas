@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/api/analyze")
@@ -27,7 +29,7 @@ public class AnalyzationController {
 
 
     @PostMapping
-    public AnalyzeResult getPayloadAnalyze(@RequestBody Request payload) {
+    public AnalyzeResult getPayloadAnalyze(@Valid @RequestBody Request payload) {
         loggerAnalyzationService.loggAnalyzationPayload(payload);
         return analyzationService.analyze(payload);
     }
