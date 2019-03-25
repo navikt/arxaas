@@ -96,18 +96,12 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.deidentifier</groupId>
-			<artifactId>libarx</artifactId>
-			<version>3.7.1</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>5.3.1</version>
 			<scope>test</scope>
 		</dependency>
-
+    
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -122,9 +116,38 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+
+		<!-- FOR DOCUMENTATION -->
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<!-- ARX library -->
+
+		<dependency>
+			<groupId>org.deidentifier</groupId>
+			<artifactId>libarx</artifactId>
+			<version>3.7.1</version>
+		</dependency>
+
 	</dependencies>
 
-    <distributionManagement>
+	<distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>

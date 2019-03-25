@@ -1,6 +1,6 @@
 package no.oslomet.aaas.controller;
-
 import no.oslomet.aaas.GenerateTestData;
+import no.oslomet.aaas.exception.ExceptionResponse;
 import no.oslomet.aaas.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,20 +22,48 @@ class AnonymizationIntegrationTest {
     private TestRestTemplate restTemplate;
 
     private Request testPayload;
+    private Request missingDataPayload;
+    private Request missingAttributesPayload;
+    private Request missingPrivacyModelsPayload;
 
     @BeforeEach
     void setUp() {
         testPayload = GenerateTestData.zipcodeRequestPayload();
+        missingDataPayload = GenerateTestData.zipcodeRequestPayloadWithoutData();
+        missingAttributesPayload = GenerateTestData.zipcodeRequestPayloadWithoutAttributes();
+        missingPrivacyModelsPayload = GenerateTestData.zipcodeRequestPayloadWithoutPrivacyModels();
     }
 
     @Test
     void anonymization_post() {
         ResponseEntity<AnonymizationResultPayload> responseEntity = restTemplate.postForEntity("/api/anonymize",testPayload, AnonymizationResultPayload.class);
         assertNotNull(responseEntity);
-        assertSame(responseEntity.getStatusCode(), HttpStatus.OK);
+        assertSame(HttpStatus.OK, responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
-        assert resultData != null;
+        assertNotNull(resultData);
         assertNotNull(resultData.getAfterAnonymizationMetrics().get("records_affected_by_highest_risk"));
         assertNotNull(resultData.getAnonymizeResult().getData());
     }
+
+    @Test
+    void anonymization_missing_data_should_return_bad_request() {
+        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",missingDataPayload, ExceptionResponse.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+
+    @Test
+    void anonymization_missing_attributes_should_return_bad_request() {
+        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",missingAttributesPayload, ExceptionResponse.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
 }

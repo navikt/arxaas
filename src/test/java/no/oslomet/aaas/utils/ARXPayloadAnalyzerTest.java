@@ -9,12 +9,10 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
-public class ARXPayloadAnalyserTest {
+public class ARXPayloadAnalyzerTest {
 
     private ARXPayloadAnalyser arxPayloadAnalyser;
 
@@ -27,7 +25,7 @@ public class ARXPayloadAnalyserTest {
     private Data.DefaultData data = Data.create();
     private ARXConfiguration config = ARXConfiguration.create();
     private ARXAnonymizer anonymizer = new ARXAnonymizer();
-    private ARXResult AnonymizeResult;
+    private ARXResult anonymizeResult;
     private DataHandle testData;
     private DataHandle testResultData;
     private ARXPopulationModel pModel;
@@ -74,13 +72,13 @@ public class ARXPayloadAnalyserTest {
         anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
         anonymizer.setHistorySize(200);
         try {
-            AnonymizeResult = anonymizer.anonymize(data,config);
+            anonymizeResult = anonymizer.anonymize(data,config);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         testData=data.getHandle();
-        testResultData=AnonymizeResult.getOutput();
+        testResultData= anonymizeResult.getOutput();
 
         pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
     }
@@ -153,6 +151,20 @@ public class ARXPayloadAnalyserTest {
         Set<String> actual = arxPayloadAnalyser.getPayloadQuasiIdentifiers(testData);
         Set<String> expected = Set.of("zipcode", "gender");
         Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void getPayloadDistributionOfRecordsWithRisk(){
+        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithRisk(testData,pModel);
+        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+        Assertions.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void getPayloadDistributionOfRecordsWithMaximalRisk(){
+        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithMaximalRisk(testData,pModel);
+        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+        Assertions.assertArrayEquals(expected,actual);
     }
 
     @Test
@@ -243,6 +255,20 @@ public class ARXPayloadAnalyserTest {
         Set<String> actual = arxPayloadAnalyser.getPayloadQuasiIdentifiers(testResultData);
         Set<String> expected = Set.of("zipcode", "gender");
         Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void getDistributionOfRecordsWithRisk(){
+        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithRisk(testResultData,pModel);
+        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,0.45454545454545453,0.0,0.0,0.0,0.0};
+        Assertions.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void getDistributionOfRecordsWithMaximalRisk(){
+        double[] actual = arxPayloadAnalyser.getDistributionOfRecordsWithMaximalRisk(testResultData,pModel);
+        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,1.0,1.0,1.0,1.0,1.0};
+        Assertions.assertArrayEquals(expected,actual);
     }
 
     @Test
