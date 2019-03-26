@@ -3,6 +3,7 @@ package no.oslomet.aaas.controller;
 import no.oslomet.aaas.exception.ExceptionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -32,8 +33,15 @@ class GlobalControllerExceptionHandler {
         logger.error("Exception.class error, HttpStatus:INTERNAL_SERVER_ERROR \n"+"ExceptionToString: "+ ex.toString());
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                         ex.getMessage(),
-                        request.getDescription(false),
-                        HttpStatus.INTERNAL_SERVER_ERROR);
+                        request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public final ResponseEntity<Object> handleNullPointerExceptions(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                ex.toString(),
+                request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -42,8 +50,7 @@ class GlobalControllerExceptionHandler {
         logger.error("Exception error:Exception thrown when a request handler does not support a specific request method. HttpStatus:METHOD_NOT_ALLOWED \n"+"ExceptionToString: "+ ex.toString());
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
-                request.getDescription(false),
-                HttpStatus.METHOD_NOT_ALLOWED);
+                request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
@@ -52,8 +59,7 @@ class GlobalControllerExceptionHandler {
         logger.error("Exception error:Thrown to indicate that a method has been passed an illegal or inappropriate argument. HttpStatus:BAD_REQUEST \n"+"ExceptionToString: "+ ex.toString());
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
-                request.getDescription(false),
-                HttpStatus.BAD_REQUEST);
+                request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
@@ -62,8 +68,16 @@ class GlobalControllerExceptionHandler {
         logger.error("Exception error:Exception to be thrown when validation on an argument annotated with @Valid fails. HttpStatus:BAD_REQUEST \n"+"ExceptionToString: "+ex.toString());
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
-                request.getDescription(false),
-                HttpStatus.BAD_REQUEST);
+                request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UnableToAnonymizeDataException.class)
+    public ResponseEntity<Object> handleUnableToAnonymizeDataException(UnableToAnonymizeDataException ex, WebRequest request){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                "Unable to anonymize the dataset with the provided attributes and hierarchies." +
+                        " A common cause of this error is more thant one QUASIIDENTIFYING attribute without a hierarchy",
+                request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 }
