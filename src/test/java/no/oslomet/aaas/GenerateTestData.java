@@ -98,34 +98,11 @@ public class GenerateTestData {
     }
 
     public static Request zipcodeRequestPayload3Quasi(){
-        // Define data
-        String[][] rawData = {{"age", "gender", "zipcode"},
-                {"45", "female", "81675"},
-                {"34", "male", "81667"},
-                {"66", "male", "81925"},
-                {"70", "female", "81931"},
-                {"34", "female", "81931"},
-                {"70", "male", "81931"},
-                {"45", "male", "81931"}};
-        List<String[]> testData = List.of(rawData);
 
-        // Define hierarchies
-        String[][] ageHierarchy ={{"34", "<50", "*"},
-                {"45", "<50", "*"},
-                {"66", ">=50", "*"},
-                {"70", ">=50", "*"}};
-        List<String []> listAgeHierarchy = List.of(ageHierarchy);
-
-        String[][] genderHierarchy={{"male", "*"},
-                {"female", "*"}};
-
-        List<String []> listGenderHierarchy = List.of(genderHierarchy);
-
-        String[][] zipcodeHierarcy={{"81667", "8166*", "816**", "81***", "8****", "*****"},
-                {"81675", "8167*", "816**", "81***", "8****", "*****"},
-                {"81925", "8192*", "819**", "81***", "8****", "*****"},
-                {"81931", "8193*", "819**", "81***", "8****", "*****"}};
-        List<String []> listZipHierarchy = List.of(zipcodeHierarcy);
+        List<String[]> testData = ageGenderZipcodeData();
+        List<String []> listAgeHierarchy = ageHierarchy();
+        List<String []> listGenderHierarchy = genderHierarchy();
+        List<String []> listZipHierarchy = zipcodeHierarchy();
 
         //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
         List<Attribute> testAttributes = new ArrayList<>();
@@ -142,9 +119,50 @@ public class GenerateTestData {
         return new Request(testData, testAttributes, privacyCriterionModelList);
     }
 
+    public static Request zipcodeRequestPayload3QuasiNoHierarchies(){
+        List<String[]> testData = ageGenderZipcodeData();
+        List<String []> listZipHierarchy = zipcodeHierarchy();
 
 
-    static List<String[]> ageGenderZipcodeData() {
+        //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
+        List<Attribute> testAttributes = new ArrayList<>();
+        testAttributes.add(new Attribute("age",QUASIIDENTIFYING, null));
+        testAttributes.add(new Attribute("gender",QUASIIDENTIFYING, null));
+        testAttributes.add(new Attribute("zipcode",QUASIIDENTIFYING, listZipHierarchy));
+
+        //Define K-anonymity
+        List<PrivacyCriterionModel> privacyCriterionModelList = new ArrayList<>();
+        Map<String,String> kMapValue = new HashMap<>();
+        kMapValue.put("k","2");
+        privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
+
+        return new Request(testData, testAttributes, privacyCriterionModelList);
+    }
+
+
+    private static List<String[]> genderHierarchy() {
+        String[][] genderHierarchy={{"male", "*"}, {"female", "*"}};
+        return List.of(genderHierarchy);
+    }
+
+    private static List<String[]> ageHierarchy() {
+        String[][] newAgeHiarchy = {
+                {"34", "<50", "*"},
+                {"35", "<50", "*"},
+                {"36", "<50", "*"},
+                {"37", "<50", "*"},
+                {"38", "<50", "*"},
+                {"39", "<50", "*"},
+                {"40", "<50", "*"},
+                {"41", "<50", "*"},
+                {"42", "<50", "*"},
+                {"43", "<50", "*"},
+                {"44", "<50", "*"}};
+        return List.of(newAgeHiarchy);
+    }
+
+
+    private static List<String[]> ageGenderZipcodeData() {
         String[][] rawData = {{"age", "gender", "zipcode" },
                 {"34", "male", "81667"},
                 {"35", "female", "81668"},
