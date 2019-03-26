@@ -28,7 +28,7 @@ class GlobalControllerExceptionHandler {
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleExceptionAllExceptions(Exception ex, WebRequest request) {
         Logger logger = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);
-        logger.error("test1 Exception error:\nHttpStatus:INTERNAL_SERVER_ERROR");
+        logger.error("Exception.class error, HttpStatus:INTERNAL_SERVER_ERROR");
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                         ex.getMessage(),
                         request.getDescription(false),
@@ -39,7 +39,7 @@ class GlobalControllerExceptionHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public final ResponseEntity<Object> handleMethodNotSupportedExceptions(Exception ex, WebRequest request) {
         Logger logger = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);
-        logger.error("test2 Exception error:Exception thrown when a request handler does not support a specific request method.\nHttpStatus:METHOD_NOT_ALLOWED");
+        logger.error("Exception error:Exception thrown when a request handler does not support a specific request method. HttpStatus:METHOD_NOT_ALLOWED");
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
                 request.getDescription(false),
@@ -50,7 +50,7 @@ class GlobalControllerExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity handleIllegalArgumentExceptions (IllegalArgumentException ex, WebRequest request){
         Logger logger = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);
-        logger.error("test3 Exception error:Thrown to indicate that a method has been passed an illegal or inappropriate argument.\nHttpStatus:BAD_REQUEST");
+        logger.error("Exception error:Thrown to indicate that a method has been passed an illegal or inappropriate argument. HttpStatus:BAD_REQUEST");
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
                 request.getDescription(false),
@@ -61,7 +61,7 @@ class GlobalControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request){
         Logger logger = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);
-        logger.error("test4 Exception error:Exception to be thrown when validation on an argument annotated with @Valid fails.\nHttpStatus:BAD_REQUEST ");
+        logger.error("Exception error:Exception to be thrown when validation on an argument annotated with @Valid fails. HttpStatus:BAD_REQUEST ");
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
                 request.getDescription(false),
