@@ -11,7 +11,7 @@ public class LoggerAnonymizationService {
     private Logger anonymizationLogger = LoggerFactory.getLogger(AnonymizationController.class);
 
     public void loggAnonymizationPayload(Request payload){
-        anonymizationLogger.info("\n-Request received "+"\n-Size of data set"+"\n-Number of rows = "+ numRows(payload) +"\n-Number of columns "+ numColumns(payload));
+        anonymizationLogger.info("Request received: "+" Size of data set: "+"Number of rows = "+ numRows(payload) +", Number of columns "+ numColumns(payload));
     }
 
 
