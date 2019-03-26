@@ -12,7 +12,7 @@ public class LoggerAnalyzationService {
     private Logger analyzationLogger = LoggerFactory.getLogger(AnalyzationController.class);
 
     public void loggAnalyzationPayload(Request payload){
-        analyzationLogger.info("\n-Request received "+"\n-Size of data set"+"\n-Number of rows = "+ numRows(payload) +"\n-Number of columns "+ numColumns(payload));
+        analyzationLogger.info("Request received: "+"Size of data: set "+" Number of rows = "+ numRows(payload) +", Number of columns "+ numColumns(payload));
     }
 
 
