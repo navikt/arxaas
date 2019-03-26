@@ -1,6 +1,7 @@
 package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.exception.ExceptionResponse;
+import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -27,8 +28,7 @@ class GlobalControllerExceptionHandler {
     public final ResponseEntity<Object> handleExceptionAllExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                         ex.getMessage(),
-                        request.getDescription(false),
-                        HttpStatus.INTERNAL_SERVER_ERROR);
+                        request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -36,8 +36,7 @@ class GlobalControllerExceptionHandler {
     public final ResponseEntity<Object> handleNullPointerExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.toString(),
-                request.getDescription(false),
-                HttpStatus.INTERNAL_SERVER_ERROR);
+                request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -45,8 +44,7 @@ class GlobalControllerExceptionHandler {
     public final ResponseEntity<Object> handleMethodNotSupportedExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
-                request.getDescription(false),
-                HttpStatus.METHOD_NOT_ALLOWED);
+                request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
@@ -54,8 +52,7 @@ class GlobalControllerExceptionHandler {
     public ResponseEntity handleIllegalArgumentExceptions (IllegalArgumentException ex, WebRequest request){
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
-                request.getDescription(false),
-                HttpStatus.BAD_REQUEST);
+                request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
@@ -63,8 +60,16 @@ class GlobalControllerExceptionHandler {
     public ResponseEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request){
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
-                request.getDescription(false),
-                HttpStatus.BAD_REQUEST);
+                request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UnableToAnonymizeDataException.class)
+    public ResponseEntity<Object> handleUnableToAnonymizeDataException(UnableToAnonymizeDataException ex, WebRequest request){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                "Unable to anonymize the dataset with the provided attributes and hierarchies." +
+                        " A common cause of this error is more thant one QUASIIDENTIFYING attribute without a hierarchy",
+                request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 }

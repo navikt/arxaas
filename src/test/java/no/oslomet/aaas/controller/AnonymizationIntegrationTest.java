@@ -25,6 +25,7 @@ class AnonymizationIntegrationTest {
     private Request missingDataPayload;
     private Request missingAttributesPayload;
     private Request missingPrivacyModelsPayload;
+    private Request testRequestPayloadWithToManyQuasi;
 
     @BeforeEach
     void setUp() {
@@ -32,6 +33,7 @@ class AnonymizationIntegrationTest {
         missingDataPayload = GenerateTestData.zipcodeRequestPayloadWithoutData();
         missingAttributesPayload = GenerateTestData.zipcodeRequestPayloadWithoutAttributes();
         missingPrivacyModelsPayload = GenerateTestData.zipcodeRequestPayloadWithoutPrivacyModels();
+        testRequestPayloadWithToManyQuasi = GenerateTestData.zipcodeRequestPayload3QuasiNoHierarchies();
     }
 
     @Test
@@ -59,6 +61,16 @@ class AnonymizationIntegrationTest {
     @Test
     void anonymization_missing_attributes_should_return_bad_request() {
         ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",missingAttributesPayload, ExceptionResponse.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_payload_containing_to_many_quasi_vs_hierarchies_should_return_bad_request() {
+        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",testRequestPayloadWithToManyQuasi, ExceptionResponse.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
