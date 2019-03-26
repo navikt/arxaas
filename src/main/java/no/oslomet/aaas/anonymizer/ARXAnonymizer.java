@@ -6,6 +6,8 @@ import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.ConfigurationFactory;
 import no.oslomet.aaas.utils.DataFactory;
 import org.deidentifier.arx.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,11 +23,13 @@ public class ARXAnonymizer implements Anonymizer {
 
     private final DataFactory dataFactory;
     private final ConfigurationFactory configFactory;
+    private final Logger logger;
 
     @Autowired
     public ARXAnonymizer(DataFactory dataFactory, ConfigurationFactory configFactory) {
         this.dataFactory = dataFactory;
         this.configFactory = configFactory;
+        logger = LoggerFactory.getLogger(this.getClass());
     }
 
     @Override
@@ -39,8 +43,10 @@ public class ARXAnonymizer implements Anonymizer {
             ARXResult result = anonymizer.anonymize(data,config);
             List<String[]> anonymisedData = createRawDataList(result);
             return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), null);
-        } catch (IOException e) {
-            throw new UnableToAnonymizeDataException(e.getMessage());
+        } catch (IOException | NullPointerException e) {
+
+            logger.error("Exception error: " + e.toString());
+            throw new UnableToAnonymizeDataException(e.toString());
         }
     }
 
