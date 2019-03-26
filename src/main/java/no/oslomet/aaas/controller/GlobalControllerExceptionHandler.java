@@ -32,6 +32,15 @@ class GlobalControllerExceptionHandler {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public final ResponseEntity<Object> handleNullPointerExceptions(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                ex.toString(),
+                request.getDescription(false),
+                HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public final ResponseEntity<Object> handleMethodNotSupportedExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
