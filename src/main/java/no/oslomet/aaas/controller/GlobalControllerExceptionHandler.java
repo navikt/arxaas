@@ -1,6 +1,8 @@
 package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.exception.ExceptionResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -25,6 +27,8 @@ class GlobalControllerExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleExceptionAllExceptions(Exception ex, WebRequest request) {
+        Logger logger = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);
+        logger.error("test1");
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                         ex.getMessage(),
                         request.getDescription(false),
@@ -34,6 +38,8 @@ class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public final ResponseEntity<Object> handleMethodNotSupportedExceptions(Exception ex, WebRequest request) {
+        Logger logger = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);
+        logger.error("test2");
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
                 request.getDescription(false),
@@ -43,6 +49,8 @@ class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity handleIllegalArgumentExceptions (IllegalArgumentException ex, WebRequest request){
+        Logger logger = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);
+        logger.error("test3");
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
                 request.getDescription(false),
@@ -52,6 +60,8 @@ class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request){
+        Logger logger = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);
+        logger.error("test4");
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
                 request.getDescription(false),
