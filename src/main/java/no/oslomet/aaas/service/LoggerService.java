@@ -1,20 +1,17 @@
 package no.oslomet.aaas.service;
 
-import no.oslomet.aaas.controller.AnonymizationController;
 import no.oslomet.aaas.model.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoggerAnonymizationService {
+public class LoggerService {
 
-    private Logger anonymizationLogger = LoggerFactory.getLogger(AnonymizationController.class);
-
-    public void loggAnonymizationPayload(Request payload) {
-        anonymizationLogger.info("Request received: " + " Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload));
+    public void loggPayload(Request payload, Class classToLogg) {
+        Logger logger = LoggerFactory.getLogger(classToLogg);
+        logger.info("Request received: " + " Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload));
     }
-
 
     private int numColumns(Request payload) {
         if (payload == null || payload.getData() == null) return 0;

@@ -1,8 +1,9 @@
 package no.oslomet.aaas.controller;
+
 import no.oslomet.aaas.model.AnonymizationResultPayload;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.service.AnonymizationService;
-import no.oslomet.aaas.service.LoggerAnonymizationService;
+import no.oslomet.aaas.service.LoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,19 +14,18 @@ import javax.validation.Valid;
 @RequestMapping("/api/anonymize")
 public class AnonymizationController {
 
-    private  final AnonymizationService anonymizationService;
-    private  final LoggerAnonymizationService loggerAnonymizationService;
+    private final AnonymizationService anonymizationService;
+    private final LoggerService loggerService;
 
     @Autowired
-    AnonymizationController(AnonymizationService anonymizationService, LoggerAnonymizationService loggerAnonymizationService){
+    AnonymizationController(AnonymizationService anonymizationService, LoggerService loggerService) {
         this.anonymizationService = anonymizationService;
-        this.loggerAnonymizationService = loggerAnonymizationService;
+        this.loggerService = loggerService;
     }
-
 
     @PostMapping
     public AnonymizationResultPayload anonymization(@Valid @RequestBody Request payload) {
-        loggerAnonymizationService.loggAnonymizationPayload(payload);
+        loggerService.loggPayload(payload, AnonymizationController.class);
         return anonymizationService.anonymize(payload);
     }
 
