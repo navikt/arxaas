@@ -2,6 +2,7 @@ package no.oslomet.aaas.service;
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.analyzer.ARXAnalyzer;
 import no.oslomet.aaas.anonymizer.ARXAnonymizer;
+import no.oslomet.aaas.controller.AnonymizationController;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.*;
 import org.junit.Before;
@@ -9,7 +10,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 
-public class LoggerAnonymizationServiceTest {
+public class LoggerServiceTest {
 
     private AnonymizationService anonymizationService;
     private Request testRequestPayload;
@@ -26,8 +27,8 @@ public class LoggerAnonymizationServiceTest {
     @Test
     public void loggerAnonymizationServiceResult(){
         anonymizationService.anonymize(testRequestPayload);
-        LoggerAnonymizationService loggerAnonymizationService = new LoggerAnonymizationService();
-        loggerAnonymizationService.loggAnonymizationPayload(testRequestPayload);
+        LoggerService loggerService = new LoggerService();
+        loggerService.loggPayload(testRequestPayload, AnonymizationController.class);
         Assertions.assertNotNull(anonymizationService.anonymize(testRequestPayload));
     }
 }
