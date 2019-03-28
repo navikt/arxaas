@@ -37,9 +37,15 @@ node {
             version_tag = "${datestring}-${git_commit_hash}"
         }
 
-        stage('maven build') {
+        stage('maven install dependency') {
             dir("${dependency_name}") {
                 sh "mvn -q install:install-file -Dfile=libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar"
+            }
+        }
+
+        stage('maven build') {
+            dir("${app_name}") {
+                sh "mvn clean install"
             }
         }
 
