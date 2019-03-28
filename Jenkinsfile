@@ -45,7 +45,7 @@ node {
 
         stage('maven build') {
             dir("${app_name}") {
-                sh "mvn clean install"
+                sh "mvn clean install -e"
             }
         }
 
