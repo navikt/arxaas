@@ -1,6 +1,5 @@
 package no.oslomet.aaas.model;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,32 +7,32 @@ import java.util.Map;
  */
 public class AnalyzeResult {
 
-    private final Map<String, String> metrics;
+    private final Map<String, String> reIdentificationRisk;
 
-    private final List<RiskInterval> distributionOfRisk;
+    private final DistributionOfRisk distributionOfRisk;
 
     /***
-     * Setter method for analysis result metrics. Fills the object with the results from the analysis against
+     * Setter method for analysis result reIdentificationRisk. Fills the object with the results from the analysis against
      * re-identification risk.
-     * @param metrics HashMap containing a String of fields that describe the type of risk and a
+     * @param reIdentificationRisk HashMap containing a String of fields that describe the type of risk and a
      *                String containing its risk value
      */
-    public AnalyzeResult(Map<String, String> metrics, List<RiskInterval> distributionOfRisk ) {
-        this.metrics = metrics;
+    public AnalyzeResult(Map<String, String> reIdentificationRisk, DistributionOfRisk distributionOfRisk ) {
+        this.reIdentificationRisk = reIdentificationRisk;
         this.distributionOfRisk = distributionOfRisk;
     }
 
     /***
-     * Getter method for the analysis result metrics.
+     * Getter method for the analysis result reIdentificationRisk.
      * @return HashMap containing a String of fields that describe the type of risk and a
      * String containing its risk value
      */
-    public Map<String, String> getMetrics() {
-        return metrics;
+    public Map<String, String> getReIdentificationRisk() {
+        return reIdentificationRisk;
     }
 
 
-    public List<RiskInterval> getDistributionOfRisk() {
+    public DistributionOfRisk getDistributionOfRisk() {
         return distributionOfRisk;
     }
 }

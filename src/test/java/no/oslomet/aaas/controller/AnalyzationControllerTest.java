@@ -38,10 +38,10 @@ class AnalyzationControllerTest {
         assertSame(HttpStatus.OK , responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
         assert resultData != null;
-        assertNotNull(resultData.getMetrics().get("records_affected_by_highest_risk"));
-        assertEquals("]50,100]",resultData.getDistributionOfRisk().get(0).getInterval());
-        assertEquals(1.0,resultData.getDistributionOfRisk().get(0).getRecordsWithRiskWithinInteval());
-        assertEquals(1.0,resultData.getDistributionOfRisk().get(0).getRecordsWithMaxmalRiskWithinInterval());
+        assertNotNull(resultData.getReIdentificationRisk().get("records_affected_by_highest_prosecutor_risk"));
+        assertEquals("]50,100]", resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getInterval());
+        assertEquals(1.0,resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getRecordsWithRiskWithinInteval());
+        assertEquals(1.0,resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getRecordsWithMaxmalRiskWithinInterval());
         assertNotNull(resultData.getDistributionOfRisk());
 
     }

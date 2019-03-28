@@ -28,7 +28,7 @@ public class AnonymizationService {
                 new Request(result.getData(), payload.getAttributes(), null);
         AnalyzeResult afterAnalyzeResult = analyzer.analyze(afterAnalysisPayload);
 
-        return new AnonymizationResultPayload(result, beforeAnalyzeResult.getMetrics(), afterAnalyzeResult.getMetrics());
+        return new AnonymizationResultPayload(result, beforeAnalyzeResult.getReIdentificationRisk(), afterAnalyzeResult.getReIdentificationRisk());
     }
 
 }

@@ -19,7 +19,7 @@ public class LoggerAnonymizationServiceTest {
         DataFactory dataFactory = new ARXDataFactory();
         ConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
         anonymizationService = new AnonymizationService(new ARXAnonymizer(dataFactory,configurationFactory),
-                new ARXAnalyzer(new ARXDataFactory(), new ARXPayloadAnalyser()));
+                new ARXAnalyzer(new ARXDataFactory()));
         testRequestPayload = GenerateTestData.zipcodeRequestPayload();
     }
 

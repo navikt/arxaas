@@ -12,13 +12,12 @@ public class ExceptionResponse {
     private final Date timestamp;
     private final String message;
     private final String details;
-    private final HttpStatus status;
 
-    public ExceptionResponse(Date timestamp, String message, String details, HttpStatus status) {
+
+    public ExceptionResponse(Date timestamp, String message, String details) {
         this.timestamp = timestamp;
         this.message = message;
         this.details = details;
-        this.status = status;
     }
 
     public Date getTimestamp() {
@@ -33,7 +32,4 @@ public class ExceptionResponse {
         return details;
     }
 
-    public HttpStatus getStatus() {
-        return status;
-    }
 }
