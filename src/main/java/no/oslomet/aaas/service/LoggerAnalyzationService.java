@@ -13,7 +13,7 @@ public class LoggerAnalyzationService {
     private Logger analyzationLogger = LoggerFactory.getLogger(AnalyzationController.class);
 
     public void loggAnalyzationPayload(Request payload) {
-        analyzationLogger.info("Request received: " + "Size of data: set " + " Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload));
+        analyzationLogger.info("Request received: " + "Size of data: set " + " Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload));
     }
 
 
@@ -25,5 +25,10 @@ public class LoggerAnalyzationService {
     private int numRows(Request payload) {
         if (payload == null || payload.getData() == null) return 0;
         return payload.getData().size();
+    }
+
+    private int bytesize(Request payload) {
+        if (payload == null || payload.getData() == null) return 0;
+        return payload.getData().toString().length();
     }
 }
