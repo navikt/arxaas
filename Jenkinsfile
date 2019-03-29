@@ -4,7 +4,8 @@ import java.text.*
 
 node {
     def yaml_path
-
+    def version_tag
+    
     def app_name = 'arxaas'
     def dependency_name = 'arx_dependency'
     def namespace = 'default'
