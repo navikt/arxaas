@@ -21,3 +21,7 @@ mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId
 ```
 
 You are ready to go!
+
+#### HTTPS configuration
+
+[Documentation](READMEHTTPS.md)
