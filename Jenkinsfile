@@ -9,7 +9,7 @@ node {
     def app_name = 'arxaas'
     def dependency_name = 'arx_dependency'
     def namespace = 'default'
-    def cluster = 'preprod.local'
+    def cluster = 'adeo.no'
     def date = new Date()
     def datestring = new SimpleDateFormat("yyyy-MM-dd").format(date)
 
