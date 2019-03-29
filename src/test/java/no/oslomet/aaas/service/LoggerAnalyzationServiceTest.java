@@ -28,7 +28,7 @@ public class LoggerAnalyzationServiceTest {
     public void loggerAnalysationServiceResult() {
         analyzationService.analyze(testRequestPayload);
         LoggerService loggerAnalysationService = new LoggerService();
-        loggerAnalysationService.loggPayload(testRequestPayload, AnalyzationController.class);
+        loggerAnalysationService.loggPayload(testRequestPayload, " ",AnalyzationController.class);
         Assertions.assertNotNull(analyzationService.analyze(testRequestPayload));
     }
 }

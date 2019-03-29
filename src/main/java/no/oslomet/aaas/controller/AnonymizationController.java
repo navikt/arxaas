@@ -7,6 +7,7 @@ import no.oslomet.aaas.service.LoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
@@ -24,9 +25,11 @@ public class AnonymizationController {
     }
 
     @PostMapping
-    public AnonymizationResultPayload anonymization(@Valid @RequestBody Request payload) {
-        loggerService.loggPayload(payload, AnonymizationController.class);
+    public AnonymizationResultPayload anonymization(@Valid @RequestBody Request payload, HttpServletRequest request) {
+        loggerService.loggPayload(payload, request.getRemoteAddr(), AnonymizationController.class);
         return anonymizationService.anonymize(payload);
     }
 
 }
+
+
