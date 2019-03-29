@@ -4,11 +4,12 @@ import java.text.*
 
 node {
     def yaml_path
-
+    def version_tag
+    
     def app_name = 'arxaas'
     def dependency_name = 'arx_dependency'
     def namespace = 'default'
-    def cluster = 'preprod.local'
+    def cluster = 'adeo.no'
     def date = new Date()
     def datestring = new SimpleDateFormat("yyyy-MM-dd").format(date)
 
@@ -45,7 +46,7 @@ node {
 
         stage('maven build') {
             dir("${app_name}") {
-                sh "mvn clean install"
+                sh "mvn clean install -e"
             }
         }
 
@@ -61,8 +62,10 @@ node {
         }
 
         stage('Upload nais.yaml to nexus server') {
-            yaml_path = "https://repo.adeo.no/repository/raw/nais/${app_name}/latest/nais.yaml"
-            sh "curl -s -S --upload-file nais.yaml ${yaml_path}"
+            dir("${app_name}") {
+                  yaml_path = "https://repo.adeo.no/repository/raw/nais/${app_name}/${version_tag}/nais.yaml"
+                  sh "curl -s -S --upload-file nais.yaml ${yaml_path}"
+            }
         }
 
         stage('Deploy app to nais') {

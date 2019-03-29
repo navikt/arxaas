@@ -1,6 +1,7 @@
 package no.oslomet.aaas.service;
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.analyzer.ARXAnalyzer;
+import no.oslomet.aaas.controller.AnalyzationController;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.*;
 import org.junit.Before;
@@ -26,8 +27,8 @@ public class LoggerAnalyzationServiceTest {
     @Test
     public void loggerAnalysationServiceResult() {
         analyzationService.analyze(testRequestPayload);
-        LoggerAnalyzationService loggerAnalysationService = new LoggerAnalyzationService();
-        loggerAnalysationService.loggAnalyzationPayload(testRequestPayload);
+        LoggerService loggerAnalysationService = new LoggerService();
+        loggerAnalysationService.loggPayload(testRequestPayload, " ",AnalyzationController.class);
         Assertions.assertNotNull(analyzationService.analyze(testRequestPayload));
     }
 }
