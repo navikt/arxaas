@@ -28,7 +28,7 @@ public class LoggerServiceTest {
     public void loggerAnonymizationServiceResult(){
         anonymizationService.anonymize(testRequestPayload);
         LoggerService loggerService = new LoggerService();
-        loggerService.loggPayload(testRequestPayload, AnonymizationController.class);
+        loggerService.loggPayload(testRequestPayload, "", AnonymizationController.class);
         Assertions.assertNotNull(anonymizationService.anonymize(testRequestPayload));
     }
 }

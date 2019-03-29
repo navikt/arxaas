@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
@@ -28,8 +29,8 @@ public class AnalyzationController {
     }
 
     @PostMapping
-    public AnalyzeResult getPayloadAnalyze(@Valid @RequestBody Request payload) {
-        loggerService.loggPayload(payload, AnalyzationController.class);
+    public AnalyzeResult getPayloadAnalyze(@Valid @RequestBody Request payload, HttpServletRequest request) {
+        loggerService.loggPayload(payload, request.getRemoteAddr(), AnalyzationController.class);
         return analyzationService.analyze(payload);
     }
 
