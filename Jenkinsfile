@@ -62,7 +62,7 @@ node {
         }
 
         stage('Upload nais.yaml to nexus server') {
-            dir(${app_name}) {
+            dir("${app_name}") {
                   yaml_path = "https://repo.adeo.no/repository/raw/nais/${app_name}/${version_tag}/nais.yaml"
                   sh "curl -s -S --upload-file nais.yaml ${yaml_path}"
             }
