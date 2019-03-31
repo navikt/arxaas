@@ -71,6 +71,29 @@ public class GenerateTestData {
         return new Request(testData, testAttributes, privacyCriterionModelList);
     }
 
+
+    public static Map<String, String> ageGenderZipcodeMeasures(){
+        Map<String,String > measureMap = new HashMap<>();
+        measureMap.put("Prosecutor_attacker_success_rate","100.0");
+        measureMap.put("records_affected_by_highest_prosecutor_risk","100.0");
+        measureMap.put("sample_uniques","100.0");
+        measureMap.put("estimated_prosecutor_risk","100.0");
+        measureMap.put("population_model","ZAYATZ");
+        measureMap.put("highest_journalist_risk","100.0");
+        measureMap.put("records_affected_by_lowest_risk","100.0");
+        measureMap.put("estimated_marketer_risk","100.0");
+        measureMap.put("Journalist_attacker_success_rate","100.0");
+        measureMap.put("highest_prosecutor_risk","100.0");
+        measureMap.put("estimated_journalist_risk","100.0");
+        measureMap.put("lowest_risk","100.0");
+        measureMap.put("Marketer_attacker_success_rate","100.0");
+        measureMap.put("average_prosecutor_risk","100.0");
+        measureMap.put("records_affected_by_highest_journalist_risk","100.0");
+        measureMap.put("population_uniques","100.0");
+        measureMap.put("quasi_identifiers","[zipcode, gender]");
+        return measureMap;
+    }
+
     public static Request zipcodeRequestPayloadHierarchyOverwrite() {
 
         String[][] rawData = {{"age", "gender", "zipcode" },
