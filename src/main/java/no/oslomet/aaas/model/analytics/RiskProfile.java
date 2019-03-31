@@ -29,8 +29,8 @@ public class RiskProfile {
     @Override
     public String toString() {
         return "RiskProfile{" +
-                "reIdentificationRisks=" + reIdentificationRisk +
-                ", distributionOfRisks=" + distributionOfRisk +
+                "reIdentificationRisk=" + reIdentificationRisk +
+                ", distributionOfRisk=" + distributionOfRisk +
                 '}';
     }
 
