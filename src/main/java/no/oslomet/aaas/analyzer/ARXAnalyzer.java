@@ -3,7 +3,7 @@ package no.oslomet.aaas.analyzer;
 import no.oslomet.aaas.model.RiskProfile;
 import no.oslomet.aaas.model.DistributionOfRisk;
 import no.oslomet.aaas.model.Request;
-import no.oslomet.aaas.utils.ARXPayloadAnalyser;
+import no.oslomet.aaas.utils.ARXReIdentificationRiskFactory;
 import no.oslomet.aaas.utils.DataFactory;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
@@ -31,13 +31,13 @@ public class ARXAnalyzer implements Analyzer {
         Data data = dataFactory.create(payload);
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
-        Map<String,String> analysisMetrics = ARXPayloadAnalyser.getPayloadAnalyzeData(dataToAnalyse,pModel);
+        Map<String,String> analysisMetrics = ARXReIdentificationRiskFactory.reIdentificationRisk(dataToAnalyse,pModel);
         return new RiskProfile(analysisMetrics,distributionOfRisk(dataToAnalyse,pModel));
     }
 
     private DistributionOfRisk distributionOfRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
-        double[] recordsWithRisk = ARXPayloadAnalyser.getPayloadDistributionOfRecordsWithRisk(dataToAnalyse,pModel);
-        double[] recordsWithMaximalRisk = ARXPayloadAnalyser.getPayloadDistributionOfRecordsWithMaximalRisk(dataToAnalyse,pModel);
+        double[] recordsWithRisk = ARXReIdentificationRiskFactory.getPayloadDistributionOfRecordsWithRisk(dataToAnalyse,pModel);
+        double[] recordsWithMaximalRisk = ARXReIdentificationRiskFactory.getPayloadDistributionOfRecordsWithMaximalRisk(dataToAnalyse,pModel);
         return DistributionOfRisk.createFromRiskAndMaxRisk(recordsWithRisk,recordsWithMaximalRisk);
     }
 
