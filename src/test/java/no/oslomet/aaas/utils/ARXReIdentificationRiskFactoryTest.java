@@ -1,5 +1,6 @@
 package no.oslomet.aaas.utils;
 
+import no.oslomet.aaas.model.ReIdentificationRisk;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
@@ -79,54 +80,62 @@ public class ARXReIdentificationRiskFactoryTest {
     //-------------------------Test against re-identification risk for dataset before anonymisation----------------//
 
     @Test
-    public void getPayloadAnalysisData() {
-        Map<String, String> actual = ARXReIdentificationRiskFactory.reIdentificationRisk(testData,pModel);
-        Map<String,String > expected = new HashMap<>();
-                expected.put("Prosecutor_attacker_success_rate","100.0");
-                expected.put("records_affected_by_highest_prosecutor_risk","100.0");
-                expected.put("sample_uniques","100.0");
-                expected.put("estimated_prosecutor_risk","100.0");
-                expected.put("population_model","ZAYATZ");
-                expected.put("highest_journalist_risk","100.0");
-                expected.put("records_affected_by_lowest_risk","100.0");
-                expected.put("estimated_marketer_risk","100.0");
-                expected.put("Journalist_attacker_success_rate","100.0");
-                expected.put("highest_prosecutor_risk","100.0");
-                expected.put("estimated_journalist_risk","100.0");
-                expected.put("lowest_risk","100.0");
-                expected.put("Marketer_attacker_success_rate","100.0");
-                expected.put("average_prosecutor_risk","100.0");
-                expected.put("records_affected_by_highest_journalist_risk","100.0");
-                expected.put("population_uniques","100.0");
-                expected.put("quasi_identifiers","[zipcode, gender]");
-
-        Assertions.assertEquals(expected,actual);
+    public void create__risk_is_correct() {
+        ReIdentificationRisk actual = ARXReIdentificationRiskFactory.create(testData,pModel);
+        Assertions.assertEquals(beforeAnonymization(),actual);
     }
 
     //-------------------------Test against re-identification risk for dataset after anonymisation----------------//
 
     @Test
-    public void showAnalysisData() {
-        Map<String, String> actual = ARXReIdentificationRiskFactory.reIdentificationRisk(testResultData,pModel);
-        Map<String,String> expected = new HashMap<>();
-                expected.put("Prosecutor_attacker_success_rate","18.181818181818183");
-                expected.put("records_affected_by_highest_prosecutor_risk","45.45454545454545");
-                expected.put("sample_uniques","0.0");
-                expected.put("estimated_prosecutor_risk","20.0");
-                expected.put("population_model","DANKAR");
-                expected.put("highest_journalist_risk","20.0");
-                expected.put("records_affected_by_lowest_risk","54.54545454545454");
-                expected.put("estimated_marketer_risk","18.181818181818183");
-                expected.put("Journalist_attacker_success_rate","18.181818181818183");
-                expected.put("highest_prosecutor_risk","20.0");
-                expected.put("estimated_journalist_risk","20.0");
-                expected.put("lowest_risk","16.666666666666664");
-                expected.put("Marketer_attacker_success_rate","18.181818181818183");
-                expected.put("average_prosecutor_risk","18.181818181818183");
-                expected.put("records_affected_by_highest_journalist_risk","45.45454545454545");
-                expected.put("population_uniques","0.0");
-                expected.put("quasi_identifiers","[zipcode, gender]");
+    public void create__anonymized_data_risk_is_correct() {
+        ReIdentificationRisk actual = ARXReIdentificationRiskFactory.create(testResultData,pModel);
+        Assertions.assertEquals(afterAnonymization(),actual);
+    }
 
-        Assertions.assertEquals(expected,actual);
+
+    private static ReIdentificationRisk beforeAnonymization(){
+        Map<String,String > expected = new HashMap<>();
+        expected.put("Prosecutor_attacker_success_rate","100.0");
+        expected.put("records_affected_by_highest_prosecutor_risk","100.0");
+        expected.put("sample_uniques","100.0");
+        expected.put("estimated_prosecutor_risk","100.0");
+        expected.put("population_model","ZAYATZ");
+        expected.put("highest_journalist_risk","100.0");
+        expected.put("records_affected_by_lowest_risk","100.0");
+        expected.put("estimated_marketer_risk","100.0");
+        expected.put("Journalist_attacker_success_rate","100.0");
+        expected.put("highest_prosecutor_risk","100.0");
+        expected.put("estimated_journalist_risk","100.0");
+        expected.put("lowest_risk","100.0");
+        expected.put("Marketer_attacker_success_rate","100.0");
+        expected.put("average_prosecutor_risk","100.0");
+        expected.put("records_affected_by_highest_journalist_risk","100.0");
+        expected.put("population_uniques","100.0");
+        expected.put("quasi_identifiers","[zipcode, gender]");
+        return new ReIdentificationRisk(expected);
+    }
+
+
+    private static ReIdentificationRisk afterAnonymization(){
+        Map<String,String> expected = new HashMap<>();
+        expected.put("Prosecutor_attacker_success_rate","18.181818181818183");
+        expected.put("records_affected_by_highest_prosecutor_risk","45.45454545454545");
+        expected.put("sample_uniques","0.0");
+        expected.put("estimated_prosecutor_risk","20.0");
+        expected.put("population_model","DANKAR");
+        expected.put("highest_journalist_risk","20.0");
+        expected.put("records_affected_by_lowest_risk","54.54545454545454");
+        expected.put("estimated_marketer_risk","18.181818181818183");
+        expected.put("Journalist_attacker_success_rate","18.181818181818183");
+        expected.put("highest_prosecutor_risk","20.0");
+        expected.put("estimated_journalist_risk","20.0");
+        expected.put("lowest_risk","16.666666666666664");
+        expected.put("Marketer_attacker_success_rate","18.181818181818183");
+        expected.put("average_prosecutor_risk","18.181818181818183");
+        expected.put("records_affected_by_highest_journalist_risk","45.45454545454545");
+        expected.put("population_uniques","0.0");
+        expected.put("quasi_identifiers","[zipcode, gender]");
+        return new ReIdentificationRisk(expected);
     }
 }

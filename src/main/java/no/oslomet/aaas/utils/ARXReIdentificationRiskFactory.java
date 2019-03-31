@@ -1,5 +1,6 @@
 package no.oslomet.aaas.utils;
 
+import no.oslomet.aaas.model.ReIdentificationRisk;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.DataHandle;
 import org.deidentifier.arx.risk.*;
@@ -20,13 +21,20 @@ public class ARXReIdentificationRiskFactory {
     private ARXReIdentificationRiskFactory(){}
 
 
+    public static ReIdentificationRisk create(DataHandle data, ARXPopulationModel pModel){
+        Map<String, String> measures = reIdentificationRisk(data, pModel);
+        return new ReIdentificationRisk(measures);
+    }
+
+
+
     /***
      * Returns a map containing the different statistics found from the data set.
      * @param data tabular data set to be analysed against re-identification risk
      * @param pModel population model for our data set that defines the population size and sampling fraction
      * @return a hash map containing data set re-identification statistics
      */
-    public static Map<String, String> reIdentificationRisk(DataHandle data, ARXPopulationModel pModel){
+    private static Map<String, String> reIdentificationRisk(DataHandle data, ARXPopulationModel pModel){
         RiskEstimateBuilder riskEstimateBuilder = data.getRiskEstimator(pModel);
         RiskModelSampleRisks sampleRisks = riskEstimateBuilder.getSampleBasedReidentificationRisk();
         RiskModelSampleRiskDistribution sampleRiskDistribution = riskEstimateBuilder.getSampleBasedRiskDistribution();

@@ -43,9 +43,20 @@ public class GenerateTestData {
         return new Request(testData, testAttributes, null);
     }
 
+    public static Request zipcodeRequestPayloadAfterAnonymization(){
+        List<String[]> testData = ageGenderZipcodeDataAfterAnonymization();
+        List<Attribute> testAttributes = ageGenderZipcodeAttributes(null);
+        return new Request(testData, testAttributes, null);
+    }
+
     public static Data ageGenderZipcodeDataset(){
         DataFactory datafactory = new ARXDataFactory();
         return datafactory.create(zipcodeRequestPayload());
+    }
+
+    public static Data ageGenderZipcodeDatasetAfterAnonymziation(){
+        DataFactory datafactory = new ARXDataFactory();
+        return datafactory.create(zipcodeRequestPayloadAfterAnonymization());
     }
 
     public static Request zipcodeRequestPayload2Quasi() {
@@ -71,6 +82,30 @@ public class GenerateTestData {
         return new Request(testData, testAttributes, privacyCriterionModelList);
     }
 
+    public static RiskProfile ageGenderZipcodeRiskProfile(){
+        var reIdentRisk = ageGenderZipcodeReIndenticationRisk();
+        var distributedRisk = ageGenderZipcodeDistributionOfRisk();
+        return new RiskProfile(reIdentRisk, distributedRisk);
+    }
+
+    public static RiskProfile ageGenderZipcodeRiskProfileAfterAnonymization(){
+        var reIdentRisk = ageGenderZipcodeReIndenticationRiskAfterAnonymization();
+        var distributedRisk = ageGenderZipcodeDistributionOfRiskAfterAnonymization();
+        return new RiskProfile(reIdentRisk, distributedRisk);
+    }
+
+    public static ReIdentificationRisk ageGenderZipcodeReIndenticationRisk(){
+        return new ReIdentificationRisk(ageGenderZipcodeMeasures());
+    }
+
+    public static DistributionOfRisk ageGenderZipcodeDistributionOfRisk(){
+        return DistributionOfRisk.create(ageGenderZipcodeDataset().getHandle().getRiskEstimator());
+    }
+
+    public static DistributionOfRisk ageGenderZipcodeDistributionOfRiskAfterAnonymization(){
+        return DistributionOfRisk.create(ageGenderZipcodeDatasetAfterAnonymziation().getHandle().getRiskEstimator());
+    }
+
 
     public static Map<String, String> ageGenderZipcodeMeasures(){
         Map<String,String > measureMap = new HashMap<>();
@@ -92,6 +127,32 @@ public class GenerateTestData {
         measureMap.put("population_uniques","100.0");
         measureMap.put("quasi_identifiers","[zipcode, gender]");
         return measureMap;
+    }
+
+    public static ReIdentificationRisk ageGenderZipcodeReIndenticationRiskAfterAnonymization(){
+        return new ReIdentificationRisk(ageGenderZipcodeMeasuresAfterAnonymization());
+    }
+
+    public static Map<String, String> ageGenderZipcodeMeasuresAfterAnonymization() {
+        Map<String,String> expected = new HashMap<>();
+        expected.put("Prosecutor_attacker_success_rate","18.181818181818183");
+        expected.put("records_affected_by_highest_prosecutor_risk","45.45454545454545");
+        expected.put("sample_uniques","0.0");
+        expected.put("estimated_prosecutor_risk","20.0");
+        expected.put("population_model","DANKAR");
+        expected.put("highest_journalist_risk","20.0");
+        expected.put("records_affected_by_lowest_risk","54.54545454545454");
+        expected.put("estimated_marketer_risk","18.181818181818183");
+        expected.put("Journalist_attacker_success_rate","18.181818181818183");
+        expected.put("highest_prosecutor_risk","20.0");
+        expected.put("estimated_journalist_risk","20.0");
+        expected.put("lowest_risk","16.666666666666664");
+        expected.put("Marketer_attacker_success_rate","18.181818181818183");
+        expected.put("average_prosecutor_risk","18.181818181818183");
+        expected.put("records_affected_by_highest_journalist_risk","45.45454545454545");
+        expected.put("population_uniques","0.0");
+        expected.put("quasi_identifiers","[zipcode, gender]");
+        return expected;
     }
 
     public static Request zipcodeRequestPayloadHierarchyOverwrite() {
@@ -205,6 +266,22 @@ public class GenerateTestData {
                 {"43", "female", "81676"},
                 {"44", "male", "81677"}};
         return  List.of(rawData);
+    }
+
+    public static List<String[]> ageGenderZipcodeDataAfterAnonymization(){
+        String[][] rawData = {{"age", "gender", "zipcode" },
+                {"*", "male", "816**"},
+                {"*", "female", "816**"},
+                {"*", "male", "816**"},
+                {"*", "female", "816**"},
+                {"*", "male", "816**"},
+                {"*", "female", "816**"},
+                {"*", "male", "816**"},
+                {"*", "female", "816**"},
+                {"*", "male", "816**"},
+                {"*", "female", "816**"},
+                {"*", "male", "816**"}};
+        return List.of(rawData);
     }
 
     private static List<String[]> zipcodeHierarchy() {

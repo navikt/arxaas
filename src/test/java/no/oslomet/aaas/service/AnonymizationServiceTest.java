@@ -36,54 +36,17 @@ public class AnonymizationServiceTest {
     public void anonymize_result() {
         AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
         List<String[]> actual= test.getAnonymizeResult().getData();
-        String[][] rawData = {{"age", "gender", "zipcode" },
-                {"*", "male", "816**"},
-                {"*", "female", "816**"},
-                {"*", "male", "816**"},
-                {"*", "female", "816**"},
-                {"*", "male", "816**"},
-                {"*", "female", "816**"},
-                {"*", "male", "816**"},
-                {"*", "female", "816**"},
-                {"*", "male", "816**"},
-                {"*", "female", "816**"},
-                {"*", "male", "816**"}};
-        List<String[]> expected = List.of(rawData);
+
+        List<String[]> expected = GenerateTestData.ageGenderZipcodeDataAfterAnonymization();
         for(int x = 0; x<12;x++) {
             Assertions.assertArrayEquals(expected.get(x), actual.get(x));
         }
     }
 
     @Test
-    public void anonymize_beforeAnonymizationMetrics() {
-        AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
-        Map<String, String> actual = test.getBeforeAnonymizationMetrics();
-        Map<String,String > expected = new HashMap<>();
-                expected.put("Prosecutor_attacker_success_rate","100.0");
-                expected.put("records_affected_by_highest_prosecutor_risk","100.0");
-                expected.put("sample_uniques","100.0");
-                expected.put("estimated_prosecutor_risk","100.0");
-                expected.put("population_model","ZAYATZ");
-                expected.put("highest_journalist_risk","100.0");
-                expected.put("records_affected_by_lowest_risk","100.0");
-                expected.put("estimated_marketer_risk","100.0");
-                expected.put("Journalist_attacker_success_rate","100.0");
-                expected.put("highest_prosecutor_risk","100.0");
-                expected.put("estimated_journalist_risk","100.0");
-                expected.put("lowest_risk","100.0");
-                expected.put("Marketer_attacker_success_rate","100.0");
-                expected.put("average_prosecutor_risk","100.0");
-                expected.put("records_affected_by_highest_journalist_risk","100.0");
-                expected.put("population_uniques","100.0");
-                expected.put("quasi_identifiers","[zipcode, gender]");
-
-        Assert.assertEquals(expected.keySet(),actual.keySet());
-    }
-
-    @Test
     public void anonymize_afterAnonymizationMetrics() {
         AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
-        Map<String, String> actual = test.getAfterAnonymizationMetrics();
+        Map<String, String> actual = test.getRiskProfile().getReIdentificationRisk().getMeasures();
         Map<String,String> expected = new HashMap<>();
                 expected.put("Prosecutor_attacker_success_rate","18.181818181818183");
                 expected.put("records_affected_by_highest_prosecutor_risk","45.45454545454545");
@@ -104,4 +67,6 @@ public class AnonymizationServiceTest {
                 expected.put("quasi_identifiers","[zipcode, gender]");
         Assert.assertEquals(expected.keySet(),actual.keySet());
     }
+
+
 }

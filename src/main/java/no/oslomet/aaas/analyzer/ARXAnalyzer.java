@@ -1,5 +1,6 @@
 package no.oslomet.aaas.analyzer;
 
+import no.oslomet.aaas.model.ReIdentificationRisk;
 import no.oslomet.aaas.model.RiskProfile;
 import no.oslomet.aaas.model.DistributionOfRisk;
 import no.oslomet.aaas.model.Request;
@@ -31,12 +32,16 @@ public class ARXAnalyzer implements Analyzer {
         Data data = dataFactory.create(payload);
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
-        Map<String,String> analysisMetrics = ARXReIdentificationRiskFactory.reIdentificationRisk(dataToAnalyse,pModel);
-        return new RiskProfile(analysisMetrics,distributionOfRisk(dataToAnalyse,pModel));
+
+        return new RiskProfile(reIdentificationRisk(dataToAnalyse, pModel),distributionOfRisk(dataToAnalyse,pModel));
     }
 
     private DistributionOfRisk distributionOfRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
         return DistributionOfRisk.create(dataToAnalyse.getRiskEstimator(pModel));
+    }
+
+    private ReIdentificationRisk reIdentificationRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
+        return ARXReIdentificationRiskFactory.create(dataToAnalyse,pModel);
     }
 
 }

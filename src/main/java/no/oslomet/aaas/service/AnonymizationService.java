@@ -20,15 +20,13 @@ public class AnonymizationService {
 
     public AnonymizationResultPayload anonymize(Request payload){
 
-       RiskProfile beforeRiskProfile = analyzer.analyze(payload);
-
         AnonymizeResult result = this.anonymizer.anonymize(payload);
 
         Request afterAnalysisPayload =
                 new Request(result.getData(), payload.getAttributes(), null);
         RiskProfile afterRiskProfile = analyzer.analyze(afterAnalysisPayload);
 
-        return new AnonymizationResultPayload(result, beforeRiskProfile.getReIdentificationRisk(), afterRiskProfile.getReIdentificationRisk());
+        return new AnonymizationResultPayload(result, afterRiskProfile);
     }
 
 }
