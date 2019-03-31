@@ -1,5 +1,7 @@
 package no.oslomet.aaas.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,12 +10,20 @@ public class ReIdentificationRisk {
 
     private final Map<String, String> measures;
 
+    @JsonCreator
     public ReIdentificationRisk(Map<String, String> measures) {
         this.measures  = new HashMap<>(measures);
     }
 
     public Map<String, String> getMeasures() {
         return measures;
+    }
+
+    @Override
+    public String toString() {
+        return "ReIdentificationRisk{" +
+                "measures=" + measures +
+                '}';
     }
 
     @Override
