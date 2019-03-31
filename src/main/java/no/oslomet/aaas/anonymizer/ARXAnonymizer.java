@@ -1,7 +1,7 @@
 package no.oslomet.aaas.anonymizer;
 
 import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
-import no.oslomet.aaas.model.analytics.AnonymizeResult;
+import no.oslomet.aaas.model.AnonymizeResult;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.ConfigurationFactory;
 import no.oslomet.aaas.utils.DataFactory;

@@ -1,4 +1,4 @@
-package no.oslomet.aaas.model.analytics;
+package no.oslomet.aaas.model;
 
 
 import no.oslomet.aaas.model.Anonymity;
