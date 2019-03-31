@@ -1,6 +1,9 @@
 package no.oslomet.aaas;
 
 import no.oslomet.aaas.model.*;
+import no.oslomet.aaas.utils.ARXDataFactory;
+import no.oslomet.aaas.utils.DataFactory;
+import org.deidentifier.arx.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +43,10 @@ public class GenerateTestData {
         return new Request(testData, testAttributes, null);
     }
 
-
+    public static Data ageGenderZipcodeDataset(){
+        DataFactory datafactory = new ARXDataFactory();
+        return datafactory.create(zipcodeRequestPayload());
+    }
 
     public static Request zipcodeRequestPayload2Quasi() {
 
