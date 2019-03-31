@@ -20,13 +20,10 @@ public class ARXReIdentificationRiskFactory {
 
     private ARXReIdentificationRiskFactory(){}
 
-
     public static ReIdentificationRisk create(DataHandle data, ARXPopulationModel pModel){
         Map<String, String> measures = reIdentificationRisk(data, pModel);
         return new ReIdentificationRisk(measures);
     }
-
-
 
     /***
      * Returns a map containing the different statistics found from the data set.
