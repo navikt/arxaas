@@ -4,15 +4,12 @@ import no.oslomet.aaas.model.ReIdentificationRisk;
 import no.oslomet.aaas.model.RiskProfile;
 import no.oslomet.aaas.model.DistributionOfRisk;
 import no.oslomet.aaas.model.Request;
-import no.oslomet.aaas.utils.ARXReIdentificationRiskFactory;
 import no.oslomet.aaas.utils.DataFactory;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
 import org.deidentifier.arx.DataHandle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * Analyzer class using the ARX library to implement the analysation

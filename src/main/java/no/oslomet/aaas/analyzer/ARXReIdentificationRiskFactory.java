@@ -1,4 +1,4 @@
-package no.oslomet.aaas.utils;
+package no.oslomet.aaas.analyzer;
 
 import no.oslomet.aaas.model.ReIdentificationRisk;
 import org.deidentifier.arx.ARXPopulationModel;

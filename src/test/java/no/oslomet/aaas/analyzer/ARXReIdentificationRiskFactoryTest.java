@@ -1,9 +1,9 @@
-package no.oslomet.aaas.utils;
+package no.oslomet.aaas.analyzer;
 
+import no.oslomet.aaas.analyzer.ARXReIdentificationRiskFactory;
 import no.oslomet.aaas.model.ReIdentificationRisk;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
-import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
