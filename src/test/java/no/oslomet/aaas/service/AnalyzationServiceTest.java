@@ -32,7 +32,6 @@ public class AnalyzationServiceTest {
         Map<String, String> actual = analyzationService.analyze(testRequestPayload).getReIdentificationRisk();
         String result100 = "100.0";
         Map<String,String > expected = new HashMap<>();
-                expected.put("measure_value","[%]");
                 expected.put("Prosecutor_attacker_success_rate","100.0");
                 expected.put("records_affected_by_highest_prosecutor_risk","100.0");
                 expected.put("sample_uniques","100.0");

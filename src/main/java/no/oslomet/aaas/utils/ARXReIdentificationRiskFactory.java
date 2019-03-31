@@ -31,7 +31,7 @@ public class ARXReIdentificationRiskFactory {
         RiskModelSampleRisks sampleRisks = riskEstimateBuilder.getSampleBasedReidentificationRisk();
         RiskModelSampleRiskDistribution sampleRiskDistribution = riskEstimateBuilder.getSampleBasedRiskDistribution();
         RiskModelSampleSummary riskModelSampleSummary = data.getRiskEstimator(pModel).getSampleBasedRiskSummary(THRESHOLD);
-        PopulationUniquenessModel uniquenessModel = populationUniquenessModel(riskEstimateBuilder.getPopulationBasedUniquenessRisk());
+        RiskModelPopulationUniqueness populationBasedUniquenessRisk = riskEstimateBuilder.getPopulationBasedUniquenessRisk();
 
 
         double lowestRisk = lowestProsecutorRisk(sampleRisks);
@@ -46,16 +46,15 @@ public class ARXReIdentificationRiskFactory {
         metricsMap.put("records_affected_by_highest_prosecutor_risk", String.valueOf(recordsAffectByRisk(sampleRiskDistribution, highestRisk) * PRECENT_CONVERT));
         metricsMap.put("Prosecutor_attacker_success_rate",String.valueOf(prosecutorAttackSuccessRate(riskModelSampleSummary) * PRECENT_CONVERT));
         metricsMap.put("highest_journalist_risk", String.valueOf(highestJournalistRisk(riskModelSampleSummary) * PRECENT_CONVERT));
-        metricsMap.put("records_affected_by_highest_journalist_risk",
-                String.valueOf(recordsAffectByRisk(sampleRiskDistribution, highestJournalistRisk) * PRECENT_CONVERT));
+        metricsMap.put("records_affected_by_highest_journalist_risk", String.valueOf(recordsAffectByRisk(sampleRiskDistribution, highestJournalistRisk) * PRECENT_CONVERT));
         metricsMap.put("Journalist_attacker_success_rate",String.valueOf(journalistAttackerSuccessRate(riskModelSampleSummary) * PRECENT_CONVERT));
         metricsMap.put("Marketer_attacker_success_rate",String.valueOf(marketerAttackerSuccessRate(riskModelSampleSummary) * PRECENT_CONVERT));
         metricsMap.put("estimated_prosecutor_risk", String.valueOf(estimatedProsecutorRisk(sampleRisks) * PRECENT_CONVERT));
         metricsMap.put("estimated_journalist_risk", String.valueOf(estimatedJournalistRisk(sampleRisks) * PRECENT_CONVERT));
         metricsMap.put("estimated_marketer_risk", String.valueOf(estimatedMarketerRisk(sampleRisks) * PRECENT_CONVERT));
         metricsMap.put("sample_uniques", String.valueOf(sampleUniques(riskEstimateBuilder.getSampleBasedUniquenessRisk())* PRECENT_CONVERT));
-        metricsMap.put("population_uniques", String.valueOf(populationUniques(riskEstimateBuilder.getPopulationBasedUniquenessRisk())* PRECENT_CONVERT));
-        metricsMap.put("population_model", populationUniquenessModel(riskEstimateBuilder.getPopulationBasedUniquenessRisk()).toString());
+        metricsMap.put("population_uniques", String.valueOf(populationUniques(populationBasedUniquenessRisk)* PRECENT_CONVERT));
+        metricsMap.put("population_model", populationUniquenessModel(populationBasedUniquenessRisk).toString());
         metricsMap.put("quasi_identifiers", quasiIdentifiers(data).toString());
         return metricsMap;
     }
@@ -205,30 +204,6 @@ public class ARXReIdentificationRiskFactory {
      */
     private static double marketerAttackerSuccessRate(RiskModelSampleSummary riskModelSampleSummary){
         return riskModelSampleSummary.getMarketerRisk().getSuccessRate();
-    }
-
-    /***
-     * Returns a double[] that contains Risk records on the different prosecutor risk ranges.
-     * @param data tabular data set to be analysed against re-identification risk
-     * @param pModel population model for our data set that defines the population size and sampling fraction
-     * @return double[] that contains Risk records on the different prosecutor risk ranges
-     */
-    public static double[] getPayloadDistributionOfRecordsWithRisk(DataHandle data, ARXPopulationModel pModel){
-        return data.getRiskEstimator(pModel)
-                .getSampleBasedRiskDistribution()
-                .getFractionOfRecordsForRiskThresholds();
-    }
-
-    /***
-     * Returns a double[] that contains maximal risk records on the different prosecutor risk ranges.
-     * @param data tabular data set to be analysed against re-identification risk
-     * @param pModel population model for our data set that defines the population size and sampling fraction
-     * @return double[] that contains maximal risk records on the different prosecutor risk ranges
-     */
-    public static double[] getPayloadDistributionOfRecordsWithMaximalRisk(DataHandle data, ARXPopulationModel pModel){
-        return data.getRiskEstimator(pModel)
-                .getSampleBasedRiskDistribution()
-                .getFractionOfRecordsForCumulativeRiskThresholds();
     }
 
 }

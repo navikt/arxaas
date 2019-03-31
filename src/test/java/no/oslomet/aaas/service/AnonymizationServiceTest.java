@@ -59,7 +59,6 @@ public class AnonymizationServiceTest {
         AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
         Map<String, String> actual = test.getBeforeAnonymizationMetrics();
         Map<String,String > expected = new HashMap<>();
-                expected.put("measure_value","[%]");
                 expected.put("Prosecutor_attacker_success_rate","100.0");
                 expected.put("records_affected_by_highest_prosecutor_risk","100.0");
                 expected.put("sample_uniques","100.0");
@@ -86,7 +85,6 @@ public class AnonymizationServiceTest {
         AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
         Map<String, String> actual = test.getAfterAnonymizationMetrics();
         Map<String,String> expected = new HashMap<>();
-                expected.put("measure_value","[%]");
                 expected.put("Prosecutor_attacker_success_rate","18.181818181818183");
                 expected.put("records_affected_by_highest_prosecutor_risk","45.45454545454545");
                 expected.put("sample_uniques","0.0");

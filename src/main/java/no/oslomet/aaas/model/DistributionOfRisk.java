@@ -2,6 +2,9 @@ package no.oslomet.aaas.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import org.deidentifier.arx.ARXPopulationModel;
+import org.deidentifier.arx.DataHandle;
+import org.deidentifier.arx.risk.RiskEstimateBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,7 @@ public class DistributionOfRisk {
         return this.riskIntervalList;
     }
 
-    public static DistributionOfRisk createFromRiskAndMaxRisk(double[] recordsOfRiskWithinInterval, double[] recordsOfMaximalRiskWithinInterval){
+    static DistributionOfRisk createFromRiskAndMaxRisk(double[] recordsOfRiskWithinInterval, double[] recordsOfMaximalRiskWithinInterval){
         List<RiskInterval> listOfDistributionOfRiskInterval = new ArrayList<>();
         for(int x = recordsOfRiskWithinInterval.length-1;x>=0;x--){
             RiskInterval riskInterval = new RiskInterval(
@@ -35,6 +38,33 @@ public class DistributionOfRisk {
             listOfDistributionOfRiskInterval.add(riskInterval);
         }
         return new DistributionOfRisk(listOfDistributionOfRiskInterval);
+    }
+
+
+    public static DistributionOfRisk create(RiskEstimateBuilder riskEstimateBuilder){
+        return createFromRiskAndMaxRisk(distributionOfRecordsWithRisk(riskEstimateBuilder),
+                distributionOfRecordsWithMaximalRisk(riskEstimateBuilder));
+    }
+    /***
+     * Returns a double[] that contains Risk records on the different prosecutor risk ranges.
+     * @param riskEstimateBuilder for a dataset
+     * @return double[] that contains Risk records on the different prosecutor risk ranges
+     */
+    private static double[] distributionOfRecordsWithRisk(RiskEstimateBuilder riskEstimateBuilder){
+        return riskEstimateBuilder
+                .getSampleBasedRiskDistribution()
+                .getFractionOfRecordsForRiskThresholds();
+    }
+
+    /***
+     * Returns a double[] that contains maximal risk records on the different prosecutor risk ranges.
+     * @param riskEstimateBuilder for a dataset
+     * @return double[] that contains maximal risk records on the different prosecutor risk ranges
+     */
+    private static double[] distributionOfRecordsWithMaximalRisk(RiskEstimateBuilder riskEstimateBuilder){
+        return riskEstimateBuilder
+                .getSampleBasedRiskDistribution()
+                .getFractionOfRecordsForCumulativeRiskThresholds();
     }
 
     public static class RiskInterval {

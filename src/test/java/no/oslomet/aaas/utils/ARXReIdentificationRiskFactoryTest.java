@@ -79,20 +79,6 @@ public class ARXReIdentificationRiskFactoryTest {
     //-------------------------Test against re-identification risk for dataset before anonymisation----------------//
 
     @Test
-    public void getPayloadDistributionOfRecordsWithRisk(){
-        double[] actual = ARXReIdentificationRiskFactory.getPayloadDistributionOfRecordsWithRisk(testData,pModel);
-        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
-        Assertions.assertArrayEquals(expected,actual);
-    }
-
-    @Test
-    public void getPayloadDistributionOfRecordsWithMaximalRisk(){
-        double[] actual = ARXReIdentificationRiskFactory.getPayloadDistributionOfRecordsWithMaximalRisk(testData,pModel);
-        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
-        Assertions.assertArrayEquals(expected,actual);
-    }
-
-    @Test
     public void getPayloadAnalysisData() {
         Map<String, String> actual = ARXReIdentificationRiskFactory.reIdentificationRisk(testData,pModel);
         Map<String,String > expected = new HashMap<>();
@@ -118,20 +104,6 @@ public class ARXReIdentificationRiskFactoryTest {
     }
 
     //-------------------------Test against re-identification risk for dataset after anonymisation----------------//
-
-    @Test
-    public void getDistributionOfRecordsWithRisk(){
-        double[] actual = ARXReIdentificationRiskFactory.getPayloadDistributionOfRecordsWithRisk(testResultData,pModel);
-        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,0.45454545454545453,0.0,0.0,0.0,0.0};
-        Assertions.assertArrayEquals(expected,actual);
-    }
-
-    @Test
-    public void getDistributionOfRecordsWithMaximalRisk(){
-        double[] actual = ARXReIdentificationRiskFactory.getPayloadDistributionOfRecordsWithMaximalRisk(testResultData,pModel);
-        double[] expected ={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5454545454545454,1.0,1.0,1.0,1.0,1.0};
-        Assertions.assertArrayEquals(expected,actual);
-    }
 
     @Test
     public void showAnalysisData() {
