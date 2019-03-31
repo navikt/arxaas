@@ -16,8 +16,8 @@ public class AnonymizeResult {
      * Setter method for the response object the anonymization process.
      * @param data list of String[] containing the anonymized tabular dataset
      * @param anonymizationStatus String containing the {@link Anonymity} status
-     * @param metrics HashMap containing the statistics from the anonymization process. The HashMap contains a
-     * String of fields that describe the type of statistic and a String that contains its risk value
+     * @param metrics {@link AnonymizationMetrics} containing the metrics from the anonymization process.
+     * Contains data on Attribute generalization, privacymodels configuration and time elapsed during anonymization
      */
     public AnonymizeResult(List<String[]> data, String anonymizationStatus,
                            AnonymizationMetrics metrics) {
@@ -44,8 +44,8 @@ public class AnonymizeResult {
 
     /***
      * Getter method for the anonymization statistics.
-     * @return HashMap containing the the anonymization statistics. The HashMap contains a
-     * String of fields that describe the type of statistic and a String that contains its risk value
+     * @return {@link AnonymizationMetrics} containing the metrics from the anonymization process.
+     *      * Contains data on Attribute generalization, privacymodels configuration and time elapsed during anonymization
      */
     public AnonymizationMetrics getMetrics() {
         return metrics;
