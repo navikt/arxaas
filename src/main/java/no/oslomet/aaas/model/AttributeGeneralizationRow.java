@@ -2,10 +2,12 @@ package no.oslomet.aaas.model;
 
 public class AttributeGeneralizationRow {
     final String name;
+    final String type;
     final int generalizationLevel;
 
-    public AttributeGeneralizationRow(String name, int generalizationLevel){
+    public AttributeGeneralizationRow(String name, String type, int generalizationLevel){
         this.name = name;
+        this.type = type;
         this.generalizationLevel = generalizationLevel;
     }
 
@@ -17,4 +19,7 @@ public class AttributeGeneralizationRow {
         return generalizationLevel;
     }
 
+    public String getType() {
+        return type;
+    }
 }
