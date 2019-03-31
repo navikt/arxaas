@@ -1,6 +1,6 @@
 package no.oslomet.aaas.analyzer;
 
-import no.oslomet.aaas.model.RiskProfile;
+import no.oslomet.aaas.model.analytics.RiskProfile;
 import no.oslomet.aaas.model.Request;
 
 /**

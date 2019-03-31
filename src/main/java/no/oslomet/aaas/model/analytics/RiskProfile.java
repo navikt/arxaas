@@ -1,6 +1,5 @@
-package no.oslomet.aaas.model;
+package no.oslomet.aaas.model.analytics;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**

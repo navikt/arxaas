@@ -1,12 +1,10 @@
-package no.oslomet.aaas.model;
+package no.oslomet.aaas.model.analytics;
 
 import no.oslomet.aaas.GenerateTestData;
 import org.deidentifier.arx.Data;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 
 class DistributionOfRiskTest {

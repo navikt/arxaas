@@ -1,8 +1,8 @@
 package no.oslomet.aaas.analyzer;
 
-import no.oslomet.aaas.model.ReIdentificationRisk;
-import no.oslomet.aaas.model.RiskProfile;
-import no.oslomet.aaas.model.DistributionOfRisk;
+import no.oslomet.aaas.model.analytics.ReIdentificationRisk;
+import no.oslomet.aaas.model.analytics.RiskProfile;
+import no.oslomet.aaas.model.analytics.DistributionOfRisk;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.DataFactory;
 import org.deidentifier.arx.ARXPopulationModel;

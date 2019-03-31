@@ -1,7 +1,7 @@
 package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateTestData;
-import no.oslomet.aaas.model.RiskProfile;
+import no.oslomet.aaas.model.analytics.RiskProfile;
 import no.oslomet.aaas.model.Request;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

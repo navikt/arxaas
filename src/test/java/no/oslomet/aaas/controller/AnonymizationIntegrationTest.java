@@ -2,6 +2,7 @@ package no.oslomet.aaas.controller;
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.exception.ExceptionResponse;
 import no.oslomet.aaas.model.*;
+import no.oslomet.aaas.model.analytics.AnonymizationResultPayload;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,5 +1,7 @@
-package no.oslomet.aaas.model;
+package no.oslomet.aaas.model.analytics;
 
+
+import no.oslomet.aaas.model.Anonymity;
 
 import java.util.List;
 import java.util.Map;

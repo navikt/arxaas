@@ -1,9 +1,7 @@
-package no.oslomet.aaas.model;
+package no.oslomet.aaas.model.analytics;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import org.deidentifier.arx.ARXPopulationModel;
-import org.deidentifier.arx.DataHandle;
 import org.deidentifier.arx.risk.RiskEstimateBuilder;
 
 import java.util.ArrayList;

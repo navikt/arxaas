@@ -1,14 +1,13 @@
-package no.oslomet.aaas.model;
+package no.oslomet.aaas.model.analytics;
 
 import no.oslomet.aaas.GenerateTestData;
+import no.oslomet.aaas.model.analytics.ReIdentificationRisk;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ReIdentificationRiskTest {
 

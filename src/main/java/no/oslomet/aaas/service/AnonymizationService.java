@@ -3,6 +3,9 @@ package no.oslomet.aaas.service;
 import no.oslomet.aaas.analyzer.Analyzer;
 import no.oslomet.aaas.anonymizer.Anonymizer;
 import no.oslomet.aaas.model.*;
+import no.oslomet.aaas.model.analytics.AnonymizationResultPayload;
+import no.oslomet.aaas.model.analytics.AnonymizeResult;
+import no.oslomet.aaas.model.analytics.RiskProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

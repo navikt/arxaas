@@ -3,14 +3,11 @@ package no.oslomet.aaas.service;
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.analyzer.ARXAnalyzer;
 import no.oslomet.aaas.model.Request;
-import no.oslomet.aaas.model.RiskProfile;
+import no.oslomet.aaas.model.analytics.RiskProfile;
 import no.oslomet.aaas.utils.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class AnalyzationServiceTest {
 

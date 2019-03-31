@@ -1,4 +1,4 @@
-package no.oslomet.aaas.model;
+package no.oslomet.aaas.model.analytics;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
