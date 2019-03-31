@@ -4,7 +4,6 @@ import org.deidentifier.arx.ARXLattice;
 import org.deidentifier.arx.ARXResult;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
