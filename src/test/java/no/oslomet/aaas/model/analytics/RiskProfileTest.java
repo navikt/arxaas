@@ -17,25 +17,25 @@ class RiskProfileTest {
     }
 
     @Test
-    void getReIdentificationRisk() {
+    public void getReIdentificationRisk() {
         var reIdRisks = testRiskProfile.getReIdentificationRisk();
         Assertions.assertNotNull(reIdRisks);
     }
 
     @Test
-    void getDistributionOfRisk() {
+    public void getDistributionOfRisk() {
         var distRisks = testRiskProfile.getDistributionOfRisk();
         Assertions.assertNotNull(distRisks);
     }
 
     @Test
-    void equals() {
+    public void equals() {
         var testRiskProfile2 = GenerateTestData.ageGenderZipcodeRiskProfile();
         Assertions.assertEquals(testRiskProfile, testRiskProfile2);
     }
 
     @Test
-    void testHashCode() {
+    public void testHashCode() {
         var testRiskProfile2 = GenerateTestData.ageGenderZipcodeRiskProfile();
         Assertions.assertThrows(IllegalArgumentException.class, () -> Set.of(testRiskProfile, testRiskProfile2));
     }
