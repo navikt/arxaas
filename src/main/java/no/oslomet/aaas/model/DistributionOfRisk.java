@@ -8,6 +8,7 @@ import org.deidentifier.arx.risk.RiskEstimateBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DistributionOfRisk {
 
@@ -67,6 +68,26 @@ public class DistributionOfRisk {
                 .getFractionOfRecordsForCumulativeRiskThresholds();
     }
 
+    @Override
+    public String toString() {
+        return "DistributionOfRisk{" +
+                "riskIntervalList=" + riskIntervalList +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DistributionOfRisk that = (DistributionOfRisk) o;
+        return riskIntervalList.equals(that.riskIntervalList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(riskIntervalList);
+    }
+
     public static class RiskInterval {
         private final String interval;
         private final double recordsWithRiskWithinInteval;
@@ -88,6 +109,30 @@ public class DistributionOfRisk {
 
         public double getRecordsWithMaxmalRiskWithinInterval() {
             return recordsWithMaxmalRiskWithinInterval;
+        }
+
+        @Override
+        public String toString() {
+            return "RiskInterval{" +
+                    "interval='" + interval + '\'' +
+                    ", recordsWithRiskWithinInteval=" + recordsWithRiskWithinInteval +
+                    ", recordsWithMaxmalRiskWithinInterval=" + recordsWithMaxmalRiskWithinInterval +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            RiskInterval that = (RiskInterval) o;
+            return Double.compare(that.recordsWithRiskWithinInteval, recordsWithRiskWithinInteval) == 0 &&
+                    Double.compare(that.recordsWithMaxmalRiskWithinInterval, recordsWithMaxmalRiskWithinInterval) == 0 &&
+                    interval.equals(that.interval);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(interval, recordsWithRiskWithinInteval, recordsWithMaxmalRiskWithinInterval);
         }
     }
 }
