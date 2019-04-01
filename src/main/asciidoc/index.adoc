@@ -61,8 +61,51 @@ Every response has the following header(s):
 include::{snippets}/root/response-headers.adoc[]
 
 
+[[resources]]
+= Resources
+
+
+
 [[resources-index]]
 == Index
 
 The index provides the entry point into the service.
+
+
+
+[[resources-index-access]]
+=== Accessing the index
+
+A `GET` request is used to access the index
+
+operation::root[snippets='response-fields,http-response,links']
+
+
+[[analyze-controller]]
+== Analyze Controller
+
+The Analyze controller is used to generate risk profiles for a dataset
+
+[[analyze-controller-post]]
+=== Generating a Risk profile
+
+A `POST` request is used to generate a risk profile
+
+operation::analyze-controller[snippets='request-fields,curl-request,http-response']
+
+
+[[anonymize-controller]]
+== Anonymize Controller
+
+The Analyze controller is used to generate risk profiles for a dataset
+
+[[anonymize-controller-post]]
+=== Creating a Anonymized Dataset
+
+A `POST` request is used to create a new anonymized dataset
+
+operation::anonymize-controller[snippets='request-fields,curl-request,http-response']
+
+
+
 
