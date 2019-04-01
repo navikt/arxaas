@@ -1,17 +1,17 @@
 package no.oslomet.aaas.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.Rule;
+import no.oslomet.aaas.GenerateTestData;
+import no.oslomet.aaas.model.Request;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.restdocs.JUnitRestDocumentation;
+import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -23,11 +23,14 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-public class ApiDocsGeneration {
+class ApiDocsGeneration {
 
     @Autowired
     private WebApplicationContext context;
@@ -35,19 +38,57 @@ public class ApiDocsGeneration {
     private MockMvc mockMvc;
 
 
+    private Request request;
+
+
     @BeforeEach
-    public void setUp(RestDocumentationContextProvider restDocumentation) {
+    void setUp(RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .apply(documentationConfiguration(restDocumentation)).build();
+        request = GenerateTestData.zipcodeRequestPayload();
     }
 
     @Test
-    public void headersExample() throws Exception {
+    void headersExample() throws Exception {
         this.mockMvc
                 .perform(get("/"))
                 .andExpect(status().isOk())
                 .andDo(document("root",
                         responseHeaders(
                                 headerWithName("Content-Type").description("The Content-Type of the payload, e.g. `application/hal+json`"))));
+    }
+
+    @Test
+    void analyze_post() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        String req = mapper.writeValueAsString(request);
+
+
+        this.mockMvc.perform(post("/api/analyze")
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(req))
+                .andExpect(status().isOk())
+                .andDo(document("analyze-controller", preprocessRequest(prettyPrint()),
+                        requestFields(subsectionWithPath("data").description("Dataset to be anonymized"),
+                                subsectionWithPath("attributes").description("Attributes of the dataset"),
+                                subsectionWithPath("privacyModels").ignored()
+                        )));
+    }
+
+    @Test
+    void anonymize_post() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        String req = mapper.writeValueAsString(request);
+
+
+        this.mockMvc.perform(post("/api/anonymize")
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(req))
+                .andExpect(status().isOk())
+                .andDo(document("anonymize-controller", preprocessRequest(prettyPrint()),
+                        requestFields(subsectionWithPath("data").description("Dataset to be anonymized"),
+                                subsectionWithPath("attributes").description("Attributes of the dataset"),
+                                subsectionWithPath("privacyModels").description("Privacy Models to be applied to the dataset")
+                        )));
     }
 }
