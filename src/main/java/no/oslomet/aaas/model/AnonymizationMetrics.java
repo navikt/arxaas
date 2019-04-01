@@ -1,5 +1,6 @@
 package no.oslomet.aaas.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.deidentifier.arx.ARXLattice;
 import org.deidentifier.arx.ARXResult;
 
@@ -24,6 +25,21 @@ public class AnonymizationMetrics {
         attributeGeneralization = gatherGeneralizationAttributes(result);
         processTimeMillisecounds = gatherProcessTime(result);
         privacyModels = gatherPrivacyModels(result);
+    }
+
+    /**
+     * Constructor for populating the class from Jackson Serializing
+     * @param attributeGeneralization List<{@link AttributeGeneralizationRow}> containing Generalization metrics for dataset attributes
+     * @param processTimeMillisecounds Long containg the elapsed time during anonymization
+     * @param privacyModels Set containing PrivacyModels and their configurations used during anonymization
+     */
+    @JsonCreator
+    private AnonymizationMetrics(List<AttributeGeneralizationRow> attributeGeneralization,
+                                 Long processTimeMillisecounds,
+                                 Set privacyModels){
+        this.attributeGeneralization = attributeGeneralization;
+        this.processTimeMillisecounds = processTimeMillisecounds;
+        this.privacyModels = privacyModels;
     }
 
     /**
