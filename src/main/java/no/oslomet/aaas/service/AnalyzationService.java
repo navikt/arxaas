@@ -2,7 +2,7 @@ package no.oslomet.aaas.service;
 
 
 import no.oslomet.aaas.analyzer.Analyzer;
-import no.oslomet.aaas.model.AnalyzeResult;
+import no.oslomet.aaas.model.analytics.RiskProfile;
 
 import no.oslomet.aaas.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class AnalyzationService {
     }
 
 
-    public AnalyzeResult analyze(Request payload){
+    public RiskProfile analyze(Request payload){
         return analyzer.analyze(payload);
     }
 }
