@@ -40,7 +40,6 @@ class ApiDocsGeneration {
 
     private Request request;
 
-
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
@@ -68,7 +67,7 @@ class ApiDocsGeneration {
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(req))
                 .andExpect(status().isOk())
-                .andDo(document("analyze-controller", preprocessRequest(prettyPrint()),
+                .andDo(document("analyze-controller", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
                         requestFields(subsectionWithPath("data").description("Dataset to be anonymized"),
                                 subsectionWithPath("attributes").description("Attributes of the dataset"),
                                 subsectionWithPath("privacyModels").ignored()
@@ -85,7 +84,7 @@ class ApiDocsGeneration {
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(req))
                 .andExpect(status().isOk())
-                .andDo(document("anonymize-controller", preprocessRequest(prettyPrint()),
+                .andDo(document("anonymize-controller", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
                         requestFields(subsectionWithPath("data").description("Dataset to be anonymized"),
                                 subsectionWithPath("attributes").description("Attributes of the dataset"),
                                 subsectionWithPath("privacyModels").description("Privacy Models to be applied to the dataset")
