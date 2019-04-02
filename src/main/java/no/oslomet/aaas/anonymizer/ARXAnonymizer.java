@@ -45,7 +45,7 @@ public class ARXAnonymizer implements Anonymizer {
             ARXResult result = anonymizer.anonymize(data,config);
             List<String[]> anonymisedData = createRawDataList(result);
             AnonymizationMetrics attributeGeneralizationLevels = new AnonymizationMetrics(result);
-            return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), attributeGeneralizationLevels);
+            return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), attributeGeneralizationLevels,payload.getAttributes());
         } catch (IOException | NullPointerException e) {
 
             logger.error("Exception error: " + e.toString());

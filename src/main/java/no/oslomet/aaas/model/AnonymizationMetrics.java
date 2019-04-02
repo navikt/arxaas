@@ -1,5 +1,6 @@
 package no.oslomet.aaas.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.deidentifier.arx.ARXLattice;
 import org.deidentifier.arx.ARXResult;
 
@@ -27,12 +28,27 @@ public class AnonymizationMetrics {
     }
 
     /**
+     * Constructor for populating the class from Jackson Serializing
+     * @param attributeGeneralization List<{@link AttributeGeneralizationRow}> containing Generalization metrics for dataset attributes
+     * @param processTimeMillisecounds Long containg the elapsed time during anonymization
+     * @param privacyModels Set containing PrivacyModels and their configurations used during anonymization
+     */
+    @JsonCreator
+    private AnonymizationMetrics(List<AttributeGeneralizationRow> attributeGeneralization,
+                                 Long processTimeMillisecounds,
+                                 Set privacyModels){
+        this.attributeGeneralization = attributeGeneralization;
+        this.processTimeMillisecounds = processTimeMillisecounds;
+        this.privacyModels = privacyModels;
+    }
+
+    /**
      * Gathers the name, types and generalization level for each attribute and returns them in the form of a {@link AttributeGeneralizationRow}
      * @param result source where the data is gathered from
      * @return List of {@link AttributeGeneralizationRow}'s
      */
-    static public List<AttributeGeneralizationRow> gatherGeneralizationAttributes(ARXResult result) {
-        List<AttributeGeneralizationRow> attributeGeneralizationList = new ArrayList<AttributeGeneralizationRow>();
+    public static List<AttributeGeneralizationRow> gatherGeneralizationAttributes(ARXResult result) {
+        List<AttributeGeneralizationRow> attributeGeneralizationList = new ArrayList<>();
         ARXLattice.ARXNode node = result.getOutput().getTransformation();
         for (String attribute : node.getQuasiIdentifyingAttributes()) {
             attributeGeneralizationList.add(new AttributeGeneralizationRow(attribute, result.getOutput().getDefinition().getAttributeType(attribute).toString(), node.getGeneralization(attribute)));
@@ -45,7 +61,7 @@ public class AnonymizationMetrics {
      * @param result Source {@link ARXResult} which the data is gathered from
      * @return Time the anonymization process have taken in milliseconds
      */
-    static public long gatherProcessTime(ARXResult result) {
+    public static long gatherProcessTime(ARXResult result) {
         return result.getTime();
     }
 
@@ -54,7 +70,7 @@ public class AnonymizationMetrics {
      * @param result Source {@link ARXResult} which the data is gathered from
      * @return Set with data from the privacy model settings currently being applied to the anonymization process
      */
-    static public Set gatherPrivacyModels(ARXResult result) {
+    public static Set gatherPrivacyModels(ARXResult result) {
         return result.getConfiguration().getPrivacyModels();
     }
 
