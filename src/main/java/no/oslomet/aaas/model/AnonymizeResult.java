@@ -1,8 +1,5 @@
 package no.oslomet.aaas.model;
 
-
-import no.oslomet.aaas.model.Anonymity;
-
 import java.util.List;
 
 /**
@@ -13,6 +10,7 @@ public class AnonymizeResult {
     private final List<String[]> data;
     private final String anonymizationStatus;
     private final AnonymizationMetrics metrics;
+    private final List<Attribute> attributes;
 
     /***
      * Setter method for the response object the anonymization process.
@@ -22,10 +20,11 @@ public class AnonymizeResult {
      * Contains data on Attribute generalization, privacymodels configuration and time elapsed during anonymization
      */
     public AnonymizeResult(List<String[]> data, String anonymizationStatus,
-                           AnonymizationMetrics metrics) {
+                           AnonymizationMetrics metrics,List<Attribute> attributes) {
         this.data = data;
         this.anonymizationStatus = anonymizationStatus;
         this.metrics = metrics;
+        this.attributes = attributes;
     }
 
     /***
@@ -52,4 +51,6 @@ public class AnonymizeResult {
     public AnonymizationMetrics getMetrics() {
         return metrics;
     }
+
+    public List<Attribute> getAttributes() { return attributes; }
 }
