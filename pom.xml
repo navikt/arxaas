@@ -197,6 +197,12 @@
 							<includes>
 								<include>**/no/oslomet/aaas/**/*</include>
 							</includes>
+							<excludes>
+								<exclude>**/no/oslomet/aaas/**/NaisController.java</exclude>
+								<exclude>**/no/oslomet/aaas/**/SecurityConfig.java</exclude>
+								<exclude>**/no/oslomet/aaas/**/SwaggerConfig.java</exclude>
+								<exclude>**/no/oslomet/aaas/**/AaaSApplication.java</exclude>
+							</excludes>
 						</configuration>
         				</execution>
     				</executions>
