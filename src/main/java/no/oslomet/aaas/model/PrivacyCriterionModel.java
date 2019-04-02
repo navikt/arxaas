@@ -1,5 +1,7 @@
 package no.oslomet.aaas.model;
 
+import org.deidentifier.arx.criteria.TCloseness;
+
 import java.util.Map;
 
 public class PrivacyCriterionModel {
@@ -31,7 +33,11 @@ public class PrivacyCriterionModel {
         LDIVERSITY_DISTINCT("L-Diversity-Distinct"),
         LDIVERSITY_GRASSBERGERENTROPY("L-Diversity-Grassberger-Entropy"),
         LDIVERSITY_SHANNONENTROPY("L-Diversity-Shannon-Entropy"),
-        LDIVERSITY_RECURSIVE("L-Diversity-Recursive");
+        LDIVERSITY_RECURSIVE("L-Diversity-Recursive"),
+        TCLOSENESS_EQUAL_DISTANCE("T-Closeness-Equal-Distance"),
+        TCLOSENESS_ORDERED_DISTANCE("T-Closeness-Ordered-Distance"),
+        TCLOSENESS_HIERARCHICAL_DISTANCE("T-Closeness-Hierarchical-Distance");
+
 
         private String name;
 
