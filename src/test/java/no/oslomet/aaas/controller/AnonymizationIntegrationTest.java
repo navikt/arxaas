@@ -2,6 +2,7 @@ package no.oslomet.aaas.controller;
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.exception.ExceptionResponse;
 import no.oslomet.aaas.model.*;
+import no.oslomet.aaas.model.AnonymizationResultPayload;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,7 +44,7 @@ class AnonymizationIntegrationTest {
         assertSame(HttpStatus.OK, responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
         assert resultData != null;
-        assertNotNull(resultData.getAfterAnonymizationMetrics().get("records_affected_by_highest_prosecutor_risk"));
+        assertNotNull(resultData.getRiskProfile().getReIdentificationRisk().getMeasures().get("records_affected_by_highest_prosecutor_risk"));
         assertNotNull(resultData.getAnonymizeResult().getData());
     }
 

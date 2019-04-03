@@ -1,7 +1,7 @@
 package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateTestData;
-import no.oslomet.aaas.model.AnalyzeResult;
+import no.oslomet.aaas.model.analytics.RiskProfile;
 import no.oslomet.aaas.model.Request;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,12 +33,12 @@ class AnalyzationControllerTest {
     @Test
     void getPayloadAnalyze() {
 
-        ResponseEntity<AnalyzeResult> responseEntity = restTemplate.postForEntity("/api/analyze",testPayload, AnalyzeResult.class);
+        ResponseEntity<RiskProfile> responseEntity = restTemplate.postForEntity("/api/analyze",testPayload, RiskProfile.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.OK , responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
         assert resultData != null;
-        assertNotNull(resultData.getReIdentificationRisk().get("records_affected_by_highest_prosecutor_risk"));
+        assertNotNull(resultData.getReIdentificationRisk().getMeasures().get("records_affected_by_highest_prosecutor_risk"));
         assertEquals("]50,100]", resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getInterval());
         assertEquals(1.0,resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getRecordsWithRiskWithinInteval());
         assertEquals(1.0,resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getRecordsWithMaxmalRiskWithinInterval());

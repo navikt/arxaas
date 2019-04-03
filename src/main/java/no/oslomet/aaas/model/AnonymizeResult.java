@@ -1,8 +1,6 @@
 package no.oslomet.aaas.model;
 
-
 import java.util.List;
-import java.util.Map;
 
 /**
  * Model class for the result from an anonymization process.
@@ -11,20 +9,22 @@ public class AnonymizeResult {
 
     private final List<String[]> data;
     private final String anonymizationStatus;
-    private final Map<String, String> statistics;
+    private final AnonymizationMetrics metrics;
+    private final List<Attribute> attributes;
 
     /***
      * Setter method for the response object the anonymization process.
      * @param data list of String[] containing the anonymized tabular dataset
      * @param anonymizationStatus String containing the {@link Anonymity} status
-     * @param statistics HashMap containing the statistics from the anonymization process. The HashMap contains a
-     * String of fields that describe the type of statistic and a String that contains its risk value
+     * @param metrics {@link AnonymizationMetrics} containing the metrics from the anonymization process.
+     * Contains data on Attribute generalization, privacymodels configuration and time elapsed during anonymization
      */
     public AnonymizeResult(List<String[]> data, String anonymizationStatus,
-                           Map<String, String> statistics) {
+                           AnonymizationMetrics metrics,List<Attribute> attributes) {
         this.data = data;
         this.anonymizationStatus = anonymizationStatus;
-        this.statistics = statistics;
+        this.metrics = metrics;
+        this.attributes = attributes;
     }
 
     /***
@@ -45,10 +45,12 @@ public class AnonymizeResult {
 
     /***
      * Getter method for the anonymization statistics.
-     * @return HashMap containing the the anonymization statistics. The HashMap contains a
-     * String of fields that describe the type of statistic and a String that contains its risk value
+     * @return {@link AnonymizationMetrics} containing the metrics from the anonymization process.
+     *      * Contains data on Attribute generalization, privacymodels configuration and time elapsed during anonymization
      */
-    public Map<String, String> getStatistics() {
-        return statistics;
+    public AnonymizationMetrics getMetrics() {
+        return metrics;
     }
+
+    public List<Attribute> getAttributes() { return attributes; }
 }

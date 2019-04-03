@@ -2,6 +2,8 @@ package no.oslomet.aaas.anonymizer;
 
 import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
 import no.oslomet.aaas.model.AnonymizeResult;
+
+import no.oslomet.aaas.model.AnonymizationMetrics;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.ConfigurationFactory;
 import no.oslomet.aaas.utils.DataFactory;
@@ -42,7 +44,8 @@ public class ARXAnonymizer implements Anonymizer {
         try {
             ARXResult result = anonymizer.anonymize(data,config);
             List<String[]> anonymisedData = createRawDataList(result);
-            return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), null);
+            AnonymizationMetrics attributeGeneralizationLevels = new AnonymizationMetrics(result);
+            return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), attributeGeneralizationLevels,payload.getAttributes());
         } catch (IOException | NullPointerException e) {
 
             logger.error("Exception error: " + e.toString());

@@ -128,6 +128,27 @@
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>23.0</version>
+		</dependency>
+
+		<!-- Documentation -->
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
 		<!-- ARX library -->
 
 		<dependency>
@@ -176,6 +197,12 @@
 							<includes>
 								<include>**/no/oslomet/aaas/**/*</include>
 							</includes>
+                            <excludes>
+                                <exclude>**/no/oslomet/aaas/controller/NaisController.*</exclude>
+                                <exclude>**/no/oslomet/aaas/config/SecurityConfig.*</exclude>
+                                <exclude>**/no/oslomet/aaas/SwaggerConfig.*</exclude>
+                                <exclude>**/no/oslomet/aaas/AaaSApplication.*</exclude>
+                            </excludes>
 						</configuration>
         				</execution>
     				</executions>

@@ -1,6 +1,6 @@
 package no.oslomet.aaas.analyzer;
 
-import no.oslomet.aaas.model.AnalyzeResult;
+import no.oslomet.aaas.model.analytics.RiskProfile;
 import no.oslomet.aaas.model.Request;
 
 /**
@@ -12,7 +12,7 @@ public interface Analyzer {
      * Method to run analysation on the anonymization metrics of the data in the payload
      * with the provided parameters in the payload.
      * @param payload Request containing the data to be analysed and parameters for the analysation process
-     * @return AnalyzeResult object containing the metrics for the provided data
+     * @return RiskProfile object containing the metrics for the provided data
      */
-    AnalyzeResult analyze(Request payload);
+    RiskProfile analyze(Request payload);
 }
