@@ -48,4 +48,4 @@ deploy:
     repo: oslomet-arx-as-a-service/ARXaaS-docs
     keep_history: true
     on:
-      branch: docs/SpringRestDocs
+      branch: master
