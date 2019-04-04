@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-class ApiDocsGeneration {
+class ApiDocsGenerationTest {
 
     @Autowired
     private WebApplicationContext context;
