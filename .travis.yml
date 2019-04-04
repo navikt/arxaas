@@ -34,10 +34,18 @@ before_deploy:
   - gcloud --quiet version
   - gcloud --quiet components update
   - gcloud --quiet components update kubectl
+  - cp -r target/generated-docs docs
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: bash deploy.sh
-  on:
-    branch: master
-
+  - provider: script
+    skip_cleanup: true
+    script: bash deploy.sh
+    on:
+      branch: master
+  - provider: pages
+    skip_cleanup: true
+    local_dir: docs
+    github_token: $GITHUB_DOCS_TOKEN
+    repo: oslomet-arx-as-a-service/ARXaaS-docs.git
+    keep_history: true
+    on:
+      branch: docs/SpringRestDocs
