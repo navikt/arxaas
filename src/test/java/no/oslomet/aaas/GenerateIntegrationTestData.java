@@ -119,7 +119,7 @@ public class GenerateIntegrationTestData {
         measureMap.put("average_prosecutor_risk","100.0");
         measureMap.put("records_affected_by_highest_journalist_risk","100.0");
         measureMap.put("population_uniques","100.0");
-        measureMap.put("quasi_identifiers","[zipcode, gender]");
+        measureMap.put("quasi_identifiers","[zipcode]");
         return measureMap;
     }
 
@@ -127,7 +127,7 @@ public class GenerateIntegrationTestData {
         return new RiskProfile(ageGenderZipcodeReIndenticationRiskAfterAnonymization(),ageGenderZipcodeDistributionOfRiskAfterAnonymization());
     }
 
-    private static Request zipcodeRequestPayloadAfterAnonymization(){
+    public static Request zipcodeRequestPayloadAfterAnonymization(){
         List<String[]> testData = ageGenderZipcodeDataAfterAnonymization();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(null);
         return new Request(testData, testAttributes, null);
@@ -148,23 +148,23 @@ public class GenerateIntegrationTestData {
 
     private static Map<String, String> ageGenderZipcodeMeasuresAfterAnonymization() {
         Map<String,String> expected = new HashMap<>();
-        expected.put("Prosecutor_attacker_success_rate","18.181818181818183");
-        expected.put("records_affected_by_highest_prosecutor_risk","45.45454545454545");
+        expected.put("Prosecutor_attacker_success_rate","9.090909090909092");
+        expected.put("records_affected_by_highest_prosecutor_risk","100.0");
         expected.put("sample_uniques","0.0");
-        expected.put("estimated_prosecutor_risk","20.0");
+        expected.put("estimated_prosecutor_risk","9.090909090909092");
         expected.put("population_model","DANKAR");
-        expected.put("highest_journalist_risk","20.0");
-        expected.put("records_affected_by_lowest_risk","54.54545454545454");
-        expected.put("estimated_marketer_risk","18.181818181818183");
-        expected.put("Journalist_attacker_success_rate","18.181818181818183");
-        expected.put("highest_prosecutor_risk","20.0");
-        expected.put("estimated_journalist_risk","20.0");
-        expected.put("lowest_risk","16.666666666666664");
-        expected.put("Marketer_attacker_success_rate","18.181818181818183");
-        expected.put("average_prosecutor_risk","18.181818181818183");
-        expected.put("records_affected_by_highest_journalist_risk","45.45454545454545");
+        expected.put("highest_journalist_risk","9.090909090909092");
+        expected.put("records_affected_by_lowest_risk","100.0");
+        expected.put("estimated_marketer_risk","9.090909090909092");
+        expected.put("Journalist_attacker_success_rate","9.090909090909092");
+        expected.put("highest_prosecutor_risk","9.090909090909092");
+        expected.put("estimated_journalist_risk","9.090909090909092");
+        expected.put("lowest_risk","9.090909090909092");
+        expected.put("Marketer_attacker_success_rate","9.090909090909092");
+        expected.put("average_prosecutor_risk","9.090909090909092");
+        expected.put("records_affected_by_highest_journalist_risk","100.0");
         expected.put("population_uniques","0.0");
-        expected.put("quasi_identifiers","[zipcode, gender]");
+        expected.put("quasi_identifiers","[zipcode]");
         return expected;
     }
 
