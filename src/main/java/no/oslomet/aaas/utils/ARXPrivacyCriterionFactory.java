@@ -2,9 +2,11 @@ package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.exception.AaaSRuntimeException;
 import no.oslomet.aaas.model.PrivacyCriterionModel;
+import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.criteria.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 /***
@@ -36,6 +38,10 @@ public class ARXPrivacyCriterionFactory {
             case LDIVERSITY_RECURSIVE:
                 return new RecursiveCLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")),
                         Integer.parseInt(params.get("c")));
+            case TCLOSENESS_ORDERED_DISTANCE:
+                return new OrderedDistanceTCloseness(params.get(COLUMNNAME),Double.parseDouble(params.get("t")));
+            case TCLOSENESS_EQUAL_DISTANCE:
+                return new EqualDistanceTCloseness(params.get(COLUMNNAME),Double.parseDouble(params.get("t")));
             default:
                 throw new AaaSRuntimeException(model.getName() + " Privacy Model not supported");
         }
