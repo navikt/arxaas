@@ -42,17 +42,17 @@ server.ssl.key-store-password=<keystore password>
 server.ssl.key-alias=<name/alias of certificate in keystore>
 ```
 
-# Option 3: run server and enable https from spring project (keystore file inside spring project's src/main/resources folder required)
+## Option 3: run server and enable https from spring project (keystore file inside spring project's src/main/resources folder required)
 ```bash
 mvn spring-boot:run -Dserver.ssl.key-store-type=<keystore type> -Dserver.ssl.key-store=classpath:<keystore file name> -Dserver.ssl.key-store-password=<keystore password> -Dserver.ssl.key-alias=<name/alias of certificate in keystore>
 ```
 
-# Option 4: run server and enable https from jar (keystore file inside spring project's src/main/resources folder required)
+## Option 4: run server and enable https from jar (keystore file inside spring project's src/main/resources folder required)
 ```bash
 java -jar aaas-0.1.1-RELEASE.jar --server.ssl.key-store-type=<keystore type> --server.ssl.key-store=classpath:<keystore file name> --server.ssl.key-store-password=<keystore password> --server.ssl.key-alias=<name/alias of certificate in keystore>
 ```
 
-# Option 5: run server and enable https from docker image (keystore file inside spring project's src/main/resources folder required)
+## Option 5: run server and enable https from docker image (keystore file inside spring project's src/main/resources folder required)
 ```bash
 docker run -p 8080:8080 -d arxaas/aaas --server.ssl.key-store-type=<keystore type> --server.ssl.key-store=classpath:<keystore file name> --server.ssl.key-store-password=<keystore password> --server.ssl.key-alias=<name/alias of certificate in keystore>
 ```
