@@ -45,7 +45,7 @@ deploy:
     skip_cleanup: true
     local_dir: docs
     github_token: $GITHUB_DOCS_TOKEN
-    repo: oslomet-arx-as-a-service/ARXaaS-docs.git
+    repo: oslomet-arx-as-a-service/ARXaaS-docs
     keep_history: true
     on:
       branch: docs/SpringRestDocs
