@@ -29,7 +29,7 @@ public class AnonymizationMetrics {
 
     /**
      * Constructor for populating the class from Jackson Serializing
-     * @param attributeGeneralization List<{@link AttributeGeneralizationRow}> containing Generalization metrics for dataset attributes
+     * @param attributeGeneralization List{@link AttributeGeneralizationRow} containing Generalization metrics for dataset attributes
      * @param processTimeMillisecounds Long containg the elapsed time during anonymization
      * @param privacyModels Set containing PrivacyModels and their configurations used during anonymization
      */

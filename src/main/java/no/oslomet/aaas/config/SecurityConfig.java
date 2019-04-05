@@ -8,8 +8,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /***
      * CSRF protection is not necessary on our server, so it is turned off.
      * This is because the server handles all requests equally, without any regard to tracking user sessions.
-     * @param http
-     * @throws Exception
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
