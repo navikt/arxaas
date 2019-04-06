@@ -47,7 +47,6 @@ deploy:
     skip_cleanup: true
     local_dir: target/generated-docs
     github_token: $GITHUB_DOCS_TOKEN
-    repo: oslomet-arx-as-a-service/ARXaaS-docs
     keep_history: true
     on:
       branch: bugfix/keyImport
