@@ -6,10 +6,6 @@ sudo: true
 services:
   - docker
 
-cache:
-  directories:
-    - $HOME/.m2
-
 env:
   global:
     - CC_TEST_REPORTER_ID=$cc_token
