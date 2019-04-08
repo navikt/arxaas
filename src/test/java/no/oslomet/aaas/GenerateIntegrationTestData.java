@@ -1,15 +1,19 @@
 package no.oslomet.aaas;
 
-import no.oslomet.aaas.model.Attribute;
-import no.oslomet.aaas.model.PrivacyCriterionModel;
-import no.oslomet.aaas.model.Request;
+import no.oslomet.aaas.model.*;
 import no.oslomet.aaas.model.analytics.DistributionOfRisk;
 import no.oslomet.aaas.model.analytics.ReIdentificationRisk;
 import no.oslomet.aaas.model.analytics.RiskProfile;
+import no.oslomet.aaas.utils.ARXConfigurationFactory;
 import no.oslomet.aaas.utils.ARXDataFactory;
+import no.oslomet.aaas.utils.ARXPrivacyCriterionFactory;
 import no.oslomet.aaas.utils.DataFactory;
+import org.deidentifier.arx.ARXAnonymizer;
+import org.deidentifier.arx.ARXConfiguration;
+import org.deidentifier.arx.ARXResult;
 import org.deidentifier.arx.Data;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -182,6 +186,29 @@ public class GenerateIntegrationTestData {
                 {"*", "female", "816**"},
                 {"*", "male", "816**"}};
         return List.of(rawData);
+    }
+
+    private static AnonymizeResult anonymizeResultTestData(){
+        return new AnonymizeResult(ageGenderZipcodeDataAfterAnonymization(),"ANONYMOUS",anonymizationMetrics(),ageGenderZipcodeAttributes(zipcodeHierarchy()));
+    }
+
+    private static AnonymizationMetrics anonymizationMetrics(){
+        ARXDataFactory dataFactory = new ARXDataFactory();
+        ARXConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
+        Data data = dataFactory.create(zipcodeRequestPayload());
+        ARXConfiguration config = configurationFactory.create(zipcodeRequestPayload().getPrivacyModels());
+        ARXAnonymizer anonymizer = new ARXAnonymizer();
+        ARXResult result = null;
+        try {
+            result = anonymizer.anonymize(data,config);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new AnonymizationMetrics(result);
+    }
+
+    public static AnonymizationResultPayload anonymizationResultPayload(){
+        return new AnonymizationResultPayload(anonymizeResultTestData(),zipcodeAnalyzationAfterAnonymization());
     }
 
 }

@@ -47,7 +47,7 @@ public class AnonymizationMetrics {
      * @param result source where the data is gathered from
      * @return List of {@link AttributeGeneralizationRow}'s
      */
-    public static List<AttributeGeneralizationRow> gatherGeneralizationAttributes(ARXResult result) {
+    private static List<AttributeGeneralizationRow> gatherGeneralizationAttributes(ARXResult result) {
         List<AttributeGeneralizationRow> attributeGeneralizationList = new ArrayList<>();
         ARXLattice.ARXNode node = result.getOutput().getTransformation();
         for (String attribute : node.getQuasiIdentifyingAttributes()) {
@@ -61,7 +61,7 @@ public class AnonymizationMetrics {
      * @param result Source {@link ARXResult} which the data is gathered from
      * @return Time the anonymization process have taken in milliseconds
      */
-    public static long gatherProcessTime(ARXResult result) {
+    private static long gatherProcessTime(ARXResult result) {
         return result.getTime();
     }
 
@@ -70,7 +70,7 @@ public class AnonymizationMetrics {
      * @param result Source {@link ARXResult} which the data is gathered from
      * @return Set with data from the privacy model settings currently being applied to the anonymization process
      */
-    public static Set gatherPrivacyModels(ARXResult result) {
+    private static Set gatherPrivacyModels(ARXResult result) {
         return result.getConfiguration().getPrivacyModels();
     }
 
