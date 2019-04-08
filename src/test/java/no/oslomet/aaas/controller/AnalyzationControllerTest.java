@@ -88,7 +88,7 @@ class AnalyzationControllerTest {
 
     @Test
     void getPayloadAnalyze_integration_test_after_anonymization(){
-        Request testRequestPayload = GenerateIntegrationTestData.zipcodeRequestPayloadAfterAnonymization();
+        Request testRequestPayload = GenerateIntegrationTestData.zipcodeRequestPayload();
         ResponseEntity<RiskProfile> responseEntity = restTemplate.postForEntity("/api/analyze",testRequestPayload, RiskProfile.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.OK , responseEntity.getStatusCode());

@@ -1,6 +1,7 @@
 package no.oslomet.aaas.controller;
 
 import cern.colt.Arrays;
+import no.oslomet.aaas.GenerateIntegrationTestData;
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.exception.ExceptionResponse;
 import no.oslomet.aaas.model.*;
@@ -15,7 +16,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -133,5 +133,15 @@ class AnonymizationIntegrationTest {
         assertEquals(0, actual.getAttributeGeneralization().get(0).getGeneralizationLevel());
         assertEquals("gender", actual.getAttributeGeneralization().get(0).getName());
         assertEquals("QUASI_IDENTIFYING_ATTRIBUTE", actual.getAttributeGeneralization().get(0).getType());
+    }
+
+    @Test
+    void anonymzation_integration_test(){
+        Request testRequestPayload = GenerateIntegrationTestData.zipcodeRequestPayload();
+        ResponseEntity<AnonymizationResultPayload> responseEntity = restTemplate.postForEntity("/api/anonymize",testRequestPayload, AnonymizationResultPayload.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.OK , responseEntity.getStatusCode());
+        AnonymizationResultPayload actual = Objects.requireNonNull(responseEntity.getBody());
+        AnonymizationResultPayload expected = GenerateIntegrationTestData
     }
 }
