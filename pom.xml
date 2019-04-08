@@ -259,6 +259,10 @@
                                 <exclude>**/no/oslomet/aaas/config/SecurityConfig.*</exclude>
                                 <exclude>**/no/oslomet/aaas/SwaggerConfig.*</exclude>
                                 <exclude>**/no/oslomet/aaas/AaaSApplication.*</exclude>
+								<exclude>**/no/oslomet/aaas/analyzer/Analyzer.*</exclude>
+								<exclude>**/no/oslomet/aaas/anonymizer/Anonymizer.*</exclude>
+								<exclude>**/no/oslomet/aaas/utils/DataFactory.*</exclude>
+								<exclude>**/no/oslomet/aaas/utils/ConfigurationFactory.*</exclude>
                             </excludes>
 						</configuration>
         				</execution>
