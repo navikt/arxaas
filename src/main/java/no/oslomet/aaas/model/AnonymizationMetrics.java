@@ -42,7 +42,7 @@ public class AnonymizationMetrics {
         this.privacyModels = privacyModels;
     }
 
-    /**
+     /**
      * Gathers the name, types and generalization level for each attribute and returns them in the form of a {@link AttributeGeneralizationRow}
      * @param result source where the data is gathered from
      * @return List of {@link AttributeGeneralizationRow}'s
