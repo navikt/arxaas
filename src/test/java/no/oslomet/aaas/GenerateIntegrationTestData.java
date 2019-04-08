@@ -131,7 +131,7 @@ public class GenerateIntegrationTestData {
         return new RiskProfile(ageGenderZipcodeReIndenticationRiskAfterAnonymization(),ageGenderZipcodeDistributionOfRiskAfterAnonymization());
     }
 
-    private static Request zipcodeRequestPayloadAfterAnonymization(){
+    public static Request zipcodeRequestPayloadAfterAnonymization(){
         List<String[]> testData = ageGenderZipcodeDataAfterAnonymization();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(null);
         return new Request(testData, testAttributes, null);
