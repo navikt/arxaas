@@ -35,9 +35,7 @@ public class PrivacyCriterionModel {
         LDIVERSITY_SHANNONENTROPY("L-Diversity-Shannon-Entropy"),
         LDIVERSITY_RECURSIVE("L-Diversity-Recursive"),
         TCLOSENESS_EQUAL_DISTANCE("T-Closeness-Equal-Distance"),
-        TCLOSENESS_ORDERED_DISTANCE("T-Closeness-Ordered-Distance"),
-        TCLOSENESS_HIERARCHICAL_DISTANCE("T-Closeness-Hierarchical-Distance");
-
+        TCLOSENESS_ORDERED_DISTANCE("T-Closeness-Ordered-Distance");
 
         private String name;
 
