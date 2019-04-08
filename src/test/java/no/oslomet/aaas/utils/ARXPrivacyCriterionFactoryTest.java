@@ -26,6 +26,11 @@ class ARXPrivacyCriterionFactoryTest {
                 "expected",new EntropyLDiversity("gender",4,EntropyLDiversity.EntropyEstimator.GRASSBERGER).toString()));
         models.put(PrivacyCriterionModel.PrivacyModel.LDIVERSITY_RECURSIVE, Map.of("l","4","c","2","column_name","gender",
                 "expected", new RecursiveCLDiversity("gender", 4,2).toString()));
+        models.put(PrivacyCriterionModel.PrivacyModel.TCLOSENESS_EQUAL_DISTANCE,Map.of("t","0.3","column_name", "gender",
+                "expected", new EqualDistanceTCloseness("gender", 0.3).toString()));
+        models.put(PrivacyCriterionModel.PrivacyModel.TCLOSENESS_ORDERED_DISTANCE,Map.of("t","0.3","column_name", "gender",
+                "expected", new OrderedDistanceTCloseness("gender", 0.3).toString()));
+
     }
 
     @Test
