@@ -21,6 +21,14 @@ public class GenerateEdgeCaseData {
         return new Request(testData, testAttributes, privacyCriterionModels);
     }
 
+    public static Request zipcodeRequestPayload_wrong_hierarchy(){
+        List<String[]> testData = ageGenderZipcodeData();
+        List<String[]> listHierarchy = ageHierarchy();
+        List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
+        List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
+        return new Request(testData, testAttributes, privacyCriterionModels);
+    }
+
     private static List<String[]> wrongFromatData() {
         String[][] rawData = {{"age, gender, zipcode" },
                 {"34, male, 81667"},
@@ -36,6 +44,44 @@ public class GenerateEdgeCaseData {
                 {"44, male, 81677"}};
         return  List.of(rawData);
     }
+
+    private static List<String[]> ageGenderZipcodeData() {
+        String[][] rawData = {{"age", "gender", "zipcode" },
+                {"34", "male", "81667"},
+                {"35", "female", "81668"},
+                {"36", "male", "81669"},
+                {"37", "female", "81670"},
+                {"38", "male", "81671"},
+                {"39", "female", "81672"},
+                {"40", "male", "81673"},
+                {"41", "female", "81674"},
+                {"42", "male", "81675"},
+                {"43", "female", "81676"},
+                {"44", "male", "81677"}};
+        return  List.of(rawData);
+    }
+
+    private static List<String[]> genderHierarchy() {
+        String[][] genderHierarchy={{"male", "*"}, {"female", "*"}};
+        return List.of(genderHierarchy);
+    }
+
+    private static List<String[]> ageHierarchy() {
+        String[][] newAgeHiarchy = {
+                {"34", "<50", "*"},
+                {"35", "<50", "*"},
+                {"36", "<50", "*"},
+                {"37", "<50", "*"},
+                {"38", "<50", "*"},
+                {"39", "<50", "*"},
+                {"40", "<50", "*"},
+                {"41", "<50", "*"},
+                {"42", "<50", "*"},
+                {"43", "<50", "*"},
+                {"44", "<50", "*"}};
+        return List.of(newAgeHiarchy);
+    }
+
 
     private static List<String[]> zipcodeHierarchy() {
         //Defining Hierarchy for a give column name

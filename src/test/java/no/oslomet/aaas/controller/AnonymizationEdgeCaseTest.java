@@ -89,4 +89,15 @@ class AnonymizationEdgeCaseTest {
         assertNotNull(resultData);
         assertNotNull(resultData.getMessage());
     }
+
+    @Test
+    void anonymization_with_wrong_hierarchy(){
+        Request wrongHierarchy = GenerateEdgeCaseData.zipcodeRequestPayload_wrong_hierarchy();
+        ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongHierarchy, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
 }
