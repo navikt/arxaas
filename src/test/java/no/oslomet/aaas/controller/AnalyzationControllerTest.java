@@ -1,12 +1,10 @@
 package no.oslomet.aaas.controller;
 
-import no.oslomet.aaas.GenerateIntegrationTestData;
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.analytics.DistributionOfRisk;
 import no.oslomet.aaas.model.analytics.ReIdentificationRisk;
 import no.oslomet.aaas.model.analytics.RiskProfile;
 import no.oslomet.aaas.model.Request;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -72,28 +70,6 @@ class AnalyzationControllerTest {
         DistributionOfRisk actual = Objects.requireNonNull(responseEntity.getBody()).getDistributionOfRisk();
         assert actual != null;
         DistributionOfRisk expected = GenerateTestData.ageGenderZipcodeDistributionOfRisk();
-        Assertions.assertEquals(expected,actual);
-    }
-
-    @Test
-    void getPayloadAnalyze_integration_test(){
-        Request testRequestPayload = GenerateIntegrationTestData.zipcodeRequestPayload();
-        ResponseEntity<RiskProfile> responseEntity = restTemplate.postForEntity("/api/analyze",testRequestPayload, RiskProfile.class);
-        assertNotNull(responseEntity);
-        assertSame(HttpStatus.OK , responseEntity.getStatusCode());
-        RiskProfile actual = Objects.requireNonNull(responseEntity.getBody());
-        RiskProfile expected = GenerateIntegrationTestData.zipcodeAnalyzation();
-        Assertions.assertEquals(expected,actual);
-    }
-
-    @Test
-    void getPayloadAnalyze_integration_test_after_anonymization(){
-        Request testRequestPayload = GenerateIntegrationTestData.zipcodeRequestPayloadAfterAnonymization();
-        ResponseEntity<RiskProfile> responseEntity = restTemplate.postForEntity("/api/analyze",testRequestPayload, RiskProfile.class);
-        assertNotNull(responseEntity);
-        assertSame(HttpStatus.OK , responseEntity.getStatusCode());
-        RiskProfile actual = Objects.requireNonNull(responseEntity.getBody());
-        RiskProfile expected = GenerateIntegrationTestData.zipcodeAnalyzationAfterAnonymization();
         Assertions.assertEquals(expected,actual);
     }
 }
