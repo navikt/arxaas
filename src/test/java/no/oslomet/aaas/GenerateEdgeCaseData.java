@@ -29,6 +29,14 @@ public class GenerateEdgeCaseData {
         return new Request(testData, testAttributes, privacyCriterionModels);
     }
 
+    public static Request zipcodeRequestPayload_privacy_model_on_non_sensitive_data(){
+        List<String[]> testData = ageGenderZipcodeData();
+        List<String[]> listHierarchy = zipcodeHierarchy();
+        List<Attribute> testAttributes = ageGenderZipcodeAttributes2Quasi(listHierarchy);
+        List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
+        return new Request(testData, testAttributes, privacyCriterionModels);
+    }
+
     private static List<String[]> wrongFromatData() {
         String[][] rawData = {{"age, gender, zipcode" },
                 {"34, male, 81667"},
@@ -106,6 +114,15 @@ public class GenerateEdgeCaseData {
         List<Attribute> testAttributes = new ArrayList<>();
         testAttributes.add(new Attribute("age",IDENTIFYING, null));
         testAttributes.add(new Attribute("gender",SENSITIVE, null));
+        testAttributes.add(new Attribute("zipcode",QUASIIDENTIFYING, listHierarchy));
+        return testAttributes;
+    }
+
+    private static List<Attribute> ageGenderZipcodeAttributes2Quasi(List<String[]> listHierarchy) {
+        //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
+        List<Attribute> testAttributes = new ArrayList<>();
+        testAttributes.add(new Attribute("age",IDENTIFYING, null));
+        testAttributes.add(new Attribute("gender",QUASIIDENTIFYING, null));
         testAttributes.add(new Attribute("zipcode",QUASIIDENTIFYING, listHierarchy));
         return testAttributes;
     }

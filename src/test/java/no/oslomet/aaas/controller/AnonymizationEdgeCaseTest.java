@@ -100,4 +100,15 @@ class AnonymizationEdgeCaseTest {
         assertNotNull(resultData);
         assertNotNull(resultData.getMessage());
     }
+
+    @Test
+    void anonymization_with_privacy_model_on_non_sensitive_data(){
+        Request wrongPrivacyModel = GenerateEdgeCaseData.zipcodeRequestPayload_privacy_model_on_non_sensitive_data();
+        ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongPrivacyModel, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
 }
