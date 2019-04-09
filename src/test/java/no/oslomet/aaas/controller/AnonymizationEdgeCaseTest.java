@@ -66,4 +66,14 @@ class AnonymizationEdgeCaseTest {
         assertNotNull(resultData);
         assertNotNull(resultData.getMessage());
     }
+
+    @Test
+    void anonymization_with_missing_privacy_model_should_return_bad_request(){
+        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",missingPrivacyModelsPayload, ExceptionResponse.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
 }
