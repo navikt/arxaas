@@ -1,6 +1,7 @@
 package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.exception.ExceptionResponse;
+import no.oslomet.aaas.exception.UnableToAnonymizeDataInvalidDataSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
@@ -81,6 +82,14 @@ class GlobalControllerExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 "Unable to anonymize the dataset with the provided attributes and hierarchies." +
                         " A common cause of this error is more thant one QUASIIDENTIFYING attribute without a hierarchy",
+                request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UnableToAnonymizeDataInvalidDataSetException.class)
+    public ResponseEntity<Object> handleUnableToAnonymizeDataInvalidDataSetException(UnableToAnonymizeDataInvalidDataSetException ex,  WebRequest request){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                ex.getMessage(),
                 request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }

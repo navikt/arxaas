@@ -1,6 +1,7 @@
 package no.oslomet.aaas.anonymizer;
 
 import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
+import no.oslomet.aaas.exception.UnableToAnonymizeDataInvalidDataSetException;
 import no.oslomet.aaas.model.AnonymizeResult;
 import no.oslomet.aaas.model.AnonymizationMetrics;
 import no.oslomet.aaas.model.Request;
@@ -44,8 +45,12 @@ public class ARXAnonymizer implements Anonymizer {
             ARXResult result = anonymizer.anonymize(data,config);
             return packageResult(result,payload);
         } catch (IOException | NullPointerException e) {
-            logger.error("Exception error: " + e.toString());
+            logger.error(String.format("Exception error: %s", e.toString()));
             throw new UnableToAnonymizeDataException(e.toString());
+        } catch(IndexOutOfBoundsException e){
+            String errorMessage = String.format("%s, Check if dataset format is correct", e.toString());
+            logger.error(String.format("Exception error: %s", errorMessage));
+            throw new UnableToAnonymizeDataInvalidDataSetException(errorMessage);
         }
     }
 

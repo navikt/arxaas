@@ -1,8 +1,10 @@
 package no.oslomet.aaas.controller;
 
+import no.oslomet.aaas.GenerateEdgeCaseData;
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.exception.ExceptionResponse;
 import no.oslomet.aaas.model.Request;
+import org.bouncycastle.cert.ocsp.Req;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -69,7 +71,18 @@ class AnonymizationEdgeCaseTest {
 
     @Test
     void anonymization_with_missing_privacy_model_should_return_bad_request(){
-        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",missingPrivacyModelsPayload, ExceptionResponse.class);
+        ResponseEntity<RuntimeException> responseEntity = restTemplate.postForEntity("/api/anonymize",missingPrivacyModelsPayload, RuntimeException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_wrong_data_format(){
+        Request wrongDataFormat = GenerateEdgeCaseData.zipcodeRequestPayload_wrong_data_format();
+        ResponseEntity<ArrayIndexOutOfBoundsException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongDataFormat, ArrayIndexOutOfBoundsException.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
