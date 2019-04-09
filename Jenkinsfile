@@ -10,6 +10,7 @@ node {
     def dependency_name = 'arx_dependency'
     def namespace = 'default'
     def cluster = 'adeo.no'
+    def test_cluster = 'reprod.local'
     def date = new Date()
     def datestring = new SimpleDateFormat("yyyy-MM-dd").format(date)
 
@@ -70,6 +71,10 @@ node {
 
         stage('Deploy app to nais') {
             sh "curl --fail -k -d '{\"application\": \"${app_name}\", \"version\": \"${version_tag}\", \"skipFasit\": true, \"namespace\": \"${namespace}\", \"manifesturl\": \"${yaml_path}\"}' https://daemon.nais.${cluster}/deploy"
+        }
+
+        stage('Deploy app to pre-prod nais') {
+            sh "curl --fail -k -d '{\"application\": \"${app_name}\", \"version\": \"${version_tag}\", \"skipFasit\": true, \"namespace\": \"${namespace}\", \"manifesturl\": \"${yaml_path}\"}' https://daemon.nais.${test_cluster}/deploy"
         }
     } catch (e) {
         echo "Build failed"
