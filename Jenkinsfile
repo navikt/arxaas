@@ -10,7 +10,7 @@ node {
     def dependency_name = 'arx_dependency'
     def namespace = 'default'
     def cluster = 'adeo.no'
-    def test_cluster = 'reprod.local'
+    def test_cluster = 'preprod.local'
     def date = new Date()
     def datestring = new SimpleDateFormat("yyyy-MM-dd").format(date)
 
