@@ -48,7 +48,7 @@ class AnalyzationEdgeCaseTest {
     @Test
     void getPayloadAnalyze_missing_attribute(){
         Request missingAttribute = GenerateEdgeCaseData.zipcodeRequestPayloadWithoutAttributes();
-        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",missingAttribute, ExceptionResponse.class);
+        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/analyze",missingAttribute, ExceptionResponse.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
@@ -70,7 +70,7 @@ class AnalyzationEdgeCaseTest {
     @Test
     void getPayloadAnalyze_null_payload(){
         Request nullPayload = GenerateEdgeCaseData.NullPayload();
-        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",nullPayload, ExceptionResponse.class);
+        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/analyze",nullPayload, ExceptionResponse.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
