@@ -58,6 +58,17 @@ class AnonymizationEdgeCaseTest {
     }
 
     @Test
+    void anonymize_null_payload(){
+        Request nullPayload = GenerateEdgeCaseData.NullPayload();
+        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",nullPayload, ExceptionResponse.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
     void anonymization_with_payload_containing_to_many_quasi_vs_hierarchies_should_return_bad_request() {
         ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",testRequestPayloadWithToManyQuasi, ExceptionResponse.class);
         assertNotNull(responseEntity);

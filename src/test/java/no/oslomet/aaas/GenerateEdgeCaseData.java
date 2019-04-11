@@ -13,6 +13,10 @@ import static no.oslomet.aaas.model.AttributeTypeModel.*;
 
 public class GenerateEdgeCaseData {
 
+    public static Request NullPayload(){
+        return  new Request(null,null,null);
+    }
+
     public static Request zipcodeRequestPayloadWithoutData() {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
