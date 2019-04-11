@@ -26,26 +26,6 @@ public class GenerateTestData {
         return new Request(testData, testAttributes, privacyCriterionModels);
     }
 
-    public static Request zipcodeRequestPayloadWithoutData() {
-        List<String[]> listHierarchy = zipcodeHierarchy();
-        List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
-        List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(null, testAttributes, privacyCriterionModels);
-    }
-
-    public static Request zipcodeRequestPayloadWithoutAttributes() {
-        List<String[]> testData = ageGenderZipcodeData();
-        List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(testData, null, privacyCriterionModels);
-    }
-
-    public static Request zipcodeRequestPayloadWithoutPrivacyModels() {
-        List<String[]> testData = ageGenderZipcodeData();
-        List<String[]> listHierarchy = zipcodeHierarchy();
-        List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
-        return new Request(testData, testAttributes, null);
-    }
-
     public static Request zipcodeRequestPayloadAfterAnonymization(){
         List<String[]> testData = ageGenderZipcodeDataAfterAnonymization();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(null);
@@ -105,7 +85,7 @@ public class GenerateTestData {
         return DistributionOfRisk.create(ageGenderZipcodeDataset().getHandle().getRiskEstimator());
     }
 
-    public static DistributionOfRisk ageGenderZipcodeDistributionOfRiskAfterAnonymization(){
+    private static DistributionOfRisk ageGenderZipcodeDistributionOfRiskAfterAnonymization(){
         return DistributionOfRisk.create(ageGenderZipcodeDatasetAfterAnonymziation().getHandle().getRiskEstimator());
     }
 
@@ -132,11 +112,11 @@ public class GenerateTestData {
         return measureMap;
     }
 
-    public static ReIdentificationRisk ageGenderZipcodeReIndenticationRiskAfterAnonymization(){
+    private static ReIdentificationRisk ageGenderZipcodeReIndenticationRiskAfterAnonymization(){
         return new ReIdentificationRisk(ageGenderZipcodeMeasuresAfterAnonymization());
     }
 
-    public static Map<String, String> ageGenderZipcodeMeasuresAfterAnonymization() {
+    private static Map<String, String> ageGenderZipcodeMeasuresAfterAnonymization() {
         Map<String,String> expected = new HashMap<>();
         expected.put("Prosecutor_attacker_success_rate","18.181818181818183");
         expected.put("records_affected_by_highest_prosecutor_risk","45.45454545454545");
