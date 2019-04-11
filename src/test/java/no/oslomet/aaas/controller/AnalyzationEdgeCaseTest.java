@@ -55,4 +55,26 @@ class AnalyzationEdgeCaseTest {
         assertNotNull(resultData);
         assertNotNull(resultData.getMessage());
     }
+
+    @Test
+    void getPayloadAnalyze_wrong_attribute_format(){
+        Request wrongAttributeFormat = GenerateEdgeCaseData.zipcodeRequestPayload_wrong_attribute_format();
+        ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/analyze",wrongAttributeFormat, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void getPayloadAnalyze_all_format_wrong(){
+        Request allFormatWrong = GenerateEdgeCaseData.zipcodeRequestPayload_all_format_wrong();
+        ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/analyze",allFormatWrong, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
 }
