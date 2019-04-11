@@ -1,10 +1,8 @@
 package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateEdgeCaseData;
-import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.exception.ExceptionResponse;
 import no.oslomet.aaas.model.Request;
-import org.bouncycastle.cert.ocsp.Req;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,10 +30,10 @@ class AnonymizationEdgeCaseTest {
 
     @BeforeEach
     void setUp() {
-        missingDataPayload = GenerateTestData.zipcodeRequestPayloadWithoutData();
-        missingAttributesPayload = GenerateTestData.zipcodeRequestPayloadWithoutAttributes();
-        missingPrivacyModelsPayload = GenerateTestData.zipcodeRequestPayloadWithoutPrivacyModels();
-        testRequestPayloadWithToManyQuasi = GenerateTestData.zipcodeRequestPayload3QuasiNoHierarchies();
+        missingDataPayload = GenerateEdgeCaseData.zipcodeRequestPayloadWithoutData();
+        missingAttributesPayload = GenerateEdgeCaseData.zipcodeRequestPayloadWithoutAttributes();
+        missingPrivacyModelsPayload = GenerateEdgeCaseData.zipcodeRequestPayloadWithoutPrivacyModels();
+        testRequestPayloadWithToManyQuasi = GenerateEdgeCaseData.zipcodeRequestPayload3QuasiNoHierarchies();
     }
 
     @Test

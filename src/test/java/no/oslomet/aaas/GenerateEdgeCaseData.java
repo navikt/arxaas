@@ -13,6 +13,26 @@ import static no.oslomet.aaas.model.AttributeTypeModel.*;
 
 public class GenerateEdgeCaseData {
 
+    public static Request zipcodeRequestPayloadWithoutData() {
+        List<String[]> listHierarchy = zipcodeHierarchy();
+        List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
+        List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
+        return new Request(null, testAttributes, privacyCriterionModels);
+    }
+
+    public static Request zipcodeRequestPayloadWithoutAttributes() {
+        List<String[]> testData = ageGenderZipcodeData();
+        List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
+        return new Request(testData, null, privacyCriterionModels);
+    }
+
+    public static Request zipcodeRequestPayloadWithoutPrivacyModels() {
+        List<String[]> testData = ageGenderZipcodeData();
+        List<String[]> listHierarchy = zipcodeHierarchy();
+        List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
+        return new Request(testData, testAttributes, null);
+    }
+
     public static Request zipcodeRequestPayload_wrong_data_format() {
         List<String[]> testData = wrongFromatData();
         List<String[]> listHierarchy = zipcodeHierarchy();
@@ -69,6 +89,26 @@ public class GenerateEdgeCaseData {
         return new Request(testData, testAttributes, privacyCriterionModels);
     }
 
+    public static Request zipcodeRequestPayload3QuasiNoHierarchies(){
+        List<String[]> testData = ageGenderZipcodeData();
+        List<String []> listZipHierarchy = zipcodeHierarchy();
+
+
+        //Defining attribute types(sensitive, identifying, quasi-identifying, insensitive, etc)
+        List<Attribute> testAttributes = new ArrayList<>();
+        testAttributes.add(new Attribute("age",QUASIIDENTIFYING, null));
+        testAttributes.add(new Attribute("gender",QUASIIDENTIFYING, null));
+        testAttributes.add(new Attribute("zipcode",QUASIIDENTIFYING, listZipHierarchy));
+
+        //Define K-anonymity
+        List<PrivacyCriterionModel> privacyCriterionModelList = new ArrayList<>();
+        Map<String,String> kMapValue = new HashMap<>();
+        kMapValue.put("k","2");
+        privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
+
+        return new Request(testData, testAttributes, privacyCriterionModelList);
+    }
+
     private static List<String[]> wrongFromatData() {
         String[][] rawData = {{"age, gender, zipcode" },
                 {"34, male, 81667"},
@@ -99,11 +139,6 @@ public class GenerateEdgeCaseData {
                 {"43", "female", "81676"},
                 {"44", "male", "81677"}};
         return  List.of(rawData);
-    }
-
-    private static List<String[]> genderHierarchy() {
-        String[][] genderHierarchy={{"male", "*"}, {"female", "*"}};
-        return List.of(genderHierarchy);
     }
 
     private static List<String[]> ageHierarchy() {

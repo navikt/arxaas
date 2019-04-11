@@ -1,7 +1,6 @@
 package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateEdgeCaseData;
-import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.exception.ExceptionResponse;
 import no.oslomet.aaas.model.Request;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ class AnalyzationEdgeCaseTest {
 
     @Test
     void getPayloadAnalyze_missing_data(){
-        Request missingData = GenerateTestData.zipcodeRequestPayloadWithoutData();
+        Request missingData = GenerateEdgeCaseData.zipcodeRequestPayloadWithoutData();
         ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/analyze",missingData, ExceptionResponse.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
@@ -39,6 +38,17 @@ class AnalyzationEdgeCaseTest {
     void getPayloadAnalyze_wrong_data_format(){
         Request wrongDatasetFormat = GenerateEdgeCaseData.zipcodeRequestPayload_wrong_data_format();
         ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/analyze",wrongDatasetFormat, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void getPayloadAnalyze_missing_attribute(){
+        Request missingAttribute = GenerateEdgeCaseData.zipcodeRequestPayloadWithoutAttributes();
+        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",missingAttribute, ExceptionResponse.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
