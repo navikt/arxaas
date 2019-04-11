@@ -1,8 +1,10 @@
 package no.oslomet.aaas.controller;
 
+import no.oslomet.aaas.GenerateEdgeCaseData;
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.exception.ExceptionResponse;
 import no.oslomet.aaas.model.Request;
+import org.bouncycastle.cert.ocsp.Req;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -60,6 +62,93 @@ class AnonymizationEdgeCaseTest {
     @Test
     void anonymization_with_payload_containing_to_many_quasi_vs_hierarchies_should_return_bad_request() {
         ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/anonymize",testRequestPayloadWithToManyQuasi, ExceptionResponse.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_missing_privacy_model_should_return_bad_request(){
+        ResponseEntity<RuntimeException> responseEntity = restTemplate.postForEntity("/api/anonymize",missingPrivacyModelsPayload, RuntimeException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_wrong_data_format(){
+        Request wrongDataFormat = GenerateEdgeCaseData.zipcodeRequestPayload_wrong_data_format();
+        ResponseEntity<ArrayIndexOutOfBoundsException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongDataFormat, ArrayIndexOutOfBoundsException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_wrong_hierarchy(){
+        Request wrongHierarchy = GenerateEdgeCaseData.zipcodeRequestPayload_wrong_hierarchy();
+        ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongHierarchy, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_wrong_hierarchy_format(){
+        Request wrongHierarchyFormat = GenerateEdgeCaseData.zipcodeRequestPayload_wrong_hierarchy_format();
+        ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongHierarchyFormat, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_privacy_model_on_non_sensitive_data(){
+        Request wrongPrivacyModel = GenerateEdgeCaseData.zipcodeRequestPayload_privacy_model_on_non_sensitive_data();
+        ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongPrivacyModel, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_wrong_privacy_model_format(){
+        Request wrongPrivacyModelFormat = GenerateEdgeCaseData.zipcodeRequestPayload_wrong_privacy_model_format();
+        ResponseEntity<NumberFormatException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongPrivacyModelFormat, NumberFormatException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_wrong_attribute_format(){
+        Request wrongAttributeFormat = GenerateEdgeCaseData.zipcodeRequestPayload_wrong_attribute_format();
+        ResponseEntity<IndexOutOfBoundsException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongAttributeFormat, IndexOutOfBoundsException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_wrong_format_all(){
+        Request wrongFormat = GenerateEdgeCaseData.zipcodeRequestPayload_all_format_wrong();
+        ResponseEntity<NumberFormatException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongFormat, NumberFormatException.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();

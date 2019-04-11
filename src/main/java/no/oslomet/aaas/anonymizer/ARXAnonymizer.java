@@ -1,6 +1,7 @@
 package no.oslomet.aaas.anonymizer;
 
 import no.oslomet.aaas.exception.UnableToAnonymizeDataException;
+import no.oslomet.aaas.exception.UnableToAnonymizeDataInvalidDataSetException;
 import no.oslomet.aaas.model.AnonymizeResult;
 import no.oslomet.aaas.model.AnonymizationMetrics;
 import no.oslomet.aaas.model.Request;
@@ -39,17 +40,31 @@ public class ARXAnonymizer implements Anonymizer {
         configureAnonymizer(anonymizer);
 
         Data data = dataFactory.create(payload);
-        ARXConfiguration config = configFactory.create(payload.getPrivacyModels());
         try {
+            ARXConfiguration config = configFactory.create(payload.getPrivacyModels());
             ARXResult result = anonymizer.anonymize(data,config);
-            List<String[]> anonymisedData = createRawDataList(result);
-            AnonymizationMetrics attributeGeneralizationLevels = new AnonymizationMetrics(result);
-            return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), attributeGeneralizationLevels,payload.getAttributes());
+            return packageResult(result,payload);
         } catch (IOException | NullPointerException e) {
-
-            logger.error("Exception error: " + e.toString());
+            logger.error(String.format("Exception error: %s", e.toString()));
             throw new UnableToAnonymizeDataException(e.toString());
+        } catch(IndexOutOfBoundsException e){
+            String errorMessage = String.format("%s, Failed to create dataset. Check if dataset format and attribute dataset fields are correct", e.toString());
+            logger.error(String.format("Exception error: %s", errorMessage));
+            throw new UnableToAnonymizeDataInvalidDataSetException(errorMessage);
         }
+    }
+
+    /***
+     * Returns an {@link AnonymizeResult} object containing a packaged results from the anonymized dataset
+     * @param result an ARX {@link ARXResult} object containing the anonymized data and meta data
+     * @param payload a {@link Request} object containing the dataset to be anonymized and the meta data to determine
+     *               the settings and attributes on how to anonymized and analyze the data set
+     * @return an {@link AnonymizeResult} object containing a packaged results from the anonymized dataset
+     */
+    private AnonymizeResult packageResult(ARXResult result, Request payload){
+        List<String[]> anonymisedData = createRawDataList(result);
+        AnonymizationMetrics attributeGeneralizationLevels = new AnonymizationMetrics(result);
+        return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), attributeGeneralizationLevels,payload.getAttributes());
     }
 
     /***
