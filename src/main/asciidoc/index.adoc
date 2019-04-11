@@ -1,9 +1,9 @@
 
 
 [[overview]]
-= Overview
+= ARX as a Service
 
-[[Introduction]]
+[[overview-introduction]]
 == Introduction
 
 ARX as a Service is a Oslo Metropolitan University (OsloMet) bachelor thesis project completed in cooperation with
