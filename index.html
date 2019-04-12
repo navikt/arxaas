@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Overview</title>
+<title>ARX as a Service</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -419,10 +419,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body id="overview" class="book toc2 toc-left">
 <div id="header">
-<h1>Overview</h1>
+<h1>ARX as a Service</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#overview-introduction">Introduction</a></li>
 <li><a href="#overview-http-verbs">HTTP verbs</a></li>
 <li><a href="#overview-http-status-codes">HTTP status codes</a></li>
 <li><a href="#overview-headers">Headers</a></li>
@@ -468,6 +469,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
+<h2 id="overview-introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ARX as a Service is a Oslo Metropolitan University (OsloMet) bachelor thesis project completed in cooperation with
+Norwegian Labour and Welfare Administration (NAV). The project aims to make ARX features and functionality available
+as a Python package. To deliver on this goal the bachelor team decided to create a web service implemented with
+Spring boot which exposes ARX functionality as a RESTful API. Users can then either use the companion Python package
+developed by the team to consume the web service or create their own clients.</p>
+</div>
+<div class="paragraph">
+<p>Bachelor thesis group website:
+<a href="https://oslomet-arx-as-a-service.github.io/" class="bare">https://oslomet-arx-as-a-service.github.io/</a></p>
+</div>
+<div class="paragraph">
+<p>Python package:
+<a href="https://github.com/oslomet-arx-as-a-service/PyAaaS" class="bare">https://github.com/oslomet-arx-as-a-service/PyAaaS</a></p>
+</div>
+<div class="paragraph">
+<p>Web Service:
+<a href="https://github.com/oslomet-arx-as-a-service/AaaS" class="bare">https://github.com/oslomet-arx-as-a-service/AaaS</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="overview-http-verbs">HTTP verbs</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -488,19 +513,11 @@ use of HTTP verbs.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Used to retrieve a resource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to retrieve a metrics and logging data</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>POST</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Used to create a new resource</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PATCH</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Used to update an existing resource, including partial updates</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DELETE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Used to delete an existing resource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to analyze and or anonymize a request</p></td>
 </tr>
 </tbody>
 </table>
@@ -1110,7 +1127,7 @@ Content-Length: 7233
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-12 06:01:19 UTC
+Last updated 2019-04-12 06:47:55 UTC
 </div>
 </div>
 </body>
