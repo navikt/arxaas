@@ -33,7 +33,7 @@ node {
                     scm: [$class           : 'GitSCM',
                           branches         : [[name: '*/master']],
                           extensions       : [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${app_name}"]],
-                          userRemoteConfigs: [[url: "https://github.com/oslomet-arx-as-a-service/AaaS.git"]]]
+                          userRemoteConfigs: [[url: "https://github.com/oslomet-arx-as-a-service/ARXaaS.git"]]]
             )
             def git_commit_hash = sh(script: "git --git-dir=./${app_name}/.git rev-parse --short HEAD", returnStdout: true).trim()
             version_tag = "${datestring}-${git_commit_hash}"
