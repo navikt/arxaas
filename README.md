@@ -14,7 +14,7 @@ ARX Web API Service
 ##### Docker
 1. run docker desktop application.
 2. run cmd or powerhell  and pull the docker image by writing "docker pull arxaas/aaas"
-3.run the docker image after pulling by writing "docker run arxaas/aaas"
+3. run the docker image after pulling by writing "docker run arxaas/aaas"
 
 #### Development
 
