@@ -10,6 +10,12 @@ ARX Web API Service
 
 [API documentation](https://oslomet-arx-as-a-service.github.io/AaaS/)
 
+#### Set up
+##### Docker
+1. run docker desktop application.
+2. run cmd or powerhell  and run the docker image by writing "docker run arxaas/aaas"
+3.
+
 #### Development
 
 1. clone the project
