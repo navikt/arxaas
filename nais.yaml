@@ -11,7 +11,7 @@ replicas:
 
 resources:
   limits:
-    cpu: 500m
+    cpu: 1500m
     memory: 4800Mi
   requests:
     cpu: 200m
