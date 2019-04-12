@@ -8,7 +8,7 @@
 
 ARX Web API Service
 
-[API documentation](https://oslomet-arx-as-a-service.github.io/AaaS/)
+[API documentation](https://oslomet-arx-as-a-service.github.io/ARXaaS)
 
 #### Development
 
