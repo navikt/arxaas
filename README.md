@@ -13,12 +13,12 @@ ARX Web API Service
 #### Running the service localy
 ##### As a Docker image
 1. run docker desktop application.
-2. run cmd or powerhell  and pull the docker image by writing "docker pull arxaas/aaas"
+2. pull the docker image by writing "docker pull arxaas/aaas" in the terminal
 3. run the docker image after pulling by writing "docker run arxaas/aaas"
 
 ##### Execute jar from Maven
 1. go to https://search.maven.org/search?q=g:no.oslomet and download the latest version of aaas
-2. open cmd or powershell and run the jar file by writting "java -jar JAR_FILE_LOCATION"
+2. run the jar file by writing "java -jar JAR_FILE_LOCATION" in the terminal
 
 #### Development
 
