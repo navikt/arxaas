@@ -2,13 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>no.oslomet</groupId>
-	<artifactId>aaas</artifactId>
+	<artifactId>arxaas</artifactId>
 	<version>0.2.2-RELEASE</version>
-	<name>AaaS</name>
-	<description>AaaS is a Anonymization as a Service project implemented as a RESTful web application using Spring Boot.</description>
-	<url>https://github.com/oslomet-arx-as-a-service/AaaS</url>
+	<name>ARXaaS</name>
+	<description>ARXaaS is a Anonymization as a Service project implemented as a RESTful web application using Spring Boot.</description>
+	<url>https://github.com/oslomet-arx-as-a-service/ARXaaS</url>
 
 	<organization>
 		<name>no.oslomet</name>
@@ -17,24 +16,24 @@
 
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/oslomet-arx-as-a-service/AaaS/issues</url>
+		<url>https://github.com/oslomet-arx-as-a-service/ARXaaS/issues</url>
 	</issueManagement>
 
 	<licenses>
 		<license>
 			<name>MIT</name>
-			<url>https://github.com/oslomet-arx-as-a-service/AaaS/blob/master/LICENCE</url>
+			<url>https://github.com/oslomet-arx-as-a-service/ARXaaS/blob/master/LICENCE</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
 
 	<scm>
-		<url>https://github.com/oslomet-arx-as-a-service/AaaS</url>
+		<url>https://github.com/oslomet-arx-as-a-service/ARXaaS</url>
 		<connection>
-			scm:git:git://github.com/oslomet-arx-as-a-service/AaaS.git
+			scm:git:git://github.com/oslomet-arx-as-a-service/ARXaaS.git
 		</connection>
 		<developerConnection>
-			scm:git:ssh://git@github.com/oslomet-arx-as-a-service/AaaS.git
+			scm:git:ssh://git@github.com/oslomet-arx-as-a-service/ARXaaS.git
 		</developerConnection>
 	</scm>
 	<developers>
