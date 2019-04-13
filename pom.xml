@@ -7,7 +7,7 @@
 	<version>0.2.2-RELEASE</version>
 	<name>ARXaaS</name>
 	<description>ARXaaS is a Anonymization as a Service project implemented as a RESTful web application using Spring Boot.</description>
-	<url>https://github.com/oslomet-arx-as-a-service/AaaS</url>
+	<url>https://github.com/oslomet-arx-as-a-service/ARXaaS</url>
 
 	<organization>
 		<name>no.oslomet</name>
