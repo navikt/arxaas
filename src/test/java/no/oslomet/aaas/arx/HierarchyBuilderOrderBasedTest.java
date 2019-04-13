@@ -1,6 +1,8 @@
 package no.oslomet.aaas.arx;
 
+import no.oslomet.aaas.GenerateTestData;
 import org.deidentifier.arx.*;
+import org.deidentifier.arx.aggregates.HierarchyBuilderIntervalBased;
 import org.deidentifier.arx.aggregates.HierarchyBuilderOrderBased;
 import org.deidentifier.arx.criteria.KAnonymity;
 
@@ -10,6 +12,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 class HierarchyBuilderOrderBasedTest {
 
@@ -138,4 +143,71 @@ class HierarchyBuilderOrderBasedTest {
         Assertions.assertEquals("*", coll.get(7)[1]);
         Assertions.assertEquals("*", coll.get(7)[2]);
     }
+
+    @Test
+    void testStringHierarchyBuilding(){
+
+        List<String> column = List.of("Oslo", "London", "Tokyo", "Tokyo", "Bejing", "Bergen", "Moscow", "Praha");
+
+
+        var it = column.iterator();
+        it.forEachRemaining(System.out::println);
+
+        HierarchyBuilderOrderBased<String> builder
+                = HierarchyBuilderOrderBased.create(DataType.ORDERED_STRING, false);
+
+        builder.getLevel(0)
+                .addGroup(2, "European").addGroup(2,"Asian").addGroup(2, "eastern-eropean");
+
+
+        // Define grouping fanouts
+//        builder.getLevel(0)
+//                .addGroup(2, "WESTERN")
+//                .addGroup(2, "ASIAN");
+
+        builder.prepare(column.toArray(new String[8]));
+
+
+
+
+
+        //Build Hierarchy
+        String[][] result = builder.build().getHierarchy();
+        List.of(result).forEach(strings -> System.out.println(Arrays.toString(strings)));
+    }
+
+
+    @Test
+    void ageIntervalBasedHierarchyBuilder(){
+        List<Integer> tmp = List.of(18, 23, 2,24 ,434, 23,2323,45,2323,2,6,445,7,67,43,43,23,56,87,34,23,12);
+
+
+        // Create the builder
+        HierarchyBuilderIntervalBased<Long> builder = HierarchyBuilderIntervalBased.create(DataType.INTEGER);
+
+        // Define base intervals
+        builder.addInterval(0L, 18L, "child");
+        builder.addInterval(18L, 51L, "adult");
+        builder.addInterval(51L, 100L, "old");
+        builder.addInterval(100L, 10000L, "most likely dead");
+
+
+
+
+        // Define grouping fanouts
+
+        builder.getLevel(0)
+                .addGroup(2, "young")
+                .addGroup(2, "not-young");
+
+
+        builder.prepare(tmp.stream().map(Object::toString).toArray(String[]::new));
+
+
+        //Build Hierarchy
+        String[][] result = builder.build().getHierarchy();
+        List.of(result).forEach(strings -> System.out.println(Arrays.toString(strings)));
+    }
+
+
 }
