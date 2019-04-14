@@ -206,7 +206,7 @@ class HierarchyBuilderOrderBasedTest {
 
         //Build Hierarchy
         String[][] result = builder.build().getHierarchy();
-        List.of(result).forEach(strings -> System.out.println(Arrays.toString(strings)));
+        //List.of(result).forEach(strings -> System.out.println(Arrays.toString(strings)));
     }
 
 
