@@ -12,19 +12,6 @@ public class HierarchyService {
 
     public HierarchyService(){ }
 
-
-//    private HierarchyBuilder hierarchyBuilder(HierarchyRequest hierarchyRequest){
-//        Objects.requireNonNull(hierarchyRequest);
-//        Objects.requireNonNull(hierarchyRequest.getBuilder());
-//        var builderType = hierarchyRequest.getBuilder();
-//
-//        switch (builderType){
-//            case REDUCTIONBASED: return ARXHierarchy::reductionBased;
-//        }
-//        throw new NotImplementedException("Hierarchy generator=" + builderType.toString() + "could not be found");
-//    }
-
-
     public Hierarchy hierarchy(HierarchyRequest hierarchyRequest) {
         HierarchyBuilder builder = hierarchyRequest.getBuilder();
         return builder.build(hierarchyRequest.getColumn());
