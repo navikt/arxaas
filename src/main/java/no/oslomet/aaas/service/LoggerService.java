@@ -1,5 +1,6 @@
 package no.oslomet.aaas.service;
 
+import no.oslomet.aaas.model.PrivacyCriterionModel;
 import no.oslomet.aaas.model.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,7 @@ public class LoggerService {
 
     public void loggPayload(Request payload, String IP, Class classToLogg) {
         Logger logger = LoggerFactory.getLogger(classToLogg);
-        logger.info("Request received, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) +", Request Source IP = " + IP);
+        logger.info("Request received, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) +", Request Source IP = " + IP + " Privacy models used = "+logPrivacyModel(payload));
     }
 
     private int numColumns(Request payload) {
@@ -27,4 +28,15 @@ public class LoggerService {
         if (payload == null || payload.getData() == null) return 0;
         return payload.getData().toString().length();
     }
+
+    private String logPrivacyModel (Request payload) {
+        if (payload == null || payload.getData() == null) return "";
+        String privacyModels = "";
+        for (PrivacyCriterionModel privacyModel : payload.getPrivacyModels()){
+            privacyModels = privacyModels + privacyModel.getPrivacyModel().getName()+" ";
+        }
+        System.out.println("Returning :" + privacyModels);
+        return privacyModels;
+    }
+
 }
