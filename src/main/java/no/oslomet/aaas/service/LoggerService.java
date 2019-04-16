@@ -30,7 +30,7 @@ public class LoggerService {
     }
 
     private String logPrivacyModel (Request payload) {
-        if (payload == null || payload.getData() == null) return "";
+        if (payload == null || payload.getData() == null || payload.getPrivacyModels() == null) return "";
         String privacyModels = "";
         for (PrivacyCriterionModel privacyModel : payload.getPrivacyModels()){
             privacyModels = privacyModels.concat(privacyModel.getPrivacyModel().getName()).concat(", ");
