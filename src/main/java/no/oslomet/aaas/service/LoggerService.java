@@ -33,7 +33,7 @@ public class LoggerService {
         if (payload == null || payload.getData() == null) return "";
         String privacyModels = "";
         for (PrivacyCriterionModel privacyModel : payload.getPrivacyModels()){
-            privacyModels = privacyModels + privacyModel.getPrivacyModel().getName() + ", ";
+            privacyModels = privacyModels.concat(privacyModel.getPrivacyModel().getName()).concat(", ");
         }
         return privacyModels;
     }
