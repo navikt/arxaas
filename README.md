@@ -4,7 +4,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/no.oslomet/aaas.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22no.oslomet%22%20AND%20a:%22aaas%22)
 [![Javadocs](http://javadoc.io/badge/no.oslomet/aaas.svg)](http://javadoc.io/doc/no.oslomet/aaas)
 
-# AaaS - Anonymization-as-a-Service
+# ARXaaS - Anonymization-as-a-Service
 
 ARX Web API Service
 
