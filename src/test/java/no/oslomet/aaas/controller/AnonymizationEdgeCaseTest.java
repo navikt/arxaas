@@ -2,6 +2,7 @@ package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateEdgeCaseData;
 import no.oslomet.aaas.exception.ExceptionResponse;
+import no.oslomet.aaas.model.AnonymizationResultPayload;
 import no.oslomet.aaas.model.Request;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -119,6 +121,20 @@ class AnonymizationEdgeCaseTest {
         var resultData = responseEntity.getBody();
         assertNotNull(resultData);
         assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_hierarchy_having_data_not_existing_in_dataset(){
+        Request wrongHierarchyFormat = GenerateEdgeCaseData.zipcodeRequestPaylaod_hierarchy_having_data_not_included_in_dataset();
+        ResponseEntity<AnonymizationResultPayload> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongHierarchyFormat, AnonymizationResultPayload.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.OK, responseEntity.getStatusCode());
+        AnonymizationResultPayload actual = responseEntity.getBody();
+        List<String[]> expected = GenerateEdgeCaseData.ageGenderZipcodeDataAfterAnonymization();
+        assertNotNull(actual);
+        for(int x = 0; x<1;x++) {
+            assertArrayEquals(expected.get(x), actual.getAnonymizeResult().getData().get(x));
+        }
     }
 
     @Test
