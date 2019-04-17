@@ -27,8 +27,12 @@ public class AnalyzationController {
 
     @PostMapping
     public RiskProfile getPayloadAnalyze(@Valid @RequestBody Request payload, HttpServletRequest request) {
+        long requestRecivedTime = System.currentTimeMillis();
         loggerService.loggPayload(payload, request.getRemoteAddr(), AnalyzationController.class);
-        return analyzationService.analyze(payload);
+        RiskProfile analyzationResult = analyzationService.analyze(payload);
+        long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
+        loggerService.loggAnalyzationResult(analyzationResult,requestProcessingTime, AnalyzationController.class);
+        return analyzationResult;
     }
 
 }
