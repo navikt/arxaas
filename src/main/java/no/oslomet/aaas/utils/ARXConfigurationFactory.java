@@ -30,7 +30,7 @@ public class ARXConfigurationFactory implements ConfigurationFactory {
     /***
      * Mutates ARX {@link ARXConfiguration} object by setting the suppression limit configuration for anonymization.
      * @param config an ARX {@link ARXConfiguration} object that holds the anonymization/data set settings
-     * @param suppressionLimit a double containing the value to be set as the suppression limit
+     * @param suppressionLimit a String containing a value to be set as the suppression limit
      */
     private void setSuppressionLimit(ARXConfiguration config, String suppressionLimit){
         if(suppressionLimit != null){
