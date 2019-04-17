@@ -56,9 +56,9 @@ class ARXDataFactoryTest {
                 {"44", "male", "81677"}};
         List<String[]> testData = List.of(rawData);
 
-        testPayload = new Request(null,null,null,0.0);
+        testPayload = new Request(null,null,null,null);
         Assertions.assertThrows(IllegalArgumentException.class, () -> (new ARXDataFactory()).create(testPayload));
-        testPayload = new Request( testData ,null,null,0.0);
+        testPayload = new Request( testData ,null,null,null);
         Assertions.assertThrows(IllegalArgumentException.class, () -> (new ARXDataFactory()).create(testPayload));
     }
 

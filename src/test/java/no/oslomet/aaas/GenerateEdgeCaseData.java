@@ -14,7 +14,7 @@ import static no.oslomet.aaas.model.AttributeTypeModel.*;
 public class GenerateEdgeCaseData {
 
     public static Request NullPayload(){
-        return  new Request(null,null,null,0.0);
+        return  new Request(null,null,null,null);
     }
 
     public static Request zipcodeRequestPayloadWithoutData() {
