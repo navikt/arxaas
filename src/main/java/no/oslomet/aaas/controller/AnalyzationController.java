@@ -31,7 +31,7 @@ public class AnalyzationController {
         loggerService.loggPayload(payload, request.getRemoteAddr(), AnalyzationController.class);
         RiskProfile analyzationResult = analyzationService.analyze(payload);
         long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
-        loggerService.loggAnalyzationResult(analyzationResult,requestProcessingTime, AnalyzationController.class);
+        loggerService.loggAnalyzationResult(analyzationResult, payload, request.getRemoteAddr(), requestProcessingTime, AnalyzationController.class);
         return analyzationResult;
     }
 

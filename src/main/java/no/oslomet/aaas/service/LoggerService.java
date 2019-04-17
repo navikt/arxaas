@@ -16,6 +16,10 @@ public class LoggerService {
         logger.info("Request received, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) + ", Request Source IP = " + ip);
     }
 
+    public void loggAnalyzationResult(RiskProfile analyzationResult, Request payload, String ip, long requestProcessingTime, Class classToLogg) {
+        Logger logger = LoggerFactory.getLogger(classToLogg);
+        logger.info("Request complete, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) + ", Request Source IP = " + ip + " Request processing time = " + requestProcessingTime + " milliseconds");
+    }
 
     public void loggAnonymizeResult(AnonymizationResultPayload payload, long requestProcessingTime, Class classToLogg, String ip) {
         Logger logger = LoggerFactory.getLogger(classToLogg);
