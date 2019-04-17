@@ -10,11 +10,13 @@ public class Request {
     @NotNull
     private final List<Attribute> attributes;
     private final List<PrivacyCriterionModel> privacyModels;
+    private final double suppressionLimit;
 
-    public Request(List<String[]> data, List<Attribute> attributes, List<PrivacyCriterionModel> privacyModels) {
+    public Request(List<String[]> data, List<Attribute> attributes, List<PrivacyCriterionModel> privacyModels,double suppressionLimit) {
         this.data = data;
         this.attributes = attributes;
         this.privacyModels = privacyModels;
+        this.suppressionLimit = suppressionLimit;
     }
 
 
@@ -27,8 +29,8 @@ public class Request {
         return attributes;
     }
 
-    public List<PrivacyCriterionModel> getPrivacyModels() {
-        return privacyModels;
-    }
+    public List<PrivacyCriterionModel> getPrivacyModels() { return privacyModels;  }
+
+    public double getSuppressionLimit() { return suppressionLimit;    }
 
 }

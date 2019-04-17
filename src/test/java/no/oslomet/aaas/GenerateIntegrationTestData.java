@@ -28,7 +28,8 @@ public class GenerateIntegrationTestData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(testData, testAttributes, privacyCriterionModels);
+        double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     private static List<String[]> ageGenderZipcodeData() {
@@ -134,7 +135,8 @@ public class GenerateIntegrationTestData {
     public static Request zipcodeRequestPayloadAfterAnonymization(){
         List<String[]> testData = ageGenderZipcodeDataAfterAnonymization();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(null);
-        return new Request(testData, testAttributes, null);
+        double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, null,suppressionLimit);
     }
 
     private static Data ageGenderZipcodeDatasetAfterAnonymziation(){
@@ -196,7 +198,7 @@ public class GenerateIntegrationTestData {
         ARXDataFactory dataFactory = new ARXDataFactory();
         ARXConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
         Data data = dataFactory.create(zipcodeRequestPayload());
-        ARXConfiguration config = configurationFactory.create(zipcodeRequestPayload().getPrivacyModels());
+        ARXConfiguration config = configurationFactory.create(zipcodeRequestPayload().getPrivacyModels(),zipcodeRequestPayload().getSuppressionLimit());
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         ARXResult result = null;
         try {
