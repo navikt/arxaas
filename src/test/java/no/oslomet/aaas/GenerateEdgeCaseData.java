@@ -113,6 +113,14 @@ public class GenerateEdgeCaseData {
         return new Request(testData, testAttributes, privacyCriterionModelList);
     }
 
+    public static Request zipcodeRequestPaylaod_hierarchy_having_data_not_included_in_dataset(){
+        List<String[]> testData = ageGenderZipcodeData();
+        List<String[]> listHierarchy = zipcodeHierarchy_having_data_not_existing_in_dataset();
+        List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
+        List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
+        return new Request(testData, testAttributes, privacyCriterionModels);
+    }
+
     private static List<String[]> wrongFromatData() {
         String[][] rawData = {{"age, gender, zipcode" },
                 {"34, male, 81667"},
@@ -143,6 +151,22 @@ public class GenerateEdgeCaseData {
                 {"43", "female", "81676"},
                 {"44", "male", "81677"}};
         return  List.of(rawData);
+    }
+
+    public static List<String[]> ageGenderZipcodeDataAfterAnonymization(){
+        String[][] rawData = {{"age", "gender", "zipcode" },
+                {"*", "male", "816**"},
+                {"*", "female", "816**"},
+                {"*", "male", "816**"},
+                {"*", "female", "816**"},
+                {"*", "male", "816**"},
+                {"*", "female", "816**"},
+                {"*", "male", "816**"},
+                {"*", "female", "816**"},
+                {"*", "male", "816**"},
+                {"*", "female", "816**"},
+                {"*", "male", "816**"}};
+        return List.of(rawData);
     }
 
     private static List<String[]> ageHierarchy() {
@@ -194,6 +218,29 @@ public class GenerateEdgeCaseData {
                 , {"81675, 8167*, 816**, 81***, 8****, *****"}
                 , {"81676, 8167*, 816**, 81***, 8****, *****"}
                 , {"81677, 8167*, 816**, 81***, 8****, *****"}};
+
+        return List.of(testHeirarchy);
+    }
+
+    private static List<String[]> zipcodeHierarchy_having_data_not_existing_in_dataset() {
+        //Defining Hierarchy for a give column name
+        String[][] testHeirarchy = {
+                {"81667", "8166*", "816**", "81***", "8****", "*****"}
+                , {"81668", "8166*", "816**", "81***", "8****", "*****"}
+                , {"81669", "8166*", "816**", "81***", "8****", "*****"}
+                , {"81670", "8167*", "816**", "81***", "8****", "*****"}
+                , {"81671", "8167*", "816**", "81***", "8****", "*****"}
+                , {"81672", "8167*", "816**", "81***", "8****", "*****"}
+                , {"81673", "8167*", "816**", "81***", "8****", "*****"}
+                , {"81674", "8167*", "816**", "81***", "8****", "*****"}
+                , {"81675", "8167*", "816**", "81***", "8****", "*****"}
+                , {"81676", "8167*", "816**", "81***", "8****", "*****"}
+                , {"81677", "8167*", "816**", "81***", "8****", "*****"}
+                , {"81678", "8167*", "816**", "81***", "8****", "*****"}
+                , {"81679", "8167*", "816**", "81***", "8****", "*****"}
+                , {"81680", "8168*", "816**", "81***", "8****", "*****"}
+                , {"81681", "8168*", "816**", "81***", "8****", "*****"}
+                , {"81682", "8168*", "816**", "81***", "8****", "*****"}};
 
         return List.of(testHeirarchy);
     }
