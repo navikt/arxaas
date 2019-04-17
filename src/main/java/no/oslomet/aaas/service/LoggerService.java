@@ -1,6 +1,7 @@
 package no.oslomet.aaas.service;
 
 import no.oslomet.aaas.model.Request;
+import no.oslomet.aaas.model.analytics.RiskProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,14 @@ public class LoggerService {
         Logger logger = LoggerFactory.getLogger(classToLogg);
         logger.info("Request received, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) +", Request Source IP = " + IP);
     }
+
+    public void loggAnalyzationResult(RiskProfile analyzationResult,long requestProcessingTime, Class classToLogg) {
+        Logger logger = LoggerFactory.getLogger(classToLogg);
+        logger.info("Request complete, " + " Request processing time = " + requestProcessingTime +" milliseconds");
+    }
+
+
+
 
     private int numColumns(Request payload) {
         if (payload == null || payload.getData() == null) return 0;
