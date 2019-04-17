@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoggerService {
 
-    public void loggPayload(Request payload, String IP, Class classToLogg) {
+    public void loggPayload(Request payload, String ip, Class classToLogg) {
         Logger logger = LoggerFactory.getLogger(classToLogg);
-        logger.info("Request received, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) +", Request Source IP = " + IP + ", Privacy models used = "+logPrivacyModel(payload));
+        logger.info("Request received, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) +", Request Source IP = " + ip + ", Privacy models used = "+logPrivacyModel(payload));
     }
 
     private int numColumns(Request payload) {
