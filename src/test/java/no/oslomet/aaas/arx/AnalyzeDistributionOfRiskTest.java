@@ -29,7 +29,7 @@ class AnalyzeDistributionOfRiskTest {
         ARXDataFactory dataFactory = new ARXDataFactory();
         ARXConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
         Data testData = dataFactory.create(testPayload);
-        ARXConfiguration config = configurationFactory.create(testPayload.getPrivacyModels());
+        ARXConfiguration config = configurationFactory.create(testPayload.getPrivacyModels(),testPayload.getSuppressionLimit());
 
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         ARXResult result = null;
@@ -68,7 +68,7 @@ class AnalyzeDistributionOfRiskTest {
         ARXDataFactory dataFactory = new ARXDataFactory();
         ARXConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
         Data testData = dataFactory.create(testPayload);
-        ARXConfiguration config = configurationFactory.create(testPayload.getPrivacyModels());
+        ARXConfiguration config = configurationFactory.create(testPayload.getPrivacyModels(),testPayload.getSuppressionLimit());
 
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         ARXResult result = null;
@@ -132,7 +132,7 @@ class AnalyzeDistributionOfRiskTest {
         ARXDataFactory dataFactory = new ARXDataFactory();
         ARXConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
         Data testData = dataFactory.create(testPayload);
-        ARXConfiguration config = configurationFactory.create(testPayload.getPrivacyModels());
+        ARXConfiguration config = configurationFactory.create(testPayload.getPrivacyModels(),testPayload.getSuppressionLimit());
 
         ARXAnonymizer anonymizer = new ARXAnonymizer();
         anonymizer.setMaximumSnapshotSizeDataset(0.2);

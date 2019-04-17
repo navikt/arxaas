@@ -33,7 +33,7 @@ class ARXConfigurationFactoryTest {
         ARXConfiguration config = arxConfigurationFactory.create(testPayload.getPrivacyModels(),testPayload.getSuppressionLimit());
         double actual = config.getSuppressionLimit();
 
-        Assertions.assertEquals(0.00,actual);
+        Assertions.assertEquals(0.02,actual);
     }
 
     @Test

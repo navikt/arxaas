@@ -70,7 +70,8 @@ class ApiDocsGenerationTest {
                 .andDo(document("analyze-controller", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
                         requestFields(subsectionWithPath("data").description("Dataset to be anonymized"),
                                 subsectionWithPath("attributes").description("Attributes of the dataset"),
-                                subsectionWithPath("privacyModels").ignored()
+                                subsectionWithPath("privacyModels").ignored(),
+                                subsectionWithPath("suppressionLimit").ignored()
                         )));
     }
 
@@ -87,7 +88,8 @@ class ApiDocsGenerationTest {
                 .andDo(document("anonymize-controller", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
                         requestFields(subsectionWithPath("data").description("Dataset to be anonymized"),
                                 subsectionWithPath("attributes").description("Attributes of the dataset"),
-                                subsectionWithPath("privacyModels").description("Privacy Models to be applied to the dataset")
+                                subsectionWithPath("privacyModels").description("Privacy Models to be applied to the dataset"),
+                                subsectionWithPath("suppressionLimit").description("Suppression limit to be applied to the dataset")
                         )));
     }
 }
