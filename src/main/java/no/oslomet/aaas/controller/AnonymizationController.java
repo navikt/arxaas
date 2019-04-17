@@ -2,6 +2,7 @@ package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.model.AnonymizationResultPayload;
 import no.oslomet.aaas.model.Request;
+import no.oslomet.aaas.model.analytics.RiskProfile;
 import no.oslomet.aaas.service.AnonymizationService;
 import no.oslomet.aaas.service.LoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,11 @@ public class AnonymizationController {
 
     @PostMapping
     public AnonymizationResultPayload anonymization(@Valid @RequestBody Request payload, HttpServletRequest request) {
+        long requestRecivedTime = System.currentTimeMillis();
         loggerService.loggPayload(payload, request.getRemoteAddr(), AnonymizationController.class);
+        AnonymizationResultPayload anonymizationResult = anonymizationService.anonymize(payload);
+        long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
+        loggerService.loggAnonymizeResult(anonymizationResult,requestProcessingTime, AnonymizationController.class, request.getRemoteAddr());
         return anonymizationService.anonymize(payload);
     }
 
