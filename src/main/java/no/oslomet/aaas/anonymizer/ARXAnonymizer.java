@@ -37,7 +37,6 @@ public class ARXAnonymizer implements Anonymizer {
     @Override
     public AnonymizeResult anonymize(Request payload) {
         org.deidentifier.arx.ARXAnonymizer anonymizer = new org.deidentifier.arx.ARXAnonymizer();
-        configureAnonymizer(anonymizer);
 
         Data data = dataFactory.create(payload);
         try {
@@ -65,16 +64,6 @@ public class ARXAnonymizer implements Anonymizer {
         List<String[]> anonymisedData = createRawDataList(result);
         AnonymizationMetrics attributeGeneralizationLevels = new AnonymizationMetrics(result);
         return new AnonymizeResult(anonymisedData, result.getGlobalOptimum().getAnonymity().toString(), attributeGeneralizationLevels,payload.getAttributes());
-    }
-
-    /***
-     * Returns an ARX {@link ARXAnonymizer} objects that sets the settings for anonymizing the data set.
-     * @param anonymizer an ARX {@link ARXAnonymizer} object that will hold the anonymization settings
-     */
-    private void configureAnonymizer(org.deidentifier.arx.ARXAnonymizer anonymizer){
-        anonymizer.setMaximumSnapshotSizeDataset(0.2);
-        anonymizer.setMaximumSnapshotSizeSnapshot(0.2);
-        anonymizer.setHistorySize(200);
     }
 
     /***
