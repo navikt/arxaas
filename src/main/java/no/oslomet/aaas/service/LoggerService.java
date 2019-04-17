@@ -23,7 +23,7 @@ public class LoggerService {
 
     public void loggAnonymizeResult(AnonymizationResultPayload payload, long requestProcessingTime, Class classToLogg, String ip) {
         Logger logger = LoggerFactory.getLogger(classToLogg);
-        logger.info("Request complete, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) + ", Request + logPrivacyModel(payload)Source IP = " + ip + " Request processing time = " + requestProcessingTime + " milliseconds");
+        logger.info("Request complete, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) + ", Request Source IP = " + ip + " Request processing time = " + requestProcessingTime + " milliseconds");
     }
 
 
