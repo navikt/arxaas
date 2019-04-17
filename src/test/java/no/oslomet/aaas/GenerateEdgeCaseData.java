@@ -21,14 +21,14 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(null, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayloadWithoutAttributes() {
         List<String[]> testData = ageGenderZipcodeData();
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, null, privacyCriterionModels,suppressionLimit);
     }
 
@@ -36,7 +36,7 @@ public class GenerateEdgeCaseData {
         List<String[]> testData = ageGenderZipcodeData();
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, testAttributes, null,suppressionLimit);
     }
 
@@ -45,7 +45,7 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
@@ -54,7 +54,7 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = ageHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
@@ -63,7 +63,7 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes2Quasi(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
@@ -72,7 +72,7 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcode_wrong_PrivacyModels();
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
@@ -81,7 +81,7 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy_wrong_format();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
@@ -90,7 +90,7 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes_wrong_format(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
@@ -99,7 +99,7 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy_wrong_format();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes_wrong_format(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcode_wrong_PrivacyModels();
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
@@ -119,7 +119,7 @@ public class GenerateEdgeCaseData {
         Map<String,String> kMapValue = new HashMap<>();
         kMapValue.put("k","2");
         privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, testAttributes, privacyCriterionModelList,suppressionLimit);
     }
 
@@ -128,7 +128,7 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy_having_data_not_existing_in_dataset();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        double suppressionLimit = 0.02;
+        String suppressionLimit = "0.02";
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 

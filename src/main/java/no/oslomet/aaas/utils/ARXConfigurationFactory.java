@@ -20,7 +20,7 @@ public class ARXConfigurationFactory implements ConfigurationFactory {
     }
 
     @Override
-    public ARXConfiguration create(List<PrivacyCriterionModel> privacyModels , double suppressionLimit){
+    public ARXConfiguration create(List<PrivacyCriterionModel> privacyModels , String suppressionLimit){
         ARXConfiguration config = ARXConfiguration.create();
         setSuppressionLimit(config,suppressionLimit);
         setPrivacyModels(config, privacyModels);
@@ -32,8 +32,10 @@ public class ARXConfigurationFactory implements ConfigurationFactory {
      * @param config an ARX {@link ARXConfiguration} object that holds the anonymization/data set settings
      * @param suppressionLimit a double containing the value to be set as the suppression limit
      */
-    private void setSuppressionLimit(ARXConfiguration config, double suppressionLimit){
-            config.setSuppressionLimit(suppressionLimit);
+    private void setSuppressionLimit(ARXConfiguration config, String suppressionLimit){
+        if(suppressionLimit != null){
+            config.setSuppressionLimit(Double.parseDouble(suppressionLimit));
+        }
     }
 
     /***
