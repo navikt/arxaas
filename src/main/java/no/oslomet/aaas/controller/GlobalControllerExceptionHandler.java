@@ -31,8 +31,7 @@ class GlobalControllerExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleExceptionAllExceptions(Exception ex, WebRequest request) {
-        String error ="Exception.class error, HttpStatus: INTERNAL_SERVER_ERROR, ExceptionToString: "+ ex.toString();
-        logger.error(error);
+        logger.error("Exception.class error, HttpStatus: INTERNAL_SERVER_ERROR, ExceptionToString: ", ex);
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                         ex.getMessage(),
                         request.getDescription(false));
