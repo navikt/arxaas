@@ -28,7 +28,7 @@ public class GenerateIntegrationTestData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        String suppressionLimit = "0.02";
+        Double suppressionLimit = 0.02;
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
@@ -135,7 +135,7 @@ public class GenerateIntegrationTestData {
     public static Request zipcodeRequestPayloadAfterAnonymization(){
         List<String[]> testData = ageGenderZipcodeDataAfterAnonymization();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(null);
-        String suppressionLimit = "0.02";
+        Double suppressionLimit = 0.02;
         return new Request(testData, testAttributes, null,suppressionLimit);
     }
 

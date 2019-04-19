@@ -23,14 +23,14 @@ public class GenerateTestData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        String suppressionLimit = "0.02";
+        Double suppressionLimit = 0.02;
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayloadAfterAnonymization(){
         List<String[]> testData = ageGenderZipcodeDataAfterAnonymization();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(null);
-        String suppressionLimit = "0.02";
+        Double suppressionLimit = 0.02;
         return new Request(testData, testAttributes, null,suppressionLimit);
     }
 
@@ -64,7 +64,7 @@ public class GenerateTestData {
         kMapValue.put("k","5");
         privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
 
-        String suppressionLimit = "0.02";
+        Double suppressionLimit = 0.02;
 
         return new Request(testData, testAttributes, privacyCriterionModelList,suppressionLimit);
     }
@@ -171,7 +171,7 @@ public class GenerateTestData {
         testAttributes.add(new Attribute("gender",SENSITIVE, listHierarchy));
         testAttributes.add(new Attribute("zipcode",INSENSITIVE, listHierarchy));
 
-        String suppressionLimit = "0.02";
+        Double suppressionLimit = 0.02;
 
         return new Request(testData, testAttributes, null, suppressionLimit);
     }
@@ -195,7 +195,7 @@ public class GenerateTestData {
         kMapValue.put("k","2");
         privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
 
-        String suppressionLimit = "0.02";
+        Double suppressionLimit = 0.02;
 
         return new Request(testData, testAttributes, privacyCriterionModelList,suppressionLimit);
     }
@@ -217,7 +217,7 @@ public class GenerateTestData {
         kMapValue.put("k","2");
         privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
 
-        String suppressionLimit = "0.02";
+        Double suppressionLimit = 0.02;
 
         return new Request(testData, testAttributes, privacyCriterionModelList,suppressionLimit);
     }
