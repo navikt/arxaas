@@ -1,14 +1,14 @@
 package no.oslomet.aaas.model.hierarchy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import org.apache.juli.logging.Log;
 import org.deidentifier.arx.DataType;
 import org.deidentifier.arx.aggregates.HierarchyBuilderIntervalBased;
 
 import java.util.List;
 
-
+/**
+ * Hierarchy Builder for interval hierarchies
+ */
 public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
 
     private final ARXDataType dataType;
@@ -33,12 +33,8 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
     @Override
     public Hierarchy build(String[] column) {
 
-        HierarchyBuilderIntervalBased<Long> builder = HierarchyBuilderIntervalBased.create(
-                DataType.INTEGER,
-                lowerRange.arxRange(),
-                upperRange.arxRange());
+        HierarchyBuilderIntervalBased<Long> builder = arxHierarchyBuilderIntervalBased();
 
-        // Define base intervals
         builder.setAggregateFunction(DataType.INTEGER.createAggregate().createIntervalFunction(true, false));
         applyIntervals(builder);
 
@@ -48,16 +44,29 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
         return new Hierarchy(builder.build().getHierarchy());
     }
 
+    /**
+     * Create HierarchyBuilderIntervalBased with right create method
+     * @return HierarchyBuilderIntervalBased
+     */
+    private HierarchyBuilderIntervalBased<Long> arxHierarchyBuilderIntervalBased() {
+        if(upperRange == null || lowerRange ==null){
+            return HierarchyBuilderIntervalBased.create(DataType.INTEGER);
+        }
+        return HierarchyBuilderIntervalBased.create(
+                    DataType.INTEGER,
+                    lowerRange.arxRange(),
+                    upperRange.arxRange());
+    }
+
     private void applyIntervals(HierarchyBuilderIntervalBased<Long> builder) {
 
-        var b = (HierarchyBuilderIntervalBased<Long>)builder;
         for (Interval interval : intervals) {
             if(interval.getLabel() == null){
 
-                b.addInterval((Long)interval.getFrom(),(Long)interval.getTo());
+                builder.addInterval(interval.getFrom(), interval.getTo());
             }
             else {
-                b.addInterval((Long)interval.getFrom(), (Long)interval.getTo(), interval.getLabel());
+                builder.addInterval(interval.getFrom(), interval.getTo(), interval.getLabel());
             }
         }
     }
@@ -136,7 +145,7 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
         }
 
         HierarchyBuilderIntervalBased.Range<Long> arxRange(){
-            return new HierarchyBuilderIntervalBased.Range<Long>(
+            return new HierarchyBuilderIntervalBased.Range<>(
                     snapFrom,
                     bottomTopCodingFrom,
                     minMaxValue);
