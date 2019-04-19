@@ -6,6 +6,9 @@ import no.oslomet.aaas.model.Request;
 
 import no.oslomet.aaas.model.hierarchy.*;
 import no.oslomet.aaas.model.hierarchy.RedactionBasedHierarchyBuilder.Order;
+import no.oslomet.aaas.model.hierarchy.interval.Interval;
+import no.oslomet.aaas.model.hierarchy.interval.IntervalBasedHierarchyBuilder;
+import no.oslomet.aaas.model.hierarchy.interval.Range;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +23,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
@@ -111,21 +113,20 @@ class ApiDocsGenerationTest {
                 {"8", "very-old", "[8, 12[", "*"},
                 {"9", "very-old", "[8, 12[", "*"}};
 
-        List<IntervalBasedHierarchyBuilder.Interval> labeledIntervals = List.of(
-                new IntervalBasedHierarchyBuilder.Interval(0L,2L, "young"),
-                new IntervalBasedHierarchyBuilder.Interval(2L, 4L, "adult"),
-                new IntervalBasedHierarchyBuilder.Interval(4L, 8L, "old"),
-                new IntervalBasedHierarchyBuilder.Interval(8L, Long.MAX_VALUE, "very-old"));
+        List<Interval> labeledIntervals = List.of(
+                new Interval(0L,2L, "young"),
+                new Interval(2L, 4L, "adult"),
+                new Interval(4L, 8L, "old"),
+                new Interval(8L, Long.MAX_VALUE, "very-old"));
 
         var testLevels = List.of(new Level(0, List.of(new Level.Group(2))));
 
 
         IntervalBasedHierarchyBuilder basedHierarchyBuilder = new IntervalBasedHierarchyBuilder(
-                new ARXDataType(ARXDataType.Type.INTEGER),
                 labeledIntervals,
                 testLevels,
-                new IntervalBasedHierarchyBuilder.Range(0L, 0L, Long.MIN_VALUE / 4),
-                new IntervalBasedHierarchyBuilder.Range(81L, 100L, Long.MAX_VALUE / 4));
+                new Range(0L, 0L, Long.MIN_VALUE / 4),
+                new Range(81L, 100L, Long.MAX_VALUE / 4));
 
 
         HierarchyRequest intervalHierarchyRequest = new HierarchyRequest(

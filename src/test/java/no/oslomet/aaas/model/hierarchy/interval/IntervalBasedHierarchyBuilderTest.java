@@ -1,18 +1,12 @@
-package no.oslomet.aaas.model.hierarchy;
+package no.oslomet.aaas.model.hierarchy.interval;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import no.oslomet.aaas.model.hierarchy.IntervalBasedHierarchyBuilder.Interval;
-import no.oslomet.aaas.model.hierarchy.IntervalBasedHierarchyBuilder.Range;
-import org.deidentifier.arx.DataType;
+import no.oslomet.aaas.model.hierarchy.Hierarchy;
+import no.oslomet.aaas.model.hierarchy.Level;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-
-import static com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_FLOAT_AS_INT;
 
 
 class IntervalBasedHierarchyBuilderTest {
@@ -43,7 +37,6 @@ class IntervalBasedHierarchyBuilderTest {
         String[] expectedFirstRow = {"0", "[0, 2[", "[0, 4[", "*"};
 
         IntervalBasedHierarchyBuilder basedHierarchyBuilder = new IntervalBasedHierarchyBuilder(
-                new ARXDataType(ARXDataType.Type.INTEGER),
                 testIntervals,
                 testLevels,
                 new Range(0L, 0L, Long.MIN_VALUE / 4),
@@ -79,7 +72,6 @@ class IntervalBasedHierarchyBuilderTest {
                 new Interval(8L, Long.MAX_VALUE, "very-old"));
 
         IntervalBasedHierarchyBuilder basedHierarchyBuilder = new IntervalBasedHierarchyBuilder(
-                new ARXDataType(ARXDataType.Type.INTEGER),
                 labeledIntervals,
                 testLevels,
                 new Range(0L, 0L, Long.MIN_VALUE / 4),

@@ -7,7 +7,7 @@ public class Hierarchy {
     private final String[][] hierarchy;
 
     @JsonCreator
-    Hierarchy(String[][] hierarchy){
+    public Hierarchy(String[][] hierarchy){
         this.hierarchy = hierarchy;
     }
 

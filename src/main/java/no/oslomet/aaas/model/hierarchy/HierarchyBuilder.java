@@ -2,6 +2,7 @@ package no.oslomet.aaas.model.hierarchy;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import no.oslomet.aaas.model.hierarchy.interval.IntervalBasedHierarchyBuilder;
 
 
 @JsonTypeInfo(

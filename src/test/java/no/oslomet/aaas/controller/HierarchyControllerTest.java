@@ -2,9 +2,10 @@ package no.oslomet.aaas.controller;
 
 
 import no.oslomet.aaas.model.hierarchy.*;
-import no.oslomet.aaas.model.hierarchy.IntervalBasedHierarchyBuilder.Interval;
-import no.oslomet.aaas.model.hierarchy.IntervalBasedHierarchyBuilder.Range;
+import no.oslomet.aaas.model.hierarchy.interval.Interval;
+import no.oslomet.aaas.model.hierarchy.interval.IntervalBasedHierarchyBuilder;
 import no.oslomet.aaas.model.hierarchy.RedactionBasedHierarchyBuilder.Order;
+import no.oslomet.aaas.model.hierarchy.interval.Range;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,7 +76,6 @@ class HierarchyControllerTest {
 
 
         IntervalBasedHierarchyBuilder basedHierarchyBuilder = new IntervalBasedHierarchyBuilder(
-                new ARXDataType(ARXDataType.Type.INTEGER),
                 labeledIntervals,
                 testLevels,
                 new Range(0L, 0L, Long.MIN_VALUE / 4),
