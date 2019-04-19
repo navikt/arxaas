@@ -15,5 +15,5 @@ public interface ConfigurationFactory {
      * @param privacyModels Model object containing the parameters to use in anonymization
      * @return ARX {@link ARXConfiguration} object containing the anonymization algorithm settings.
      */
-    ARXConfiguration create(List<PrivacyCriterionModel> privacyModels, String suppressionLimit);
+    ARXConfiguration create(List<PrivacyCriterionModel> privacyModels, Double suppressionLimit);
 }
