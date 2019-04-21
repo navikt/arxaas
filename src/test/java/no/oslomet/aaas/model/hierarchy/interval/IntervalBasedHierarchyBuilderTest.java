@@ -1,5 +1,7 @@
 package no.oslomet.aaas.model.hierarchy.interval;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import no.oslomet.aaas.model.hierarchy.Hierarchy;
 import no.oslomet.aaas.model.hierarchy.Level;
 import org.junit.jupiter.api.Assertions;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static no.oslomet.aaas.model.hierarchy.HierarchyTestUtils.printReusableHierarchy;
 
 class IntervalBasedHierarchyBuilderTest {
 
@@ -77,6 +80,32 @@ class IntervalBasedHierarchyBuilderTest {
                 new Range(81L, 100L, Long.MAX_VALUE / 4));
 
         Hierarchy result = basedHierarchyBuilder.build(testColumn);
+        Assertions.assertArrayEquals(expected, result.getHierarchy());
+    }
+
+
+    @Test
+    void build_with_no_ranges() {
+
+        String[][] expected =
+                {{"3", "adult", "[0, 4[", "*",},
+                {"4", "old", "[4, 8[", "*",},
+                {"5", "old", "[4, 8[", "*",},
+                {"6", "old", "[4, 8[", "*",},
+                {"7", "old", "[4, 8[", "*",},
+                {"8", "old", "[8, 9[", "*",}};
+
+        List<Interval> labeledIntervals = List.of(
+                new Interval(0L,2L, "young"),
+                new Interval(2L, 4L, "adult"),
+                new Interval(4L, 9L, "old"));
+
+        IntervalBasedHierarchyBuilder basedHierarchyBuilder = new IntervalBasedHierarchyBuilder(
+                labeledIntervals,
+                testLevels, null, null);
+
+        String[] column = {"3", "4", "5", "6", "7", "8"};
+        Hierarchy result = basedHierarchyBuilder.build(column);
         Assertions.assertArrayEquals(expected, result.getHierarchy());
     }
 

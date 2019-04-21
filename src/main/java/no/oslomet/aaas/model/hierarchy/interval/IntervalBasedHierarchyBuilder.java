@@ -73,6 +73,16 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
         }
     }
 
+    @Override
+    public String toString() {
+        return "IntervalBasedHierarchyBuilder{" +
+                "intervals=" + intervals +
+                ", levels=" + levels +
+                ", lowerRange=" + lowerRange +
+                ", upperRange=" + upperRange +
+                '}';
+    }
+
     public List<Interval> getIntervals() {
         return intervals;
     }
