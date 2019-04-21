@@ -1,4 +1,4 @@
-package no.oslomet.aaas.model;
+package no.oslomet.aaas.model.anonymity;
 
 /***
  * Model class for Anonymity. Sets the anonymous status of the dataset after anonymization.

@@ -1,6 +1,7 @@
 package no.oslomet.aaas;
 
 import no.oslomet.aaas.model.*;
+import no.oslomet.aaas.model.anonymity.PrivacyCriterionModel;
 import no.oslomet.aaas.model.risk.DistributionOfRisk;
 import no.oslomet.aaas.model.risk.ReIdentificationRisk;
 import no.oslomet.aaas.model.risk.RiskProfile;

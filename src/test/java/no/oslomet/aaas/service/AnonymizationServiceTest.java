@@ -4,7 +4,7 @@ import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.analyzer.ARXAnalyzer;
 import no.oslomet.aaas.anonymizer.ARXAnonymizer;
 import no.oslomet.aaas.model.*;
-import no.oslomet.aaas.model.AnonymizationResultPayload;
+import no.oslomet.aaas.model.anonymity.AnonymizationResultPayload;
 import no.oslomet.aaas.utils.*;
 import org.junit.Assert;
 import org.junit.Before;

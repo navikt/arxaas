@@ -1,7 +1,7 @@
 package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateIntegrationTestData;
-import no.oslomet.aaas.model.AnonymizationResultPayload;
+import no.oslomet.aaas.model.anonymity.AnonymizationResultPayload;
 import no.oslomet.aaas.model.Request;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,7 +1,7 @@
 package no.oslomet.aaas.service;
 
-import no.oslomet.aaas.model.AnonymizationResultPayload;
-import no.oslomet.aaas.model.PrivacyCriterionModel;
+import no.oslomet.aaas.model.anonymity.AnonymizationResultPayload;
+import no.oslomet.aaas.model.anonymity.PrivacyCriterionModel;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.model.risk.RiskProfile;
 import org.slf4j.Logger;

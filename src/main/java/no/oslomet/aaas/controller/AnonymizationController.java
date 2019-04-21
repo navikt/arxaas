@@ -1,6 +1,6 @@
 package no.oslomet.aaas.controller;
 
-import no.oslomet.aaas.model.AnonymizationResultPayload;
+import no.oslomet.aaas.model.anonymity.AnonymizationResultPayload;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.service.AnonymizationService;
 import no.oslomet.aaas.service.LoggerService;

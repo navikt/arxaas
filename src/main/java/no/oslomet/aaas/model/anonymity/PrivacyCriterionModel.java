@@ -1,4 +1,4 @@
-package no.oslomet.aaas.model;
+package no.oslomet.aaas.model.anonymity;
 
 import org.deidentifier.arx.criteria.TCloseness;
 
