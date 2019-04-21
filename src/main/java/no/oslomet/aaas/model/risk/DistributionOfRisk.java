@@ -78,7 +78,7 @@ public class DistributionOfRisk {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DistributionOfRisk that = (DistributionOfRisk) o;
-        return riskIntervalList.equals(that.riskIntervalList);
+        return this.hashCode() == that.hashCode();
     }
 
     @Override
@@ -123,9 +123,7 @@ public class DistributionOfRisk {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             RiskInterval that = (RiskInterval) o;
-            return Double.compare(that.recordsWithRiskWithinInteval, recordsWithRiskWithinInteval) == 0 &&
-                    Double.compare(that.recordsWithMaxmalRiskWithinInterval, recordsWithMaxmalRiskWithinInterval) == 0 &&
-                    interval.equals(that.interval);
+            return this.hashCode() == that.hashCode();
         }
 
         @Override

@@ -39,8 +39,7 @@ public class RiskProfile {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RiskProfile that = (RiskProfile) o;
-        return reIdentificationRisk.equals(that.reIdentificationRisk) &&
-                distributionOfRisk.equals(that.distributionOfRisk);
+        return this.hashCode() == that.hashCode();
     }
 
     @Override

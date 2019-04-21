@@ -31,7 +31,7 @@ public class ReIdentificationRisk {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ReIdentificationRisk that = (ReIdentificationRisk) o;
-        return measures.equals(that.measures);
+        return this.hashCode() == that.hashCode();
     }
 
     @Override
