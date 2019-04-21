@@ -5,7 +5,7 @@ import no.oslomet.aaas.anonymizer.Anonymizer;
 import no.oslomet.aaas.model.*;
 import no.oslomet.aaas.model.AnonymizationResultPayload;
 import no.oslomet.aaas.model.AnonymizeResult;
-import no.oslomet.aaas.model.analytics.RiskProfile;
+import no.oslomet.aaas.model.risk.RiskProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

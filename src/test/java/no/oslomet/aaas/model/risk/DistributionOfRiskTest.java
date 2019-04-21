@@ -1,4 +1,4 @@
-package no.oslomet.aaas.model.analytics;
+package no.oslomet.aaas.model.risk;
 
 import no.oslomet.aaas.GenerateTestData;
 import org.deidentifier.arx.Data;

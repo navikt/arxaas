@@ -1,4 +1,4 @@
-package no.oslomet.aaas.model.analytics;
+package no.oslomet.aaas.model.risk;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;

@@ -1,7 +1,6 @@
-package no.oslomet.aaas.model.analytics;
+package no.oslomet.aaas.model.risk;
 
 import no.oslomet.aaas.GenerateTestData;
-import no.oslomet.aaas.model.analytics.ReIdentificationRisk;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -3,7 +3,7 @@ package no.oslomet.aaas.service;
 import no.oslomet.aaas.model.AnonymizationResultPayload;
 import no.oslomet.aaas.model.PrivacyCriterionModel;
 import no.oslomet.aaas.model.Request;
-import no.oslomet.aaas.model.analytics.RiskProfile;
+import no.oslomet.aaas.model.risk.RiskProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

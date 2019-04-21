@@ -1,9 +1,9 @@
 package no.oslomet.aaas;
 
 import no.oslomet.aaas.model.*;
-import no.oslomet.aaas.model.analytics.DistributionOfRisk;
-import no.oslomet.aaas.model.analytics.ReIdentificationRisk;
-import no.oslomet.aaas.model.analytics.RiskProfile;
+import no.oslomet.aaas.model.risk.DistributionOfRisk;
+import no.oslomet.aaas.model.risk.ReIdentificationRisk;
+import no.oslomet.aaas.model.risk.RiskProfile;
 import no.oslomet.aaas.utils.ARXDataFactory;
 import no.oslomet.aaas.utils.DataFactory;
 import org.deidentifier.arx.Data;

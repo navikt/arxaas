@@ -1,6 +1,6 @@
 package no.oslomet.aaas.controller;
 
-import no.oslomet.aaas.model.analytics.RiskProfile;
+import no.oslomet.aaas.model.risk.RiskProfile;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.service.AnalyzationService;
 import no.oslomet.aaas.service.LoggerService;
