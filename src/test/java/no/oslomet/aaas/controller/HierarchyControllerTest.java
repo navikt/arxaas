@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,6 +50,7 @@ class HierarchyControllerTest {
         assertNotNull(responseEntity);
         assertSame(HttpStatus.OK , responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
+        assert resultData != null;
         Assertions.assertNotNull(resultData.getHierarchy());
     }
 
@@ -90,7 +92,35 @@ class HierarchyControllerTest {
         assertNotNull(responseEntity);
         assertSame(HttpStatus.OK , responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();
+        assert resultData != null;
         Assertions.assertArrayEquals(expected,resultData.getHierarchy());
+    }
+
+    @Test
+    void orderHierarchy(){
+        String[][] expected =
+                {{"Oslo", "nordic-city", "*",},
+                        {"Bergen", "nordic-city", "*",},
+                        {"Stockholm", "nordic-city", "*",},
+                        {"London", "mid-european-city", "*",},
+                        {"Paris", "mid-european-city", "*",}};
+
+        var testData = new String[]{"Oslo", "Bergen", "Stockholm", "London", "Paris"};
+
+        Level nordicGroup = new Level(0, List.of(new Level.Group(3, "nordic-city")));
+        Level midEuroGroup = new Level(0, List.of(new Level.Group(2, "mid-european-city")));
+        OrderBasedHierarchyBuilder basedHierarchyBuilder = new OrderBasedHierarchyBuilder(List.of(nordicGroup, midEuroGroup));
+
+        HierarchyRequest hierarchyRequest = new HierarchyRequest(
+                testData,
+                basedHierarchyBuilder);
+        ResponseEntity<Hierarchy> responseEntity = restTemplate.postForEntity("/api/hierarchy",hierarchyRequest, Hierarchy.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.OK , responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assert resultData != null;
+        Assertions.assertArrayEquals(expected, resultData.getHierarchy());
+
     }
 
     private static String[] getExampleData(){

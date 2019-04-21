@@ -64,7 +64,6 @@ class IntervalBasedHierarchyBuilderTest {
                 {"9", "very-old", "[8, 12[", "*"}};
 
 
-
         List<Interval> labeledIntervals = List.of(
                 new Interval(0L,2L, "young"),
                 new Interval(2L, 4L, "adult"),

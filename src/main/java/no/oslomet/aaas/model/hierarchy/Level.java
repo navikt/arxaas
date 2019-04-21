@@ -1,5 +1,6 @@
 package no.oslomet.aaas.model.hierarchy;
 
+import org.deidentifier.arx.aggregates.HierarchyBuilderGroupingBased;
 import org.deidentifier.arx.aggregates.HierarchyBuilderIntervalBased;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class Level {
         this.groups = groups;
     }
 
-    public void applyTo(HierarchyBuilderIntervalBased builder) {
+    public void applyTo(HierarchyBuilderGroupingBased builder) {
         for (Level.Group group: getGroups()){
             if(group.getLabel() != null) {
                 builder.getLevel(getLevel()).addGroup(group.getGrouping(), group.getLabel());

@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 
 class HierarchyBuilderIntervalBasedTest {
 
-
-
     private static void printHierarchy(String[][] result) {
         List.of(result).forEach(strings -> System.out.println(Arrays.toString(strings)));
     }
