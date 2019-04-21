@@ -1,6 +1,6 @@
 package no.oslomet.aaas.analyzer;
 
-import no.oslomet.aaas.model.analytics.ReIdentificationRisk;
+import no.oslomet.aaas.model.risk.ReIdentificationRisk;
 import org.deidentifier.arx.*;
 import org.deidentifier.arx.criteria.KAnonymity;
 import org.junit.Before;

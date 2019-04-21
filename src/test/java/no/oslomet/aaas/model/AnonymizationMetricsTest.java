@@ -2,13 +2,10 @@ package no.oslomet.aaas.model;
 
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.anonymizer.ARXAnonymizer;
+import no.oslomet.aaas.model.anonymity.AnonymizeResult;
 import no.oslomet.aaas.utils.ARXConfigurationFactory;
 import no.oslomet.aaas.utils.ARXDataFactory;
 import no.oslomet.aaas.utils.ARXPrivacyCriterionFactory;
-import org.deidentifier.arx.ARXResult;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnonymizationMetricsTest {
 
-    ARXAnonymizer testAnonymizer;
-    Request testRequestPayload;
-    AnonymizeResult result;
+    private ARXAnonymizer testAnonymizer;
+    private Request testRequestPayload;
+    private AnonymizeResult result;
 
 
     @BeforeEach

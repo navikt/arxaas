@@ -62,7 +62,7 @@ class AnalyzeAttributesTest {
     @Test
     void generateAttributeAnalytics(){
         /*
-        Test generation of analytics for dataset attributes(columns/field) before doing anonymization
+        Test generation of risk for dataset attributes(columns/field) before doing anonymization
 
 
            Region.USA
@@ -113,7 +113,7 @@ class AnalyzeAttributesTest {
         RiskEstimateBuilder builder = handle.getRiskEstimator();
         RiskModelAttributes riskmodel = builder.getAttributeRisks();
 
-        List<Map<String, String>> riskList = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> riskList = new ArrayList<>();
 
 
         for (RiskModelAttributes.QuasiIdentifierRisk risk : riskmodel.getAttributeRisks()) {

@@ -1,6 +1,7 @@
-package no.oslomet.aaas.model;
+package no.oslomet.aaas.model.anonymity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import no.oslomet.aaas.model.AttributeGeneralizationRow;
 import org.deidentifier.arx.ARXLattice;
 import org.deidentifier.arx.ARXResult;
 

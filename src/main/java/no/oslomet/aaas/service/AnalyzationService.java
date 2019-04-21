@@ -2,7 +2,7 @@ package no.oslomet.aaas.service;
 
 
 import no.oslomet.aaas.analyzer.Analyzer;
-import no.oslomet.aaas.model.analytics.RiskProfile;
+import no.oslomet.aaas.model.risk.RiskProfile;
 
 import no.oslomet.aaas.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;

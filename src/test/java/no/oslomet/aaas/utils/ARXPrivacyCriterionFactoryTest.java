@@ -1,6 +1,6 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.model.PrivacyCriterionModel;
+import no.oslomet.aaas.model.anonymity.PrivacyCriterionModel;
 import org.deidentifier.arx.criteria.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
