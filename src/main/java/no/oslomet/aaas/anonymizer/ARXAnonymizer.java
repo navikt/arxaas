@@ -40,7 +40,7 @@ public class ARXAnonymizer implements Anonymizer {
 
         Data data = dataFactory.create(payload);
         try {
-            ARXConfiguration config = configFactory.create(payload.getPrivacyModels());
+            ARXConfiguration config = configFactory.create(payload.getPrivacyModels(),payload.getSuppressionLimit());
             ARXResult result = anonymizer.anonymize(data,config);
             return packageResult(result,payload);
         } catch (IOException | NullPointerException e) {

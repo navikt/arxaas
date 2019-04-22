@@ -14,27 +14,30 @@ import static no.oslomet.aaas.model.AttributeTypeModel.*;
 public class GenerateEdgeCaseData {
 
     public static Request NullPayload(){
-        return  new Request(null,null,null);
+        return  new Request(null,null,null,null);
     }
 
     public static Request zipcodeRequestPayloadWithoutData() {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(null, testAttributes, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(null, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayloadWithoutAttributes() {
         List<String[]> testData = ageGenderZipcodeData();
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(testData, null, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, null, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayloadWithoutPrivacyModels() {
         List<String[]> testData = ageGenderZipcodeData();
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
-        return new Request(testData, testAttributes, null);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, null,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayload_wrong_data_format() {
@@ -42,7 +45,8 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(testData, testAttributes, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayload_wrong_hierarchy(){
@@ -50,7 +54,8 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = ageHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(testData, testAttributes, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayload_privacy_model_on_non_sensitive_data(){
@@ -58,7 +63,8 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes2Quasi(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(testData, testAttributes, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayload_wrong_privacy_model_format(){
@@ -66,7 +72,8 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcode_wrong_PrivacyModels();
-        return new Request(testData, testAttributes, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayload_wrong_hierarchy_format(){
@@ -74,7 +81,8 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy_wrong_format();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(testData, testAttributes, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayload_wrong_attribute_format(){
@@ -82,7 +90,8 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes_wrong_format(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(testData, testAttributes, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayload_all_format_wrong(){
@@ -90,7 +99,8 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy_wrong_format();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes_wrong_format(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcode_wrong_PrivacyModels();
-        return new Request(testData, testAttributes, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayload3QuasiNoHierarchies(){
@@ -109,8 +119,8 @@ public class GenerateEdgeCaseData {
         Map<String,String> kMapValue = new HashMap<>();
         kMapValue.put("k","2");
         privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
-
-        return new Request(testData, testAttributes, privacyCriterionModelList);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModelList,suppressionLimit);
     }
 
     public static Request zipcodeRequestPaylaod_hierarchy_having_data_not_included_in_dataset(){
@@ -118,7 +128,8 @@ public class GenerateEdgeCaseData {
         List<String[]> listHierarchy = zipcodeHierarchy_having_data_not_existing_in_dataset();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(testData, testAttributes, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     private static List<String[]> wrongFromatData() {

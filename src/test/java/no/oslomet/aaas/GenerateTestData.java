@@ -24,13 +24,15 @@ public class GenerateTestData {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
         List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
-        return new Request(testData, testAttributes, privacyCriterionModels);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayloadAfterAnonymization(){
         List<String[]> testData = ageGenderZipcodeDataAfterAnonymization();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(null);
-        return new Request(testData, testAttributes, null);
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, null,suppressionLimit);
     }
 
     public static Data ageGenderZipcodeDataset(){
@@ -63,7 +65,9 @@ public class GenerateTestData {
         kMapValue.put("k","5");
         privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
 
-        return new Request(testData, testAttributes, privacyCriterionModelList);
+        Double suppressionLimit = 0.02;
+
+        return new Request(testData, testAttributes, privacyCriterionModelList,suppressionLimit);
     }
 
     public static RiskProfile ageGenderZipcodeRiskProfile(){
@@ -168,7 +172,9 @@ public class GenerateTestData {
         testAttributes.add(new Attribute("gender",SENSITIVE, listHierarchy));
         testAttributes.add(new Attribute("zipcode",INSENSITIVE, listHierarchy));
 
-        return new Request(testData, testAttributes, null);
+        Double suppressionLimit = 0.02;
+
+        return new Request(testData, testAttributes, null, suppressionLimit);
     }
 
     public static Request zipcodeRequestPayload3Quasi(){
@@ -190,7 +196,9 @@ public class GenerateTestData {
         kMapValue.put("k","2");
         privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
 
-        return new Request(testData, testAttributes, privacyCriterionModelList);
+        Double suppressionLimit = 0.02;
+
+        return new Request(testData, testAttributes, privacyCriterionModelList,suppressionLimit);
     }
 
     public static Request zipcodeRequestPayload3QuasiNoHierarchies(){
@@ -210,7 +218,9 @@ public class GenerateTestData {
         kMapValue.put("k","2");
         privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
 
-        return new Request(testData, testAttributes, privacyCriterionModelList);
+        Double suppressionLimit = 0.02;
+
+        return new Request(testData, testAttributes, privacyCriterionModelList,suppressionLimit);
     }
 
 

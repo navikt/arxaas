@@ -24,13 +24,13 @@ class ARXConfigurationFactoryTest {
 
     @Test
     void create_NotNull() {
-        ARXConfiguration resultConfig = arxConfigurationFactory.create(testPayload.getPrivacyModels());
+        ARXConfiguration resultConfig = arxConfigurationFactory.create(testPayload.getPrivacyModels(),testPayload.getSuppressionLimit());
         Assertions.assertNotNull(resultConfig);
     }
 
     @Test
     void setSuppression(){
-        ARXConfiguration config = arxConfigurationFactory.create(testPayload.getPrivacyModels());
+        ARXConfiguration config = arxConfigurationFactory.create(testPayload.getPrivacyModels(),testPayload.getSuppressionLimit());
         double actual = config.getSuppressionLimit();
 
         Assertions.assertEquals(0.02,actual);
@@ -38,7 +38,7 @@ class ARXConfigurationFactoryTest {
 
     @Test
     void setPrivacyModels_KAnon(){
-        ARXConfiguration config = arxConfigurationFactory.create(testPayload.getPrivacyModels());
+        ARXConfiguration config = arxConfigurationFactory.create(testPayload.getPrivacyModels(),testPayload.getSuppressionLimit());
         Set<PrivacyCriterion> actual = config.getPrivacyModels();
         PrivacyCriterion expected = new KAnonymity(5);
         Assertions.assertEquals(expected.toString(), actual.toArray()[0].toString());
