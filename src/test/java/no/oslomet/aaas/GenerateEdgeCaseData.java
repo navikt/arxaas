@@ -1,7 +1,7 @@
 package no.oslomet.aaas;
 
 import no.oslomet.aaas.model.Attribute;
-import no.oslomet.aaas.model.PrivacyCriterionModel;
+import no.oslomet.aaas.model.anonymity.PrivacyCriterionModel;
 import no.oslomet.aaas.model.Request;
 
 import java.util.ArrayList;

@@ -120,5 +120,12 @@ A `POST` request is used to create a new anonymized dataset
 operation::anonymize-controller[snippets='request-fields,curl-request,http-response']
 
 
+[[hierarchy-controller]]
+== Hierarchy Controller
 
 
+=== Create a reduction based hierarchy
+operation::hierarchy-controller-reductionbased[snippets='request-fields,http-request,http-response']
+
+=== Create a interval based hierarchy
+operation::hierarchy-controller-intervalbased[snippets='request-fields,http-request,http-response']

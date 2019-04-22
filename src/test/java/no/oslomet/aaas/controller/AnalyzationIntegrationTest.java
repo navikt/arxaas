@@ -2,7 +2,7 @@ package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateIntegrationTestData;
 import no.oslomet.aaas.model.Request;
-import no.oslomet.aaas.model.analytics.RiskProfile;
+import no.oslomet.aaas.model.risk.RiskProfile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

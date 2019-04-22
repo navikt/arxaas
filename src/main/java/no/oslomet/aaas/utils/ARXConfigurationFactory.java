@@ -1,6 +1,6 @@
 package no.oslomet.aaas.utils;
 
-import no.oslomet.aaas.model.PrivacyCriterionModel;
+import no.oslomet.aaas.model.anonymity.PrivacyCriterionModel;
 import org.deidentifier.arx.ARXConfiguration;
 import org.deidentifier.arx.criteria.PrivacyCriterion;
 import org.springframework.beans.factory.annotation.Autowired;

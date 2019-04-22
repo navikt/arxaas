@@ -1,6 +1,8 @@
 package no.oslomet.aaas.arx;
 
+import no.oslomet.aaas.GenerateTestData;
 import org.deidentifier.arx.*;
+import org.deidentifier.arx.aggregates.HierarchyBuilderIntervalBased;
 import org.deidentifier.arx.aggregates.HierarchyBuilderOrderBased;
 import org.deidentifier.arx.criteria.KAnonymity;
 
@@ -10,6 +12,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 class HierarchyBuilderOrderBasedTest {
 
@@ -138,4 +143,41 @@ class HierarchyBuilderOrderBasedTest {
         Assertions.assertEquals("*", coll.get(7)[1]);
         Assertions.assertEquals("*", coll.get(7)[2]);
     }
+
+    @Test
+    void testStringHierarchyBuilding(){
+
+        String[][] expected = {
+                {"Oslo", "European", "*"},
+                {"London", "European", "*"},
+                {"Tokyo", "Asian", "*"},
+                {"Tokyo", "Asian", "*"},
+                {"Bejing", "eastern-european", "*"},
+                {"Bergen", "eastern-european", "*"},
+                {"Moscow", "WESTERN", "*"},
+                {"Praha", "WESTERN", "*"}};
+
+        List<String> column = List.of("Oslo", "London", "Tokyo", "Tokyo", "Bejing", "Bergen", "Moscow", "Praha");
+
+        HierarchyBuilderOrderBased<String> builder
+                = HierarchyBuilderOrderBased.create(DataType.ORDERED_STRING, false);
+
+        builder.getLevel(0)
+                .addGroup(2, "European")
+                .addGroup(2,"Asian")
+                .addGroup(2, "eastern-european");
+
+        // Define grouping fanouts
+       builder.getLevel(0)
+               .addGroup(2, "WESTERN")
+               .addGroup(2, "ASIAN");
+
+        builder.prepare(column.toArray(new String[8]));
+
+
+        //Build Hierarchy
+        String[][] result = builder.build().getHierarchy();
+        Assertions.assertArrayEquals(expected, result);
+    }
+
 }

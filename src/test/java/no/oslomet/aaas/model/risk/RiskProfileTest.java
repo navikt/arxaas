@@ -1,4 +1,4 @@
-package no.oslomet.aaas.model.analytics;
+package no.oslomet.aaas.model.risk;
 
 import no.oslomet.aaas.GenerateTestData;
 import org.junit.jupiter.api.Assertions;
@@ -17,25 +17,25 @@ class RiskProfileTest {
     }
 
     @Test
-    public void getReIdentificationRisk() {
+    void getReIdentificationRisk() {
         var reIdRisks = testRiskProfile.getReIdentificationRisk();
         Assertions.assertNotNull(reIdRisks);
     }
 
     @Test
-    public void getDistributionOfRisk() {
+    void getDistributionOfRisk() {
         var distRisks = testRiskProfile.getDistributionOfRisk();
         Assertions.assertNotNull(distRisks);
     }
 
     @Test
-    public void equals() {
+    void equals() {
         var testRiskProfile2 = GenerateTestData.ageGenderZipcodeRiskProfile();
         Assertions.assertEquals(testRiskProfile, testRiskProfile2);
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         var testRiskProfile2 = GenerateTestData.ageGenderZipcodeRiskProfile();
         Assertions.assertThrows(IllegalArgumentException.class, () -> Set.of(testRiskProfile, testRiskProfile2));
     }

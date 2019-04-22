@@ -2,7 +2,7 @@ package no.oslomet.aaas.controller;
 
 import no.oslomet.aaas.GenerateEdgeCaseData;
 import no.oslomet.aaas.exception.ExceptionResponse;
-import no.oslomet.aaas.model.AnonymizationResultPayload;
+import no.oslomet.aaas.model.anonymity.AnonymizationResultPayload;
 import no.oslomet.aaas.model.Request;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

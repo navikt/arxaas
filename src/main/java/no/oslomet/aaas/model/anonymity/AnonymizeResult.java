@@ -1,4 +1,6 @@
-package no.oslomet.aaas.model;
+package no.oslomet.aaas.model.anonymity;
+
+import no.oslomet.aaas.model.Attribute;
 
 import java.util.List;
 

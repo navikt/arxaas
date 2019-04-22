@@ -1,5 +1,7 @@
 package no.oslomet.aaas.model;
 
+import no.oslomet.aaas.model.anonymity.PrivacyCriterionModel;
+
 import javax.validation.constraints.NotNull;
 import java.util.List;
 

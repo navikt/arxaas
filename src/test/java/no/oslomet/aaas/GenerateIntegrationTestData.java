@@ -1,9 +1,13 @@
 package no.oslomet.aaas;
 
 import no.oslomet.aaas.model.*;
-import no.oslomet.aaas.model.analytics.DistributionOfRisk;
-import no.oslomet.aaas.model.analytics.ReIdentificationRisk;
-import no.oslomet.aaas.model.analytics.RiskProfile;
+import no.oslomet.aaas.model.anonymity.AnonymizationMetrics;
+import no.oslomet.aaas.model.anonymity.AnonymizationResultPayload;
+import no.oslomet.aaas.model.anonymity.AnonymizeResult;
+import no.oslomet.aaas.model.anonymity.PrivacyCriterionModel;
+import no.oslomet.aaas.model.risk.DistributionOfRisk;
+import no.oslomet.aaas.model.risk.ReIdentificationRisk;
+import no.oslomet.aaas.model.risk.RiskProfile;
 import no.oslomet.aaas.utils.ARXConfigurationFactory;
 import no.oslomet.aaas.utils.ARXDataFactory;
 import no.oslomet.aaas.utils.ARXPrivacyCriterionFactory;

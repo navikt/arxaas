@@ -1,6 +1,6 @@
 package no.oslomet.aaas.controller;
 
-import no.oslomet.aaas.model.analytics.RiskProfile;
+import no.oslomet.aaas.model.risk.RiskProfile;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.service.AnalyzationService;
 import no.oslomet.aaas.service.LoggerService;
@@ -27,8 +27,12 @@ public class AnalyzationController {
 
     @PostMapping
     public RiskProfile getPayloadAnalyze(@Valid @RequestBody Request payload, HttpServletRequest request) {
+        long requestRecivedTime = System.currentTimeMillis();
         loggerService.loggPayload(payload, request.getRemoteAddr(), AnalyzationController.class);
-        return analyzationService.analyze(payload);
+        RiskProfile analyzationResult = analyzationService.analyze(payload);
+        long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
+        loggerService.loggAnalyzationResult(analyzationResult, payload, request.getRemoteAddr(), requestProcessingTime, AnalyzationController.class);
+        return analyzationResult;
     }
 
 }

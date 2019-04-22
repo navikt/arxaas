@@ -1,12 +1,10 @@
 package no.oslomet.aaas.utils;
 
 import no.oslomet.aaas.exception.AaaSRuntimeException;
-import no.oslomet.aaas.model.PrivacyCriterionModel;
-import org.deidentifier.arx.AttributeType;
+import no.oslomet.aaas.model.anonymity.PrivacyCriterionModel;
 import org.deidentifier.arx.criteria.*;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Map;
 
 /***
