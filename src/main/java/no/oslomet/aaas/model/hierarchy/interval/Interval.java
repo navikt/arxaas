@@ -42,4 +42,13 @@ public class Interval {
             builder.addInterval(getFrom(), getTo(), getLabel());
         }
     }
+
+    @Override
+    public String toString() {
+        return "Interval{" +
+                "from=" + from +
+                ", to=" + to +
+                ", label='" + label + '\'' +
+                '}';
+    }
 }

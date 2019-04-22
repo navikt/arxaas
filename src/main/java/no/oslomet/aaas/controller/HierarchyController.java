@@ -32,7 +32,7 @@ public class HierarchyController {
     @PostMapping
     public Hierarchy hierarchy(@RequestBody HierarchyRequest hierarchyRequest, HttpServletRequest request) {
         Logger logger = LoggerFactory.getLogger(this.getClass());
-        logger.info("Hierarchy request: " + hierarchyRequest.getBuilder().toString());
+        logger.info("Hierarchy request: builder=" + hierarchyRequest.getBuilder().toString());
         return hierarchyService.hierarchy(hierarchyRequest);
     }
 }
