@@ -42,6 +42,7 @@ deploy:
     skip_cleanup: true
     script: bash deploy.sh
     on:
+      tags: true
       branch: master
   - provider: pages
     skip_cleanup: true
