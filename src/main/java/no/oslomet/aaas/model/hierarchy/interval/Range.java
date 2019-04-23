@@ -15,11 +15,18 @@ public class Range {
         this.minMaxValue = minMaxValue;
     }
 
-    HierarchyBuilderIntervalBased.Range<Long> arxRange(){
+    HierarchyBuilderIntervalBased.Range<Long> arxRangeLong(){
         return new HierarchyBuilderIntervalBased.Range<>(
                 snapFrom,
                 bottomTopCodingFrom,
                 minMaxValue);
+    }
+
+    HierarchyBuilderIntervalBased.Range<Double> arxRangeDouble(){
+        return new HierarchyBuilderIntervalBased.Range<>(
+                snapFrom.doubleValue(),
+                bottomTopCodingFrom.doubleValue(),
+                minMaxValue.doubleValue());
     }
 
     public Long getSnapFrom() {

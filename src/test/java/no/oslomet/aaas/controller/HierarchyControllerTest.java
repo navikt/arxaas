@@ -17,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -81,7 +80,7 @@ class HierarchyControllerTest {
                 labeledIntervals,
                 testLevels,
                 new Range(0L, 0L, Long.MIN_VALUE / 4),
-                new Range(81L, 100L, Long.MAX_VALUE / 4));
+                new Range(81L, 100L, Long.MAX_VALUE / 4), IntervalBasedHierarchyBuilder.BuilderDataType.LONG);
 
 
         HierarchyRequest intervalHierarchyRequest = new HierarchyRequest(

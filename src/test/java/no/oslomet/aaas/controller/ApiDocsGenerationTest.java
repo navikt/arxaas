@@ -128,7 +128,7 @@ class ApiDocsGenerationTest {
                 labeledIntervals,
                 testLevels,
                 new Range(0L, 0L, Long.MIN_VALUE / 4),
-                new Range(81L, 100L, Long.MAX_VALUE / 4));
+                new Range(81L, 100L, Long.MAX_VALUE / 4), IntervalBasedHierarchyBuilder.BuilderDataType.LONG);
 
 
         HierarchyRequest intervalHierarchyRequest = new HierarchyRequest(

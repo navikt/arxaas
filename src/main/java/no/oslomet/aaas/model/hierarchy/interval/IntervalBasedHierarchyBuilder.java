@@ -18,29 +18,44 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
     private final List<Level> levels;
     private Range lowerRange;
     private Range upperRange;
+    private final BuilderDataType dataType;
+
+
+    public enum BuilderDataType {
+        LONG,
+        DOUBLE
+    }
 
     @JsonCreator
     public IntervalBasedHierarchyBuilder(
-                                         List<Interval> intervals,
-                                         List<Level> levels,
-                                         Range lowerRange,
-                                         Range upperRange) {
+            List<Interval> intervals,
+            List<Level> levels,
+            Range lowerRange,
+            Range upperRange, BuilderDataType dataType) {
         this.intervals = intervals;
         this.levels = levels;
         this.lowerRange = lowerRange;
         this.upperRange = upperRange;
+        this.dataType = dataType;
     }
 
     @Override
     public Hierarchy build(String[] column) {
-
-        HierarchyBuilderIntervalBased<Long> builder = arxHierarchyBuilderIntervalBased();
-
-        builder.setAggregateFunction(DataType.INTEGER.createAggregate().createIntervalFunction(true, false));
-        applyIntervals(builder);
-        applyLevels(builder);
-        builder.prepare(column);
-        return new Hierarchy(builder.build().getHierarchy());
+        if(dataType == BuilderDataType.LONG){
+            HierarchyBuilderIntervalBased<Long> builder = arxHierarchyBuilderIntervalBased();
+            applyIntervals(builder);
+            applyLevels(builder);
+            builder.prepare(column);
+            return new Hierarchy(builder.build().getHierarchy());
+        }
+        else if (dataType == BuilderDataType.DOUBLE){
+            HierarchyBuilderIntervalBased<Double> builder = arxHierarchyBuilderIntervalBasedDouble();
+            applyIntervalsDouble(builder);
+            applyLevels(builder);
+            builder.prepare(column);
+            return new Hierarchy(builder.build().getHierarchy());
+        }
+        throw new IllegalStateException("Datatype=" + dataType.toString() + " is not supported");
     }
 
     /**
@@ -48,19 +63,47 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
      * @return HierarchyBuilderIntervalBased
      */
     private HierarchyBuilderIntervalBased<Long> arxHierarchyBuilderIntervalBased() {
+        HierarchyBuilderIntervalBased<Long> builder;
         if(upperRange == null || lowerRange ==null){
-            return HierarchyBuilderIntervalBased.create(DataType.INTEGER);
+            builder = HierarchyBuilderIntervalBased.create(DataType.INTEGER);
         }
-        return HierarchyBuilderIntervalBased.create(
+        else {
+            builder = HierarchyBuilderIntervalBased.create(
                     DataType.INTEGER,
-                    lowerRange.arxRange(),
-                    upperRange.arxRange());
+                    lowerRange.arxRangeLong(),
+                    upperRange.arxRangeLong());
+        }
+        builder.setAggregateFunction(DataType.INTEGER.createAggregate().createIntervalFunction(true, false));
+        return builder;
+    }
+
+    private HierarchyBuilderIntervalBased<Double> arxHierarchyBuilderIntervalBasedDouble() {
+        HierarchyBuilderIntervalBased<Double> builder;
+        if(upperRange == null || lowerRange ==null){
+            builder = HierarchyBuilderIntervalBased.create(DataType.DECIMAL);
+        }
+        else {
+            builder = HierarchyBuilderIntervalBased.create(
+                    DataType.DECIMAL,
+                    lowerRange.arxRangeDouble(),
+                    upperRange.arxRangeDouble());
+        }
+        builder.setAggregateFunction(DataType.DECIMAL.createAggregate().createIntervalFunction(true, false));
+        return builder;
     }
 
     private void applyIntervals(HierarchyBuilderIntervalBased<Long> builder) {
         if(intervals != null){
             for (Interval interval : intervals) {
                 interval.applyTo(builder);
+            }
+        }
+    }
+
+    private void applyIntervalsDouble(HierarchyBuilderIntervalBased<Double> builder) {
+        if(intervals != null){
+            for (Interval interval : intervals) {
+                interval.applyToDouble(builder);
             }
         }
     }
