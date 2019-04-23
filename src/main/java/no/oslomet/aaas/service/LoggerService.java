@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LoggerService {
 
@@ -19,9 +21,9 @@ public class LoggerService {
     public void loggPayload(Request payload, String ip, Class classToLogg) {
         Logger logger = LoggerFactory.getLogger(classToLogg);
 
-        String log = "Request received, Size of data set: " + rowNum + numRows(payload) +
-                colNum + numColumns(payload) +
-                byteSize + bytesize(payload) +
+        String log = "Request received, Size of data set: " + rowNum + numRows(payload.getData()) +
+                colNum + numColumns(payload.getData()) +
+                byteSize + bytesize(payload.getData()) +
                 reqIp + ip +
                 " Privacy models used = " + logPrivacyModel(payload) +
                 " Suppression Limit used = " + logSuppressionLimit(payload);
@@ -32,7 +34,7 @@ public class LoggerService {
     public void loggAnalyzationResult(RiskProfile analyzationResult, Request payload, String ip, long requestProcessingTime, Class classToLogg) {
         Logger logger = LoggerFactory.getLogger(classToLogg);
 
-        String log = AnalyzationResponseLog(payload,ip,requestProcessingTime);
+        String log = ResponseLog(payload.getData(),ip,requestProcessingTime);
 
         logger.info(log);
     }
@@ -40,12 +42,12 @@ public class LoggerService {
     public void loggAnonymizeResult(AnonymizationResultPayload payload, long requestProcessingTime, Class classToLogg, String ip) {
         Logger logger = LoggerFactory.getLogger(classToLogg);
 
-        String log = AnonymizationResponseLog(payload,ip,requestProcessingTime);
+        String log = ResponseLog(payload.getAnonymizeResult().getData(),ip,requestProcessingTime);
 
         logger.info(log);
     }
 
-    private String AnalyzationResponseLog(Request payload, String ip, long requestProcessingTime){
+    private String ResponseLog(List<String[]> payload, String ip, long requestProcessingTime){
         return "Request complete, Size of data set: " + rowNum + numRows(payload) +
                 colNum + numColumns(payload) +
                 byteSize + bytesize(payload) +
@@ -53,27 +55,19 @@ public class LoggerService {
                 " Request processing time = " + requestProcessingTime + " milliseconds";
     }
 
-    private String AnonymizationResponseLog(AnonymizationResultPayload payload, String ip, long requestProcessingTime){
-        return "Request complete, Size of data set: " + rowNum + numRows(payload) +
-                colNum + numColumns(payload) +
-                byteSize + bytesize(payload) +
-                reqIp + ip +
-                " Request processing time = " + requestProcessingTime + " milliseconds";
+    private int numColumns(List<String[]> payload) {
+        if (payload == null) return 0;
+        return payload.get(0).length;
     }
 
-    private int numColumns(Request payload) {
-        if (payload == null || payload.getData() == null) return 0;
-        return payload.getData().get(0).length;
+    private int numRows(List<String[]> payload) {
+        if (payload == null) return 0;
+        return payload.size();
     }
 
-    private int numRows(Request payload) {
-        if (payload == null || payload.getData() == null) return 0;
-        return payload.getData().size();
-    }
-
-    private int bytesize(Request payload) {
-        if (payload == null || payload.getData() == null) return 0;
-        return payload.getData().toString().length();
+    private int bytesize(List<String[]> payload) {
+        if (payload == null) return 0;
+        return payload.toString().length();
     }
 
 
@@ -89,25 +83,5 @@ public class LoggerService {
         if(payload == null || payload.getSuppressionLimit() == null) return null;
         return payload.getSuppressionLimit();
     }
-
-
-    private int numColumns(AnonymizationResultPayload payload) {
-        if (payload == null || payload.getAnonymizeResult() == null || payload.getAnonymizeResult().getData() == null)
-            return 0;
-        return payload.getAnonymizeResult().getData().get(0).length;
-    }
-
-    private int numRows(AnonymizationResultPayload payload) {
-        if (payload == null || payload.getAnonymizeResult() == null || payload.getAnonymizeResult().getData() == null)
-            return 0;
-        return payload.getAnonymizeResult().getData().size();
-    }
-
-    private int bytesize(AnonymizationResultPayload payload) {
-        if (payload == null || payload.getAnonymizeResult() == null || payload.getAnonymizeResult().getData() == null)
-            return 0;
-        return payload.getAnonymizeResult().getData().toString().length();
-    }
-
 
 }
