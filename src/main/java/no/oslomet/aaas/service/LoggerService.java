@@ -11,21 +11,55 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoggerService {
 
+    private String rowNum = "Number of rows = ";
+    private String colNum = ", Number of columns ";
+    private String byteSize = ", Bytesize = ";
+    private String reqIp = ", Request Source IP = ";
+
     public void loggPayload(Request payload, String ip, Class classToLogg) {
         Logger logger = LoggerFactory.getLogger(classToLogg);
-        logger.info("Request received, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) + ", Request Source IP = " + ip + " Privacy models used = " + logPrivacyModel(payload));
+
+        String log = "Request received, Size of data set: " + rowNum + numRows(payload) +
+                colNum + numColumns(payload) +
+                byteSize + bytesize(payload) +
+                reqIp + ip +
+                " Privacy models used = " + logPrivacyModel(payload) +
+                " Suppression Limit used = " + logSuppressionLimit(payload);
+
+        logger.info(log);
     }
 
     public void loggAnalyzationResult(RiskProfile analyzationResult, Request payload, String ip, long requestProcessingTime, Class classToLogg) {
         Logger logger = LoggerFactory.getLogger(classToLogg);
-        logger.info("Request complete, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) + ", Request Source IP = " + ip + " Request processing time = " + requestProcessingTime + " milliseconds");
+
+        String log = AnalyzationResponseLog(payload,ip,requestProcessingTime);
+
+        logger.info(log);
     }
 
     public void loggAnonymizeResult(AnonymizationResultPayload payload, long requestProcessingTime, Class classToLogg, String ip) {
         Logger logger = LoggerFactory.getLogger(classToLogg);
-        logger.info("Request complete, " + "Size of data set: " + "Number of rows = " + numRows(payload) + ", Number of columns " + numColumns(payload) + ", Bytesize = " + bytesize(payload) + ", Request Source IP = " + ip + " Request processing time = " + requestProcessingTime + " milliseconds");
+
+        String log = AnonymizationResponseLog(payload,ip,requestProcessingTime);
+
+        logger.info(log);
     }
 
+    private String AnalyzationResponseLog(Request payload, String ip, long requestProcessingTime){
+        return "Request complete, Size of data set: " + rowNum + numRows(payload) +
+                colNum + numColumns(payload) +
+                byteSize + bytesize(payload) +
+                reqIp + ip +
+                " Request processing time = " + requestProcessingTime + " milliseconds";
+    }
+
+    private String AnonymizationResponseLog(AnonymizationResultPayload payload, String ip, long requestProcessingTime){
+        return "Request complete, Size of data set: " + rowNum + numRows(payload) +
+                colNum + numColumns(payload) +
+                byteSize + bytesize(payload) +
+                reqIp + ip +
+                " Request processing time = " + requestProcessingTime + " milliseconds";
+    }
 
     private int numColumns(Request payload) {
         if (payload == null || payload.getData() == null) return 0;
@@ -49,6 +83,11 @@ public class LoggerService {
         for (PrivacyCriterionModel privacyModel : payload.getPrivacyModels())
             privacyModels = privacyModels.concat(privacyModel.getPrivacyModel().getName()).concat(", ");
         return privacyModels;
+    }
+
+    private Double logSuppressionLimit(Request payload){
+        if(payload == null || payload.getSuppressionLimit() == null) return null;
+        return payload.getSuppressionLimit();
     }
 
 
