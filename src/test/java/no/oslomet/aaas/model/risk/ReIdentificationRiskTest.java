@@ -43,7 +43,7 @@ class ReIdentificationRiskTest {
 
     @Test
     void getQuasiIdentifiers(){
-
+        Assertions.assertEquals(quasiIdentifiers,reIdentificationRisk.getQuasiIdentifiers());
     }
 
     @Test
