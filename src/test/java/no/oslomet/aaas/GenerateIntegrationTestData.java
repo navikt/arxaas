@@ -5,6 +5,7 @@ import no.oslomet.aaas.model.anonymity.AnonymizationMetrics;
 import no.oslomet.aaas.model.anonymity.AnonymizationResultPayload;
 import no.oslomet.aaas.model.anonymity.AnonymizeResult;
 import no.oslomet.aaas.model.anonymity.PrivacyCriterionModel;
+import no.oslomet.aaas.model.risk.AttackerSuccess;
 import no.oslomet.aaas.model.risk.DistributionOfRisk;
 import no.oslomet.aaas.model.risk.ReIdentificationRisk;
 import no.oslomet.aaas.model.risk.RiskProfile;
@@ -107,29 +108,40 @@ public class GenerateIntegrationTestData {
     }
 
     private static ReIdentificationRisk ageGenderZipcodeReIndenticationRisk(){
-        return new ReIdentificationRisk(ageGenderZipcodeMeasures());
+        return new ReIdentificationRisk(ageGenderZipcodeMeasures(), attackerSuccessRate(), quasiIdentifiers(), populationModel());
     }
 
-    private static Map<String, String> ageGenderZipcodeMeasures(){
-        Map<String,String > measureMap = new HashMap<>();
-        measureMap.put("Prosecutor_attacker_success_rate","100.0");
-        measureMap.put("records_affected_by_highest_prosecutor_risk","100.0");
-        measureMap.put("sample_uniques","100.0");
-        measureMap.put("estimated_prosecutor_risk","100.0");
-        measureMap.put("population_model","ZAYATZ");
-        measureMap.put("highest_journalist_risk","100.0");
-        measureMap.put("records_affected_by_lowest_risk","100.0");
-        measureMap.put("estimated_marketer_risk","100.0");
-        measureMap.put("Journalist_attacker_success_rate","100.0");
-        measureMap.put("highest_prosecutor_risk","100.0");
-        measureMap.put("estimated_journalist_risk","100.0");
-        measureMap.put("lowest_risk","100.0");
-        measureMap.put("Marketer_attacker_success_rate","100.0");
-        measureMap.put("average_prosecutor_risk","100.0");
-        measureMap.put("records_affected_by_highest_journalist_risk","100.0");
-        measureMap.put("population_uniques","100.0");
-        measureMap.put("quasi_identifiers","[zipcode]");
+    private static Map<String, Double> ageGenderZipcodeMeasures(){
+        Map<String,Double > measureMap = new HashMap<>();
+        measureMap.put("records_affected_by_highest_prosecutor_risk",1.0);
+        measureMap.put("sample_uniques",1.0);
+        measureMap.put("estimated_prosecutor_risk",1.0);
+        measureMap.put("highest_journalist_risk",1.0);
+        measureMap.put("records_affected_by_lowest_risk",1.0);
+        measureMap.put("estimated_marketer_risk",1.0);
+        measureMap.put("highest_prosecutor_risk",1.0);
+        measureMap.put("estimated_journalist_risk",1.0);
+        measureMap.put("lowest_risk",1.0);
+        measureMap.put("average_prosecutor_risk",1.0);
+        measureMap.put("records_affected_by_highest_journalist_risk",1.0);
+        measureMap.put("population_uniques",1.0);
         return measureMap;
+    }
+
+    private static String populationModel(){
+        return "ZAYATZ";
+    }
+
+    private static List<String> quasiIdentifiers(){
+        return List.of("quasi_identifiers","zipcode");
+    }
+
+    private static AttackerSuccess attackerSuccessRate(){
+        Map<String, Double> measureMap = new HashMap<>();
+        measureMap.put("Prosecutor_attacker_success_rate",1.0);
+        measureMap.put("Journalist_attacker_success_rate",1.0);
+        measureMap.put("Marketer_attacker_success_rate",1.0);
+        return new AttackerSuccess(measureMap);
     }
 
     public static RiskProfile zipcodeAnalyzationAfterAnonymization(){
@@ -153,29 +165,37 @@ public class GenerateIntegrationTestData {
     }
 
     private static ReIdentificationRisk ageGenderZipcodeReIndenticationRiskAfterAnonymization(){
-        return new ReIdentificationRisk(ageGenderZipcodeMeasuresAfterAnonymization());
+        return new ReIdentificationRisk(ageGenderZipcodeMeasuresAfterAnonymization(), attackerSuccessRate(), quasiIdentifiers(), populationModelAfterAnon());
     }
 
-    private static Map<String, String> ageGenderZipcodeMeasuresAfterAnonymization() {
-        Map<String,String> expected = new HashMap<>();
-        expected.put("Prosecutor_attacker_success_rate","9.090909090909092");
-        expected.put("records_affected_by_highest_prosecutor_risk","100.0");
-        expected.put("sample_uniques","0.0");
-        expected.put("estimated_prosecutor_risk","9.090909090909092");
-        expected.put("population_model","DANKAR");
-        expected.put("highest_journalist_risk","9.090909090909092");
-        expected.put("records_affected_by_lowest_risk","100.0");
-        expected.put("estimated_marketer_risk","9.090909090909092");
-        expected.put("Journalist_attacker_success_rate","9.090909090909092");
-        expected.put("highest_prosecutor_risk","9.090909090909092");
-        expected.put("estimated_journalist_risk","9.090909090909092");
-        expected.put("lowest_risk","9.090909090909092");
-        expected.put("Marketer_attacker_success_rate","9.090909090909092");
-        expected.put("average_prosecutor_risk","9.090909090909092");
-        expected.put("records_affected_by_highest_journalist_risk","100.0");
-        expected.put("population_uniques","0.0");
-        expected.put("quasi_identifiers","[zipcode]");
+    private static Map<String, Double> ageGenderZipcodeMeasuresAfterAnonymization() {
+        Map<String, Double> expected = new HashMap<>();
+        expected.put("records_affected_by_highest_prosecutor_risk",1.0);
+        expected.put("sample_uniques",0.0);
+        expected.put("estimated_prosecutor_risk",0.09090909090909091);
+        expected.put("highest_journalist_risk",0.09090909090909091);
+        expected.put("records_affected_by_lowest_risk",1.0);
+        expected.put("estimated_marketer_risk",0.09090909090909091);
+        expected.put("highest_prosecutor_risk",0.09090909090909091);
+        expected.put("estimated_journalist_risk",0.09090909090909091);
+        expected.put("lowest_risk",0.09090909090909091);
+        expected.put("average_prosecutor_risk",0.09090909090909091);
+        expected.put("records_affected_by_highest_journalist_risk",1.0);
+        expected.put("population_uniques",0.0);
         return expected;
+    }
+
+    private static String populationModelAfterAnon(){
+        return "DANKAR";
+    }
+
+    private static AttackerSuccess attackerSuccessRateAfterAnon(){
+        Map<String,Double> expected = new HashMap<>();
+
+        expected.put("Journalist_attacker_success_rate",0.09090909090909092);
+        expected.put("Marketer_attacker_success_rate",0.09090909090909092);
+        expected.put("Prosecutor_attacker_success_rate",0.09090909090909092);
+        return new AttackerSuccess(expected);
     }
 
     private static List<String[]> ageGenderZipcodeDataAfterAnonymization(){
