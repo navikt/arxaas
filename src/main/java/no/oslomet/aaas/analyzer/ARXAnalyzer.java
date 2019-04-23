@@ -38,7 +38,7 @@ public class ARXAnalyzer implements Analyzer {
     }
 
     private ReIdentificationRisk reIdentificationRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
-        return ARXReIdentificationRiskFactory.create(dataToAnalyse,pModel);
+        return ReIdentificationRisk.create(dataToAnalyse,pModel);
     }
 
 }
