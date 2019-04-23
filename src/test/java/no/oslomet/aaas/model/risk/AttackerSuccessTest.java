@@ -9,16 +9,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class AttackerSuccessTest {
 
-    private Double THRESHOLD = 0.5;
     private RiskModelSampleSummary testSummary;
 
     @BeforeEach
     void setUp() {
         Data testData = GenerateTestData.ageGenderZipcodeDataset();
+        double THRESHOLD = 0.5;
         testSummary = testData.getHandle().getRiskEstimator().getSampleBasedRiskSummary(THRESHOLD);
     }
 
