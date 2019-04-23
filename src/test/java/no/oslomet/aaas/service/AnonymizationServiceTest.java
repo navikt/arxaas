@@ -75,5 +75,20 @@ public class AnonymizationServiceTest {
         Assert.assertEquals(expected.keySet(),actual.keySet());
     }
 
+    @Test
+    public void anonymize_afterAnonymization_QuasiIdentifiers() {
+        AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
+        List<String> actual = test.getRiskProfile().getReIdentificationRisk().getQuasiIdentifiers();
+        List<String> expected = List.of("zipcode");
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void anonymize_afterAnonymization_PopulationModel() {
+        AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
+        String actual = test.getRiskProfile().getReIdentificationRisk().getPopulationModel();
+        String expected = "DANKAR";
+        Assert.assertEquals(expected,actual);
+    }
 
 }

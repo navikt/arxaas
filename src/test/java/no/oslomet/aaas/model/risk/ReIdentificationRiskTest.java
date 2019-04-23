@@ -15,6 +15,7 @@ class ReIdentificationRiskTest {
     private AttackerSuccess attackerSuccessRate;
     private List<String> quasiIdentifiers;
     private String populationModel;
+    private ReIdentificationRisk reIdentificationRisk;
 
     @BeforeEach
     void setUp() {
@@ -22,12 +23,27 @@ class ReIdentificationRiskTest {
         attackerSuccessRate = GenerateTestData.attackerSuccessRates();
         quasiIdentifiers = GenerateTestData.quasiIdentifiers();
         populationModel = GenerateTestData.populationModel();
+        reIdentificationRisk = new ReIdentificationRisk(testMeasures, attackerSuccessRate, quasiIdentifiers, populationModel);
     }
 
     @Test
     void getMeasures() {
-        ReIdentificationRisk reIdentificationRisk = new ReIdentificationRisk(testMeasures, attackerSuccessRate, quasiIdentifiers, populationModel);
         Assertions.assertEquals(testMeasures, reIdentificationRisk.getMeasures());
+    }
+
+    @Test
+    void getAttackerSuccessRate(){
+        Assertions.assertEquals(attackerSuccessRate, reIdentificationRisk.getAttackerSuccessRate());
+    }
+
+    @Test
+    void getPopulationModel(){
+        Assertions.assertEquals(populationModel,reIdentificationRisk.getPopulationModel());
+    }
+
+    @Test
+    void getQuasiIdentifiers(){
+        Assertions.assertEquals(quasiIdentifiers,reIdentificationRisk.getQuasiIdentifiers());
     }
 
     @Test
