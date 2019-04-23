@@ -733,30 +733,34 @@ Content-Length: 166
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Length: 4112
+Content-Length: 4123
 Content-Type: application/json;charset=UTF-8
 
 {
   "reIdentificationRisk" : {
     "measures" : {
-      "Prosecutor_attacker_success_rate" : "100.0",
-      "records_affected_by_highest_prosecutor_risk" : "100.0",
-      "sample_uniques" : "100.0",
-      "estimated_prosecutor_risk" : "100.0",
-      "population_model" : "ZAYATZ",
-      "highest_journalist_risk" : "100.0",
-      "records_affected_by_lowest_risk" : "100.0",
-      "estimated_marketer_risk" : "100.0",
-      "Journalist_attacker_success_rate" : "100.0",
-      "highest_prosecutor_risk" : "100.0",
-      "estimated_journalist_risk" : "100.0",
-      "lowest_risk" : "100.0",
-      "Marketer_attacker_success_rate" : "100.0",
-      "average_prosecutor_risk" : "100.0",
-      "records_affected_by_highest_journalist_risk" : "100.0",
-      "population_uniques" : "100.0",
-      "quasi_identifiers" : "[zipcode]"
-    }
+      "estimated_journalist_risk" : 1.0,
+      "records_affected_by_highest_prosecutor_risk" : 1.0,
+      "sample_uniques" : 1.0,
+      "lowest_risk" : 1.0,
+      "estimated_prosecutor_risk" : 1.0,
+      "highest_journalist_risk" : 1.0,
+      "records_affected_by_lowest_risk" : 1.0,
+      "average_prosecutor_risk" : 1.0,
+      "estimated_marketer_risk" : 1.0,
+      "highest_prosecutor_risk" : 1.0,
+      "records_affected_by_highest_journalist_risk" : 1.0,
+      "population_uniques" : 1.0
+    },
+    "attackerSuccessRate" : {
+      "successRates" : {
+        "Prosecutor_attacker_success_rate" : 1.0,
+        "Marketer_attacker_success_rate" : 1.0,
+        "Journalist_attacker_success_rate" : 1.0
+      }
+    },
+    "quasiIdentifiers" : [ "zipcode" ],
+    "populationModel" : "ZAYATZ"
   },
   "distributionOfRisk" : {
     "riskIntervalList" : [ {
@@ -957,8 +961,8 @@ Content-Type: application/json;charset=UTF-8
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Length: 7296
 Content-Type: application/json;charset=UTF-8
-Content-Length: 7233
 
 {
   "anonymizeResult" : {
@@ -970,7 +974,7 @@ Content-Length: 7233
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 1,
+      "processTimeMillisecounds" : 8,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
@@ -981,8 +985,8 @@ Content-Length: 7233
         "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
         "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
         "populationModel" : null,
+        "dataSubset" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
@@ -998,8 +1002,8 @@ Content-Length: 7233
         "riskThresholdMarketer" : 0.5,
         "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
         "populationModel" : null,
+        "dataSubset" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
@@ -1023,24 +1027,28 @@ Content-Length: 7233
   "riskProfile" : {
     "reIdentificationRisk" : {
       "measures" : {
-        "Prosecutor_attacker_success_rate" : "9.090909090909092",
-        "records_affected_by_highest_prosecutor_risk" : "100.0",
-        "sample_uniques" : "0.0",
-        "estimated_prosecutor_risk" : "9.090909090909092",
-        "population_model" : "DANKAR",
-        "highest_journalist_risk" : "9.090909090909092",
-        "records_affected_by_lowest_risk" : "100.0",
-        "estimated_marketer_risk" : "9.090909090909092",
-        "Journalist_attacker_success_rate" : "9.090909090909092",
-        "highest_prosecutor_risk" : "9.090909090909092",
-        "estimated_journalist_risk" : "9.090909090909092",
-        "lowest_risk" : "9.090909090909092",
-        "Marketer_attacker_success_rate" : "9.090909090909092",
-        "average_prosecutor_risk" : "9.090909090909092",
-        "records_affected_by_highest_journalist_risk" : "100.0",
-        "population_uniques" : "0.0",
-        "quasi_identifiers" : "[zipcode]"
-      }
+        "estimated_journalist_risk" : 0.09090909090909091,
+        "records_affected_by_highest_prosecutor_risk" : 1.0,
+        "sample_uniques" : 0.0,
+        "lowest_risk" : 0.09090909090909091,
+        "estimated_prosecutor_risk" : 0.09090909090909091,
+        "highest_journalist_risk" : 0.09090909090909091,
+        "records_affected_by_lowest_risk" : 1.0,
+        "average_prosecutor_risk" : 0.09090909090909091,
+        "estimated_marketer_risk" : 0.09090909090909091,
+        "highest_prosecutor_risk" : 0.09090909090909091,
+        "records_affected_by_highest_journalist_risk" : 1.0,
+        "population_uniques" : 0.0
+      },
+      "attackerSuccessRate" : {
+        "successRates" : {
+          "Prosecutor_attacker_success_rate" : 0.09090909090909091,
+          "Marketer_attacker_success_rate" : 0.09090909090909091,
+          "Journalist_attacker_success_rate" : 0.09090909090909091
+        }
+      },
+      "quasiIdentifiers" : [ "zipcode" ],
+      "populationModel" : "DANKAR"
     },
     "distributionOfRisk" : {
       "riskIntervalList" : [ {
@@ -1277,7 +1285,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-22 08:07:18 UTC
+Last updated 2019-04-23 11:30:31 UTC
 </div>
 </div>
 </body>
