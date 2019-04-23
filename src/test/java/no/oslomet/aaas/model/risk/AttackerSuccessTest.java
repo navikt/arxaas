@@ -26,6 +26,7 @@ class AttackerSuccessTest {
     @Test
     void create_from_RiskModelSampleSummary(){
         AttackerSuccess success = AttackerSuccess.create(testSummary);
+        Assertions.assertNotNull(success);
     }
 
     @Test
