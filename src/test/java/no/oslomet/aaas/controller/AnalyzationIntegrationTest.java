@@ -25,8 +25,6 @@ class AnalyzationIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private static final double DELTA = 1e-15;
-
     @Test
     void getPayloadAnalyze_integration_test(){
         Request testRequestPayload = GenerateIntegrationTestData.zipcodeRequestPayload();
