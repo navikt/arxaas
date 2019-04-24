@@ -1,6 +1,7 @@
 package no.oslomet.aaas.model.hierarchy.interval;
 
 import no.oslomet.aaas.model.hierarchy.Hierarchy;
+import no.oslomet.aaas.model.hierarchy.HierarchyTestUtils;
 import no.oslomet.aaas.model.hierarchy.Level;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -108,6 +109,13 @@ class IntervalBasedHierarchyBuilderTest {
 
     @Test
     void build_with_double_type_data(){
+        String[][] expected = {{"3.3", "young", "[0.0, 6.1[", "*",},
+                {"4.1", "adult", "[0.0, 6.1[", "*",},
+                {"5", "adult", "[0.0, 6.1[", "*",},
+                {"6.2", "old", "[6.1, 12.2[", "*",},
+                {"7.232", "old", "[6.1, 12.2[", "*",},
+                {"8.22", "old", "[6.1, 12.2[", "*",}};
+
         List<Interval> labeledIntervals = List.of(
                 new Interval(0.0,3.5, "young"),
                 new Interval(3.5, 6.1, "adult"),
@@ -119,7 +127,34 @@ class IntervalBasedHierarchyBuilderTest {
 
         String[] column = {"3.3", "4.1", "5", "6.2", "7.232", "8.22"};
         Hierarchy result = basedHierarchyBuilder.build(column);
-        List.of(result.getHierarchy()).forEach(strings -> System.out.println(Arrays.toString(strings)));
+        Assertions.assertArrayEquals(expected, result.getHierarchy());
+    }
+
+
+    @Test
+    void build_with_double_type_data_fails_with_no_intervals(){
+        List<Interval> labeledIntervals = List.of();
+
+        IntervalBasedHierarchyBuilder basedHierarchyBuilder = new IntervalBasedHierarchyBuilder(
+                labeledIntervals,
+                testLevels, null, null, IntervalBasedHierarchyBuilder.BuilderDataType.DOUBLE);
+
+        String[] column = {"3.3", "4.1", "5", "6.2", "7.232", "8.22"};
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {basedHierarchyBuilder.build(column);});
+    }
+
+    @Test
+    void build_with_single_interval() {
+        List<Interval> labeledIntervals = List.of(
+                new Interval(0L,2L, "young"));
+
+        IntervalBasedHierarchyBuilder basedHierarchyBuilder = new IntervalBasedHierarchyBuilder(
+                labeledIntervals,
+                testLevels, null, null, IntervalBasedHierarchyBuilder.BuilderDataType.LONG);
+
+        String[] column = {"3", "4", "5", "6", "7", "8"};
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {basedHierarchyBuilder.build(column);});
     }
 
 }

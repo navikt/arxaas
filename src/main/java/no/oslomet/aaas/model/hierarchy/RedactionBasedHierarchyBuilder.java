@@ -3,6 +3,8 @@ package no.oslomet.aaas.model.hierarchy;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.deidentifier.arx.aggregates.HierarchyBuilderRedactionBased;
 
+import javax.validation.constraints.NotNull;
+
 public class RedactionBasedHierarchyBuilder implements HierarchyBuilder{
 
     public enum Order {
@@ -10,9 +12,13 @@ public class RedactionBasedHierarchyBuilder implements HierarchyBuilder{
         RIGHT_TO_LEFT
     }
 
+    @NotNull
     private final Character paddingCharacter;
+    @NotNull
     private final Character redactionCharacter;
+    @NotNull
     private final Order paddingOrder;
+    @NotNull
     private final Order redactionOrder;
 
     @JsonCreator

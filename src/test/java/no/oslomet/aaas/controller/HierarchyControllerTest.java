@@ -80,7 +80,8 @@ class HierarchyControllerTest {
                 labeledIntervals,
                 testLevels,
                 new Range(0L, 0L, Long.MIN_VALUE / 4),
-                new Range(81L, 100L, Long.MAX_VALUE / 4), IntervalBasedHierarchyBuilder.BuilderDataType.LONG);
+                new Range(81L, 100L, Long.MAX_VALUE / 4),
+                IntervalBasedHierarchyBuilder.BuilderDataType.LONG);
 
 
         HierarchyRequest intervalHierarchyRequest = new HierarchyRequest(
@@ -119,6 +120,26 @@ class HierarchyControllerTest {
         var resultData = responseEntity.getBody();
         assert resultData != null;
         Assertions.assertArrayEquals(expected, resultData.getHierarchy());
+
+    }
+
+
+    @Test
+    void intervalHierarchyWithEmptyInterval_should_return_bad_request(){
+        List<Interval> labeledIntervals = List.of();
+        var testLevels = List.of(new Level(0, List.of(new Level.Group(2))));
+        IntervalBasedHierarchyBuilder basedHierarchyBuilder = new IntervalBasedHierarchyBuilder(
+                labeledIntervals,
+                testLevels, null, null, IntervalBasedHierarchyBuilder.BuilderDataType.DOUBLE);
+
+        String[] testData = {"3.3", "4.1", "5", "6.2", "7.232", "8.22"};
+
+        HierarchyRequest hierarchyRequest = new HierarchyRequest(
+                testData,
+                basedHierarchyBuilder);
+        ResponseEntity<Hierarchy> responseEntity = restTemplate.postForEntity("/api/hierarchy",hierarchyRequest, Hierarchy.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST , responseEntity.getStatusCode());
 
     }
 

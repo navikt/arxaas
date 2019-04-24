@@ -7,17 +7,24 @@ import no.oslomet.aaas.model.hierarchy.Level;
 import org.deidentifier.arx.DataType;
 import org.deidentifier.arx.aggregates.HierarchyBuilderIntervalBased;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * Hierarchy Builder for interval hierarchies
+ * Hierarchy Builder for interval hierarchies.
+ * Builds new hierarchies with the intervals and levels provided in the constructor
  */
 public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
 
+    @NotNull
     private final List<Interval> intervals;
+    @NotNull
+    @Valid
     private final List<Level> levels;
     private Range lowerRange;
     private Range upperRange;
+    @NotNull
     private final BuilderDataType dataType;
 
 
@@ -39,6 +46,11 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
         this.dataType = dataType;
     }
 
+    /**
+     * Builds a Hierarchy for the provided column
+     * @param column String[]
+     * @return Hierarchy containing a String[][] hierarchy
+     */
     @Override
     public Hierarchy build(String[] column) {
         if(dataType == BuilderDataType.LONG){
@@ -142,4 +154,7 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
         return upperRange;
     }
 
+    public BuilderDataType getDataType(){
+        return dataType;
+    }
 }

@@ -3,11 +3,14 @@ package no.oslomet.aaas.model.hierarchy;
 import org.deidentifier.arx.aggregates.HierarchyBuilderGroupingBased;
 import org.deidentifier.arx.aggregates.HierarchyBuilderIntervalBased;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class Level {
 
+
     private final int level;
+    @NotNull
     private final List<Group> groups;
 
     public int getLevel() {
