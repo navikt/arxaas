@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import org.deidentifier.arx.DataType;
 import org.deidentifier.arx.aggregates.HierarchyBuilderOrderBased;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class OrderBasedHierarchyBuilder implements HierarchyBuilder {
 
+    @NotNull
     private final List<Level> levels;
 
     @JsonCreator
