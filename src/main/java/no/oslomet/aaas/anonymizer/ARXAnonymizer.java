@@ -35,6 +35,11 @@ public class ARXAnonymizer implements Anonymizer {
         logger = LoggerFactory.getLogger(this.getClass());
     }
 
+    /**
+     * Method to run anonymization on data in the payload with the provided parameters in the payload
+     * @param payload {@link Request} object containing the data to be anonymized and params to use in anonymization
+     * @return an {@link AnonymizeResult} object containing the best case anonymization and statistics
+     */
     @Override
     public AnonymizeResult anonymize(Request payload) {
         Data data = dataFactory.create(payload);
@@ -43,6 +48,13 @@ public class ARXAnonymizer implements Anonymizer {
         return packageResult(result,payload);
     }
 
+    /***
+     * Returns an {@link ARXResult} object containing the anonymized dataset based on the anonymization settgings provided
+     * which dataset to anonymize.
+     * @param data a {@link Data} object to be anonymized
+     * @param config an {@link ARXConfiguration} object containing the settings on how to anonymize the data
+     * @return an {@link ARXResult} object containing the anonymized dataset.
+     */
     private ARXResult getARXResult(Data data, ARXConfiguration config) {
         org.deidentifier.arx.ARXAnonymizer anonymizer = new org.deidentifier.arx.ARXAnonymizer();
         try{
@@ -61,6 +73,11 @@ public class ARXAnonymizer implements Anonymizer {
         }
     }
 
+    /***
+     * Retruns an {@link ARXConfiguration} object containing the anonymization settings defined by the request payload.
+     * @param payload a {@link Request} object containing the settings to be applied when anonymizing the dataset
+     * @return  an {@link ARXConfiguration} object containing the settings on how to anonymized the dataset
+     */
     private ARXConfiguration getARXConfiguration(Request payload) {
         try{
             return configFactory.create(payload.getPrivacyModels(),payload.getSuppressionLimit());
