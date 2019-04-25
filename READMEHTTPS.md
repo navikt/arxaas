@@ -1,17 +1,17 @@
 
 # HTTPS Configuration
 
-To enable https in ARXaaS, please apply one of the following Options.
-The values following the '='s are for guidance.
-Change them to match user specific settings.
+To enable https in ARXaaS, please apply one of the following Options
+The values following the '='s are for guidance
+Change them to match user specific settings
 
 ## Option 1(recommended): Pass keystore with certificate(s) from host machine to Docker container upon running Docker image
 #### NB: If your command application appears to stall after running this command, make sure to look for prompts from Docker concerning credential input
-#### NB2: The -d option is not required. It runs the Docker container as a daemon process, allowing for it to run in the background without occupying the shell.
+#### NB2: The -d option is not required. It runs the Docker container as a daemon process, allowing for it to run in the background without occupying the shell
 ```bash
-docker run -d -v <absolute path to keystore on host machine>/<keystore file name>:<relative path from root directory in docker container to destination>/<keystore file name> -p 8080:8080 <docker image name> --server.ssl.key-store-type=<keystore type> --server.ssl.key-store=classpath:<keystore file name> --server.ssl.key-store-password=<keystore password> --server.ssl.key-alias=<name/alias of certificate in keystore>
+docker run -d -v <absolute path to keystore on host machine>:<relative path from root directory in docker container to destination> -p 8080:8080 <docker image name> --server.ssl.key-store-type=<keystore type> --server.ssl.key-store=classpath:<keystore file name> --server.ssl.key-store-password=<keystore password> --server.ssl.key-alias=<name/alias of certificate in keystore>
 ```
-#### Working example 
+#### Working example
 ```bash
 docker run -d -v C:/Users/vijo/git/ARXaaS/arxaas-keystore.p12:/app/arxaas-keystore.p12 -p 8080:8080 arxaas/aaas:test --server.ssl.key-store-type=PKCS12 --server.ssl.key-store=classpath:arxaas-keystore.p12 --server.ssl.key-store-password=password --server.ssl.key-alias=arxaas-https
 ```
@@ -38,7 +38,7 @@ keytool -list -v -keystore <keystore file>
 ```
 
 ## Option 2: Run server with hard coded SSL configuration. Configuration should look like the following, change values after '='s to match user specific settings
-#### 1. Uncomment the following settings from Spring server application.properties in /src/main/resources
+#### 1. Uncomment the following settings from /src/main/resources/application.properties
 ```bash
 server.ssl.key-store=classpath:<keystore file name>
 server.ssl.key-store-type=<keystore type>
