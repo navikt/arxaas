@@ -11,6 +11,7 @@ ARX Web API Service
 [API documentation](https://oslomet-arx-as-a-service.github.io/ARXaaS)
 
 #### Running the service locally
+
 ##### Run server on localhost as a Docker container
 1. Make sure Docker Desktop is running.
 2. Pull the Docker image
@@ -29,18 +30,15 @@ docker run arxaas/aaas
 java -jar <path to jar>
 ```
 
-#### Development
-
-1. Clone the project
+#### Customize your ARXaaS server
+1. Clone the ARXaaS project from github
 2. Download ARX Java library with sources from https://arx.deidentifier.org/downloads/
 3. Install the ARX library in your local Maven repostitory
 ```bash
 mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
 ```
-
-You are ready to go!
+You now have access to your own customizable ARXaaS project. You can make changes to the project, compile it, then run your own custom ARXaaS server.
 
 #### HTTPS configuration
-
-### NB: ARXaaS uses http by default.
+##### Note that ARXaaS uses HTTP by default.
 [Documentation](READMEHTTPS.md)
