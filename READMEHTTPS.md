@@ -6,10 +6,10 @@ The values following the '='s are for guidance.
 Change them to match user specific settings.
 
 ## Option 1(recommended): Pass keystore with certificate(s) from host machine to Docker container upon running Docker image
-#### NB: If your command application appears to stall after running this command, make sure to look for prompts from Docker concerning credential input)
+#### NB: If your command application appears to stall after running this command, make sure to look for prompts from Docker concerning credential input
 #### NB2: The -d option is not required. It runs the Docker container as a daemon process, allowing for it to run in the background without occupying the shell.
 ```bash
-docker run -d -v <absolute source path to keystore on host machine>/<keystore file name>:<relative path from root directory in docker container to destination>/<keystore file name> -p 8080:8080 <docker image name> --server.ssl.key-store-type=<keystore type> --server.ssl.key-store=classpath:<keystore file name> --server.ssl.key-store-password=<keystore password> --server.ssl.key-alias=<name/alias of certificate in keystore>
+docker run -d -v <absolute path to keystore on host machine>/<keystore file name>:<relative path from root directory in docker container to destination>/<keystore file name> -p 8080:8080 <docker image name> --server.ssl.key-store-type=<keystore type> --server.ssl.key-store=classpath:<keystore file name> --server.ssl.key-store-password=<keystore password> --server.ssl.key-alias=<name/alias of certificate in keystore>
 ```
 #### Working example 
 ```bash
@@ -58,7 +58,7 @@ docker run -p 8080:8080 <image name>
 ##### Jar: 
 Compile the project
 ```bash
-mvn clean install 
+mvn clean install
 ```
 Run jar (after compiling it should be located inside the ARXaaS project's target folder) 
 ```bash
