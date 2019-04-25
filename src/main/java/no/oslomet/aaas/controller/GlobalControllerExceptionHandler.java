@@ -77,8 +77,9 @@ class GlobalControllerExceptionHandler {
     @ExceptionHandler(UnableToAnonymizeDataException.class)
     public ResponseEntity<Object> handleUnableToAnonymizeDataException(UnableToAnonymizeDataException ex, WebRequest request){
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
-                "Unable to anonymize the dataset with the provided attributes and hierarchies." +
-                        " A common cause of this error is more thant one QUASIIDENTIFYING attribute without a hierarchy",
+                ex.toString() + ", " +
+                        "Unable to anonymize the dataset with the provided attributes and hierarchies." +
+                " A common cause of this error is more than one QUASIIDENTIFYING attribute without a hierarchy",
                 request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
