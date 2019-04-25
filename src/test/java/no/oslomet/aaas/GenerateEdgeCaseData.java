@@ -17,6 +17,25 @@ public class GenerateEdgeCaseData {
         return  new Request(null,null,null,null);
     }
 
+    public static Request zipcodeRequestPayloadWithSuppressionLimitGreaterThan1(){
+        List<String[]> testData = ageGenderZipcodeData();
+        List<String[]> listHierarchy = zipcodeHierarchy();
+        List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
+        List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
+        Double suppressionLimit = 2.0;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
+    }
+
+    public static Request zipcodeRequestPayloadWithSuppressionLimitLessserThan0(){
+        List<String[]> testData = ageGenderZipcodeData();
+        List<String[]> listHierarchy = zipcodeHierarchy();
+        List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
+        List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcodePrivacyModels();
+        Double suppressionLimit = -1.0;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
+    }
+
+
     public static Request zipcodeRequestPayloadWithoutData() {
         List<String[]> listHierarchy = zipcodeHierarchy();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);

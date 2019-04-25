@@ -180,4 +180,26 @@ class AnonymizationEdgeCaseTest {
         assertNotNull(resultData);
         assertNotNull(resultData.getMessage());
     }
+
+    @Test
+    void anonymization_with_wrong_suppression_limit_greater_than_1(){
+        Request wrongFormat = GenerateEdgeCaseData.zipcodeRequestPayloadWithSuppressionLimitGreaterThan1();
+        ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongFormat, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void anonymization_with_wrong_suppression_limit_lesser_than_0(){
+        Request wrongFormat = GenerateEdgeCaseData.zipcodeRequestPayloadWithSuppressionLimitLessserThan0();
+        ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongFormat, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
 }
