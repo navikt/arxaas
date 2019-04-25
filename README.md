@@ -11,22 +11,22 @@ ARX Web API Service
 [API documentation](https://oslomet-arx-as-a-service.github.io/ARXaaS)
 
 #### Running the service locally
-##### As a Docker image
-1. make sure run Docker Desktop is running.
-2. pull the Docker image
+##### Run server on localhost as a Docker container
+1. Make sure Docker Desktop is running.
+2. Pull the Docker image
 ```bash
 docker pull arxaas/aaas
 ```
-3. run the docker image
+3. Run the Docker image
 ```bash
 docker run arxaas/aaas
 ```
 
-##### Execute jar from Maven
+##### Run server on localhost from jar (download ARXaaS executable jar from Maven and execute it)
 1. Go to https://search.maven.org/search?q=g:no.oslomet and download the latest version of ARXaaS
 2. Run the jar file
 ```bash
-java -jar JAR_FILE_LOCATION
+java -jar <path to jar>
 ```
 
 #### Development
@@ -42,4 +42,5 @@ You are ready to go!
 
 #### HTTPS configuration
 
+### NB: ARXaaS uses http by default.
 [Documentation](READMEHTTPS.md)
