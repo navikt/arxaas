@@ -50,5 +50,5 @@ deploy:
     github_token: $GITHUB_DOCS_TOKEN
     keep_history: true
     on:
-    tags: true
+      tags: true
       branch: master
