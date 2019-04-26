@@ -1,9 +1,9 @@
 
 # HTTPS Configuration
 
-To enable https in ARXaaS, please apply one of the following Options
-The values following the '='s are for guidance
-Change them to match user specific settings
+To enable https in ARXaaS, please apply one of the following Options.
+The values following the '='s are for guidance.
+Change them to match user specific settings.
 
 ## Option 1(recommended): Run ARXaaS server with dynamic HTTPS parameters (Pass keystore with certificate(s) from host machine to Docker container AND pass HTTPS server configuration upon running Docker image)
 #### NB: If your command application appears to stall after running this command, make sure to look for prompts from Docker concerning credential input
@@ -33,8 +33,8 @@ keytool -genkey -alias <name of new certificate> -keystore <path to keystore> -s
 keytool -list -v -keystore <keystore file>
 ```
 
-## Option 2: Configure, compile and run server with hard coded, non-dynamic SSL configuration. Configuration should look like the following, change values after '='s to match user specific settings (keystore file inside Spring project's src/main/resources folder required)
-#### 1. Uncomment the following settings from /src/main/resources/application.properties
+## Option 2: Configure, compile and run server with hard coded, non-dynamic SSL configuration. (keystore file inside Spring project's src/main/resources folder required)
+#### 1. Configuration should look like the following, change values after '='s to match user specific settings and uncomment the following settings from /src/main/resources/application.properties
 ```bash
 server.ssl.key-store=classpath:<full keystore file name>
 server.ssl.key-store-type=<keystore type (PKCS12 recommended)>
