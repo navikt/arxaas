@@ -35,7 +35,7 @@ java -jar <path to jar>
 2. Download ARX Java library with sources from https://arx.deidentifier.org/downloads/
 3. Install the ARX library in your local Maven repostitory
 ```bash
-mvn -q install:install-file -Dfile=<relative to ARX deidentifier library jar file> -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
+mvn -q install:install-file -Dfile=<relative path to ARX deidentifier library jar file from spring project root directory> -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
 ```
 You now have access to your own customizable ARXaaS project. You can make changes to the project, compile it, then run your own custom ARXaaS server.
 
