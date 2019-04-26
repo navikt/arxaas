@@ -33,8 +33,8 @@ keytool -genkey -alias <name of new certificate> -keystore <path to keystore> -s
 keytool -list -v -keystore <keystore file>
 ```
 
-## Option 2: Configure, compile and run server with hard coded, non-dynamic SSL configuration. Configuration should look like the following, change values after '='s to match user specific settings (keystore file inside Spring project's src/main/resources folder required)
-#### 1. Uncomment the following settings from /src/main/resources/application.properties
+## Option 2: Configure, compile and run server with hard coded, non-dynamic SSL configuration. (keystore file inside Spring project's src/main/resources folder required)
+#### 1. Configuration should look like the following, change values after '='s to match user specific settings and uncomment the following settings from /src/main/resources/application.properties
 ```bash
 server.ssl.key-store=classpath:<full keystore file name>
 server.ssl.key-store-type=<keystore type (PKCS12 recommended)>
