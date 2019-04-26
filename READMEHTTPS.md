@@ -9,11 +9,11 @@ Change them to match user specific settings
 #### NB: If your command application appears to stall after running this command, make sure to look for prompts from Docker concerning credential input
 #### NB2: The -d option is not required. It runs the Docker container as a daemon process, allowing for it to run in the background without occupying the shell
 ```bash
-docker run -d -v <absolute path to keystore on host machine>:<relative path from root directory in docker container to destination> -p 8080:8080 <docker image name> --server.ssl.key-store-type=<keystore type> --server.ssl.key-store=classpath:<keystore file name> --server.ssl.key-store-password=<keystore password> --server.ssl.key-alias=<name/alias of certificate in keystore>
+docker run -d -v <absolute path to keystore on host machine>:<relative path from root directory in docker container to destination> -p 8080:8080 <docker image name> --server.ssl.key-store-type=<keystore type> --server.ssl.key-store=<relative path to keystore file from root directory in docker container> --server.ssl.key-store-password=<keystore password> --server.ssl.key-alias=<name/alias of certificate in keystore>
 ```
 #### Working example
 ```bash
-docker run -d -v C:/Users/vijo/git/ARXaaS/arxaas-keystore.p12:/app/arxaas-keystore.p12 -p 8080:8080 arxaas/aaas:test --server.ssl.key-store-type=PKCS12 --server.ssl.key-store=classpath:arxaas-keystore.p12 --server.ssl.key-store-password=password --server.ssl.key-alias=arxaas-https
+docker run -d -v C:/Users/vijo/git/ARXaaS/arxaas-keystore.p12:/app/arxaas-keystore.p12 -p 8080:8080 arxaas/arxaas:latest --server.ssl.key-store-type=PKCS12 --server.ssl.key-store=/app/arxaas-keystore.p12 --server.ssl.key-store-password=password --server.ssl.key-alias=arxaas-https
 ```
 
 ## Generating and correctly configuring a keystore for an ARXaaS project
@@ -37,11 +37,11 @@ keytool -genkey -alias <name of new certificate> -keystore <path to keystore> -s
 keytool -list -v -keystore <keystore file>
 ```
 
-## Option 2: Run server with hard coded SSL configuration. Configuration should look like the following, change values after '='s to match user specific settings
+## Option 2: Configure, compile and run server with hard coded SSL configuration. Configuration should look like the following, change values after '='s to match user specific settings (keystore file inside Spring project's src/main/resources folder required)
 #### 1. Uncomment the following settings from /src/main/resources/application.properties
 ```bash
-server.ssl.key-store=classpath:<keystore file name>
-server.ssl.key-store-type=<keystore type>
+server.ssl.key-store=classpath:<full keystore file name>
+server.ssl.key-store-type=<keystore type (PKCS12)>
 server.ssl.key-store-password=<keystore password>
 server.ssl.key-alias=<name/alias of certificate in keystore>
 ```
