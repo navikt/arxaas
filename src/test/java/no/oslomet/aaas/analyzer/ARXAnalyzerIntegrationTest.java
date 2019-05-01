@@ -6,7 +6,7 @@ import no.oslomet.aaas.utils.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ARXAnalyzerTest {
+public class ARXAnalyzerIntegrationTest {
 
     private Analyzer testAnalyzer;
     private Request testRequest;

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 
-class ARXAnonymizerTest {
+class ARXAnonymizerIntegrationTest {
 
     private Anonymizer testAnonymizer;
     private Request testRequestPayload;
@@ -29,7 +29,7 @@ class ARXAnonymizerTest {
 
     @Test
     void anonymize__run() {
-        var result = testAnonymizer.anonymize(testRequestPayload);
+        AnonymizeResult result = testAnonymizer.anonymize(testRequestPayload);
     }
 
 
@@ -43,8 +43,24 @@ class ARXAnonymizerTest {
     @Test
     void anonymize_should_return_with_list_of_attribute(){
         AnonymizeResult result = testAnonymizer.anonymize(testRequestPayload);
-        List<Attribute> actual = result.getAttributes();
-        List<Attribute> expected = testRequestPayload.getAttributes();
-        Assertions.assertEquals(expected,actual);
+        Assertions.assertNotNull(result.getAttributes());
+    }
+
+    @Test
+    void anonymize_should_return_with_list_of_data(){
+        AnonymizeResult result = testAnonymizer.anonymize(testRequestPayload);
+        Assertions.assertNotNull(result.getData());
+    }
+
+    @Test
+    void anonymize_should_return_with_anonymization_status(){
+        AnonymizeResult result = testAnonymizer.anonymize(testRequestPayload);
+        Assertions.assertNotNull(result.getAnonymizationStatus());
+    }
+
+    @Test
+    void anonymize_should_return_with_anonymization_metrics(){
+        AnonymizeResult result = testAnonymizer.anonymize(testRequestPayload);
+        Assertions.assertNotNull(result.getMetrics());
     }
 }
