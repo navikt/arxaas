@@ -2,9 +2,11 @@ package no.oslomet.aaas.analyzer;
 
 import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.Request;
+import no.oslomet.aaas.model.risk.RiskProfile;
 import no.oslomet.aaas.utils.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class ARXAnalyzerIntegrationTest {
 
@@ -19,6 +21,18 @@ public class ARXAnalyzerIntegrationTest {
 
     @Test
     public void analyse__run() {
-        var result = testAnalyzer.analyze(testRequest);
+        RiskProfile result = testAnalyzer.analyze(testRequest);
+    }
+
+    @Test
+    public void analyze_should_return_with_a_re_identification_risk_object(){
+        RiskProfile result = testAnalyzer.analyze(testRequest);
+        Assertions.assertNotNull(result.getReIdentificationRisk());
+    }
+
+    @Test
+    public void analyze_should_return_with_a_distribution_of_risk_object(){
+        RiskProfile result = testAnalyzer.analyze(testRequest);
+        Assertions.assertNotNull(result.getDistributionOfRisk());
     }
 }
