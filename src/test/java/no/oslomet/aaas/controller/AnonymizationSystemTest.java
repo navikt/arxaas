@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AnonymizationServiceTest {
+class AnonymizationSystemTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
