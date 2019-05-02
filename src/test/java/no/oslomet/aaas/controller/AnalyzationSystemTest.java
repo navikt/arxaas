@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AnalyzationIntegrationTest {
+class AnalyzationSystemTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
