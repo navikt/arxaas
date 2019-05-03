@@ -29,6 +29,12 @@ public class GenerateTestData {
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
+    public static Request zipcodeAnalyzationRequestPayload() {
+        List<String[]> testData = ageGenderZipcodeData();
+        List<Attribute> testAttributes = ageGenderZipcodeAttributes(null);
+        return new Request(testData, testAttributes, null,null);
+    }
+
     public static Request zipcodeRequestPayloadAfterAnonymization(){
         List<String[]> testData = ageGenderZipcodeDataAfterAnonymization();
         List<Attribute> testAttributes = ageGenderZipcodeAttributes(null);

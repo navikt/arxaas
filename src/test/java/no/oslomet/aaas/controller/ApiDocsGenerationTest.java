@@ -46,12 +46,14 @@ class ApiDocsGenerationTest {
 
 
     private Request request;
+    private Request analyzationRequest;
 
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .apply(documentationConfiguration(restDocumentation)).build();
         request = GenerateTestData.zipcodeRequestPayload();
+        analyzationRequest = GenerateTestData.zipcodeAnalyzationRequestPayload();
     }
 
     @Test
@@ -67,7 +69,7 @@ class ApiDocsGenerationTest {
     @Test
     void analyze_post() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        String req = mapper.writeValueAsString(request);
+        String req = mapper.writeValueAsString(analyzationRequest);
 
 
         this.mockMvc.perform(post("/api/analyze")
@@ -76,7 +78,7 @@ class ApiDocsGenerationTest {
                 .andExpect(status().isOk())
                 .andDo(document("analyze-controller", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
                         requestFields(subsectionWithPath("data").description("Dataset to be anonymized"),
-                                subsectionWithPath("attributes").description("Attributes of the dataset"),
+                                subsectionWithPath("attributes").description("Attributes types of the dataset"),
                                 subsectionWithPath("privacyModels").ignored(),
                                 subsectionWithPath("suppressionLimit").ignored()
                         )));
@@ -94,7 +96,7 @@ class ApiDocsGenerationTest {
                 .andExpect(status().isOk())
                 .andDo(document("anonymize-controller", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
                         requestFields(subsectionWithPath("data").description("Dataset to be anonymized"),
-                                subsectionWithPath("attributes").description("Attributes of the dataset"),
+                                subsectionWithPath("attributes").description("Attributes types and transformation models to be applied to the dataset"),
                                 subsectionWithPath("privacyModels").description("Privacy Models to be applied to the dataset"),
                                 subsectionWithPath("suppressionLimit").description("Suppression limit to be applied to the dataset")
                         )));
