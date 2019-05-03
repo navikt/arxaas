@@ -46,12 +46,14 @@ class ApiDocsGenerationTest {
 
 
     private Request request;
+    private Request analyzationRequest;
 
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .apply(documentationConfiguration(restDocumentation)).build();
         request = GenerateTestData.zipcodeRequestPayload();
+        analyzationRequest = GenerateTestData.zipcodeAnalyzationRequestPayload();
     }
 
     @Test
@@ -67,7 +69,7 @@ class ApiDocsGenerationTest {
     @Test
     void analyze_post() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        String req = mapper.writeValueAsString(request);
+        String req = mapper.writeValueAsString(analyzationRequest);
 
 
         this.mockMvc.perform(post("/api/analyze")
