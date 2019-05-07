@@ -1,4 +1,4 @@
-package no.oslomet.aaas.controller;
+package no.oslomet.aaas.docs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import no.oslomet.aaas.GenerateTestData;
@@ -26,6 +26,8 @@ import java.util.List;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -63,7 +65,11 @@ class ApiDocsGenerationTest {
                 .andExpect(status().isOk())
                 .andDo(document("root",
                         responseHeaders(
-                                headerWithName("Content-Type").description("The Content-Type of the payload, e.g. `application/hal+json`"))));
+                                headerWithName("Content-Type").description("The Content-Type of the payload, e.g. `application/hal+json`")),
+                        links(
+                                linkWithRel("self").description("Link root resource"),
+                                linkWithRel("anonymize").description("Link anonymization controller"),
+                                linkWithRel("analyze").description("Link to analyze controller"))));
     }
 
     @Test
