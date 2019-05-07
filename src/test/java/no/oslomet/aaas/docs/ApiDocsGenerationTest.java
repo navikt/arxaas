@@ -179,7 +179,14 @@ class ApiDocsGenerationTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(req))
                 .andExpect(status().isOk())
-                .andDo(document("hierarchy-controller-reductionbased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
+                .andDo(document("hierarchy-controller-redactionbased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+                        requestFields(
+                                subsectionWithPath("column").description("List of values to create the hierarchy for"),
+                                subsectionWithPath("builder.type").description("Hierarchy builder type to use when creating the hierarchy"),
+                                subsectionWithPath("builder.paddingCharacter").description("Character to use when padding the values"),
+                                subsectionWithPath("builder.redactionCharacter").description("Character to use when redacting the values"),
+                                subsectionWithPath("builder.paddingOrder").description("Direction in which to pad the values in the column"),
+                                subsectionWithPath("builder.redactionOrder").description("Direction in which to redact symbols from the values in the column"))));
     }
 
     private static String[] getExampleData(){
