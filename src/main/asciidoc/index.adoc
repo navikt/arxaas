@@ -17,10 +17,10 @@ Bachelor thesis group website:
 https://oslomet-arx-as-a-service.github.io/
 
 Python package:
-https://github.com/oslomet-arx-as-a-service/PyAaaS
+https://github.com/oslomet-arx-as-a-service/PyARXaaS
 
 Web Service:
-https://github.com/oslomet-arx-as-a-service/AaaS
+https://github.com/oslomet-arx-as-a-service/ARXaaS
 
 [[overview-http-verbs]]
 == HTTP verbs
@@ -84,7 +84,7 @@ The index provides the entry point into the service.
 
 A `GET` request is used to access the index
 
-operation::root[snippets='response-fields,http-response,links']
+operation::root[snippets='http-response,links']
 
 
 [[analyze-controller]]
