@@ -212,6 +212,48 @@ class ApiDocsGenerationTest {
                                 subsectionWithPath("builder.redactionOrder").description("Direction in which to redact symbols from the values in the column"))));
     }
 
+    @Test
+    void hierarchy_order() throws Exception {
+        String[][] expected =
+                {{"Oslo", "nordic-city", "*",},
+                        {"Bergen", "nordic-city", "*",},
+                        {"Stockholm", "nordic-city", "*",},
+                        {"London", "mid-european-city", "*",},
+                        {"Paris", "mid-european-city", "*",}};
+
+        var testData = new String[]{"Oslo", "Bergen", "Stockholm", "London", "Paris"};
+
+        Level nordicGroup = new Level(0, List.of(new Level.Group(3, "nordic-city")));
+        Level midEuroGroup = new Level(0, List.of(new Level.Group(2, "mid-european-city")));
+
+        OrderBasedHierarchyBuilder basedHierarchyBuilder = new OrderBasedHierarchyBuilder(List.of(nordicGroup, midEuroGroup));
+
+        HierarchyRequest orderHierarchyRequest = new HierarchyRequest(
+                testData,
+                basedHierarchyBuilder);
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        String req = mapper.writeValueAsString(orderHierarchyRequest);
+
+
+        this.mockMvc.perform(post("/api/hierarchy")
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(req))
+                .andExpect(status().isOk())
+                .andDo(document("hierarchy-controller-orderbased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+                        requestFields(
+                                subsectionWithPath("column").description("List of values to create the hierarchy for"),
+                                subsectionWithPath("builder").description("Object containing the different parameters on how to build the heirarchy for the dataset column"),
+                                subsectionWithPath("builder.type").description("Hierarchy builder type to use when creating the hierarchy"),
+                                subsectionWithPath("builder.levels").description("List containing parameters on how to generalize the dataset column"),
+                                subsectionWithPath("builder.levels[].level").description("Transformation level to create a generalization"),
+                                subsectionWithPath("builder.levels[].groups").description("List containing parameters on how to group the dataset column"),
+                                subsectionWithPath("builder.levels[].groups[].grouping").description("Number of items to be grouped from the dataset column values"),
+                                subsectionWithPath("builder.levels[].groups[].label").description("Optional label to replace the default generalized value")
+                        )));
+    }
+
     private static String[] getExampleData(){
 
         String[] result = new String[10];
