@@ -166,14 +166,14 @@ class ApiDocsGenerationTest {
                                 subsectionWithPath("builder.levels[].groups").description("List containing parameters on how to group the generalized column new values"),
                                 subsectionWithPath("builder.levels[].groups[].grouping").description("Number of items to be grouped from the new generalized column values"),
                                 subsectionWithPath("builder.levels[].groups[].label").description("Optional label to replace the default generalized value"),
-                                subsectionWithPath("builder.lowerRange").description(" "),
-                                subsectionWithPath("builder.lowerRange.snapFrom").description(" "),
-                                subsectionWithPath("builder.lowerRange.bottomTopCodingFrom").description(" "),
-                                subsectionWithPath("builder.lowerRange.minMaxValue").description(" "),
-                                subsectionWithPath("builder.upperRange").description(" "),
-                                subsectionWithPath("builder.upperRange.snapFrom").description(" "),
-                                subsectionWithPath("builder.upperRange.bottomTopCodingFrom").description(" "),
-                                subsectionWithPath("builder.upperRange.minMaxValue").description(" "),
+                                subsectionWithPath("builder.lowerRange").description("Object containing parameters on how to define the lower range interval"),
+                                subsectionWithPath("builder.lowerRange.snapFrom").description("Value to snap from when a lower value than this defined value is discoverd"),
+                                subsectionWithPath("builder.lowerRange.bottomTopCodingFrom").description("Value to start bottom coding from"),
+                                subsectionWithPath("builder.lowerRange.minMaxValue").description("If a value is discovered which is smaller than this value an exception will be raised."),
+                                subsectionWithPath("builder.upperRange").description("Object containing parameters on how to define the upper range interval"),
+                                subsectionWithPath("builder.upperRange.snapFrom").description("Value to snap from when a higher value than this defined value is discoverd"),
+                                subsectionWithPath("builder.upperRange.bottomTopCodingFrom").description("Value to start top coding from"),
+                                subsectionWithPath("builder.upperRange.minMaxValue").description("If a value is discovered which is larger than this value an exception will be raised."),
                                 subsectionWithPath("builder.dataType").description("data type of the interval to generalize"))));
     }
 
