@@ -97,7 +97,10 @@ operation::root[snippets='response-fields,http-response,links']
 [[analyze-controller]]
 == Analyze Controller
 
-The Analyze controller is used to generate risk profiles for a dataset
+The Analyze controller is used to generate risk profiles for a dataset. The REST controller receives a request object
+containing a dataset to be analyzed and the attribute type list of the dataset. The Controller returns an response object
+containing a risk profile that includes the re-identification risk and distribution of risk in a dataset.
+
 
 [[analyze-controller-post]]
 === Generating a Risk profile
@@ -110,7 +113,11 @@ operation::analyze-controller[snippets='request-fields,curl-request,http-respons
 [[anonymize-controller]]
 == Anonymize Controller
 
-The Analyze controller is used to generate risk profiles for a dataset
+The Anonymize controller is used to create new dataset anonymized according to provided privacy models and
+transformation models. The controller receives a request object containing a dataset to be anonymized, list of
+attribute types containing transformation models(hierarchies) and privacy models. The controller returns an response
+object containing a anonymized dataset, a risk profile, and metadata for the anonymization process.
+
 
 [[anonymize-controller-post]]
 === Creating a Anonymized Dataset
@@ -123,9 +130,18 @@ operation::anonymize-controller[snippets='request-fields,curl-request,http-respo
 [[hierarchy-controller]]
 == Hierarchy Controller
 
+The hierarchy controller provides a interface to access ARX hierarchy builder features. The controller receives a request object
+containing the dataset column to create the hierarchy for, the builder type and builder specific attributes. The controller
+returns a response object containing the resulting hierarchy.
 
-=== Create a reduction based hierarchy
-operation::hierarchy-controller-reductionbased[snippets='request-fields,http-request,http-response']
+Currently the following builders are supported:
+
+ - Redaction based
+ - Interval based
+ - Order based
+
+=== Create a redaction based hierarchy
+operation::hierarchy-controller-redactionbased[snippets='request-fields,http-request,http-response']
 
 === Create a interval based hierarchy
 operation::hierarchy-controller-intervalbased[snippets='request-fields,http-request,http-response']
