@@ -152,7 +152,29 @@ class ApiDocsGenerationTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(req))
                 .andExpect(status().isOk())
-                .andDo(document("hierarchy-controller-intervalbased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
+                .andDo(document("hierarchy-controller-intervalbased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+                        requestFields(
+                                subsectionWithPath("column").description("List of values to create the hierarchy for"),
+                                subsectionWithPath("builder").description("Object containing the different parameters on how to build the heirarchy for the dataset column"),
+                                subsectionWithPath("builder.type").description("Hierarchy builder type to use when creating the hierarchy"),
+                                subsectionWithPath("builder.intervals").description("List containing the different intervals to be generalized from and to"),
+                                subsectionWithPath("builder.intervals[].from").description("Interval to generalize from"),
+                                subsectionWithPath("builder.intervals[].to").description("Interval to generalize to"),
+                                subsectionWithPath("builder.intervals[].label").description("Optional label to replace the default generalized interval values"),
+                                subsectionWithPath("builder.levels").description("List containing parameters on how to generalize the created intervals"),
+                                subsectionWithPath("builder.levels[].level").description("Transformation level to create a generalization"),
+                                subsectionWithPath("builder.levels[].groups").description("List containing parameters on how to group the generalized column new values"),
+                                subsectionWithPath("builder.levels[].groups[].grouping").description("Number of items to be grouped from the new generalized column values"),
+                                subsectionWithPath("builder.levels[].groups[].label").description("Optional label to replace the default generalized value"),
+                                subsectionWithPath("builder.lowerRange").description("Object containing parameters on how to define the lower range interval"),
+                                subsectionWithPath("builder.lowerRange.snapFrom").description("Value to snap from when a lower value than this defined value is discoverd"),
+                                subsectionWithPath("builder.lowerRange.bottomTopCodingFrom").description("Value to start bottom coding from"),
+                                subsectionWithPath("builder.lowerRange.minMaxValue").description("If a value is discovered which is smaller than this value an exception will be raised."),
+                                subsectionWithPath("builder.upperRange").description("Object containing parameters on how to define the upper range interval"),
+                                subsectionWithPath("builder.upperRange.snapFrom").description("Value to snap from when a higher value than this defined value is discoverd"),
+                                subsectionWithPath("builder.upperRange.bottomTopCodingFrom").description("Value to start top coding from"),
+                                subsectionWithPath("builder.upperRange.minMaxValue").description("If a value is discovered which is larger than this value an exception will be raised."),
+                                subsectionWithPath("builder.dataType").description("data type of the interval to generalize"))));
     }
 
     @Test
@@ -182,6 +204,7 @@ class ApiDocsGenerationTest {
                 .andDo(document("hierarchy-controller-redactionbased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
                         requestFields(
                                 subsectionWithPath("column").description("List of values to create the hierarchy for"),
+                                subsectionWithPath("builder").description("Object containing the different parameters on how to build the heirarchy for the dataset column"),
                                 subsectionWithPath("builder.type").description("Hierarchy builder type to use when creating the hierarchy"),
                                 subsectionWithPath("builder.paddingCharacter").description("Character to use when padding the values"),
                                 subsectionWithPath("builder.redactionCharacter").description("Character to use when redacting the values"),
