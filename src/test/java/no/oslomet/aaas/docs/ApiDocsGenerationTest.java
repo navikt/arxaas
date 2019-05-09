@@ -111,17 +111,6 @@ class ApiDocsGenerationTest {
 
     @Test
     void hierarchy_inteval() throws Exception {
-        String[][] expected = {
-                {"0", "young", "[0, 4[", "*"},
-                {"1", "young", "[0, 4[", "*"},
-                {"2", "adult", "[0, 4[", "*"},
-                {"3", "adult", "[0, 4[", "*"},
-                {"4", "old", "[4, 8[", "*"},
-                {"5", "old", "[4, 8[", "*"},
-                {"6", "old", "[4, 8[", "*"},
-                {"7", "old", "[4, 8[", "*"},
-                {"8", "very-old", "[8, 12[", "*"},
-                {"9", "very-old", "[8, 12[", "*"}};
 
         List<Interval> labeledIntervals = List.of(
                 new Interval(0L,2L, "young"),
@@ -210,6 +199,42 @@ class ApiDocsGenerationTest {
                                 subsectionWithPath("builder.redactionCharacter").description("Character to use when redacting the values"),
                                 subsectionWithPath("builder.paddingOrder").description("Direction in which to pad the values in the column"),
                                 subsectionWithPath("builder.redactionOrder").description("Direction in which to redact symbols from the values in the column"))));
+    }
+
+    @Test
+    void hierarchy_order() throws Exception {
+
+        var testData = new String[]{"Oslo", "Bergen", "Stockholm", "London", "Paris"};
+
+        Level nordicGroup = new Level(0, List.of(new Level.Group(3, "nordic-city")));
+        Level midEuroGroup = new Level(0, List.of(new Level.Group(2, "mid-european-city")));
+
+        OrderBasedHierarchyBuilder basedHierarchyBuilder = new OrderBasedHierarchyBuilder(List.of(nordicGroup, midEuroGroup));
+
+        HierarchyRequest orderHierarchyRequest = new HierarchyRequest(
+                testData,
+                basedHierarchyBuilder);
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        String req = mapper.writeValueAsString(orderHierarchyRequest);
+
+
+        this.mockMvc.perform(post("/api/hierarchy")
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(req))
+                .andExpect(status().isOk())
+                .andDo(document("hierarchy-controller-orderbased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+                        requestFields(
+                                subsectionWithPath("column").description("List of values to create the hierarchy for"),
+                                subsectionWithPath("builder").description("Object containing the different parameters on how to build the heirarchy for the dataset column"),
+                                subsectionWithPath("builder.type").description("Hierarchy builder type to use when creating the hierarchy"),
+                                subsectionWithPath("builder.levels").description("List containing parameters on how to generalize the dataset column"),
+                                subsectionWithPath("builder.levels[].level").description("Transformation level to create a generalization"),
+                                subsectionWithPath("builder.levels[].groups").description("List containing parameters on how to group the dataset column"),
+                                subsectionWithPath("builder.levels[].groups[].grouping").description("Number of items to be grouped from the dataset column values"),
+                                subsectionWithPath("builder.levels[].groups[].label").description("Optional label to replace the default generalized value")
+                        )));
     }
 
     private static String[] getExampleData(){

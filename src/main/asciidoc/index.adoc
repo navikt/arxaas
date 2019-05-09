@@ -134,7 +134,24 @@ Currently the following builders are supported:
  - Order based
 
 === Create a redaction based hierarchy
+
+This method builds hierarchies for categorical and non-categorical values using redaction. Dataset items are:
+
+ 1. aligned left-to-right or right-to-left,
+ 2. differences in length are filled with a padding character.
+ 3. Equally long values are redacted, character by character from left-to-right or right-to-left.
+
 operation::hierarchy-controller-redactionbased[snippets='request-fields,http-request,http-response']
 
 === Create a interval based hierarchy
+
+This method builds hierarchies for non-categorical values by mapping them into given intervals.
+
 operation::hierarchy-controller-intervalbased[snippets='request-fields,http-request,http-response']
+
+=== Create a order based hierarchy
+
+This method builds hierarchies for categorical and non-categorical values by ordering the dataset items and merging them
+into groups with the defined sizes.
+
+operation::hierarchy-controller-orderbased[snippets='request-fields,http-request,http-response']
