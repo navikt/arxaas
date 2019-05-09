@@ -111,17 +111,6 @@ class ApiDocsGenerationTest {
 
     @Test
     void hierarchy_inteval() throws Exception {
-        String[][] expected = {
-                {"0", "young", "[0, 4[", "*"},
-                {"1", "young", "[0, 4[", "*"},
-                {"2", "adult", "[0, 4[", "*"},
-                {"3", "adult", "[0, 4[", "*"},
-                {"4", "old", "[4, 8[", "*"},
-                {"5", "old", "[4, 8[", "*"},
-                {"6", "old", "[4, 8[", "*"},
-                {"7", "old", "[4, 8[", "*"},
-                {"8", "very-old", "[8, 12[", "*"},
-                {"9", "very-old", "[8, 12[", "*"}};
 
         List<Interval> labeledIntervals = List.of(
                 new Interval(0L,2L, "young"),
@@ -214,12 +203,6 @@ class ApiDocsGenerationTest {
 
     @Test
     void hierarchy_order() throws Exception {
-        String[][] expected =
-                {{"Oslo", "nordic-city", "*",},
-                        {"Bergen", "nordic-city", "*",},
-                        {"Stockholm", "nordic-city", "*",},
-                        {"London", "mid-european-city", "*",},
-                        {"Paris", "mid-european-city", "*",}};
 
         var testData = new String[]{"Oslo", "Bergen", "Stockholm", "London", "Paris"};
 
