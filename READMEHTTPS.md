@@ -5,7 +5,7 @@ To enable https in ARXaaS, please apply one of the following Options.
 The values following the '='s are for guidance.
 Change them to match user specific settings.
 
-## Option 1(recommended): Run ARXaaS server with dynamic HTTPS parameters (Pass keystore with certificate(s) from host machine to Docker container AND pass HTTPS server configuration upon running Docker image)
+## Option 1(recommended): Run ARXaaS server with dynamic HTTPS parameters (Pass keystore with certificate(s) from host machine to Docker container AND pass HTTPS Spring configuration upon running Docker image)
 #### NB: If your command application appears to stall after running this command, make sure to look for prompts from Docker concerning credential input
 #### NB2: The -d option is not required. It runs the Docker container as a daemon process, allowing for it to run in the background without occupying the shell
 ```bash
