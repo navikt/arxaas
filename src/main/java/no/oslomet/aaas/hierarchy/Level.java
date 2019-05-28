@@ -1,7 +1,6 @@
-package no.oslomet.aaas.model.hierarchy;
+package no.oslomet.aaas.hierarchy;
 
 import org.deidentifier.arx.aggregates.HierarchyBuilderGroupingBased;
-import org.deidentifier.arx.aggregates.HierarchyBuilderIntervalBased;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

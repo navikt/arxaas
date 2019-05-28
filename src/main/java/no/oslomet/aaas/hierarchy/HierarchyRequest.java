@@ -1,12 +1,8 @@
-package no.oslomet.aaas.model.hierarchy;
+package no.oslomet.aaas.hierarchy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.validation.Valid;
-import java.util.Map;
 
 /**
  * Understands a request to build a generalization hierarchy

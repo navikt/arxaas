@@ -1,11 +1,11 @@
 package no.oslomet.aaas.controller;
 
 
-import no.oslomet.aaas.model.hierarchy.*;
-import no.oslomet.aaas.model.hierarchy.interval.Interval;
-import no.oslomet.aaas.model.hierarchy.interval.IntervalBasedHierarchyBuilder;
-import no.oslomet.aaas.model.hierarchy.RedactionBasedHierarchyBuilder.Order;
-import no.oslomet.aaas.model.hierarchy.interval.Range;
+import no.oslomet.aaas.hierarchy.*;
+import no.oslomet.aaas.hierarchy.interval.Interval;
+import no.oslomet.aaas.hierarchy.interval.IntervalBasedHierarchyBuilder;
+import no.oslomet.aaas.hierarchy.RedactionBasedHierarchyBuilder.Order;
+import no.oslomet.aaas.hierarchy.interval.Range;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

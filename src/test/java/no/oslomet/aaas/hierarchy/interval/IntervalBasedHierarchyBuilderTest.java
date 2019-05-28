@@ -1,13 +1,11 @@
-package no.oslomet.aaas.model.hierarchy.interval;
+package no.oslomet.aaas.hierarchy.interval;
 
-import no.oslomet.aaas.model.hierarchy.Hierarchy;
-import no.oslomet.aaas.model.hierarchy.HierarchyTestUtils;
-import no.oslomet.aaas.model.hierarchy.Level;
+import no.oslomet.aaas.hierarchy.Hierarchy;
+import no.oslomet.aaas.hierarchy.Level;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 class IntervalBasedHierarchyBuilderTest {
@@ -141,7 +139,7 @@ class IntervalBasedHierarchyBuilderTest {
 
         String[] column = {"3.3", "4.1", "5", "6.2", "7.232", "8.22"};
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {basedHierarchyBuilder.build(column);});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> basedHierarchyBuilder.build(column));
     }
 
     @Test
@@ -154,7 +152,7 @@ class IntervalBasedHierarchyBuilderTest {
                 testLevels, null, null, IntervalBasedHierarchyBuilder.BuilderDataType.LONG);
 
         String[] column = {"3", "4", "5", "6", "7", "8"};
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {basedHierarchyBuilder.build(column);});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> basedHierarchyBuilder.build(column));
     }
 
 }

@@ -1,15 +1,14 @@
 package no.oslomet.aaas.controller;
 
 
-import no.oslomet.aaas.model.hierarchy.Hierarchy;
-import no.oslomet.aaas.model.hierarchy.HierarchyRequest;
+import no.oslomet.aaas.hierarchy.Hierarchy;
+import no.oslomet.aaas.hierarchy.HierarchyRequest;
 
 import no.oslomet.aaas.service.HierarchyService;
 import no.oslomet.aaas.service.LoggerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
