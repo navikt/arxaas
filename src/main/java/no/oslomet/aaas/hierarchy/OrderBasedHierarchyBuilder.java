@@ -1,4 +1,4 @@
-package no.oslomet.aaas.model.hierarchy;
+package no.oslomet.aaas.hierarchy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.deidentifier.arx.DataType;

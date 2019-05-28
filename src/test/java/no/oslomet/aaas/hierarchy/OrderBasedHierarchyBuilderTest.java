@@ -1,4 +1,4 @@
-package no.oslomet.aaas.model.hierarchy;
+package no.oslomet.aaas.hierarchy;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

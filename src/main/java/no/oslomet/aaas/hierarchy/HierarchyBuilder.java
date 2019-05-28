@@ -1,13 +1,12 @@
-package no.oslomet.aaas.model.hierarchy;
+package no.oslomet.aaas.hierarchy;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import no.oslomet.aaas.model.hierarchy.interval.IntervalBasedHierarchyBuilder;
+import no.oslomet.aaas.hierarchy.interval.IntervalBasedHierarchyBuilder;
 
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = RedactionBasedHierarchyBuilder.class, name = "redactionBased"),

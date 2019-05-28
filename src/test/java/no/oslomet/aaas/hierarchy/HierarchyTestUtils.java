@@ -1,4 +1,4 @@
-package no.oslomet.aaas.model.hierarchy;
+package no.oslomet.aaas.hierarchy;
 
 import java.util.Arrays;
 import java.util.List;

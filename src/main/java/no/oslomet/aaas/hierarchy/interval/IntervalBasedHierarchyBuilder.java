@@ -1,9 +1,9 @@
-package no.oslomet.aaas.model.hierarchy.interval;
+package no.oslomet.aaas.hierarchy.interval;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import no.oslomet.aaas.model.hierarchy.Hierarchy;
-import no.oslomet.aaas.model.hierarchy.HierarchyBuilder;
-import no.oslomet.aaas.model.hierarchy.Level;
+import no.oslomet.aaas.hierarchy.Hierarchy;
+import no.oslomet.aaas.hierarchy.HierarchyBuilder;
+import no.oslomet.aaas.hierarchy.Level;
 import org.deidentifier.arx.DataType;
 import org.deidentifier.arx.aggregates.HierarchyBuilderIntervalBased;
 
