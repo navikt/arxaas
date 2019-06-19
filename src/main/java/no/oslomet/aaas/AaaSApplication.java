@@ -20,8 +20,3 @@ public class AaaSApplication implements ApplicationRunner {
 		logger.info("OptionNames: {}", args.getOptionNames());
 	}
 }
-
-/*
-first commit test jeremiah
- */
-
