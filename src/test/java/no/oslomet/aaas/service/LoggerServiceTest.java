@@ -5,8 +5,8 @@ import no.oslomet.aaas.anonymizer.ARXAnonymizer;
 import no.oslomet.aaas.controller.AnonymizationController;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 
@@ -15,7 +15,7 @@ public class LoggerServiceTest {
     private AnonymizationService anonymizationService;
     private Request testRequestPayload;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         DataFactory dataFactory = new ARXDataFactory();
         ConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
