@@ -4,8 +4,8 @@ import no.oslomet.aaas.GenerateTestData;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.model.risk.RiskProfile;
 import no.oslomet.aaas.utils.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class ARXAnalyzerIntegrationTest {
@@ -13,7 +13,7 @@ public class ARXAnalyzerIntegrationTest {
     private Analyzer testAnalyzer;
     private Request testRequest;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         testAnalyzer = new ARXAnalyzer(new ARXDataFactory());
         testRequest = GenerateTestData.zipcodeRequestPayload();
