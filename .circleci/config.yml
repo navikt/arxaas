@@ -40,3 +40,6 @@ jobs:
 
       # run tests!
       - run: mvn integration-test
+
+      - run: JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
+      - run: ./cc-test-reporter upload-coverage -d
