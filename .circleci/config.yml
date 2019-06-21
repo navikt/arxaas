@@ -1,6 +1,6 @@
 # Java Maven CircleCI 2.0 configuration file
 #
-# Check https://circleci.com/docs/2.0/language-java/ for more details
+# check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
 jobs:
@@ -12,25 +12,30 @@ jobs:
     working_directory: ~/repo
 
     environment:
-      # Customize the JVM maximum heap limit
+      # customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
 
     steps:
       - checkout
 
-      # Download and cache dependencies
+      # download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+
+      # download libarx
       - run: wget  https://github.com/oslomet-arx-as-a-service/arx-dependency/raw/master/libarx-3.7.1.jar -P ./src/main/resources/
+      # maven install libarx as local dependency
       - run: mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
 
+      # prepare code climate test reporter
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
 
+      # resolve dependencies, plugins, reports
       - run: mvn dependency:go-offline
 
       - save_cache:
@@ -38,8 +43,9 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      # run tests!
+      # run all tests!
       - run: mvn integration-test
 
+      #
       - run: JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
       - run: ./cc-test-reporter upload-coverage -d
