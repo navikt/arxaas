@@ -6,10 +6,9 @@ import no.oslomet.aaas.anonymizer.ARXAnonymizer;
 import no.oslomet.aaas.model.*;
 import no.oslomet.aaas.model.anonymity.AnonymizationResultPayload;
 import no.oslomet.aaas.utils.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +23,7 @@ public class AnonymizationServiceTest {
     private AnonymizationService anonymizationService;
     private Request testRequestPayload;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         DataFactory dataFactory = new ARXDataFactory();
         ConfigurationFactory configurationFactory = new ARXConfigurationFactory(new ARXPrivacyCriterionFactory());
@@ -61,7 +60,7 @@ public class AnonymizationServiceTest {
                 expected.put("average_prosecutor_risk",0.18181818181818183);
                 expected.put("records_affected_by_highest_journalist_risk",0.4545454545454545);
                 expected.put("population_uniques",0.0);
-        Assert.assertEquals(expected.keySet(),actual.keySet());
+        Assertions.assertEquals(expected.keySet(),actual.keySet());
     }
 
     @Test
@@ -72,7 +71,7 @@ public class AnonymizationServiceTest {
         expected.put("Prosecutor_attacker_success_rate",0.18181818181818183);
         expected.put("Journalist_attacker_success_rate",0.18181818181818183);
         expected.put("Marketer_attacker_success_rate",0.18181818181818183);
-        Assert.assertEquals(expected.keySet(),actual.keySet());
+        Assertions.assertEquals(expected.keySet(),actual.keySet());
     }
 
     @Test
@@ -80,7 +79,7 @@ public class AnonymizationServiceTest {
         AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
         List<String> actual = test.getRiskProfile().getReIdentificationRisk().getQuasiIdentifiers();
         List<String> expected = List.of("zipcode");
-        Assert.assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
@@ -88,7 +87,7 @@ public class AnonymizationServiceTest {
         AnonymizationResultPayload test= anonymizationService.anonymize(testRequestPayload);
         String actual = test.getRiskProfile().getReIdentificationRisk().getPopulationModel();
         String expected = "DANKAR";
-        Assert.assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 
 }

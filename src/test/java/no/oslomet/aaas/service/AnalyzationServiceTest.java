@@ -5,9 +5,9 @@ import no.oslomet.aaas.analyzer.ARXAnalyzer;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.model.risk.RiskProfile;
 import no.oslomet.aaas.utils.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class AnalyzationServiceTest {
 
@@ -15,11 +15,11 @@ public class AnalyzationServiceTest {
     private DataFactory dataFactory = new ARXDataFactory();
     private ARXAnalyzer arxAnalyser = new ARXAnalyzer(dataFactory);
 
-    @Before
+    @BeforeEach
     public void initialize(){ analyzationService = new AnalyzationService(arxAnalyser); }
 
     private Request testRequestPayload;
-    @Before
+    @BeforeEach
     public void generateTestData() {
         testRequestPayload = GenerateTestData.zipcodeRequestPayload2Quasi();
     }
@@ -29,6 +29,6 @@ public class AnalyzationServiceTest {
         RiskProfile actual = analyzationService.analyze(testRequestPayload);
         RiskProfile expected = GenerateTestData.ageGenderZipcodeRiskProfile();
 
-        Assert.assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 }

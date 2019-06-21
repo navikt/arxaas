@@ -1,10 +1,8 @@
 package no.oslomet.aaas.arx;
 
 import org.deidentifier.arx.Data;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DefaultDataGenerationTest {

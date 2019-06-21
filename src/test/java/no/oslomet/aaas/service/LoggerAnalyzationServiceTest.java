@@ -4,8 +4,8 @@ import no.oslomet.aaas.analyzer.ARXAnalyzer;
 import no.oslomet.aaas.controller.AnalyzationController;
 import no.oslomet.aaas.model.Request;
 import no.oslomet.aaas.utils.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 
@@ -16,7 +16,7 @@ public class LoggerAnalyzationServiceTest {
 
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         DataFactory dataFactory = new ARXDataFactory();
         analyzationService = new AnalyzationService(new ARXAnalyzer(dataFactory));
