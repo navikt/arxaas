@@ -27,6 +27,9 @@ jobs:
       - run: wget  https://github.com/oslomet-arx-as-a-service/arx-dependency/raw/master/libarx-3.7.1.jar -P ./src/main/resources/
       - run: mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
 
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - run: chmod +x ./cc-test-reporter
+      - run: ./cc-test-reporter before-build
 
       - run: mvn dependency:go-offline
 
