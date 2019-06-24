@@ -24,7 +24,7 @@ class AnonymizationSystemTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    void anonymzation_integration_test(){
+    void anonymzation_system_test(){
         Request testRequestPayload = GenerateIntegrationTestData.zipcodeRequestPayload();
         ResponseEntity<AnonymizationResultPayload> responseEntity = restTemplate.postForEntity("/api/anonymize",testRequestPayload, AnonymizationResultPayload.class);
         assertNotNull(responseEntity);

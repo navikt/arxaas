@@ -26,7 +26,7 @@ class AnalyzationSystemTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    void getPayloadAnalyze_integration_test(){
+    void getPayloadAnalyze_system_test(){
         Request testRequestPayload = GenerateIntegrationTestData.zipcodeRequestPayload();
         ResponseEntity<RiskProfile> responseEntity = restTemplate.postForEntity("/api/analyze",testRequestPayload, RiskProfile.class);
         assertNotNull(responseEntity);
@@ -37,7 +37,7 @@ class AnalyzationSystemTest {
     }
 
     @Test
-    void getPayloadAnalyze_integration_test_after_anonymization(){
+    void getPayloadAnalyze_system_test_after_anonymization(){
         Request testRequestPayload = GenerateIntegrationTestData.zipcodeRequestPayloadAfterAnonymization();
         ResponseEntity<RiskProfile> responseEntity = restTemplate.postForEntity("/api/analyze",testRequestPayload, RiskProfile.class);
         assertNotNull(responseEntity);
