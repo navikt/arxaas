@@ -31,7 +31,7 @@ java -jar <path to jar>
 ```
 
 #### Customize your ARXaaS server
-1. Clone the ARXaaS project from github
+1. Clone the ARXaaS project from Github
 2. Download ARX Java library with sources from https://arx.deidentifier.org/downloads/
 3. Install the ARX library in your local Maven repostitory
 ```bash
