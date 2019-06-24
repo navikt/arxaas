@@ -6,7 +6,7 @@
 
 # ARXaaS - Anonymization as a Service
 
-ARX Web API Service
+ARX Web Service
 
 [API documentation](https://oslomet-arx-as-a-service.github.io/ARXaaS)
 
