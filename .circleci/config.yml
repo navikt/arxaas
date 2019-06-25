@@ -54,6 +54,7 @@ jobs:
 
       - nais/docker-deploy:
           image: arxaas/arxaas
+          version: latest
 
   deploy:
     docker:
