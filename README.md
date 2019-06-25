@@ -1,6 +1,6 @@
 [![CircleCI](https://circleci.com/gh/navikt/ARXaaS/tree/master.svg?style=svg)](https://circleci.com/gh/navikt/ARXaaS/tree/master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/49b7767ab04adf6948f2/maintainability)](https://codeclimate.com/github/navikt/ARXaaS/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/49b7767ab04adf6948f2/test_coverage)](https://codeclimate.com/github/navikt/ARXaaS/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b33732ce938a22920733/maintainability)](https://codeclimate.com/github/navikt/ARXaaS/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/b33732ce938a22920733/test_coverage)](https://codeclimate.com/github/navikt/ARXaaS/test_coverage)
 [![Maven Central](https://img.shields.io/maven-central/v/no.oslomet/arxaas.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22no.oslomet%22%20AND%20a:%22arxaas%22)
 [![Javadocs](http://javadoc.io/badge/no.oslomet/arxaas.svg)](http://javadoc.io/doc/no.oslomet/arxaas)
 
