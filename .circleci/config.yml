@@ -63,7 +63,7 @@ jobs:
       - checkout
       - run:
           name: Create github deployment for dev-fss
-          command: deployment-cli deploy create --cluster=dev-fss --appid=arxaas --repository=arxaas/arxaas --team=$TEAMNAME -r=nais.yaml --version=latest
+          command: deployment-cli deploy create --cluster=dev-fss --repository=arxaas/arxaas --team=$TEAMNAME -r=nais.yaml --version=latest
 
 workflows:
   build_and_release:
