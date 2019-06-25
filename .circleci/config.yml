@@ -54,8 +54,6 @@ jobs:
 
 workflows:
   version: 2
-  orbs:
-    nais: 'navikt/nais-deployment@1.1.1'
   build_and_release:
     jobs:
       - build
