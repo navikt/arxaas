@@ -53,8 +53,7 @@ jobs:
       - run: ./cc-test-reporter upload-coverage -d
 
       - nais/docker-deploy:
-          image: arxaas/arxaas:latest
-
+          image: arxaas/arxaas
 
   deploy:
     docker:
@@ -64,7 +63,7 @@ jobs:
       - checkout
       - run:
           name: Create github deployment for dev-fss
-          command: deployment-cli deploy create --cluster=dev-fss --repository=arxaas/arxaas --team=$TEAMNAME -r=nais.yaml --version=latest
+          command: deployment-cli deploy create --cluster=dev-fss --repository=arxaas/arxaas --team=$TEAMNAME -r=nais.yaml --version=$CIRCLE_SHA1
 
 workflows:
   build_and_release:
