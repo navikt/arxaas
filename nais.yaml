@@ -6,7 +6,7 @@ metadata:
   labels:
     team: {{team}}
 spec:
-  image: "docker.pkg.github.com/arxaas/arxaas:{{version}}"
+  image: "arxaas/arxaas:{{version}}"
   port: 8080
   replicas:
     min: 1
