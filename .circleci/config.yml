@@ -10,7 +10,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-jdk
-      - image: navikt/deployment-cli:0.1.6
+      - image: "navikt/deployment-cli:0.1.6"
 
     working_directory: ~/repo
 
