@@ -10,7 +10,6 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-jdk
-      - image: "navikt/deployment-cli:0.1.6"
 
     working_directory: ~/repo
 
@@ -63,8 +62,6 @@ jobs:
       - run:
           name: Create github deployment for dev-fss
           command: deployment-cli deploy create --cluster=dev-fss --repository=arxaas/arxaas --vars=config-dev.json --team=$TEAMNAME -r=nais.yaml --version=latest
-
-
 
 workflows:
   build_and_release:
