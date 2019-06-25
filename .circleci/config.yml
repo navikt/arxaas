@@ -58,7 +58,7 @@ jobs:
 
   deploy:
     docker:
-      - image: "navikt/deployment-cli:0.1.6"
+      - image: "navikt/deployment-cli:v0.1.7"
     steps:
       - run:
           name: Create github deployment for dev-fss
