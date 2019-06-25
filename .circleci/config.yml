@@ -53,8 +53,8 @@ jobs:
       - run: ./cc-test-reporter upload-coverage -d
 
       - nais/docker-deploy:
-          image: arxaas/arxaas
-          version: latest
+          image: arxaas/arxaas:latest
+
 
   deploy:
     docker:
