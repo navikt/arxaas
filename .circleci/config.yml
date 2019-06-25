@@ -2,7 +2,7 @@
 #
 # check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
+version: 2.1
 orbs:
   nais: 'navikt/nais-deployment@1.1.1'
 jobs:
