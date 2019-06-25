@@ -2,9 +2,9 @@
 #
 # check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2.1
+version: 2
 orbs:
-  nais: 'navikt/nais-deployment@1.1.0'
+  nais: 'navikt/nais-deployment@1.1.1'
 jobs:
   build:
     docker:
@@ -52,9 +52,11 @@ jobs:
       - run: JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
       - run: ./cc-test-reporter upload-coverage -d
 
-workflow:
-  deploy-docker-and-nais:
+workflows:
+  version: 2
+  build_and_release:
     jobs:
+      - build
       - nais/deploy:
           context: NAIS deployment     # gives you $DOCKER_USERNAME and $DOCKER_PASSWORD
           repo: navikt/ARXaaS
@@ -62,3 +64,4 @@ workflow:
           nais-template: nais.yaml
           environment: dev-fss
           team: anonymisering          # needs to be identical in Kubernetes and Github
+
