@@ -58,7 +58,9 @@ jobs:
   deploy:
     docker:
       - image: "navikt/deployment-cli:v0.1.7"
+    working_directory: ~/repo
     steps:
+      - checkout
       - run:
           name: Create github deployment for dev-fss
           command: deployment-cli deploy create --cluster=dev-fss --appid=arxaas --repository=arxaas/arxaas --team=$TEAMNAME -r=nais.yaml --version=latest
