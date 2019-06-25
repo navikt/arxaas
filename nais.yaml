@@ -1,5 +1,5 @@
-image: repo.adeo.no:5443/arxaas
-team: ailab
+image: arxaas/arxaas
+team: anonymisering
 port: 8080
 
 ingress:
