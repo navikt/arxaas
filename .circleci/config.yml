@@ -57,11 +57,13 @@ workflows:
     jobs:
       - build
       - nais/deploy:
+          requires:
+            - build
           context: NAIS deployment     # gives you $DOCKER_USERNAME and $DOCKER_PASSWORD
-          repo: navikt/example-repo
-          image: navikt/example-image
+          repo: navikt/ARXaaS
+          image: navikt/arxaas
           github-app-id: 1337          # when authenticating as a Github application
           nais-template: nais.yaml
           environment: dev-fss
-          team: awesome-team           # needs to be identical in Kubernetes and Github
+          team: anonymisering         # needs to be identical in Kubernetes and Github
 
