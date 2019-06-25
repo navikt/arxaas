@@ -56,7 +56,13 @@ jobs:
       - nais/docker-deploy:
           image: arxaas/arxaas
 
-      - run: deployment-cli deploy create --cluster=dev-fss --repository=navikt/$CIRCLE_PROJECT_REPONAME --vars=config-dev.json --team=anonymisering -r=nais.yaml --version=latest
+  deploy:
+    docker:
+      - image: "navikt/deployment-cli:0.1.6"
+    steps:
+      - run:
+          name: Create github deployment for dev-fss
+          command: deployment-cli deploy create --cluster=dev-fss --repository=arxaas/arxaas --vars=config-dev.json --team=$TEAMNAME -r=nais.yaml --version=latest
 
 
 
@@ -64,3 +70,6 @@ workflows:
   build_and_release:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build
