@@ -52,8 +52,13 @@ jobs:
       - run: JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
       - run: ./cc-test-reporter upload-coverage -d
 
-      - nais/docker-deploy:
+      - nais/deploy:
+          repo: navikt/ARXaaS
           image: navikt/arxaas
+          github-app-id: 1337
+          nais-template: nais.yaml
+          environment: dev-fss
+          team: anonymisering
 
 workflows:
   build_and_release:
