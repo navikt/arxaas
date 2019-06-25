@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: {{application_name}}
+  name: arxaas
   namespace: default
   labels:
     team: {{team}}
@@ -36,8 +36,3 @@ spec:
     requests:
       cpu: 200m
       memory: 512Mi
-    env:
-    {{#each env}}
-      name: '{{@key}}'
-        value: '{{this}}'
-        {{/each}}
