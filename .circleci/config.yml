@@ -2,7 +2,7 @@
 #
 # check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2.1
+version: 2
 orbs:
   nais: 'navikt/nais-deployment@1.1.1'
 jobs:
@@ -53,7 +53,7 @@ jobs:
       - run: ./cc-test-reporter upload-coverage -d
 
 workflows:
-  version: 2.1
+  version: 2
   orbs:
     nais: 'navikt/nais-deployment@1.1.1'
   build_and_release:
