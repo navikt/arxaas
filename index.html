@@ -985,13 +985,14 @@ Content-Type: application/json;charset=UTF-8
       "processTimeMillisecounds" : 0,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "minimalClassSize" : 5,
-        "requirements" : 1,
-        "riskThresholdJournalist" : 0.2,
-        "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
+        "attribute" : "gender",
+        "l" : 2.0,
         "localRecodingSupported" : true,
+        "minimalClassSize" : 2,
+        "requirements" : 4,
+        "riskThresholdJournalist" : 0.5,
+        "riskThresholdMarketer" : 0.5,
+        "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
         "populationModel" : null,
         "dataSubset" : null,
@@ -1001,14 +1002,13 @@ Content-Type: application/json;charset=UTF-8
         "subsetAvailable" : false
       }, {
         "monotonicWithGeneralization" : true,
-        "attribute" : "gender",
-        "l" : 2.0,
+        "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
-        "minimalClassSize" : 2,
-        "requirements" : 4,
-        "riskThresholdJournalist" : 0.5,
-        "riskThresholdMarketer" : 0.5,
-        "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
         "populationModel" : null,
         "dataSubset" : null,
@@ -1611,7 +1611,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-06-26 12:20:44 UTC
+Last updated 2019-06-26 12:29:48 UTC
 </div>
 </div>
 </body>
