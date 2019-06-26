@@ -83,13 +83,21 @@ jobs:
       - checkout
       - attach_workspace:
           at: target
+      - run:
+          name: Checkout NAIS config repository
+          command: git clone https://github.com/navikt/arxaas-nais-config.git
       # Publish to Dockerhub
       - nais/docker-deploy:
           image: arxaas/arxaas
       - run:
           name: Create github deployment for dev-fss
-          command: deployment-cli deploy create --cluster=dev-fss --repository=navikt/arxaas --team=$TEAMNAME -r=nais.yaml --version=$CIRCLE_SHA1
-
+          command: deployment-cli deploy create
+                     --cluster=dev-fss
+                     --repository=navikt/arxaas
+                     --team=$TEAMNAME
+                     --resource=arxaas-nais-config/nais.yaml
+                     --version=$CIRCLE_SHA1
+                     --vars=arxaas-nais-config/nais-dev-placeholders.json
 workflows:
   version: 2
   build_and_release:
@@ -107,5 +115,6 @@ workflows:
           filters:
             branches:
               only: master
+
 
 
