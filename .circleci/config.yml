@@ -71,7 +71,8 @@ jobs:
             git config user.name "ci-build"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist target/generated-docs --message [ci skip]
+          # Add message [ci skip] to stop circle ci running the commit
+          command: gh-pages --dist target/generated-docs --message "[ci skip]"
 
   deploy:
     docker:
