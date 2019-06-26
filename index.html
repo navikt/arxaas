@@ -433,7 +433,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#resources-index-access">Accessing the index</a>
 <ul class="sectlevel3">
-<li><a href="#resources-index-access_response_fields">Response fields</a></li>
 <li><a href="#resources-index-access_http_response">HTTP response</a></li>
 <li><a href="#resources-index-access_links">Links</a></li>
 </ul>
@@ -509,11 +508,11 @@ developed by the team to consume the web service or create their own clients.</p
 </div>
 <div class="paragraph">
 <p>Python package:
-<a href="https://github.com/oslomet-arx-as-a-service/PyAaaS" class="bare">https://github.com/oslomet-arx-as-a-service/PyAaaS</a></p>
+<a href="https://github.com/oslomet-arx-as-a-service/PyARXaaS" class="bare">https://github.com/oslomet-arx-as-a-service/PyARXaaS</a></p>
 </div>
 <div class="paragraph">
 <p>Web Service:
-<a href="https://github.com/oslomet-arx-as-a-service/AaaS" class="bare">https://github.com/oslomet-arx-as-a-service/AaaS</a></p>
+<a href="https://github.com/oslomet-arx-as-a-service/ARXaaS" class="bare">https://github.com/oslomet-arx-as-a-service/ARXaaS</a></p>
 </div>
 </div>
 </div>
@@ -620,12 +619,6 @@ use of HTTP status codes.</p>
 <h3 id="resources-index-access">Accessing the index</h3>
 <div class="paragraph">
 <p>A <code>GET</code> request is used to access the index</p>
-</div>
-<div class="sect3">
-<h4 id="resources-index-access_response_fields">Response fields</h4>
-<div class="paragraph">
-<p>Snippet response-fields not found for operation::root</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="resources-index-access_http_response">HTTP response</h4>
@@ -989,17 +982,16 @@ Content-Type: application/json;charset=UTF-8
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 5,
+      "processTimeMillisecounds" : 0,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
-        "attribute" : "gender",
-        "l" : 2.0,
+        "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
-        "minimalClassSize" : 2,
-        "requirements" : 4,
-        "riskThresholdJournalist" : 0.5,
-        "riskThresholdMarketer" : 0.5,
-        "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
         "populationModel" : null,
         "dataSubset" : null,
@@ -1009,13 +1001,14 @@ Content-Type: application/json;charset=UTF-8
         "subsetAvailable" : false
       }, {
         "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "minimalClassSize" : 5,
-        "requirements" : 1,
-        "riskThresholdJournalist" : 0.2,
-        "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
+        "attribute" : "gender",
+        "l" : 2.0,
         "localRecodingSupported" : true,
+        "minimalClassSize" : 2,
+        "requirements" : 4,
+        "riskThresholdJournalist" : 0.5,
+        "riskThresholdMarketer" : 0.5,
+        "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
         "populationModel" : null,
         "dataSubset" : null,
@@ -1618,7 +1611,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-05-09 11:18:46 UTC
+Last updated 2019-06-26 12:20:44 UTC
 </div>
 </div>
 </body>
