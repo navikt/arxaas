@@ -46,7 +46,7 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run all tests!
-      - run: mvn integration-test
+      - run: mvn package
 
       # run code climate test reporter and upload
       - run: JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
@@ -54,6 +54,27 @@ jobs:
 
       - nais/docker-deploy:
           image: arxaas/arxaas
+
+      - persist_to_workspace:
+          root: target
+          paths: generated-docs
+
+  docs-deploy:
+    docker:
+      - image: node:8.10.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "ci-build@klukas.net"
+            git config user.name "ci-build"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dist target/generated-docs
 
   deploy:
     docker:

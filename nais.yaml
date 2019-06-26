@@ -1,11 +1,12 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: arxaas
+  name: arxaas-test
   namespace: default
   labels:
     team: {{team}}
 spec:
+  ingresses: {{{ingresses}}}
   image: arxaas/arxaas:{{version}}
   port: 8080
   replicas:
