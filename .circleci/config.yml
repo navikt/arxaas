@@ -61,6 +61,7 @@ jobs:
       - image: node:8.10.0
     steps:
       - checkout
+      # Attach workspace containing generated docs
       - attach_workspace:
           at: target
       - run:
