@@ -6,7 +6,6 @@ metadata:
   labels:
     team: {{team}}
 spec:
-  ingresses: {{{ingresses}}}
   image: arxaas/arxaas:{{version}}
   port: 8080
   replicas:
