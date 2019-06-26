@@ -56,7 +56,7 @@ jobs:
           root: target
           paths: ./*
 
-  docs-deploy:
+  docs-publish:
     docker:
       - image: node:8.10.0
     steps:
@@ -93,6 +93,9 @@ workflows:
   build_and_release:
     jobs:
       - build
+      - docs-publish
+        requires:
+          - build
       - deploy:
           requires:
             - build
