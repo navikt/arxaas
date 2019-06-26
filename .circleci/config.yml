@@ -92,7 +92,7 @@ jobs:
                      --cluster=dev-fss
                      --repository=navikt/arxaas
                      --team=$TEAMNAME
-                     --resources=nais.yaml
+                     --resource=nais.yaml
                      --version=$CIRCLE_SHA1
                      --vars=nais-dev-placeholders.json
 
