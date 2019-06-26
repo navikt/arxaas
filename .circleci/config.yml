@@ -93,7 +93,7 @@ workflows:
   build_and_release:
     jobs:
       - build
-      - docs-publish
+      - docs-publish:
           requires:
             - build
       - deploy:
