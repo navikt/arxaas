@@ -98,6 +98,9 @@ workflows:
       - publish-docs:
           requires:
             - build
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - build
