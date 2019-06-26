@@ -89,7 +89,7 @@ jobs:
 
       - run:
           name: Checkout NAIS config repository
-          command: https://github.com/navikt/arxaas-nais-config.git
+          command: git clone https://github.com/navikt/arxaas-nais-config.git
       - run:
           name: Create github deployment for dev-fss
           command: deployment-cli deploy create
