@@ -88,7 +88,13 @@ jobs:
           image: arxaas/arxaas
       - run:
           name: Create github deployment for dev-fss
-          command: deployment-cli deploy create --cluster=dev-fss --repository=navikt/arxaas --team=$TEAMNAME -r=nais.yaml --version=$CIRCLE_SHA1
+          command: deployment-cli deploy create \
+                     --cluster=dev-fss \
+                     --repository=navikt/arxaas \
+                     --team=$TEAMNAME \
+                     --resources=nais.yaml \
+                     --version=$CIRCLE_SHA1 \
+                     --vars=nais-dev-placeholders.json
 
 workflows:
   version: 2
@@ -104,8 +110,6 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: master
+
 
 
