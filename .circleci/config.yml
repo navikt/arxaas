@@ -94,8 +94,8 @@ workflows:
     jobs:
       - build
       - docs-publish
-        requires:
-          - build
+          requires:
+            - build
       - deploy:
           requires:
             - build
