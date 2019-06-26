@@ -56,11 +56,12 @@ jobs:
           root: target
           paths: ./*
 
-  docs-deploy:
+  publish-docs:
     docker:
       - image: node:8.10.0
     steps:
       - checkout
+      # Attach workspace containing generated docs
       - attach_workspace:
           at: target
       - run:
@@ -71,7 +72,8 @@ jobs:
             git config user.name "ci-build"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist target/generated-docs
+          # Add message [ci skip] to stop circle ci running the commit
+          command: gh-pages --dist target/generated-docs --message "[ci skip]"
 
   deploy:
     docker:
@@ -93,6 +95,9 @@ workflows:
   build_and_release:
     jobs:
       - build
+      - publish-docs:
+          requires:
+            - build
       - deploy:
           requires:
             - build
