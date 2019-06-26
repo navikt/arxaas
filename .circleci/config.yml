@@ -57,7 +57,7 @@ jobs:
 
       - persist_to_workspace:
           root: target
-          paths: *
+          paths: /*
 
   docs-deploy:
     docker:
