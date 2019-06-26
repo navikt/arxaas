@@ -87,6 +87,7 @@ jobs:
           command: deployment-cli deploy create --cluster=dev-fss --repository=navikt/arxaas --team=$TEAMNAME -r=nais.yaml --version=$CIRCLE_SHA1
 
 workflows:
+  version: 2
   build_and_release:
     jobs:
       - build
