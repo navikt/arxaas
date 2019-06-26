@@ -1,36 +1,40 @@
-image: repo.adeo.no:5443/arxaas
-team: ailab
-port: 8080
-
-ingress:
-  enabled: true
-  
-replicas:
-  min: 1
-  max: 1
-
-resources:
-  limits:
-    cpu: 1500m
-    memory: 4800Mi
-  requests:
-    cpu: 200m
-    memory: 512Mi
- 
-healthcheck: #Optional
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: arxaastesting
+  namespace: default
+  labels:
+    team: {{team}}
+spec:
+  ingresses:
+    - https://arxaastesting.nais.preprod.local
+  image: arxaas/arxaas:{{version}}
+  port: 8080
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 70
   liveness:
-    path: /nais/isAlive
-    initialDelay: 60
+    path: /isAlive
     timeout: 1
-    periodSeconds: 5     # How often (in seconds) to perform the probe. Default to 10 seconds
-    failureThreshold: 10 # when a Pod starts and the probe fails,
-      # nais will try failureThreshold times before giving up and restarting the Pod
-    # Defaults to 3
+    initialDelay: 60
+    periodSeconds: 5
+    failureThreshold: 30
   readiness:
     path: /nais/isReady
-    initialDelay: 60
     timeout: 1
-
-prometheus: 
-  enabled: true
-  path: /actuator/prometheus
+    initialDelay: 60
+    failureThreshold: 30
+  leaderElection: false
+  prometheus:
+    enabled: true
+    path: /prometheus
+  istio:
+    enabled: false
+  resources:
+    limits:
+      cpu: 1500m
+      memory: 4800Mi
+    requests:
+      cpu: 200m
+      memory: 512Mi

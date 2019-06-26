@@ -2,7 +2,9 @@
 #
 # check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
+version: 2.1
+orbs:
+  nais: 'navikt/nais-deployment@1.1.1'
 jobs:
   build:
     docker:
@@ -44,8 +46,50 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run all tests!
-      - run: mvn integration-test
+      - run: mvn package
 
       # run code climate test reporter and upload
       - run: JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
       - run: ./cc-test-reporter upload-coverage -d
+
+      - nais/docker-deploy:
+          image: arxaas/arxaas
+
+      - persist_to_workspace:
+          root: target
+          paths: generated-docs
+
+  docs-deploy:
+    docker:
+      - image: node:8.10.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "ci-build@klukas.net"
+            git config user.name "ci-build"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dist target/generated-docs
+
+  deploy:
+    docker:
+      - image: "navikt/deployment-cli:v0.1.7"
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Create github deployment for dev-fss
+          command: deployment-cli deploy create --cluster=dev-fss --repository=navikt/arxaas --team=$TEAMNAME -r=nais.yaml --version=$CIRCLE_SHA1
+
+workflows:
+  build_and_release:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
