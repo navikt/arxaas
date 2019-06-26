@@ -6,6 +6,8 @@ metadata:
   labels:
     team: {{team}}
 spec:
+  ingresses:
+    - https://arxaastesting.nais.preprod.local
   image: arxaas/arxaas:{{version}}
   port: 8080
   replicas:
