@@ -52,13 +52,9 @@ jobs:
       - run: JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
       - run: ./cc-test-reporter upload-coverage -d
 
-      - nais/docker-deploy:
-          image: arxaas/arxaas
-
       - persist_to_workspace:
           root: target
-          paths:
-            - ./*
+          paths: ./*
 
   docs-deploy:
     docker:
@@ -83,6 +79,11 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - attach_workspace:
+          at: target
+      # Publish to Dockerhub
+      - nais/docker-deploy:
+          image: arxaas/arxaas
       - run:
           name: Create github deployment for dev-fss
           command: deployment-cli deploy create --cluster=dev-fss --repository=navikt/arxaas --team=$TEAMNAME -r=nais.yaml --version=$CIRCLE_SHA1
