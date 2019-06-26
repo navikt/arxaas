@@ -56,7 +56,7 @@ jobs:
           root: target
           paths: ./*
 
-  docs-publish:
+  publish-docs:
     docker:
       - image: node:8.10.0
     steps:
@@ -71,7 +71,7 @@ jobs:
             git config user.name "ci-build"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist target/generated-docs
+          command: gh-pages --dist target/generated-docs --message [ci skip]
 
   deploy:
     docker:
@@ -93,7 +93,7 @@ workflows:
   build_and_release:
     jobs:
       - build
-      - docs-publish:
+      - publish-docs:
           requires:
             - build
       - deploy:
