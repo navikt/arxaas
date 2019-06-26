@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: arxaas-test
+  name: arxaastesting
   namespace: default
   labels:
     team: {{team}}
