@@ -498,21 +498,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>ARX as a Service is a Oslo Metropolitan University (OsloMet) bachelor thesis project completed in cooperation with
 Norwegian Labour and Welfare Administration (NAV). The project aims to make ARX features and functionality available
-as a Python package. To deliver on this goal the bachelor team decided to create a web service implemented with
-Spring boot which exposes ARX functionality as a RESTful API. Users can then either use the companion Python package
-developed by the team to consume the web service or create their own clients.</p>
+as a micro service. To deliver on this goal the bachelor team decided to create a web service implemented with
+Spring boot which exposes ARX functionality as a RESTful API. Users can then either use the companion packages
+and clients developed by the team to interact the web service or create their own clients.</p>
 </div>
 <div class="paragraph">
-<p>Bachelor thesis group website:
+<p>Bachelor thesis website:
 <a href="https://oslomet-arx-as-a-service.github.io/" class="bare">https://oslomet-arx-as-a-service.github.io/</a></p>
 </div>
 <div class="paragraph">
 <p>Python package:
-<a href="https://github.com/oslomet-arx-as-a-service/PyARXaaS" class="bare">https://github.com/oslomet-arx-as-a-service/PyARXaaS</a></p>
+<a href="https://github.com/navikt/PyARXaaS" class="bare">https://github.com/navikt/PyARXaaS</a></p>
 </div>
 <div class="paragraph">
 <p>Web Service:
-<a href="https://github.com/oslomet-arx-as-a-service/ARXaaS" class="bare">https://github.com/oslomet-arx-as-a-service/ARXaaS</a></p>
+<a href="https://github.com/navikt/ARXaaS" class="bare">https://github.com/navikt/ARXaaS</a></p>
 </div>
 </div>
 </div>
@@ -521,7 +521,7 @@ developed by the team to consume the web service or create their own clients.</p
 <div class="sectionbody">
 <div class="paragraph">
 <p>RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
-use of HTTP verbs.</p>
+use of HTTP verbs. The service utilizes the following HTTP verbs on the endpoints.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -537,11 +537,11 @@ use of HTTP verbs.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Used to retrieve a metrics and logging data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to retrieve metrics and logging data</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>POST</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Used to analyze and or anonymize a request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used for requests to analyze, anonymize or generate generalization hierarchies</p></td>
 </tr>
 </tbody>
 </table>
@@ -1611,7 +1611,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-06-26 14:01:29 UTC
+Last updated 2019-06-27 12:18:16 UTC
 </div>
 </div>
 </body>
