@@ -8,34 +8,34 @@
 
 ARX as a Service is a Oslo Metropolitan University (OsloMet) bachelor thesis project completed in cooperation with
 Norwegian Labour and Welfare Administration (NAV). The project aims to make ARX features and functionality available
-as a Python package. To deliver on this goal the bachelor team decided to create a web service implemented with
-Spring boot which exposes ARX functionality as a RESTful API. Users can then either use the companion Python package
-developed by the team to consume the web service or create their own clients.
+as a micro service. To deliver on this goal the bachelor team decided to create a web service implemented with
+Spring boot which exposes ARX functionality as a RESTful API. Users can then either use the companion packages
+and clients developed by the team to interact the web service or create their own clients.
 
 
-Bachelor thesis group website:
+Bachelor thesis website:
 https://oslomet-arx-as-a-service.github.io/
 
 Python package:
-https://github.com/oslomet-arx-as-a-service/PyARXaaS
+https://github.com/navikt/PyARXaaS
 
 Web Service:
-https://github.com/oslomet-arx-as-a-service/ARXaaS
+https://github.com/navikt/ARXaaS
 
 [[overview-http-verbs]]
 == HTTP verbs
 
 RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
-use of HTTP verbs.
+use of HTTP verbs. The service utilizes the following HTTP verbs on the endpoints.
 
 |===
 | Verb | Usage
 
 | `GET`
-| Used to retrieve a metrics and logging data
+| Used to retrieve metrics and logging data
 
 | `POST`
-| Used to analyze and or anonymize a request
+| Used for requests to analyze, anonymize or generate generalization hierarchies
 |===
 
 [[overview-http-status-codes]]
