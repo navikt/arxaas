@@ -103,11 +103,11 @@ workflows:
   build_and_release:
     jobs:
       - build
-        filters:
-          branches:
-            only: master
-          tags:
-            only: /.*/
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /.*/
       - publish-docs:
           requires:
             - build
