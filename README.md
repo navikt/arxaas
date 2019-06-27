@@ -8,7 +8,10 @@
 
 ARX Web Service
 
-[API documentation](https://oslomet-arx-as-a-service.github.io/ARXaaS)
+
+#### Documentation
+
+[API documentation](https://navikt.github.io/ARXaaS/)
 
 #### Running the service locally
 
