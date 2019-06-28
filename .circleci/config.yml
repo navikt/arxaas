@@ -87,7 +87,7 @@ jobs:
           command: git clone https://github.com/navikt/arxaas-nais-config.git
       # Publish to Dockerhub
       - nais/docker-deploy:
-          image: arxaas/arxaas
+          image: navikt/arxaas
       - run:
           name: Create github deployment for dev-fss
           command: deployment-cli deploy create
