@@ -35,7 +35,7 @@ public class AttackerSuccess {
     }
 
     /***
-     * Returns a double taht shows the success rate of a journalist risk
+     * Returns a double that shows the success rate of a journalist risk
      * @param riskModelSampleSummary containing summary of the dataset risks
      * @return attacker success rate of a journalist risk
      */
@@ -44,7 +44,7 @@ public class AttackerSuccess {
     }
 
     /***
-     * Returns a double taht shows the success rate of a marketer risk
+     * Returns a double that shows the success rate of a marketer risk
      * @param riskModelSampleSummary containing summary of the dataset risks
      * @return attacker success rate of a marketer risk
      */
