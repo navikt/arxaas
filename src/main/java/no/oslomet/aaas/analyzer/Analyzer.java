@@ -9,9 +9,9 @@ import no.oslomet.aaas.model.Request;
 public interface Analyzer {
 
     /**
-     * Method to run analysation on the anonymization metrics of the data in the payload
+     * Method to run analyzation on the anonymization metrics of the data in the payload
      * with the provided parameters in the payload.
-     * @param payload Request containing the data to be analysed and parameters for the analysation process
+     * @param payload Request containing the data to be analyzed and parameters for the analyzation process
      * @return RiskProfile object containing the metrics for the provided data
      */
     RiskProfile analyze(Request payload);

@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Analyzer class using the ARX library to implement the analysation
+ * Analyzer class using the ARX library to implement the analyzation
  */
 @Component
 public class ARXAnalyzer implements Analyzer {
