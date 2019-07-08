@@ -75,6 +75,8 @@ jobs:
           command: gh-pages --dist target/generated-docs --message "[ci skip]"
 
   publish-to-dockerhub:
+    docker:
+      - image: circleci/ruby:2.4.2-jessie-node
     steps:
       - checkout
       - attach_workspace:
