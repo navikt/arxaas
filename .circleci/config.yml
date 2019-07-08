@@ -87,9 +87,9 @@ jobs:
       - run: |
           docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
       - run: |
-          DATE=`date +"%m-%d-%y"`
+          export DATE=`date +"%m-%d-%y"`
       - run: |
-          TAG=$DATE-$CIRCLE_SHA1
+          export TAG=${DATE}-${CIRCLE_SHA1}
       - run: |
           echo $TAG
       - run: docker build -t navikt/arxaas:$TAG .
