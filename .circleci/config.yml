@@ -75,18 +75,19 @@ jobs:
           command: gh-pages --dist target/generated-docs --message "[ci skip]"
 
   publish-to-dockerhub:
-    - checkout
-    - attach_workspace:
-        at: target
-    - setup_remote_docker:
-        docker_layer_caching: true
-    - run: |
-        docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-    - run: DATE=date +"%m-%d-%y"
-    - run: TAG=$DATE-$CIRCLE_SHA1
-    - run: docker build -t navikt/arxaas:$TAG
-    - run: docker tag $TAG latest
-    - run: docker push navikt/arxaas:$TAG
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run: |
+          docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+      - run: DATE=date +"%m-%d-%y"
+      - run: TAG=$DATE-$CIRCLE_SHA1
+      - run: docker build -t navikt/arxaas:$TAG
+      - run: docker tag $TAG latest
+      - run: docker push navikt/arxaas:$TAG
 
   deploy-dev:
     docker:
