@@ -74,7 +74,21 @@ jobs:
           # Add message [ci skip] to stop circle ci running the commit
           command: gh-pages --dist target/generated-docs --message "[ci skip]"
 
-  deploy:
+  publish-to-dockerhub:
+    - checkout
+    - attach_workspace:
+        at: target
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - run: |
+        docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+    - run: DATE=date +"%m-%d-%y"
+    - run: TAG=$DATE-$CIRCLE_SHA1
+    - run: docker build -t navikt/arxaas:$TAG
+    - run: docker tag $TAG latest
+    - run: docker push navikt/arxaas:$TAG
+
+  deploy-dev:
     docker:
       - image: "navikt/deployment-cli:v0.1.7"
     working_directory: ~/repo
@@ -97,6 +111,7 @@ jobs:
                      --resource=arxaas-nais-config/nais.yaml
                      --version=$CIRCLE_SHA1
                      --vars=arxaas-nais-config/nais-dev-placeholders.json
+
 workflows:
   version: 2
   build_and_release:
@@ -111,7 +126,13 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy:
+      - publish-to-dockerhub:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: master
+      - deploy-dev:
           requires:
             - build
           filters:
