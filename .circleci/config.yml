@@ -93,12 +93,13 @@ jobs:
           echo $TAG
       - run: docker build -t navikt/arxaas:$TAG .
       - run: docker tag navikt/arxaas:$TAG navikt/arxaas:latest
-      - run: docker push navikt/arxaas
+      - run: docker push navikt/arxaas:$TAG
+      - run: docker push navikt/arxaas:latest
       - run:
           name: Persist img tag in file
           command: |
             mkdir img_tag
-            echo $TAG >> docker_img_tag
+            echo $TAG >> img_tag/docker_img_tag
       - persist_to_workspace:
           root: img_tag
           paths: ./docker_img_tag
