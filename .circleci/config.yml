@@ -133,7 +133,7 @@ jobs:
                      --repository=navikt/arxaas
                      --team=$TEAMNAME
                      --resource=arxaas-nais-config/nais.yaml
-                     --version=$ARXAAS_IMAGE_TAG
+                     --version=$CIRCLE_SHA1
                      --vars=arxaas-nais-config/nais-dev-placeholders.json
 
 workflows:
