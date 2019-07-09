@@ -119,6 +119,7 @@ jobs:
       - run:
           name: Fetch docker image tag and set as env variable
           command: |
+            cat img_tag/docker_img_tag
             echo 'export ARXAAS_IMAGE_TAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
       - run:
           name: Checkout NAIS config repository
