@@ -128,13 +128,15 @@ jobs:
           command: git clone https://github.com/navikt/arxaas-nais-config.git
       - run:
           name: Create github deployment for dev-fss
-          command: deployment-cli deploy create
-                     --cluster=dev-fss
-                     --repository=navikt/arxaas
-                     --team=$TEAMNAME
-                     --resource=arxaas-nais-config/nais.yaml
-                     --version=$CIRCLE_SHA1
-                     --vars=arxaas-nais-config/nais-dev-placeholders.json
+          command: |
+            echo $ARXAAS_IMAGE_TAG
+            deployment-cli deploy create
+                      --cluster=dev-fss
+                      --repository=navikt/arxaas
+                      --team=$TEAMNAME
+                      --resource=arxaas-nais-config/nais.yaml
+                      --version=$ARXAAS_IMAGE_TAG
+                      --vars=arxaas-nais-config/nais-dev-placeholders.json
 
 workflows:
   version: 2
