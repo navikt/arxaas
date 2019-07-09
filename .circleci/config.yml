@@ -93,7 +93,7 @@ jobs:
           echo $TAG
       - run: docker build -t navikt/arxaas:$TAG .
       - run: docker tag navikt/arxaas:$TAG latest
-      - run: docker push navikt/arxaas:$TAG
+      - run: docker push navikt/arxaas
 
   deploy-dev:
     docker:
