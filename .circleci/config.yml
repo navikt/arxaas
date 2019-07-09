@@ -117,14 +117,6 @@ jobs:
       - attach_workspace:
           at: img_tag
       - run:
-          name: Fetch docker image tag and set as env variable
-          command: |
-            echo 'export IMAGETAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
-      - run:
-          name: Echo tag
-          command: |
-            echo $IMAGETAG
-      - run:
           name: Checkout NAIS config repository
           command: git clone https://github.com/navikt/arxaas-nais-config.git
       - run:
