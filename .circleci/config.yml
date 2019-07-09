@@ -119,24 +119,23 @@ jobs:
       - run:
           name: Fetch docker image tag and set as env variable
           command: |
-            echo 'export ARXAAS_IMAGE_TAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
+            echo 'export IMAGETAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
       - run:
           name: Echo tag
           command: |
-            echo $ARXAAS_IMAGE_TAG
+            echo $IMAGETAG
       - run:
           name: Checkout NAIS config repository
           command: git clone https://github.com/navikt/arxaas-nais-config.git
       - run:
           name: Create github deployment for dev-fss
-          command: |
-            deployment-cli deploy create
-                      --cluster=dev-fss
-                      --repository=navikt/arxaas
-                      --team=$TEAMNAME
-                      --resource=arxaas-nais-config/nais.yaml
-                      --version=$ARXAAS_IMAGE_TAG
-                      --vars=arxaas-nais-config/nais-dev-placeholders.json
+          command: deployment-cli deploy create
+                    --cluster=dev-fss
+                    --repository=navikt/arxaas
+                    --team=$TEAMNAME
+                    --resource=arxaas-nais-config/nais.yaml
+                    --version=$IMAGETAG
+                    --vars=arxaas-nais-config/nais-dev-placeholders.json
 
 workflows:
   version: 2
