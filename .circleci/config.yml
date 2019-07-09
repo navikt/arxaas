@@ -150,15 +150,7 @@ workflows:
       - publish-to-dockerhub:
           requires:
             - build
-          filters:
-            branches:
-              only: master
       - deploy-dev:
           requires:
             - build
             - publish-to-dockerhub
-          filters:
-            tags:
-              only: /[0-9]+(\.[0-9]+)*$/
-            branches:
-              ignore: /.*/
