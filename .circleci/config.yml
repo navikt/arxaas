@@ -74,7 +74,39 @@ jobs:
           # Add message [ci skip] to stop circle ci running the commit
           command: gh-pages --dist target/generated-docs --message "[ci skip]"
 
-  deploy:
+  publish-to-dockerhub:
+    docker:
+      - image: circleci/ruby:2.4.2-jessie-node
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run: |
+          docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+      - run:
+          name: Create docker image tag
+          command: |
+            echo 'export DATE=`date +"%m-%d-%y"`' >> $BASH_ENV
+            echo 'export TAG=$DATE-$CIRCLE_SHA1' >> $BASH_ENV
+      - run: |
+          echo $TAG
+      - run: docker build -t navikt/arxaas:$TAG .
+      - run: docker tag navikt/arxaas:$TAG navikt/arxaas:latest
+      - run: docker push navikt/arxaas:$TAG
+      - run: docker push navikt/arxaas:latest
+      - run:
+          name: Persist img tag in file
+          command: |
+            mkdir img_tag
+            echo $TAG >> img_tag/docker_img_tag
+      - persist_to_workspace:
+          root: img_tag
+          paths: ./docker_img_tag
+
+  deploy-dev:
     docker:
       - image: "navikt/deployment-cli:v0.1.7"
     working_directory: ~/repo
@@ -82,12 +114,15 @@ jobs:
       - checkout
       - attach_workspace:
           at: target
+      - attach_workspace:
+          at: img_tag
+      - run:
+          name: Fetch docker image tag and set as env variable
+          command: |
+            echo 'export ARXAAS_IMAGE_TAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
       - run:
           name: Checkout NAIS config repository
           command: git clone https://github.com/navikt/arxaas-nais-config.git
-      # Publish to Dockerhub
-      - nais/docker-deploy:
-          image: navikt/arxaas
       - run:
           name: Create github deployment for dev-fss
           command: deployment-cli deploy create
@@ -95,8 +130,9 @@ jobs:
                      --repository=navikt/arxaas
                      --team=$TEAMNAME
                      --resource=arxaas-nais-config/nais.yaml
-                     --version=$CIRCLE_SHA1
+                     --version=$ARXAAS_IMAGE_TAG
                      --vars=arxaas-nais-config/nais-dev-placeholders.json
+
 workflows:
   version: 2
   build_and_release:
@@ -111,9 +147,16 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy:
+      - publish-to-dockerhub:
           requires:
             - build
+          filters:
+            branches:
+              only: master
+      - deploy-dev:
+          requires:
+            - build
+            - publish-to-dockerhub
           filters:
             tags:
               only: /[0-9]+(\.[0-9]+)*$/
