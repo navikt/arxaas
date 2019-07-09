@@ -122,7 +122,7 @@ jobs:
             cat img_tag/docker_img_tag
             echo 'export ARXAAS_IMAGE_TAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
             source $BASH_ENV
-            echo ARXAAS_IMAGE_TAG
+            echo $ARXAAS_IMAGE_TAG
       - run:
           name: Checkout NAIS config repository
           command: git clone https://github.com/navikt/arxaas-nais-config.git
