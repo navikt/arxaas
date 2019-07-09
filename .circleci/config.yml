@@ -125,9 +125,31 @@ jobs:
                     --cluster=dev-fss
                     --repository=navikt/arxaas
                     --team=$TEAMNAME
-                    --resource=arxaas-nais-config/nais.yaml
+                    --resource=arxaas-nais-config/arxaas-nais.yaml
                     --version=`cat img_tag/docker_img_tag`
-                    --vars=arxaas-nais-config/nais-dev-placeholders.json
+                    --vars=arxaas-nais-config/arxaas-nais-dev-placeholders.json
+  deploy-prod:
+    docker:
+      - image: "navikt/deployment-cli:v0.1.7"
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - attach_workspace:
+          at: img_tag
+      - run:
+          name: Checkout NAIS config repository
+          command: git clone https://github.com/navikt/arxaas-nais-config.git
+      - run:
+          name: Create github deployment for prod-fss
+          command: deployment-cli deploy create
+            --cluster=prod-fss
+            --repository=navikt/arxaas
+            --team=$TEAMNAME
+            --resource=arxaas-nais-config/arxaas-nais.yaml
+            --version=`cat img_tag/docker_img_tag`
+            --vars=arxaas-nais-config/arxaas-nais-prod-placeholders.json
 
 workflows:
   version: 2
@@ -147,6 +169,10 @@ workflows:
           requires:
             - build
       - deploy-dev:
+          requires:
+            - build
+            - publish-to-dockerhub
+      - deploy-prod:
           requires:
             - build
             - publish-to-dockerhub
