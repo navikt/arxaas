@@ -86,9 +86,11 @@ jobs:
           docker_layer_caching: true
       - run: |
           docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-      - run: |
-          echo 'export DATE=`date +"%m-%d-%y"`' >> $BASH_ENV
-          echo 'export TAG=$DATE-$CIRCLE_SHA1' >> $BASH_ENV
+      - run:
+          name: Create docker image tag
+          command: |
+            echo 'export DATE=`date +"%m-%d-%y"`' >> $BASH_ENV
+            echo 'export TAG=$DATE-$CIRCLE_SHA1' >> $BASH_ENV
       - run: |
           echo $TAG
       - run: docker build -t navikt/arxaas:$TAG .
