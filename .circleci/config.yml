@@ -88,12 +88,9 @@ jobs:
           docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
       - run: |
           export DATE=`date +"%m-%d-%y"`
+          echo 'export TAG=$DATE-$CIRCLE_SHA1' >> $BASH_ENV
       - run: |
-          export TAG=${DATE}-${CIRCLE_SHA1}
-      - run: |
-          echo $TAG
-      - run: |
-          echo $DATE
+          echo $BASH_ENV
       - run: docker build -t navikt/arxaas:$TAG .
       - run: docker tag $TAG latest
       - run: docker push navikt/arxaas:$TAG
