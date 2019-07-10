@@ -769,99 +769,99 @@ Content-Type: application/json;charset=UTF-8
   },
   "distributionOfRisk" : {
     "riskIntervalList" : [ {
-      "interval" : "]50,100]",
+      "interval" : "[50,100]",
       "recordsWithRiskWithinInteval" : 1.0,
       "recordsWithMaxmalRiskWithinInterval" : 1.0
     }, {
-      "interval" : "]33.4,50]",
+      "interval" : "[33.4,50)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]25,33.4]",
+      "interval" : "[25,33.4)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]20,25]",
+      "interval" : "[20,25)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]16.7,20]",
+      "interval" : "[16.7,20)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]14.3,16.7]",
+      "interval" : "[14.3,16.7)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]12.5,14.3]",
+      "interval" : "[12.5,14.3)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]10,12.5]",
+      "interval" : "[10,12.5)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]9,10]",
+      "interval" : "[9,10)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]8,9]",
+      "interval" : "[8,9)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]7,8]",
+      "interval" : "[7,8)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]6,7]",
+      "interval" : "[6,7)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]5,6]",
+      "interval" : "[5,6)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]4,5]",
+      "interval" : "[4,5)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]3,4]",
+      "interval" : "[3,4)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]2,3]",
+      "interval" : "[2,3)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]1,2]",
+      "interval" : "[1,2)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]0.1,1]",
+      "interval" : "[0.1,1)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]0.01,0.1]",
+      "interval" : "[0.01,0.1)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]0.001,0.01]",
+      "interval" : "[0.001,0.01)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]0.0001,0.001]",
+      "interval" : "[0.0001,0.001)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]1e-5,0.0001]",
+      "interval" : "[1e-5,0.0001)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]1e-6,1e-5]",
+      "interval" : "[1e-6,1e-5)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     }, {
-      "interval" : "]0,1e-6]",
+      "interval" : "[0,1e-6)",
       "recordsWithRiskWithinInteval" : 0.0,
       "recordsWithMaxmalRiskWithinInterval" : 0.0
     } ]
@@ -982,36 +982,36 @@ Content-Type: application/json;charset=UTF-8
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 0,
+      "processTimeMillisecounds" : 2,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
-        "attribute" : "gender",
-        "l" : 2.0,
+        "k" : 5,
+        "requirements" : 1,
+        "minimalClassSize" : 5,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
-        "minimalClassSize" : 2,
-        "requirements" : 4,
-        "riskThresholdJournalist" : 0.5,
-        "riskThresholdMarketer" : 0.5,
-        "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
-        "populationModel" : null,
         "dataSubset" : null,
+        "populationModel" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
         "subsetAvailable" : false
       }, {
         "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "minimalClassSize" : 5,
-        "requirements" : 1,
-        "riskThresholdJournalist" : 0.2,
-        "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
+        "attribute" : "gender",
+        "l" : 2.0,
         "localRecodingSupported" : true,
+        "requirements" : 4,
+        "minimalClassSize" : 2,
+        "riskThresholdJournalist" : 0.5,
+        "riskThresholdMarketer" : 0.5,
+        "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
-        "populationModel" : null,
         "dataSubset" : null,
+        "populationModel" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
@@ -1060,99 +1060,99 @@ Content-Type: application/json;charset=UTF-8
     },
     "distributionOfRisk" : {
       "riskIntervalList" : [ {
-        "interval" : "]50,100]",
+        "interval" : "[50,100]",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 1.0
       }, {
-        "interval" : "]33.4,50]",
+        "interval" : "[33.4,50)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 1.0
       }, {
-        "interval" : "]25,33.4]",
+        "interval" : "[25,33.4)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 1.0
       }, {
-        "interval" : "]20,25]",
+        "interval" : "[20,25)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 1.0
       }, {
-        "interval" : "]16.7,20]",
+        "interval" : "[16.7,20)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 1.0
       }, {
-        "interval" : "]14.3,16.7]",
+        "interval" : "[14.3,16.7)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 1.0
       }, {
-        "interval" : "]12.5,14.3]",
+        "interval" : "[12.5,14.3)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 1.0
       }, {
-        "interval" : "]10,12.5]",
+        "interval" : "[10,12.5)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 1.0
       }, {
-        "interval" : "]9,10]",
+        "interval" : "[9,10)",
         "recordsWithRiskWithinInteval" : 1.0,
         "recordsWithMaxmalRiskWithinInterval" : 1.0
       }, {
-        "interval" : "]8,9]",
+        "interval" : "[8,9)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]7,8]",
+        "interval" : "[7,8)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]6,7]",
+        "interval" : "[6,7)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]5,6]",
+        "interval" : "[5,6)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]4,5]",
+        "interval" : "[4,5)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]3,4]",
+        "interval" : "[3,4)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]2,3]",
+        "interval" : "[2,3)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]1,2]",
+        "interval" : "[1,2)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]0.1,1]",
+        "interval" : "[0.1,1)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]0.01,0.1]",
+        "interval" : "[0.01,0.1)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]0.001,0.01]",
+        "interval" : "[0.001,0.01)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]0.0001,0.001]",
+        "interval" : "[0.0001,0.001)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]1e-5,0.0001]",
+        "interval" : "[1e-5,0.0001)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]1e-6,1e-5]",
+        "interval" : "[1e-6,1e-5)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       }, {
-        "interval" : "]0,1e-6]",
+        "interval" : "[0,1e-6)",
         "recordsWithRiskWithinInteval" : 0.0,
         "recordsWithMaxmalRiskWithinInterval" : 0.0
       } ]
@@ -1611,7 +1611,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-07-10 13:35:55 UTC
+Last updated 2019-07-10 13:36:53 UTC
 </div>
 </div>
 </body>
