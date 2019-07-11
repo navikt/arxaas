@@ -227,3 +227,4 @@ workflows:
       - publish-snapshot:
           requires:
             - build
+          context: Maven Central Release
