@@ -19,7 +19,7 @@ public class ApiController {
      * @return Resources object containing links to available resources in the service
      */
     @GetMapping()
-    public Resources<Object> apiRoot(){
+    public Resources<Object> root(){
         Link link_root = linkTo(this.getClass()).withSelfRel();
         Link link_anonymize = linkTo(AnonymizationController.class).withRel("anonymize");
         Link link_analyze = linkTo(AnalyzationController.class).withRel("analyze");
