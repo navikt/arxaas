@@ -106,6 +106,39 @@ jobs:
           root: img_tag
           paths: ./docker_img_tag
 
+  publish-snapshot:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:11-jdk
+
+    working_directory: ~/repo
+
+    environment:
+      # customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout
+      # download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      # download libarx
+      - run: wget  https://github.com/oslomet-arx-as-a-service/arx-dependency/raw/master/libarx-3.7.1.jar -P ./src/main/resources/
+      # maven install libarx as local dependency
+      - run: mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
+      - run:
+          name: Decrypt GPG key for deployment til Maven Central
+          command: "gpg --yes --batch --passphrase=$DECRYPT_GPG_KEY_PASSPHRASE codesigning.asc.gpg"
+      - run:
+          name: Import GPG private key to keyring
+          command: "gpg --yes --batch --fast-import codesigning.asc"
+      - run:
+          name: Deploy to Maven Central
+          command: "export GPG_TTY=$(tty) && mvn --settings .maven.xml deploy -Prelease -DskipTests=true"
+
   deploy-dev:
     docker:
       - image: "navikt/deployment-cli:v0.1.7"
@@ -191,3 +224,6 @@ workflows:
               only: /[0-9]+(\.[0-9]+)*$/
             branches:
               ignore: /.*/
+      - publish-snapshot:
+          requires:
+            - build
