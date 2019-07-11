@@ -131,7 +131,7 @@ jobs:
       - run: mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
       - run:
           name: Decrypt GPG key for deployment til Maven Central
-          command: "gpg --yes --batch --passphrase=$DECRYPT_GPG_KEY_PASSPHRASE codesigning.asc.gpg"
+          command: "gpg --yes --batch --passphrase=$GPG_PASSPHRASE codesigning.asc.gpg"
       - run:
           name: Import GPG private key to keyring
           command: "gpg --yes --batch --fast-import codesigning.asc"
