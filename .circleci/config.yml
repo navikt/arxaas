@@ -129,7 +129,10 @@ jobs:
             - v1-dependencies-
       - run:
           name: Import gpg key
-          command: echo $GPG_KEY_BASE64 | base64 --decode | gpg --yes --batch --import
+          command: echo $GPG_KEY_BASE64 | base64 --decode | gpg --yes --batch --importGPG_KEY_NAME
+      - run:
+          name: echo test
+          command: echo $GPG_KEY_NAME
       - run:
           name: Deploy to Maven Central
           command: "export GPG_TTY=$(tty) && mvn --settings .maven.xml deploy -Dmaven.test.skip=true -Dmaven.install.skip=true -e -B -P release"
