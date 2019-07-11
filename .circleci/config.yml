@@ -87,24 +87,60 @@ jobs:
       - run: |
           docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
       - run:
-          name: Create docker image tag
+          name: Create and store version tag
           command: |
-            echo 'export DATE=`date +"%m-%d-%y"`' >> $BASH_ENV
-            echo 'export TAG=$DATE-$CIRCLE_SHA1' >> $BASH_ENV
+            TIME=$(TZ="Europe/Oslo" date +%Y.%m.%d-%H.%M)
+            COMMIT=$(git rev-parse --short=12 HEAD)
+            VERSION="$TIME-$COMMIT"
+            echo "version $VERSION"
+            mkdir img_tag
+            echo $VERSION >> img_tag/docker_img_tag
+            echo 'export TAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
       - run: |
           echo $TAG
       - run: docker build -t navikt/arxaas:$TAG .
       - run: docker tag navikt/arxaas:$TAG navikt/arxaas:latest
       - run: docker push navikt/arxaas:$TAG
       - run: docker push navikt/arxaas:latest
-      - run:
-          name: Persist img tag in file
-          command: |
-            mkdir img_tag
-            echo $TAG >> img_tag/docker_img_tag
       - persist_to_workspace:
           root: img_tag
           paths: ./docker_img_tag
+
+  publish-to-maven:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:11-jdk
+
+    working_directory: ~/repo
+
+    environment:
+      # customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - attach_workspace:
+          at: img_tag
+      # download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run:
+          name: Import gpg key
+          command: echo $GPG_KEY_BASE64 | base64 --decode | gpg --yes --batch --import
+      - run:
+          name: "Setting version"
+          command: |
+            VERSION=`cat img_tag/docker_img_tag`
+            mvn versions:set -DnewVersion="$VERSION"
+            mvn versions:commit
+      - run:
+          name: Deploy to Maven Central
+          command: "export GPG_TTY=$(tty) && mvn --settings .maven.xml deploy -Dmaven.test.skip=true -Dmaven.install.skip=true -B -P release"
 
   deploy-dev:
     docker:
@@ -182,10 +218,21 @@ workflows:
               only: /.*/
             branches:
               only: master
+      - publish-to-maven:
+          requires:
+            - build
+            - publish-to-dockerhub
+          context: Maven Central Release
+          filters:
+            tags:
+              only: /[0-9]+(\.[0-9]+)*$/
+            branches:
+              ignore: /.*/
       - deploy-prod:
           requires:
             - build
             - publish-to-dockerhub
+            - publish-to-maven
           filters:
             tags:
               only: /[0-9]+(\.[0-9]+)*$/
