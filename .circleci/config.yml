@@ -93,6 +93,7 @@ jobs:
             COMMIT=$(git rev-parse --short=12 HEAD)
             VERSION="$TIME-$COMMIT-SNAPSHOT"
             echo "version $VERSION"
+            mkdir img_tag
             echo $VERSION >> img_tag/docker_img_tag
             echo 'export TAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
       - run: |
@@ -101,11 +102,6 @@ jobs:
       - run: docker tag navikt/arxaas:$TAG navikt/arxaas:latest
       - run: docker push navikt/arxaas:$TAG
       - run: docker push navikt/arxaas:latest
-      - run:
-          name: Persist img tag in file
-          command: |
-            mkdir img_tag
-            echo $TAG >> img_tag/docker_img_tag
       - persist_to_workspace:
           root: img_tag
           paths: ./docker_img_tag
