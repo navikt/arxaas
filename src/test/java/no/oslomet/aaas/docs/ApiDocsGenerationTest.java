@@ -61,7 +61,7 @@ class ApiDocsGenerationTest {
     @Test
     void headersExample() throws Exception {
         this.mockMvc
-                .perform(get("/"))
+                .perform(get("/api"))
                 .andExpect(status().isOk())
                 .andDo(document("root",
                         responseHeaders(

@@ -7,16 +7,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RootControllerTest {
 
-    private RootController testRoot;
+    private ApiController testRoot;
 
     @BeforeEach
     void setUp(){
-        testRoot = new RootController();
+        testRoot = new ApiController();
     }
 
     @Test
-    void root__has_resources() {
-        var response  = testRoot.root();
+    void api_root__has_resources() {
+        var response  = testRoot.apiRoot();
         assertTrue(response.hasLink("anonymize"));
         assertTrue(response.hasLink("analyze"));
     }
