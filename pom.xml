@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>no.oslomet</groupId>
 	<artifactId>arxaas</artifactId>
-	<version>0.3.4-RELEASE</version>
+	<version>0.0.0-RELEASE</version>
 	<name>ARXaaS</name>
 	<description>ARXaaS is a Anonymization as a Service project implemented as a RESTful web application using Spring Boot.</description>
 	<url>https://github.com/oslomet-arx-as-a-service/ARXaaS</url>
@@ -212,6 +212,32 @@
 								<toclevels>3</toclevels>
 								<snippets>${project.build.directory}/generated-snippets</snippets>
 							</attributes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.outputDirectory}/static
+							</outputDirectory>
+							<resources>
+								<resource>
+									<directory>
+										${project.build.directory}/generated-docs
+									</directory>
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>
