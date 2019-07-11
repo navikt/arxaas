@@ -127,16 +127,12 @@ jobs:
             - v1-dependencies-{{ checksum "pom.xml" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      # download libarx
-      - run: wget  https://github.com/oslomet-arx-as-a-service/arx-dependency/raw/master/libarx-3.7.1.jar -P ./src/main/resources/
-      # maven install libarx as local dependency
-      - run: mvn -q install:install-file -Dfile=src/main/resources/libarx-3.7.1.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
       - run:
           name: Import gpg key
           command: echo $GPG_KEY_BASE64 | base64 --decode | gpg --yes --batch --import
       - run:
           name: Deploy to Maven Central
-          command: "export GPG_TTY=$(tty) && mvn --settings .maven.xml deploy -Dmaven.test.skip=true -Dmaven.install.skip=true -B -P release"
+          command: "export GPG_TTY=$(tty) && mvn --settings .maven.xml deploy -Dmaven.test.skip=true -Dmaven.install.skip=true -e -B -P release"
 
   deploy-dev:
     docker:
