@@ -87,11 +87,11 @@ jobs:
       - run: |
           docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
       - run:
-          name: Setting version
+          name: Create and store version tag
           command: |
             TIME=$(TZ="Europe/Oslo" date +%Y.%m.%d-%H.%M)
             COMMIT=$(git rev-parse --short=12 HEAD)
-            VERSION="$TIME-$COMMIT-SNAPSHOT"
+            VERSION="$TIME-$COMMIT"
             echo "version $VERSION"
             mkdir img_tag
             echo $VERSION >> img_tag/docker_img_tag
@@ -106,7 +106,7 @@ jobs:
           root: img_tag
           paths: ./docker_img_tag
 
-  publish-maven:
+  publish-to-maven:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-jdk
@@ -218,17 +218,23 @@ workflows:
               only: /.*/
             branches:
               only: master
-      - deploy-prod:
+      - publish-to-maven:
           requires:
             - build
             - publish-to-dockerhub
+          context: Maven Central Release
           filters:
             tags:
               only: /[0-9]+(\.[0-9]+)*$/
             branches:
               ignore: /.*/
-      - publish-maven:
+      - deploy-prod:
           requires:
             - build
             - publish-to-dockerhub
-          context: Maven Central Release
+            - publish-to-maven
+          filters:
+            tags:
+              only: /[0-9]+(\.[0-9]+)*$/
+            branches:
+              ignore: /.*/
