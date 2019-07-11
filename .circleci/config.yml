@@ -87,10 +87,14 @@ jobs:
       - run: |
           docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
       - run:
-          name: Create docker image tag
+          name: Setting version
           command: |
-            echo 'export DATE=`date +"%m-%d-%y"`' >> $BASH_ENV
-            echo 'export TAG=$DATE-$CIRCLE_SHA1' >> $BASH_ENV
+            TIME=$(TZ="Europe/Oslo" date +%Y.%m.%d-%H.%M)
+            COMMIT=$(git rev-parse --short=12 HEAD)
+            VERSION="$TIME-$COMMIT-SNAPSHOT"
+            echo "version $VERSION"
+            echo $VERSION >> img_tag/docker_img_tag
+            echo 'export TAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
       - run: |
           echo $TAG
       - run: docker build -t navikt/arxaas:$TAG .
@@ -106,7 +110,7 @@ jobs:
           root: img_tag
           paths: ./docker_img_tag
 
-  publish-snapshot:
+  publish-maven:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-jdk
@@ -121,6 +125,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: target
+      - attach_workspace:
+          at: img_tag
       # download and cache dependencies
       - restore_cache:
           keys:
@@ -131,8 +137,11 @@ jobs:
           name: Import gpg key
           command: echo $GPG_KEY_BASE64 | base64 --decode | gpg --yes --batch --import
       - run:
-          name: echo test
-          command: echo $GPG_KEY_NAME
+          name: "Setting version"
+          command: |
+            VERSION=`cat img_tag/docker_img_tag`
+            mvn versions:set -DnewVersion="$VERSION"
+            mvn versions:commit
       - run:
           name: Deploy to Maven Central
           command: "export GPG_TTY=$(tty) && mvn --settings .maven.xml deploy -Dmaven.test.skip=true -Dmaven.install.skip=true -e -B -P release"
@@ -203,7 +212,7 @@ workflows:
             tags:
               only: /.*/
             branches:
-              only: master
+              ignore: master
       - deploy-dev:
           requires:
             - build
@@ -222,7 +231,8 @@ workflows:
               only: /[0-9]+(\.[0-9]+)*$/
             branches:
               ignore: /.*/
-      - publish-snapshot:
+      - publish-maven:
           requires:
             - build
+            - publish-to-dockerhub
           context: Maven Central Release
