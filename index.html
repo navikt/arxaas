@@ -652,7 +652,7 @@ Content-Length: 166
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>anonymize</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Link anonymization controller</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Link arxaas controller</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>analyze</code></p></td>
@@ -985,37 +985,37 @@ Content-Type: application/json;charset=UTF-8
       "processTimeMillisecounds" : 1,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "requirements" : 1,
-        "localRecodingSupported" : true,
-        "minimalClassSizeAvailable" : true,
-        "minimalClassSize" : 5,
-        "riskThresholdJournalist" : 0.2,
-        "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
-        "dataSubset" : null,
-        "populationModel" : null,
-        "monotonicWithSuppression" : true,
-        "sampleBased" : false,
-        "subsetAvailable" : false,
-        "subset" : null
-      }, {
-        "monotonicWithGeneralization" : true,
         "attribute" : "gender",
         "l" : 2.0,
         "localRecodingSupported" : true,
-        "requirements" : 4,
-        "minimalClassSizeAvailable" : true,
         "minimalClassSize" : 2,
+        "requirements" : 4,
         "riskThresholdJournalist" : 0.5,
         "riskThresholdMarketer" : 0.5,
         "riskThresholdProsecutor" : 0.5,
+        "minimalClassSizeAvailable" : true,
         "dataSubset" : null,
         "populationModel" : null,
+        "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
-        "subsetAvailable" : false,
-        "subset" : null
+        "subsetAvailable" : false
+      }, {
+        "monotonicWithGeneralization" : true,
+        "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
+        "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
+        "dataSubset" : null,
+        "populationModel" : null,
+        "subset" : null,
+        "monotonicWithSuppression" : true,
+        "sampleBased" : false,
+        "subsetAvailable" : false
       } ]
     },
     "attributes" : [ {
@@ -1611,7 +1611,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-07-10 13:47:26 UTC
+Last updated 2019-07-11 15:23:07 UTC
 </div>
 </div>
 </body>
