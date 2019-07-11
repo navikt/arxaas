@@ -235,17 +235,17 @@
             					</goals>
 						<configuration>
 							<includes>
-								<include>**/no/oslomet/aaas/**/*</include>
+								<include>**/no/nav/arxaas/**/*</include>
 							</includes>
                             <excludes>
-                                <exclude>**/no/oslomet/aaas/controller/NaisController.*</exclude>
-                                <exclude>**/no/oslomet/aaas/config/SecurityConfig.*</exclude>
-                                <exclude>**/no/oslomet/aaas/SwaggerConfig.*</exclude>
-                                <exclude>**/no/oslomet/aaas/AaaSApplication.*</exclude>
-								<exclude>**/no/oslomet/aaas/analyzer/Analyzer.*</exclude>
-								<exclude>**/no/oslomet/aaas/anonymizer/Anonymizer.*</exclude>
-								<exclude>**/no/oslomet/aaas/utils/DataFactory.*</exclude>
-								<exclude>**/no/oslomet/aaas/utils/ConfigurationFactory.*</exclude>
+                                <exclude>**/no/nav/arxaas/controller/NaisController.*</exclude>
+                                <exclude>**/no/nav/arxaas/config/SecurityConfig.*</exclude>
+                                <exclude>**/no/nav/arxaas/SwaggerConfig.*</exclude>
+                                <exclude>**/no/nav/arxaas/AaaSApplication.*</exclude>
+								<exclude>**/no/nav/arxaas/analyzer/Analyzer.*</exclude>
+								<exclude>**/no/nav/arxaas/anonymizer/Anonymizer.*</exclude>
+								<exclude>**/no/nav/arxaas/utils/DataFactory.*</exclude>
+								<exclude>**/no/nav/arxaas/utils/ConfigurationFactory.*</exclude>
                             </excludes>
 						</configuration>
         				</execution>
