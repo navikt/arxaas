@@ -119,6 +119,8 @@ jobs:
 
     steps:
       - checkout
+      - attach_workspace:
+          at: target
       # download and cache dependencies
       - restore_cache:
           keys:
@@ -134,7 +136,7 @@ jobs:
           command: echo $GPG_KEY_BASE64 | base64 --decode | gpg --yes --batch --import
       - run:
           name: Deploy to Maven Central
-          command: "export GPG_TTY=$(tty) && mvn --settings .maven.xml deploy -Prelease -DskipTests=true"
+          command: mvn --settings .maven.xml deploy -Dmaven.test.skip=true -Dmaven.install.skip=true -B -P release
 
   deploy-dev:
     docker:
