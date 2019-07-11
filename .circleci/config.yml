@@ -129,7 +129,7 @@ jobs:
             - v1-dependencies-
       - run:
           name: Import gpg key
-          command: echo $GPG_KEY_BASE64 | base64 --decode | gpg --yes --batch --importGPG_KEY_NAME
+          command: echo $GPG_KEY_BASE64 | base64 --decode | gpg --yes --batch --import
       - run:
           name: echo test
           command: echo $GPG_KEY_NAME
