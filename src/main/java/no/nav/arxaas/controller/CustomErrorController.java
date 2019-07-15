@@ -19,10 +19,8 @@ public class CustomErrorController implements ErrorController {
     @RequestMapping("/error")
     public ResponseEntity<ExceptionResponse> handleError(HttpServletRequest request) {
         Integer status = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-
         ExceptionResponse exceptionResponse = ExceptionResponse.now(status.toString(), request.getServletPath());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.valueOf(status));
-
     }
 
     @Override
