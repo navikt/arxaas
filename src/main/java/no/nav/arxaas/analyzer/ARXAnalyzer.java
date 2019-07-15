@@ -8,6 +8,7 @@ import no.nav.arxaas.utils.DataFactory;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
 import org.deidentifier.arx.DataHandle;
+import org.deidentifier.arx.risk.RiskModelAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,8 +30,8 @@ public class ARXAnalyzer implements Analyzer {
         Data data = dataFactory.create(payload);
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
-
-        return new RiskProfile(reIdentificationRisk(dataToAnalyse, pModel),distributionOfRisk(dataToAnalyse,pModel));
+        RiskModelAttributes riskModelAttributes = dataToAnalyse.getRiskEstimator(pModel).getAttributeRisks();
+        return new RiskProfile(reIdentificationRisk(dataToAnalyse, pModel),distributionOfRisk(dataToAnalyse,pModel),riskModelAttributes.getAttributeRisks());
     }
 
     private DistributionOfRisk distributionOfRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){

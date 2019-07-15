@@ -1,5 +1,7 @@
 package no.nav.arxaas.model.risk;
 
+import org.deidentifier.arx.risk.RiskModelAttributes.QuasiIdentifierRisk;
+
 import java.util.Objects;
 
 /**
@@ -11,8 +13,18 @@ public class RiskProfile {
 
     private final DistributionOfRisk distributionOfRisk;
 
+    private QuasiIdentifierRisk[] quasiIdentifierRisk = null;
 
-    public RiskProfile(ReIdentificationRisk reIdentificationRisk, DistributionOfRisk distributionOfRisk ) {
+
+
+    public RiskProfile(ReIdentificationRisk reIdentificationRisk, DistributionOfRisk distributionOfRisk, QuasiIdentifierRisk[] quasiIdentifierRisk) {
+        this.reIdentificationRisk = reIdentificationRisk;
+        this.distributionOfRisk = distributionOfRisk;
+        this.quasiIdentifierRisk = quasiIdentifierRisk;
+    }
+
+    // Tests needs to be converted before this can be removed
+    public RiskProfile(ReIdentificationRisk reIdentificationRisk, DistributionOfRisk distributionOfRisk) {
         this.reIdentificationRisk = reIdentificationRisk;
         this.distributionOfRisk = distributionOfRisk;
     }
@@ -26,11 +38,14 @@ public class RiskProfile {
         return distributionOfRisk;
     }
 
+    public QuasiIdentifierRisk[] getQuasiIdentifierRisk() { return quasiIdentifierRisk; }
+
     @Override
     public String toString() {
         return "RiskProfile{" +
                 "reIdentificationRisk=" + reIdentificationRisk +
                 ", distributionOfRisk=" + distributionOfRisk +
+                ", quasiIdentifierRisk=" + quasiIdentifierRisk.toString() +
                 '}';
     }
 
