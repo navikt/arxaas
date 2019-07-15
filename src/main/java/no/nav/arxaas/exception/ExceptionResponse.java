@@ -18,6 +18,10 @@ public class ExceptionResponse {
         this.details = details;
     }
 
+    public static ExceptionResponse now(String message, String details){
+        return new ExceptionResponse(new Date(), message, details);
+    }
+
     public Date getTimestamp() {
         return timestamp;
     }
