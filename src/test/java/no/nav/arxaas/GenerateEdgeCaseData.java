@@ -1,9 +1,12 @@
 package no.nav.arxaas;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.anonymity.PrivacyCriterionModel;
 import no.nav.arxaas.model.Request;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +18,11 @@ public class GenerateEdgeCaseData {
 
     public static Request NullPayload(){
         return  new Request(null,null,null,null);
+    }
+
+    public static Request indexOutOfBoundsExceptionPayload() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(new File("./src/test/java/no/nav/arxaas/resources/indexOutOfBoundsPayload.json"), Request.class);
     }
 
     public static Request zipcodeRequestPayloadWithSuppressionLimitGreaterThan1(){

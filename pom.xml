@@ -260,6 +260,7 @@
 							</includes>
                             <excludes>
                                 <exclude>**/no/nav/arxaas/controller/NaisController.*</exclude>
+								<exclude>**/no/nav/arxaas/controller/CustomErrorController.*</exclude>
                                 <exclude>**/no/nav/arxaas/config/SecurityConfig.*</exclude>
                                 <exclude>**/no/nav/arxaas/SwaggerConfig.*</exclude>
                                 <exclude>**/no/nav/arxaas/AaaSApplication.*</exclude>

@@ -91,4 +91,15 @@ class GlobalControllerExceptionHandler {
                 request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ArrayIndexOutOfBoundsException.class)
+    public final ResponseEntity<Object> handleArrayIndexOutOfBounds(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                ex.toString(),
+                request.getDescription(false));
+
+        logger.error("Exception occurred during handling of request on: " + request.getDescription(false), ex);
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 }
