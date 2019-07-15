@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -82,6 +84,18 @@ class AnalyzationEdgeCaseTest {
     void getPayloadAnalyze_all_format_wrong(){
         Request allFormatWrong = GenerateEdgeCaseData.zipcodeRequestPayload_all_format_wrong();
         ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/analyze",allFormatWrong, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
+
+    @Test
+    void getPayloadAnalyze_indexOutOfBoundsPayload() throws IOException {
+        Request indexOutOfBoundsExceptionPayload = GenerateEdgeCaseData.indexOutOfBoundsExceptionPayload();
+        System.out.println(indexOutOfBoundsExceptionPayload.toString());
+        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/analyze", indexOutOfBoundsExceptionPayload, ExceptionResponse.class);
         assertNotNull(responseEntity);
         assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         var resultData = responseEntity.getBody();

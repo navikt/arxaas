@@ -1,5 +1,7 @@
 package no.nav.arxaas.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import no.nav.arxaas.model.anonymity.PrivacyCriterionModel;
 
 import javax.validation.constraints.NotNull;
@@ -14,7 +16,11 @@ public class Request {
     private final List<PrivacyCriterionModel> privacyModels;
     private final Double suppressionLimit;
 
-    public Request(List<String[]> data, List<Attribute> attributes, List<PrivacyCriterionModel> privacyModels, Double suppressionLimit) {
+    @JsonCreator
+    public Request(@JsonProperty("data") List<String[]> data,
+                   @JsonProperty("attributes") List<Attribute> attributes,
+                   @JsonProperty("privacyModels") List<PrivacyCriterionModel> privacyModels,
+                   @JsonProperty("suppressionLimit") Double suppressionLimit) {
         this.data = data;
         this.attributes = attributes;
         this.privacyModels = privacyModels;
