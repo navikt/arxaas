@@ -97,6 +97,9 @@ class GlobalControllerExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.toString(),
                 request.getDescription(false));
+
+        logger.error("Exception occurred during handling of request on: " + request.getDescription(false), ex);
+
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 }
