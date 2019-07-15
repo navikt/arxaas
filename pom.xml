@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>no.oslomet</groupId>
+	<groupId>no.nav</groupId>
 	<artifactId>arxaas</artifactId>
-	<version>0.3.4-RELEASE</version>
+	<version>0.0.0-RELEASE</version>
 	<name>ARXaaS</name>
 	<description>ARXaaS is a Anonymization as a Service project implemented as a RESTful web application using Spring Boot.</description>
-	<url>https://github.com/oslomet-arx-as-a-service/ARXaaS</url>
+	<url>https://github.com/navikt/ARXaaS</url>
 
 	<organization>
 		<name>no.oslomet</name>
@@ -16,56 +16,51 @@
 
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/oslomet-arx-as-a-service/ARXaaS/issues</url>
+		<url>https://github.com/navikt/ARXaaS/issues</url>
 	</issueManagement>
 
 	<licenses>
 		<license>
 			<name>MIT</name>
-			<url>https://github.com/oslomet-arx-as-a-service/ARXaaS/blob/master/LICENCE</url>
+			<url>https://github.com/navikt/ARXaaS/blob/master/LICENCE</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
 
 	<scm>
-		<url>https://github.com/oslomet-arx-as-a-service/ARXaaS</url>
+		<url>https://github.com/navikt/ARXaaS</url>
 		<connection>
-			scm:git:git://github.com/oslomet-arx-as-a-service/ARXaaS.git
+			scm:git:git://github.com/navikt/ARXaaS.git
 		</connection>
 		<developerConnection>
-			scm:git:ssh://git@github.com/oslomet-arx-as-a-service/ARXaaS.git
+			scm:git:ssh://git@github.com/navikt/ARXaaS.git
 		</developerConnection>
 	</scm>
 	<developers>
 		<developer>
 			<name>Jeremiah Augie Uy</name>
-			<email>s181369@oslomet.no</email>
-			<organization>OsloMet</organization>
-			<organizationUrl>https://www.oslomet.no/</organizationUrl>
+			<organization>NAV</organization>
+			<organizationUrl>https://www.nav.no/</organizationUrl>
 		</developer>
 		<developer>
 			<name>Lord André Groseth</name>
-			<email>s181365@oslomet.no</email>
-			<organization>OsloMet</organization>
-			<organizationUrl>https://www.oslomet.no/</organizationUrl>
+			<organization>NAV</organization>
+			<organizationUrl>https://www.nav.no/</organizationUrl>
 		</developer>
 		<developer>
 			<name>Julian Sagen</name>
-			<email>s315584@oslomet.no</email>
-			<organization>OsloMet</organization>
-			<organizationUrl>https://www.oslomet.no/</organizationUrl>
+			<organization>NAV</organization>
+			<organizationUrl>https://www.nav.no/</organizationUrl>
 		</developer>
 		<developer>
 			<name>Sondre Halvorsen</name>
-			<email>s305348@oslomet.no</email>
-			<organization>OsloMet</organization>
-			<organizationUrl>https://www.oslomet.no/</organizationUrl>
+			<organization>NAV</organization>
+			<organizationUrl>https://www.nav.no/</organizationUrl>
 		</developer>
 		<developer>
 			<name>Viktor Vartdal Johansen</name>
-			<email>s315615@oslomet.no</email>
-			<organization>OsloMet</organization>
-			<organizationUrl>https://www.oslomet.no/</organizationUrl>
+			<organization>NAV</organization>
+			<organizationUrl>https://www.nav.no/</organizationUrl>
 		</developer>
 	</developers>
 
@@ -218,6 +213,32 @@
 			</plugin>
 
 			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.outputDirectory}/static
+							</outputDirectory>
+							<resources>
+								<resource>
+									<directory>
+										${project.build.directory}/generated-docs
+									</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
     				<groupId>org.jacoco</groupId>
     				<artifactId>jacoco-maven-plugin</artifactId>
     				<version>0.8.3</version>
@@ -235,17 +256,17 @@
             					</goals>
 						<configuration>
 							<includes>
-								<include>**/no/oslomet/aaas/**/*</include>
+								<include>**/no/nav/arxaas/**/*</include>
 							</includes>
                             <excludes>
-                                <exclude>**/no/oslomet/aaas/controller/NaisController.*</exclude>
-                                <exclude>**/no/oslomet/aaas/config/SecurityConfig.*</exclude>
-                                <exclude>**/no/oslomet/aaas/SwaggerConfig.*</exclude>
-                                <exclude>**/no/oslomet/aaas/AaaSApplication.*</exclude>
-								<exclude>**/no/oslomet/aaas/analyzer/Analyzer.*</exclude>
-								<exclude>**/no/oslomet/aaas/anonymizer/Anonymizer.*</exclude>
-								<exclude>**/no/oslomet/aaas/utils/DataFactory.*</exclude>
-								<exclude>**/no/oslomet/aaas/utils/ConfigurationFactory.*</exclude>
+                                <exclude>**/no/nav/arxaas/controller/NaisController.*</exclude>
+                                <exclude>**/no/nav/arxaas/config/SecurityConfig.*</exclude>
+                                <exclude>**/no/nav/arxaas/SwaggerConfig.*</exclude>
+                                <exclude>**/no/nav/arxaas/AaaSApplication.*</exclude>
+								<exclude>**/no/nav/arxaas/analyzer/Analyzer.*</exclude>
+								<exclude>**/no/nav/arxaas/anonymizer/Anonymizer.*</exclude>
+								<exclude>**/no/nav/arxaas/utils/DataFactory.*</exclude>
+								<exclude>**/no/nav/arxaas/utils/ConfigurationFactory.*</exclude>
                             </excludes>
 						</configuration>
         				</execution>
@@ -348,6 +369,12 @@
 								</goals>
 							</execution>
 						</executions>
+						<configuration>
+							<gpgArguments>
+								<arg>--pinentry-mode</arg>
+								<arg>loopback</arg>
+							</gpgArguments>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
