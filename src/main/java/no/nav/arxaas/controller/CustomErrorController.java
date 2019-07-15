@@ -1,4 +1,4 @@
-package no.oslomet.aaas.controller;
+package no.nav.arxaas.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -11,14 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/")
-public class MyErrorController implements ErrorController {
+public class CustomErrorController implements ErrorController {
+
+
 
     @RequestMapping("/error")
-    public String handleError() {
-        //do something like logging
-        return "My handled error";
-    }
-
     public String handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
@@ -26,13 +23,13 @@ public class MyErrorController implements ErrorController {
             Integer statusCode = Integer.valueOf(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "error-404";
+                return "404 Not Found";
             }
             else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "error-500";
+                return "500 Internal Server Error";
             }
         }
-        return "error";
+        return "Something went wrong";
     }
 
     @Override
