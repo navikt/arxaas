@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RootControllerTest {
+class ApiControllerTest {
 
-    private RootController testRoot;
+    private ApiController testRoot;
 
     @BeforeEach
     void setUp(){
-        testRoot = new RootController();
+        testRoot = new ApiController();
     }
 
     @Test
