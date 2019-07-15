@@ -625,10 +625,10 @@ use of HTTP status codes.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Length: 170
 Content-Type: application/hal+json;charset=UTF-8
-Content-Length: 166
 
-{"_links":{"self":{"href":"http://localhost:8080"},"anonymize":{"href":"http://localhost:8080/api/anonymize"},"analyze":{"href":"http://localhost:8080/api/analyze"}}}</code></pre>
+{"_links":{"self":{"href":"http://localhost:8080/api"},"anonymize":{"href":"http://localhost:8080/api/anonymize"},"analyze":{"href":"http://localhost:8080/api/analyze"}}}</code></pre>
 </div>
 </div>
 </div>
@@ -982,8 +982,24 @@ Content-Type: application/json;charset=UTF-8
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 1,
+      "processTimeMillisecounds" : 0,
       "privacyModels" : [ {
+        "monotonicWithGeneralization" : true,
+        "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
+        "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
+        "populationModel" : null,
+        "dataSubset" : null,
+        "subset" : null,
+        "monotonicWithSuppression" : true,
+        "sampleBased" : false,
+        "subsetAvailable" : false
+      }, {
         "monotonicWithGeneralization" : true,
         "attribute" : "gender",
         "l" : 2.0,
@@ -994,24 +1010,8 @@ Content-Type: application/json;charset=UTF-8
         "riskThresholdMarketer" : 0.5,
         "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
         "populationModel" : null,
-        "subset" : null,
-        "monotonicWithSuppression" : true,
-        "sampleBased" : false,
-        "subsetAvailable" : false
-      }, {
-        "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "minimalClassSize" : 5,
-        "requirements" : 1,
-        "riskThresholdJournalist" : 0.2,
-        "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
-        "localRecodingSupported" : true,
-        "minimalClassSizeAvailable" : true,
         "dataSubset" : null,
-        "populationModel" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
@@ -1611,7 +1611,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-07-11 15:23:07 UTC
+Last updated 2019-07-15 09:13:23 UTC
 </div>
 </div>
 </body>
