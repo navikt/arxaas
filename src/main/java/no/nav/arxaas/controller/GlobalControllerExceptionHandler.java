@@ -94,7 +94,6 @@ class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(ArrayIndexOutOfBoundsException.class)
     public final ResponseEntity<Object> handleArrayIndexOutOfBounds(Exception ex, WebRequest request) {
-        System.out.println(request);
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.toString(),
                 request.getDescription(false));
