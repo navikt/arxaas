@@ -3,13 +3,12 @@ package no.nav.arxaas;
 import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.Request;
 import no.nav.arxaas.model.anonymity.PrivacyCriterionModel;
-import no.nav.arxaas.model.risk.AttackerSuccess;
-import no.nav.arxaas.model.risk.DistributionOfRisk;
-import no.nav.arxaas.model.risk.ReIdentificationRisk;
-import no.nav.arxaas.model.risk.RiskProfile;
+import no.nav.arxaas.model.risk.*;
 import no.nav.arxaas.utils.ARXDataFactory;
 import no.nav.arxaas.utils.DataFactory;
+import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
+import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,13 +80,15 @@ public class GenerateTestData {
     public static RiskProfile ageGenderZipcodeRiskProfile(){
         var reIdentRisk = ageGenderZipcodeReIndenticationRisk();
         var distributedRisk = ageGenderZipcodeDistributionOfRisk();
-        return new RiskProfile(reIdentRisk, distributedRisk);
+        var attributeRisk = ageGenderZipcodeAttributeRisk();
+        return new RiskProfile(reIdentRisk, distributedRisk, attributeRisk);
     }
 
     public static RiskProfile ageGenderZipcodeRiskProfileAfterAnonymization(){
         var reIdentRisk = ageGenderZipcodeReIndenticationRiskAfterAnonymization();
         var distributedRisk = ageGenderZipcodeDistributionOfRiskAfterAnonymization();
-        return new RiskProfile(reIdentRisk, distributedRisk);
+        var attributeRisk = ageGenderZipcodeAttributeRisk();
+        return new RiskProfile(reIdentRisk, distributedRisk, attributeRisk);
     }
 
     public static ReIdentificationRisk ageGenderZipcodeReIndenticationRisk(){
@@ -100,6 +101,11 @@ public class GenerateTestData {
 
     private static DistributionOfRisk ageGenderZipcodeDistributionOfRiskAfterAnonymization(){
         return DistributionOfRisk.create(ageGenderZipcodeDatasetAfterAnonymziation().getHandle().getRiskEstimator());
+    }
+
+    private static AttributeRisk ageGenderZipcodeAttributeRisk(){
+        ARXPopulationModel pModel= ARXPopulationModel.create(ageGenderZipcodeDatasetAfterAnonymziation().getHandle().getNumRows(), 0.01d);
+        return AttributeRisk.create(ageGenderZipcodeDatasetAfterAnonymziation().getHandle(), pModel);
     }
 
 

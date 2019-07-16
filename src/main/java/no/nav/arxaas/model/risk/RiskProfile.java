@@ -13,20 +13,14 @@ public class RiskProfile {
 
     private final DistributionOfRisk distributionOfRisk;
 
-    private QuasiIdentifierRisk[] quasiIdentifierRisk = null;
+    private AttributeRisk attributeRisk;
 
 
 
-    public RiskProfile(ReIdentificationRisk reIdentificationRisk, DistributionOfRisk distributionOfRisk, QuasiIdentifierRisk[] quasiIdentifierRisk) {
+    public RiskProfile(ReIdentificationRisk reIdentificationRisk, DistributionOfRisk distributionOfRisk, AttributeRisk quasiIdentifierRisk) {
         this.reIdentificationRisk = reIdentificationRisk;
         this.distributionOfRisk = distributionOfRisk;
-        this.quasiIdentifierRisk = quasiIdentifierRisk;
-    }
-
-    // Tests needs to be converted before this can be removed
-    public RiskProfile(ReIdentificationRisk reIdentificationRisk, DistributionOfRisk distributionOfRisk) {
-        this.reIdentificationRisk = reIdentificationRisk;
-        this.distributionOfRisk = distributionOfRisk;
+        this.attributeRisk = quasiIdentifierRisk;
     }
 
     public ReIdentificationRisk getReIdentificationRisk() {
@@ -38,14 +32,14 @@ public class RiskProfile {
         return distributionOfRisk;
     }
 
-    public QuasiIdentifierRisk[] getQuasiIdentifierRisk() { return quasiIdentifierRisk; }
+    public AttributeRisk getAttributeRisk() { return attributeRisk; }
 
     @Override
     public String toString() {
         return "RiskProfile{" +
                 "reIdentificationRisk=" + reIdentificationRisk +
                 ", distributionOfRisk=" + distributionOfRisk +
-                ", quasiIdentifierRisk=" + quasiIdentifierRisk.toString() +
+                ", attributeRisk=" + attributeRisk +
                 '}';
     }
 

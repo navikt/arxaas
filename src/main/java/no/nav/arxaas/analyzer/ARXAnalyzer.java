@@ -1,5 +1,6 @@
 package no.nav.arxaas.analyzer;
 
+import no.nav.arxaas.model.risk.AttributeRisk;
 import no.nav.arxaas.model.risk.ReIdentificationRisk;
 import no.nav.arxaas.model.risk.RiskProfile;
 import no.nav.arxaas.model.risk.DistributionOfRisk;
@@ -30,8 +31,7 @@ public class ARXAnalyzer implements Analyzer {
         Data data = dataFactory.create(payload);
         DataHandle dataToAnalyse = data.getHandle();
         ARXPopulationModel pModel= ARXPopulationModel.create(data.getHandle().getNumRows(), 0.01d);
-        RiskModelAttributes riskModelAttributes = dataToAnalyse.getRiskEstimator(pModel).getAttributeRisks();
-        return new RiskProfile(reIdentificationRisk(dataToAnalyse, pModel),distributionOfRisk(dataToAnalyse,pModel),riskModelAttributes.getAttributeRisks());
+        return new RiskProfile(reIdentificationRisk(dataToAnalyse, pModel),distributionOfRisk(dataToAnalyse,pModel), attributeRisk(dataToAnalyse, pModel));
     }
 
     private DistributionOfRisk distributionOfRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
@@ -40,6 +40,10 @@ public class ARXAnalyzer implements Analyzer {
 
     private ReIdentificationRisk reIdentificationRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
         return ReIdentificationRisk.create(dataToAnalyse,pModel);
+    }
+
+    private AttributeRisk attributeRisk(DataHandle dataToAnalyse, ARXPopulationModel pModel){
+        return AttributeRisk.create(dataToAnalyse, pModel);
     }
 
 }

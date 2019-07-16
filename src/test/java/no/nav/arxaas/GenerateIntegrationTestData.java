@@ -6,10 +6,7 @@ import no.nav.arxaas.model.anonymity.AnonymizationMetrics;
 import no.nav.arxaas.model.anonymity.AnonymizationResultPayload;
 import no.nav.arxaas.model.anonymity.AnonymizeResult;
 import no.nav.arxaas.model.anonymity.PrivacyCriterionModel;
-import no.nav.arxaas.model.risk.AttackerSuccess;
-import no.nav.arxaas.model.risk.DistributionOfRisk;
-import no.nav.arxaas.model.risk.ReIdentificationRisk;
-import no.nav.arxaas.model.risk.RiskProfile;
+import no.nav.arxaas.model.risk.*;
 import no.nav.arxaas.utils.ARXConfigurationFactory;
 import no.nav.arxaas.utils.ARXDataFactory;
 import no.nav.arxaas.utils.ARXPrivacyCriterionFactory;
@@ -96,7 +93,7 @@ public class GenerateIntegrationTestData {
 
 
     public static RiskProfile zipcodeAnalyzation(){
-        return new RiskProfile(ageGenderZipcodeReIndenticationRisk(),ageGenderZipcodeDistributionOfRisk());
+        return new RiskProfile(ageGenderZipcodeReIndenticationRisk(),ageGenderZipcodeDistributionOfRisk(), attributeRisk());
     }
 
     private static Data ageGenderZipcodeDataset(){
@@ -145,8 +142,27 @@ public class GenerateIntegrationTestData {
         return new AttackerSuccess(measureMap);
     }
 
+    private static List<AttributeRisk.QuasiIdentifierRisk> quasiIdentifierRisks() {
+        List<AttributeRisk.QuasiIdentifierRisk> quasiIdentifierRiskList = new ArrayList<>();
+        List<String> identifierAge = new ArrayList();
+        identifierAge.add("age");
+        quasiIdentifierRiskList.add(new AttributeRisk.QuasiIdentifierRisk(identifierAge,8.0E-4, 0.6207939187837568));
+        List<String> identifierGender = new ArrayList();
+        identifierGender.add("gender");
+        quasiIdentifierRiskList.add(new AttributeRisk.QuasiIdentifierRisk(identifierGender,0.0012, 0.4871479895979196));
+        List<String> identifierAgeGender = new ArrayList();
+        identifierAgeGender.add("age");
+        identifierAgeGender.add("gender");
+        quasiIdentifierRiskList.add(new AttributeRisk.QuasiIdentifierRisk(identifierAgeGender,0.0048, 0.8055484696939388));
+        return quasiIdentifierRiskList;
+    }
+
+    public static AttributeRisk attributeRisk(){
+        return new AttributeRisk(quasiIdentifierRisks());
+    }
+
     public static RiskProfile zipcodeAnalyzationAfterAnonymization(){
-        return new RiskProfile(ageGenderZipcodeReIndenticationRiskAfterAnonymization(),ageGenderZipcodeDistributionOfRiskAfterAnonymization());
+        return new RiskProfile(ageGenderZipcodeReIndenticationRiskAfterAnonymization(),ageGenderZipcodeDistributionOfRiskAfterAnonymization(), attributeRisk());
     }
 
     public static Request zipcodeRequestPayloadAfterAnonymization(){
