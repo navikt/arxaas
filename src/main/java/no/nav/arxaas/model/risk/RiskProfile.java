@@ -15,8 +15,6 @@ public class RiskProfile {
 
     private AttributeRisk attributeRisk;
 
-
-
     public RiskProfile(ReIdentificationRisk reIdentificationRisk, DistributionOfRisk distributionOfRisk, AttributeRisk quasiIdentifierRisk) {
         this.reIdentificationRisk = reIdentificationRisk;
         this.distributionOfRisk = distributionOfRisk;

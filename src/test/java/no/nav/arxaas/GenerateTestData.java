@@ -3,12 +3,15 @@ package no.nav.arxaas;
 import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.Request;
 import no.nav.arxaas.model.anonymity.PrivacyCriterionModel;
-import no.nav.arxaas.model.risk.*;
+import no.nav.arxaas.model.risk.AttackerSuccess;
+import no.nav.arxaas.model.risk.DistributionOfRisk;
+import no.nav.arxaas.model.risk.ReIdentificationRisk;
+import no.nav.arxaas.model.risk.RiskProfile;
+import no.nav.arxaas.model.risk.AttributeRisk;
 import no.nav.arxaas.utils.ARXDataFactory;
 import no.nav.arxaas.utils.DataFactory;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
-import org.deidentifier.arx.risk.RiskModelPopulationUniqueness;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +21,6 @@ import java.util.Map;
 import static no.nav.arxaas.model.AttributeTypeModel.*;
 
 public class GenerateTestData {
-
 
     public static Request zipcodeRequestPayload() {
         List<String[]> testData = ageGenderZipcodeData();
