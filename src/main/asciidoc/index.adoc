@@ -155,3 +155,9 @@ This method builds hierarchies for categorical and non-categorical values by ord
 into groups with the defined sizes.
 
 operation::hierarchy-controller-orderbased[snippets='request-fields,http-request,http-response']
+
+=== Create a date based hierarchy
+
+This method builds hierarchies for date values following Java SimpleDateFormat.
+
+operation::hierarchy-controller-datebased[snippets='request-fields,http-request,http-response']
