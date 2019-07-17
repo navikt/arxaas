@@ -2,16 +2,14 @@ package no.nav.arxaas.hierarchy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.google.common.collect.Iterables;
 import org.deidentifier.arx.DataType;
 import org.deidentifier.arx.aggregates.HierarchyBuilderDate;
 
 import javax.validation.constraints.NotNull;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+
 
 public class DateBasedHierarchyBuilder implements HierarchyBuilder {
 
@@ -74,7 +72,7 @@ public class DateBasedHierarchyBuilder implements HierarchyBuilder {
     public DateBasedHierarchyBuilder(String dateFormat, List<Granularity> granularities) {
         Objects.requireNonNull(dateFormat, "dateFormat should not be null");
         Objects.requireNonNull(granularities, "granularities should not be null");
-        if(Iterables.isEmpty(granularities)) throw new IllegalArgumentException("granularities cannot be empty");
+        if(granularities.isEmpty()) throw new IllegalArgumentException("granularities cannot be empty");
         this.dateFormat = dateFormat;
         this.granularities = granularities;
     }
