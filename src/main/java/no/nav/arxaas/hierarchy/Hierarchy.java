@@ -3,6 +3,7 @@ package no.nav.arxaas.hierarchy;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Hierarchy {
 
@@ -33,11 +34,9 @@ public class Hierarchy {
 
     @Override
     public String toString() {
-        List<String> stringifiedHierarchy = new ArrayList<>();
-        for (String[] strings : List.of(hierarchy)) {
-            String s = Arrays.toString(strings);
-            stringifiedHierarchy.add(s);
-        }
+        var stringifiedHierarchy = Arrays.stream(hierarchy)
+                .map(Arrays::toString)
+                .collect(Collectors.toList());
 
         return "Hierarchy{" +
                 "hierarchy=" + stringifiedHierarchy.toString() +
