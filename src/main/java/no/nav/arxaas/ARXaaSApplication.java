@@ -8,11 +8,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AaaSApplication implements ApplicationRunner {
-	private static final Logger logger = LoggerFactory.getLogger(AaaSApplication.class);
+public class ARXaaSApplication implements ApplicationRunner {
+	private static final Logger logger = LoggerFactory.getLogger(ARXaaSApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(AaaSApplication.class, args);
+		SpringApplication.run(ARXaaSApplication.class, args);
 	}
 
 	@Override
