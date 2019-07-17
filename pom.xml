@@ -252,7 +252,7 @@
 								<exclude>**/no/nav/arxaas/controller/CustomErrorController.*</exclude>
                                 <exclude>**/no/nav/arxaas/config/SecurityConfig.*</exclude>
                                 <exclude>**/no/nav/arxaas/SwaggerConfig.*</exclude>
-                                <exclude>**/no/nav/arxaas/AaaSApplication.*</exclude>
+                                <exclude>**/no/nav/arxaas/ARXaaSApplication.*</exclude>
 								<exclude>**/no/nav/arxaas/analyzer/Analyzer.*</exclude>
 								<exclude>**/no/nav/arxaas/anonymizer/Anonymizer.*</exclude>
 								<exclude>**/no/nav/arxaas/utils/DataFactory.*</exclude>
