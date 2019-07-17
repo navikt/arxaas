@@ -1,8 +1,8 @@
 [![CircleCI](https://circleci.com/gh/navikt/ARXaaS/tree/master.svg?style=svg)](https://circleci.com/gh/navikt/ARXaaS/tree/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b33732ce938a22920733/maintainability)](https://codeclimate.com/github/navikt/ARXaaS/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b33732ce938a22920733/test_coverage)](https://codeclimate.com/github/navikt/ARXaaS/test_coverage)
-[![Maven Central](https://img.shields.io/maven-central/v/no.oslomet/arxaas.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22no.oslomet%22%20AND%20a:%22arxaas%22)
-[![Javadocs](http://javadoc.io/badge/no.oslomet/arxaas.svg)](http://javadoc.io/doc/no.oslomet/arxaas)
+[![Maven Central](https://img.shields.io/maven-central/v/no.nav/arxaas.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22no.nav%22%20AND%20a:%22arxaas%22)
+[![Javadocs](https://www.javadoc.io/badge/no.nav/arxaaas.svg)](https://www.javadoc.io/doc/no.nav/arxaaas)
 
 # ARXaaS - Anonymization as a Service
 
