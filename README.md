@@ -21,21 +21,21 @@ ARX Web Service
 1. Make sure Docker Desktop is running.
 2. Pull the Docker image
 ```bash
-docker pull arxaas/aaas
+docker pull navikt/arxaas
 ```
 3. Run the Docker image
 ```bash
-docker run arxaas/aaas
+docker run navikt/arxaas
 ```
 
 ##### Run server on localhost from jar (download ARXaaS executable jar from Maven and execute it)
-1. Go to https://search.maven.org/search?q=g:no.oslomet and download the latest version of ARXaaS
+1. Go to [![Maven Central](https://img.shields.io/maven-central/v/no.nav/arxaas.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22no.nav%22%20AND%20a:%22arxaas%22) and download the latest version of ARXaaS
 2. Run the jar file
 ```bash
 java -jar <path to jar>
 ```
 
-#### Customize your ARXaaS server
+#### Development
 1. Clone the ARXaaS project from Github
 2. Download ARX Java library with sources from https://arx.deidentifier.org/downloads/
 3. Install the ARX library in your local Maven repostitory
