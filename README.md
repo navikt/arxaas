@@ -1,3 +1,5 @@
+
+![ARXaaS logo](ARXaaS_hero_small.png)
 [![CircleCI](https://circleci.com/gh/navikt/ARXaaS/tree/master.svg?style=svg)](https://circleci.com/gh/navikt/ARXaaS/tree/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b33732ce938a22920733/maintainability)](https://codeclimate.com/github/navikt/ARXaaS/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b33732ce938a22920733/test_coverage)](https://codeclimate.com/github/navikt/ARXaaS/test_coverage)
