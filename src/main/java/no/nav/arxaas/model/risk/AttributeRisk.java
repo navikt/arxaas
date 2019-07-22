@@ -1,6 +1,7 @@
 package no.nav.arxaas.model.risk;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.DataHandle;
 import org.deidentifier.arx.risk.RiskModelAttributes;
@@ -12,17 +13,21 @@ import java.util.Objects;
 
 public class AttributeRisk {
 
-    private final List<QuasiIdentifierRisk> quaziIdentifierRiskList;
+    private List<QuasiIdentifierRisk> quasiIdentifierRiskList;
 
+    public AttributeRisk() {}
 
-    @JsonCreator
-    public AttributeRisk(List<QuasiIdentifierRisk> quasiIdentifierRisks) {
-        this.quaziIdentifierRiskList = quasiIdentifierRisks;
+    public AttributeRisk(List<QuasiIdentifierRisk> quasiIdentifierRiskList) {
+        this.quasiIdentifierRiskList = quasiIdentifierRiskList;
     }
 
-    @JsonGetter
-    public List<QuasiIdentifierRisk> getQuaziIdentifierRiskList(){
-        return this.quaziIdentifierRiskList;
+
+    public List<QuasiIdentifierRisk> getQuasiIdentifierRiskList(){
+        return this.quasiIdentifierRiskList;
+    }
+
+    public void setQuasiIdentifierRiskList(List<QuasiIdentifierRisk> quasiIdentifierRiskList) {
+        this.quasiIdentifierRiskList = quasiIdentifierRiskList;
     }
 
     public static AttributeRisk create(DataHandle dataToAnalyse, ARXPopulationModel pModel){
