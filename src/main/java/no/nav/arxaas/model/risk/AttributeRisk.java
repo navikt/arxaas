@@ -13,11 +13,11 @@ import java.util.Objects;
 
 public class AttributeRisk {
 
-    private List<QuasiIdentifierRisk> quasiIdentifierRiskList;
+    private final List<QuasiIdentifierRisk> quasiIdentifierRiskList;
 
-    public AttributeRisk() {}
 
-    public AttributeRisk(List<QuasiIdentifierRisk> quasiIdentifierRiskList) {
+
+    public AttributeRisk(@JsonProperty("quasiIdentifierRiskList") List<QuasiIdentifierRisk> quasiIdentifierRiskList) {
         this.quasiIdentifierRiskList = quasiIdentifierRiskList;
     }
 
@@ -26,9 +26,7 @@ public class AttributeRisk {
         return this.quasiIdentifierRiskList;
     }
 
-    public void setQuasiIdentifierRiskList(List<QuasiIdentifierRisk> quasiIdentifierRiskList) {
-        this.quasiIdentifierRiskList = quasiIdentifierRiskList;
-    }
+
 
     public static AttributeRisk create(DataHandle dataToAnalyse, ARXPopulationModel pModel){
         RiskModelAttributes.QuasiIdentifierRisk[] data = dataToAnalyse.getRiskEstimator(pModel).getAttributeRisks().getAttributeRisks();
