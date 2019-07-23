@@ -745,8 +745,8 @@ containing a risk profile that includes the re-identification risk and distribut
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Length: 4171
 Content-Type: application/json;charset=UTF-8
+Content-Length: 4330
 
 {
   "reIdentificationRisk" : {
@@ -872,6 +872,13 @@ Content-Type: application/json;charset=UTF-8
       "recordsWithRiskWithinInterval" : 0.0,
       "recordsWithMaximalRiskWithinInterval" : 0.0
     } ]
+  },
+  "attributeRisk" : {
+    "quasiIdentifierRiskList" : [ {
+      "identifier" : [ "zipcode" ],
+      "distinction" : 1.0,
+      "separation" : 1.0
+    } ]
   }
 }</code></pre>
 </div>
@@ -976,8 +983,8 @@ object containing a anonymized dataset, a risk profile, and metadata for the ano
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Length: 7533
 Content-Type: application/json;charset=UTF-8
-Content-Length: 7344
 
 {
   "anonymizeResult" : {
@@ -989,7 +996,7 @@ Content-Length: 7344
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 1,
+      "processTimeMillisecounds" : 0,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "attribute" : "gender",
@@ -1001,8 +1008,8 @@ Content-Length: 7344
         "riskThresholdMarketer" : 0.5,
         "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
         "populationModel" : null,
+        "dataSubset" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
@@ -1017,8 +1024,8 @@ Content-Length: 7344
         "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
         "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
         "populationModel" : null,
+        "dataSubset" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
@@ -1162,6 +1169,13 @@ Content-Length: 7344
         "interval" : "[0,1e-6)",
         "recordsWithRiskWithinInterval" : 0.0,
         "recordsWithMaximalRiskWithinInterval" : 0.0
+      } ]
+    },
+    "attributeRisk" : {
+      "quasiIdentifierRiskList" : [ {
+        "identifier" : [ "zipcode" ],
+        "distinction" : 0.09090909090909091,
+        "separation" : 0.0
       } ]
     }
   }
@@ -1702,7 +1716,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-07-23 07:02:48 UTC
+Last updated 2019-07-23 08:43:50 UTC
 </div>
 </div>
 </body>
