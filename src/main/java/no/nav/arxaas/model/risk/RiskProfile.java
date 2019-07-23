@@ -11,10 +11,12 @@ public class RiskProfile {
 
     private final DistributionOfRisk distributionOfRisk;
 
+    private AttributeRisk attributeRisk;
 
-    public RiskProfile(ReIdentificationRisk reIdentificationRisk, DistributionOfRisk distributionOfRisk ) {
+    public RiskProfile(ReIdentificationRisk reIdentificationRisk, DistributionOfRisk distributionOfRisk, AttributeRisk quasiIdentifierRisk) {
         this.reIdentificationRisk = reIdentificationRisk;
         this.distributionOfRisk = distributionOfRisk;
+        this.attributeRisk = quasiIdentifierRisk;
     }
 
     public ReIdentificationRisk getReIdentificationRisk() {
@@ -26,11 +28,14 @@ public class RiskProfile {
         return distributionOfRisk;
     }
 
+    public AttributeRisk getAttributeRisk() { return attributeRisk; }
+
     @Override
     public String toString() {
         return "RiskProfile{" +
                 "reIdentificationRisk=" + reIdentificationRisk +
                 ", distributionOfRisk=" + distributionOfRisk +
+                ", attributeRisk=" + attributeRisk +
                 '}';
     }
 
@@ -44,6 +49,6 @@ public class RiskProfile {
 
     @Override
     public int hashCode() {
-        return Objects.hash(reIdentificationRisk, distributionOfRisk);
+        return Objects.hash(reIdentificationRisk, distributionOfRisk, attributeRisk);
     }
 }

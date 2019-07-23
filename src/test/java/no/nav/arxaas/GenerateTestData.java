@@ -7,8 +7,10 @@ import no.nav.arxaas.model.risk.AttackerSuccess;
 import no.nav.arxaas.model.risk.DistributionOfRisk;
 import no.nav.arxaas.model.risk.ReIdentificationRisk;
 import no.nav.arxaas.model.risk.RiskProfile;
+import no.nav.arxaas.model.risk.AttributeRisk;
 import no.nav.arxaas.utils.ARXDataFactory;
 import no.nav.arxaas.utils.DataFactory;
+import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
 
 import java.util.ArrayList;
@@ -19,7 +21,6 @@ import java.util.Map;
 import static no.nav.arxaas.model.AttributeTypeModel.*;
 
 public class GenerateTestData {
-
 
     public static Request zipcodeRequestPayload() {
         List<String[]> testData = ageGenderZipcodeData();
@@ -46,6 +47,11 @@ public class GenerateTestData {
     public static Data ageGenderZipcodeDataset(){
         DataFactory datafactory = new ARXDataFactory();
         return datafactory.create(zipcodeRequestPayload());
+    }
+
+    public static Data ageGenderZipcodeDataset2Quasi(){
+        DataFactory datafactory = new ARXDataFactory();
+        return datafactory.create(zipcodeRequestPayload2Quasi());
     }
 
     public static Data ageGenderZipcodeDatasetAfterAnonymziation(){
@@ -81,13 +87,15 @@ public class GenerateTestData {
     public static RiskProfile ageGenderZipcodeRiskProfile(){
         var reIdentRisk = ageGenderZipcodeReIndenticationRisk();
         var distributedRisk = ageGenderZipcodeDistributionOfRisk();
-        return new RiskProfile(reIdentRisk, distributedRisk);
+        var attributeRisk = ageGenderZipcodeAttributeRisk();
+        return new RiskProfile(reIdentRisk, distributedRisk, attributeRisk);
     }
 
     public static RiskProfile ageGenderZipcodeRiskProfileAfterAnonymization(){
         var reIdentRisk = ageGenderZipcodeReIndenticationRiskAfterAnonymization();
         var distributedRisk = ageGenderZipcodeDistributionOfRiskAfterAnonymization();
-        return new RiskProfile(reIdentRisk, distributedRisk);
+        var attributeRisk = ageGenderZipcodeAttributeRisk();
+        return new RiskProfile(reIdentRisk, distributedRisk, attributeRisk);
     }
 
     public static ReIdentificationRisk ageGenderZipcodeReIndenticationRisk(){
@@ -100,6 +108,11 @@ public class GenerateTestData {
 
     private static DistributionOfRisk ageGenderZipcodeDistributionOfRiskAfterAnonymization(){
         return DistributionOfRisk.create(ageGenderZipcodeDatasetAfterAnonymziation().getHandle().getRiskEstimator());
+    }
+
+    private static AttributeRisk ageGenderZipcodeAttributeRisk(){
+        ARXPopulationModel pModel= ARXPopulationModel.create(ageGenderZipcodeDataset2Quasi().getHandle().getNumRows(), 0.01d);
+        return AttributeRisk.create(ageGenderZipcodeDataset2Quasi().getHandle(), pModel);
     }
 
 
