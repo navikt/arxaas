@@ -9,7 +9,6 @@ import no.nav.arxaas.utils.DataFactory;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
 import org.deidentifier.arx.DataHandle;
-import org.deidentifier.arx.risk.RiskModelAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

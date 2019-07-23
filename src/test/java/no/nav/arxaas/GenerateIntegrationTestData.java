@@ -11,10 +11,7 @@ import no.nav.arxaas.utils.ARXConfigurationFactory;
 import no.nav.arxaas.utils.ARXDataFactory;
 import no.nav.arxaas.utils.ARXPrivacyCriterionFactory;
 import no.nav.arxaas.utils.DataFactory;
-import org.deidentifier.arx.ARXAnonymizer;
-import org.deidentifier.arx.ARXConfiguration;
-import org.deidentifier.arx.ARXResult;
-import org.deidentifier.arx.Data;
+import org.deidentifier.arx.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -142,27 +139,18 @@ public class GenerateIntegrationTestData {
         return new AttackerSuccess(measureMap);
     }
 
-    private static List<AttributeRisk.QuasiIdentifierRisk> quasiIdentifierRisks() {
-        List<AttributeRisk.QuasiIdentifierRisk> quasiIdentifierRiskList = new ArrayList<>();
-        List<String> identifierAge = new ArrayList();
-        identifierAge.add("age");
-        quasiIdentifierRiskList.add(new AttributeRisk.QuasiIdentifierRisk(identifierAge,8.0E-4, 0.6207939187837568));
-        List<String> identifierGender = new ArrayList();
-        identifierGender.add("gender");
-        quasiIdentifierRiskList.add(new AttributeRisk.QuasiIdentifierRisk(identifierGender,0.0012, 0.4871479895979196));
-        List<String> identifierAgeGender = new ArrayList();
-        identifierAgeGender.add("age");
-        identifierAgeGender.add("gender");
-        quasiIdentifierRiskList.add(new AttributeRisk.QuasiIdentifierRisk(identifierAgeGender,0.0048, 0.8055484696939388));
-        return quasiIdentifierRiskList;
-    }
-
     public static AttributeRisk attributeRisk(){
-        return new AttributeRisk(quasiIdentifierRisks());
+        ARXPopulationModel pModel = ARXPopulationModel.create(ageGenderZipcodeDataset().getHandle().getNumRows(), 0.01d);
+        return AttributeRisk.create(ageGenderZipcodeDataset().getHandle(),pModel);
     }
 
     public static RiskProfile zipcodeAnalyzationAfterAnonymization(){
-        return new RiskProfile(ageGenderZipcodeReIndenticationRiskAfterAnonymization(),ageGenderZipcodeDistributionOfRiskAfterAnonymization(), attributeRisk());
+        return new RiskProfile(ageGenderZipcodeReIndenticationRiskAfterAnonymization(),ageGenderZipcodeDistributionOfRiskAfterAnonymization(), attributeRiskAfterAnonymization());
+    }
+
+    public static AttributeRisk attributeRiskAfterAnonymization(){
+        ARXPopulationModel pModel = ARXPopulationModel.create(ageGenderZipcodeDatasetAfterAnonymziation().getHandle().getNumRows(), 0.01d);
+        return AttributeRisk.create(ageGenderZipcodeDatasetAfterAnonymziation().getHandle(), pModel);
     }
 
     public static Request zipcodeRequestPayloadAfterAnonymization(){

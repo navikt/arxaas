@@ -29,7 +29,6 @@ public class AnalyzationServiceTest {
     public void getPayloadAnalysis() {
         RiskProfile actual = analyzationService.analyze(testRequestPayload);
         RiskProfile expected = GenerateTestData.ageGenderZipcodeRiskProfile();
-
         Assertions.assertEquals(expected,actual);
     }
 }

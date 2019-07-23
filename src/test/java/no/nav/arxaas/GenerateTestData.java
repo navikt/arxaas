@@ -49,6 +49,11 @@ public class GenerateTestData {
         return datafactory.create(zipcodeRequestPayload());
     }
 
+    public static Data ageGenderZipcodeDataset2Quasi(){
+        DataFactory datafactory = new ARXDataFactory();
+        return datafactory.create(zipcodeRequestPayload2Quasi());
+    }
+
     public static Data ageGenderZipcodeDatasetAfterAnonymziation(){
         DataFactory datafactory = new ARXDataFactory();
         return datafactory.create(zipcodeRequestPayloadAfterAnonymization());
@@ -106,8 +111,8 @@ public class GenerateTestData {
     }
 
     private static AttributeRisk ageGenderZipcodeAttributeRisk(){
-        ARXPopulationModel pModel= ARXPopulationModel.create(ageGenderZipcodeDatasetAfterAnonymziation().getHandle().getNumRows(), 0.01d);
-        return AttributeRisk.create(ageGenderZipcodeDatasetAfterAnonymziation().getHandle(), pModel);
+        ARXPopulationModel pModel= ARXPopulationModel.create(ageGenderZipcodeDataset2Quasi().getHandle().getNumRows(), 0.01d);
+        return AttributeRisk.create(ageGenderZipcodeDataset2Quasi().getHandle(), pModel);
     }
 
 
