@@ -1,7 +1,5 @@
 package no.nav.arxaas.model.risk;
 
-import org.deidentifier.arx.risk.RiskModelAttributes.QuasiIdentifierRisk;
-
 import java.util.Objects;
 
 /**
@@ -51,6 +49,6 @@ public class RiskProfile {
 
     @Override
     public int hashCode() {
-        return Objects.hash(reIdentificationRisk, distributionOfRisk);
+        return Objects.hash(reIdentificationRisk, distributionOfRisk, attributeRisk);
     }
 }

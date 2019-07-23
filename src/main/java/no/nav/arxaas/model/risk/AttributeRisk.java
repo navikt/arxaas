@@ -17,7 +17,7 @@ public class AttributeRisk {
      * Sets a list of distinction and seperation metrics for each of the quasi-identifyig attributes in the dataset
      * @param quasiIdentifierRiskList contains risk factors for each and each combination of risks for quasi-attributes in the dataset
      */
-    public AttributeRisk(@JsonProperty("quasiIdentifierRiskList") List<QuasiIdentifierRisk> quasiIdentifierRiskList) {
+    private AttributeRisk(@JsonProperty("quasiIdentifierRiskList") List<QuasiIdentifierRisk> quasiIdentifierRiskList) {
         this.quasiIdentifierRiskList = quasiIdentifierRiskList;
     }
 
@@ -41,6 +41,26 @@ public class AttributeRisk {
             quasiIdentifierRiskList.add(new QuasiIdentifierRisk(risk.getIdentifier(), risk.getDistinction(), risk.getSeparation()));
         }
         return new AttributeRisk(quasiIdentifierRiskList);
+    }
+
+    @Override
+    public String toString() {
+        return "AttributeRisk{" +
+                "quasiIdentifierRiskList=" + quasiIdentifierRiskList +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AttributeRisk that = (AttributeRisk) o;
+        return Objects.equals(quasiIdentifierRiskList, that.quasiIdentifierRiskList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(quasiIdentifierRiskList);
     }
 
     /***
