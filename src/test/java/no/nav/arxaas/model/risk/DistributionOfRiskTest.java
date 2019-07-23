@@ -28,7 +28,7 @@ class DistributionOfRiskTest {
         for( DistributionOfRisk.RiskInterval actual: distributionIntervalModelList){
             Assertions.assertEquals(interval[index], actual.getInterval());
             Assertions.assertEquals(risksForThresholds[index],actual.getRecordsWithRiskWithinInteval());
-            Assertions.assertEquals(maxRisksForThreshold[index],actual.getRecordsWithMaxmalRiskWithinInterval());
+            Assertions.assertEquals(maxRisksForThreshold[index],actual.getrecordsWithMaximalRiskWithinInterval());
             index--;
         }
     }

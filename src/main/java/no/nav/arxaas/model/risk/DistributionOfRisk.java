@@ -89,12 +89,12 @@ public class DistributionOfRisk {
     public static class RiskInterval {
         private final String interval;
         private final double recordsWithRiskWithinInteval;
-        private final double recordsWithMaxmalRiskWithinInterval;
+        private final double recordsWithMaximalRiskWithinInterval;
 
-        RiskInterval(String interval, double recordsWithRiskWithinInteval, double recordsWithMaxmalRiskWithinInterval){
+        RiskInterval(String interval, double recordsWithRiskWithinInteval, double recordsWithMaximalRiskWithinInterval){
             this.interval = interval;
             this.recordsWithRiskWithinInteval = recordsWithRiskWithinInteval;
-            this.recordsWithMaxmalRiskWithinInterval = recordsWithMaxmalRiskWithinInterval;
+            this.recordsWithMaximalRiskWithinInterval = recordsWithMaximalRiskWithinInterval;
         }
 
         public String getInterval() {
@@ -105,8 +105,8 @@ public class DistributionOfRisk {
             return recordsWithRiskWithinInteval;
         }
 
-        public double getRecordsWithMaxmalRiskWithinInterval() {
-            return recordsWithMaxmalRiskWithinInterval;
+        public double getrecordsWithMaximalRiskWithinInterval() {
+            return recordsWithMaximalRiskWithinInterval;
         }
 
         @Override
@@ -114,7 +114,7 @@ public class DistributionOfRisk {
             return "RiskInterval{" +
                     "interval='" + interval + '\'' +
                     ", recordsWithRiskWithinInteval=" + recordsWithRiskWithinInteval +
-                    ", recordsWithMaxmalRiskWithinInterval=" + recordsWithMaxmalRiskWithinInterval +
+                    ", recordsWithMaximalRiskWithinInterval=" + recordsWithMaximalRiskWithinInterval +
                     '}';
         }
 
@@ -128,7 +128,7 @@ public class DistributionOfRisk {
 
         @Override
         public int hashCode() {
-            return Objects.hash(interval, recordsWithRiskWithinInteval, recordsWithMaxmalRiskWithinInterval);
+            return Objects.hash(interval, recordsWithRiskWithinInteval, recordsWithMaximalRiskWithinInterval);
         }
     }
 }
