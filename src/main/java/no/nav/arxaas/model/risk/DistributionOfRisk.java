@@ -88,12 +88,12 @@ public class DistributionOfRisk {
 
     public static class RiskInterval {
         private final String interval;
-        private final double recordsWithRiskWithinInteval;
+        private final double recordsWithRiskWithinInterval;
         private final double recordsWithMaximalRiskWithinInterval;
 
-        RiskInterval(String interval, double recordsWithRiskWithinInteval, double recordsWithMaximalRiskWithinInterval){
+        RiskInterval(String interval, double recordsWithRiskWithinInterval, double recordsWithMaximalRiskWithinInterval){
             this.interval = interval;
-            this.recordsWithRiskWithinInteval = recordsWithRiskWithinInteval;
+            this.recordsWithRiskWithinInterval = recordsWithRiskWithinInterval;
             this.recordsWithMaximalRiskWithinInterval = recordsWithMaximalRiskWithinInterval;
         }
 
@@ -101,8 +101,8 @@ public class DistributionOfRisk {
             return interval;
         }
 
-        public double getRecordsWithRiskWithinInteval() {
-            return recordsWithRiskWithinInteval;
+        public double getRecordsWithRiskWithinInterval() {
+            return recordsWithRiskWithinInterval;
         }
 
         public double getrecordsWithMaximalRiskWithinInterval() {
@@ -113,7 +113,7 @@ public class DistributionOfRisk {
         public String toString() {
             return "RiskInterval{" +
                     "interval='" + interval + '\'' +
-                    ", recordsWithRiskWithinInteval=" + recordsWithRiskWithinInteval +
+                    ", recordsWithRiskWithinInterval=" + recordsWithRiskWithinInterval +
                     ", recordsWithMaximalRiskWithinInterval=" + recordsWithMaximalRiskWithinInterval +
                     '}';
         }
@@ -128,7 +128,7 @@ public class DistributionOfRisk {
 
         @Override
         public int hashCode() {
-            return Objects.hash(interval, recordsWithRiskWithinInteval, recordsWithMaximalRiskWithinInterval);
+            return Objects.hash(interval, recordsWithRiskWithinInterval, recordsWithMaximalRiskWithinInterval);
         }
     }
 }
