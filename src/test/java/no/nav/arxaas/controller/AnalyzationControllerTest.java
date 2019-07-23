@@ -46,7 +46,7 @@ class AnalyzationControllerTest {
         assertNotNull(resultData.getReIdentificationRisk().getMeasures().get("records_affected_by_highest_prosecutor_risk"));
         assertEquals("[50,100]", resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getInterval());
         assertEquals(1.0,resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getRecordsWithRiskWithinInteval());
-        assertEquals(1.0,resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getRecordsWithMaxmalRiskWithinInterval());
+        assertEquals(1.0,resultData.getDistributionOfRisk().getRiskIntervalList().get(0).getrecordsWithMaximalRiskWithinInterval());
         assertNotNull(resultData.getDistributionOfRisk());
 
     }
