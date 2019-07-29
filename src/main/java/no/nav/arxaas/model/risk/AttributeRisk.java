@@ -2,12 +2,17 @@ package no.nav.arxaas.model.risk;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.deidentifier.arx.ARXPopulationModel;
+import org.deidentifier.arx.ARXSolverConfiguration;
 import org.deidentifier.arx.DataHandle;
+import org.deidentifier.arx.DataHandleInternal;
+import org.deidentifier.arx.common.WrappedBoolean;
+import org.deidentifier.arx.common.WrappedInteger;
 import org.deidentifier.arx.risk.RiskModelAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class AttributeRisk {
 
@@ -35,10 +40,11 @@ public class AttributeRisk {
      * @return A new instance of the class AttributeRisk containing a list of QuasiIdentifierRisks
      */
     public static AttributeRisk create(DataHandle dataToAnalyse, ARXPopulationModel pModel){
-        RiskModelAttributes.QuasiIdentifierRisk[] data = dataToAnalyse.getRiskEstimator(pModel).getAttributeRisks().getAttributeRisks();
         List<QuasiIdentifierRisk> quasiIdentifierRiskList = new ArrayList();
-        for (RiskModelAttributes.QuasiIdentifierRisk risk : data){
-            quasiIdentifierRiskList.add(new QuasiIdentifierRisk(risk.getIdentifier(), risk.getDistinction(), risk.getSeparation()));
+        for (String quasiAttribute : dataToAnalyse.getDefinition().getQuasiIdentifyingAttributes()){
+            RiskModelAttributes.QuasiIdentifierRisk[] data = dataToAnalyse.getRiskEstimator(pModel, Set.of(quasiAttribute)).getAttributeRisks().getAttributeRisks();
+            for (RiskModelAttributes.QuasiIdentifierRisk quasiRisk : data)
+            quasiIdentifierRiskList.add(new QuasiIdentifierRisk(quasiRisk.getIdentifier(), quasiRisk.getDistinction(), quasiRisk.getSeparation()));
         }
         return new AttributeRisk(quasiIdentifierRiskList);
     }
