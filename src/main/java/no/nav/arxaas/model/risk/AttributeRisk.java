@@ -2,11 +2,7 @@ package no.nav.arxaas.model.risk;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.deidentifier.arx.ARXPopulationModel;
-import org.deidentifier.arx.ARXSolverConfiguration;
 import org.deidentifier.arx.DataHandle;
-import org.deidentifier.arx.DataHandleInternal;
-import org.deidentifier.arx.common.WrappedBoolean;
-import org.deidentifier.arx.common.WrappedInteger;
 import org.deidentifier.arx.risk.RiskModelAttributes;
 
 import java.util.ArrayList;
