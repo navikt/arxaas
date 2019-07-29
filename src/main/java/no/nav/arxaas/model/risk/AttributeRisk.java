@@ -37,10 +37,12 @@ public class AttributeRisk {
      */
     public static AttributeRisk create(DataHandle dataToAnalyse, ARXPopulationModel pModel){
         List<QuasiIdentifierRisk> quasiIdentifierRiskList = new ArrayList();
-        for (String quasiAttribute : dataToAnalyse.getDefinition().getQuasiIdentifyingAttributes()){
+        for (String quasiAttribute : dataToAnalyse.getDefinition().getQuasiIdentifyingAttributes()) {
             RiskModelAttributes.QuasiIdentifierRisk[] data = dataToAnalyse.getRiskEstimator(pModel, Set.of(quasiAttribute)).getAttributeRisks().getAttributeRisks();
-            for (RiskModelAttributes.QuasiIdentifierRisk quasiRisk : data)
-            quasiIdentifierRiskList.add(new QuasiIdentifierRisk(quasiRisk.getIdentifier(), quasiRisk.getDistinction(), quasiRisk.getSeparation()));
+            //Will in most cases run only once as it gets passed only a single attribute
+            for (RiskModelAttributes.QuasiIdentifierRisk quasiRisk : data) {
+                quasiIdentifierRiskList.add(new QuasiIdentifierRisk(quasiRisk.getIdentifier(), quasiRisk.getDistinction(), quasiRisk.getSeparation()));
+            }
         }
         return new AttributeRisk(quasiIdentifierRiskList);
     }
