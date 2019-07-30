@@ -8,8 +8,7 @@
 
 # ARXaaS - Anonymization as a Service
 
-ARX Web Service
-
+ARXaaS is a data anonymization service built ontop of the [ARX](https://arx.deidentifier.org/) library. It exposes HTTP REST endpoints for analyzing re-identification risk, anonymizing datasets and creating generalization hierarchies.
 
 #### Documentation
 
