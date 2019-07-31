@@ -80,8 +80,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - attach_workspace:
-          at: target
       - setup_remote_docker:
           docker_layer_caching: true
       - run: |
@@ -98,6 +96,13 @@ jobs:
             echo 'export TAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
       - run: |
           echo $TAG
+      - run:
+          name: Set version in pom
+          command: |
+            mvn versions:set -DnewVersion="$TAG"
+            mvn versions:commit
+      # repackage with new version
+      - run: mvn package
       - run: docker build -t navikt/arxaas:$TAG .
       - run: docker tag navikt/arxaas:$TAG navikt/arxaas:latest
       - run: docker push navikt/arxaas:$TAG
