@@ -996,40 +996,40 @@ Content-Type: application/json;charset=UTF-8
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 3,
+      "processTimeMillisecounds" : 1,
       "privacyModels" : [ {
+        "monotonicWithGeneralization" : true,
+        "k" : 5,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
+        "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
+        "minimalClassSize" : 5,
+        "riskThresholdJournalist" : 0.2,
+        "requirements" : 1,
+        "populationModel" : null,
+        "subset" : null,
+        "monotonicWithSuppression" : true,
+        "sampleBased" : false,
+        "subsetAvailable" : false,
+        "dataSubset" : null
+      }, {
         "monotonicWithGeneralization" : true,
         "attribute" : "gender",
         "l" : 2.0,
         "localRecodingSupported" : true,
-        "requirements" : 4,
-        "riskThresholdJournalist" : 0.5,
         "riskThresholdMarketer" : 0.5,
         "riskThresholdProsecutor" : 0.5,
+        "minimalClassSizeAvailable" : true,
         "minimalClassSize" : 2,
-        "minimalClassSizeAvailable" : true,
+        "riskThresholdJournalist" : 0.5,
+        "requirements" : 4,
         "populationModel" : null,
         "subset" : null,
-        "dataSubset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
-        "subsetAvailable" : false
-      }, {
-        "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "requirements" : 1,
-        "riskThresholdJournalist" : 0.2,
-        "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
-        "minimalClassSize" : 5,
-        "minimalClassSizeAvailable" : true,
-        "localRecodingSupported" : true,
-        "populationModel" : null,
-        "subset" : null,
-        "dataSubset" : null,
-        "monotonicWithSuppression" : true,
-        "sampleBased" : false,
-        "subsetAvailable" : false
+        "subsetAvailable" : false,
+        "dataSubset" : null
       } ]
     },
     "attributes" : [ {
@@ -1716,7 +1716,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-07-30 07:26:56 UTC
+Last updated 2019-07-31 14:11:13 UTC
 </div>
 </div>
 </body>
