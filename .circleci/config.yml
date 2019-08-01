@@ -102,6 +102,14 @@ jobs:
       - checkout
       - attach_workspace:
           at: target
+      - attach_workspace:
+          at: img_tag
+      - run:
+          name: Create version tag env variable
+          command: |
+            echo 'export TAG=`cat img_tag/docker_img_tag`' >> $BASH_ENV
+      - run: |
+          echo $TAG
       - setup_remote_docker:
           docker_layer_caching: true
       - run: |
