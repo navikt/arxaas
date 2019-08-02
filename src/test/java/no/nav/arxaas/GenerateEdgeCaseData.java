@@ -103,6 +103,15 @@ public class GenerateEdgeCaseData {
         return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
     }
 
+    public static Request zipcodeRequestPayload_wrong_ldiv_column_key_name(){
+        List<String[]> testData = ageGenderZipcodeData();
+        List<String[]> listHierarchy = zipcodeHierarchy();
+        List<Attribute> testAttributes = ageGenderZipcodeAttributes(listHierarchy);
+        List<PrivacyCriterionModel> privacyCriterionModels = ageGenderZipcode_wrong_LDivColumnKey();
+        Double suppressionLimit = 0.02;
+        return new Request(testData, testAttributes, privacyCriterionModels,suppressionLimit);
+    }
+
     public static Request zipcodeRequestPayload_wrong_hierarchy_format(){
         List<String[]> testData = ageGenderZipcodeData();
         List<String[]> listHierarchy = zipcodeHierarchy_wrong_format();
@@ -333,6 +342,19 @@ public class GenerateEdgeCaseData {
         lMapValue.put("t", "2");
         lMapValue.put("column_names", "gender");
         lMapValue.put("k", "gender");
+        privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.LDIVERSITY_DISTINCT, lMapValue));
+        return privacyCriterionModelList;
+    }
+
+    private static List<PrivacyCriterionModel> ageGenderZipcode_wrong_LDivColumnKey() {
+        List<PrivacyCriterionModel> privacyCriterionModelList = new ArrayList<>();
+        Map<String,String> kMapValue = new HashMap<>();
+        kMapValue.put("k","5");
+        privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
+
+        Map<String,String> lMapValue = new HashMap<>();
+        lMapValue.put("l", "2");
+        lMapValue.put("label", "gender");
         privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.LDIVERSITY_DISTINCT, lMapValue));
         return privacyCriterionModelList;
     }

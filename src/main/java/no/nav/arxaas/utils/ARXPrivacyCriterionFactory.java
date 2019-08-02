@@ -26,22 +26,35 @@ public class ARXPrivacyCriterionFactory {
             case KANONYMITY:
                 return new KAnonymity(Integer.parseInt(params.get("k")));
             case LDIVERSITY_DISTINCT:
+                validateColumnParam(params);
                 return new DistinctLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")));
             case LDIVERSITY_SHANNONENTROPY:
+                validateColumnParam(params);
                 return new EntropyLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")),
                         EntropyLDiversity.EntropyEstimator.SHANNON);
             case LDIVERSITY_GRASSBERGERENTROPY:
+                validateColumnParam(params);
                 return new EntropyLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")),
                         EntropyLDiversity.EntropyEstimator.GRASSBERGER);
             case LDIVERSITY_RECURSIVE:
+                validateColumnParam(params);
                 return new RecursiveCLDiversity(params.get(COLUMNNAME),Integer.parseInt(params.get("l")),
                         Integer.parseInt(params.get("c")));
             case TCLOSENESS_ORDERED_DISTANCE:
+                validateColumnParam(params);
                 return new OrderedDistanceTCloseness(params.get(COLUMNNAME),Double.parseDouble(params.get("t")));
             case TCLOSENESS_EQUAL_DISTANCE:
+                validateColumnParam(params);
                 return new EqualDistanceTCloseness(params.get(COLUMNNAME),Double.parseDouble(params.get("t")));
             default:
                 throw new AaaSRuntimeException(model.getName() + " Privacy Model not supported");
+        }
+    }
+
+
+    private static void validateColumnParam(Map<String, String> lDivParams){
+        if (!lDivParams.containsKey(COLUMNNAME) || lDivParams.get(COLUMNNAME).isEmpty()){
+            throw new IllegalArgumentException("Privacy Model must contain " + COLUMNNAME + " param");
         }
     }
 }
