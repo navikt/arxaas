@@ -61,15 +61,15 @@ public class ARXAnonymizer implements Anonymizer {
             ARXResult result = anonymizer.anonymize(data, config);
             if(result.getOutput() == null){
                 String errorMessage = "Could not fulfill the privacy criterion set";
-                String logError = exceptionError + errorMessage;
-                logger.error(logError);
                 throw new UnableToAnonymizeDataException(errorMessage);
             }
             return result;
         }catch(IOException | IndexOutOfBoundsException e){
             String errorMessage = String.format("%s, Failed to create dataset. Check if dataset format and attribute dataset fields are correct", e.toString());
-            logger.error(String.format(exceptionError, errorMessage));
             throw new UnableToAnonymizeDataInvalidDataSetException(errorMessage);
+        }catch (NullPointerException e){
+            String errorMessage = "Could not fulfill the privacy criterion set";
+            throw new UnableToAnonymizeDataException(e.getMessage());
         }
     }
 
