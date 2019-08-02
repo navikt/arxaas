@@ -31,10 +31,10 @@ class GlobalControllerExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleExceptionAllExceptions(Exception ex, WebRequest request) {
-        logger.error("Exception.class error, HttpStatus: INTERNAL_SERVER_ERROR, ExceptionToString: ", ex);
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                         ex.getMessage(),
                         request.getDescription(false));
+        logger.error("Exception.class error, HttpStatus: INTERNAL_SERVER_ERROR, ExceptionToString: ", ex);
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -43,6 +43,7 @@ class GlobalControllerExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.toString(),
                 request.getDescription(false));
+        logger.error("NullPointerException.class error, HttpStatus: INTERNAL_SERVER_ERROR, ExceptionToString: ", ex);
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -81,6 +82,7 @@ class GlobalControllerExceptionHandler {
                         "Unable to anonymize the dataset with the provided attributes and hierarchies." +
                 " A common cause of this error is more than one QUASIIDENTIFYING attribute without a hierarchy",
                 request.getDescription(false));
+        logger.error("UnableToAnonymizeDataException.class error, HttpStatus.BAD_REQUEST, ExceptionToString: ", ex);
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
@@ -89,6 +91,7 @@ class GlobalControllerExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.getMessage(),
                 request.getDescription(false));
+        logger.error("UnableToAnonymizeDataInvalidDataSetException.class error, HttpStatus.BAD_REQUEST, ExceptionToString: ", ex);
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 

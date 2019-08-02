@@ -202,4 +202,15 @@ class AnonymizationEdgeCaseTest {
         assertNotNull(resultData);
         assertNotNull(resultData.getMessage());
     }
+
+    @Test
+    void anonymization_with_ldiv_with_wrong_map_key_for_column_name(){
+        Request wrongFormat = GenerateEdgeCaseData.zipcodeRequestPayload_wrong_ldiv_column_key_name();
+        ResponseEntity<IllegalArgumentException> responseEntity = restTemplate.postForEntity("/api/anonymize",wrongFormat, IllegalArgumentException.class);
+        assertNotNull(responseEntity);
+        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        var resultData = responseEntity.getBody();
+        assertNotNull(resultData);
+        assertNotNull(resultData.getMessage());
+    }
 }
