@@ -1,5 +1,8 @@
 package no.nav.arxaas.model.anonymity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Map;
 
 public class PrivacyCriterionModel {
@@ -7,7 +10,9 @@ public class PrivacyCriterionModel {
     private final PrivacyModel privacyModel;
     private final Map<String, String> params;
 
-    public PrivacyCriterionModel(PrivacyModel privacyModel, Map<String, String> params) {
+    @JsonCreator
+    public PrivacyCriterionModel(@JsonProperty("privacyModel") PrivacyModel privacyModel,
+                                 @JsonProperty("params") Map<String, String> params) {
         this.privacyModel = privacyModel;
         this.params = params;
     }
