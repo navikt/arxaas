@@ -73,8 +73,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<!--image prefix has to correlate with docker hub server name-->
-		<docker.image.prefix>arxaas</docker.image.prefix>
+		<jackson.version>2.9.9.20190807</jackson.version>
 		<version.junit>5.5.0</version.junit>
 	</properties>
 
