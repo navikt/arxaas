@@ -5,6 +5,7 @@ import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.FormDataAttribute;
 import no.nav.arxaas.model.FormMetaDataRequest;
 import no.nav.arxaas.model.Request;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * Public contract to be fulfilled by FormDataAnonymization and FormDataAnalysation classes
  */
+@Component
 public class FormDataFactory {
 
     /***
