@@ -3,8 +3,13 @@ package no.nav.arxaas.hierarchy.interval;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.deidentifier.arx.aggregates.HierarchyBuilderIntervalBased;
 
+import javax.validation.constraints.NotNull;
+
 public class Interval {
+
+    @NotNull
     private final Number from;
+    @NotNull
     private final Number to;
     private final String label;
 
