@@ -5,7 +5,6 @@ import no.nav.arxaas.model.Request;
 import org.deidentifier.arx.AttributeType;
 import org.deidentifier.arx.Data;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 /**
@@ -74,5 +73,4 @@ public class ARXDataFactory implements DataFactory {
             }
         }
     }
-
 }
