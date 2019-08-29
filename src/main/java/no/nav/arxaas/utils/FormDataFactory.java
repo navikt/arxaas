@@ -21,7 +21,7 @@ import java.util.List;
 public class FormDataFactory {
 
     /***
-     * Returns an ARX {@link Request} object created from the provided MultipartFile and String.
+     * Returns an {@link Request} object created from the provided MultipartFile and String.
      * @param file a {@link MultipartFile} containing the raw dataset file to be parsed.
      * @param payload a String containing the raw metadata to be parsed.
      * @return an ARX {@link Request} model containing the parsed dataset and metadata.
@@ -35,7 +35,7 @@ public class FormDataFactory {
     }
 
     /***
-     * Returns an ARX {@link Request} object created from the provided MultipartFile and String.
+     * Returns an {@link Request} object created from the provided MultipartFile and String.
      * @param file a {@link MultipartFile} containing the raw dataset file to be parsed.
      * @param payload a String containing the raw metadata to be parsed.
      * @param hierarchies a array of {@link MultipartFile} containing the raw hierarchy files to be parsed.
