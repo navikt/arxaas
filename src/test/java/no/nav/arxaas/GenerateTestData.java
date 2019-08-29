@@ -10,13 +10,17 @@ import no.nav.arxaas.model.risk.RiskProfile;
 import no.nav.arxaas.model.risk.AttributeRisk;
 import no.nav.arxaas.utils.ARXDataFactory;
 import no.nav.arxaas.utils.DataFactory;
+import org.apache.commons.io.IOUtils;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
 
 import static no.nav.arxaas.model.AttributeTypeModel.*;
 
@@ -148,6 +152,41 @@ public class GenerateTestData {
         measureMap.put("Marketer_attacker_success_rate",1.0);
         measureMap.put("Prosecutor_attacker_success_rate",1.0);
         return new AttackerSuccess(measureMap);
+    }
+
+    public static MultipartFile ageGenderZipcodeMultipartFile(){
+        return makeMockMultipartFile("./src/test/resources/testDataset.csv","file","text/csv");
+    }
+
+    public static String formDataTestPayload(){
+        return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":0}]," +
+                "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}]," +
+                "\"suppressionLimit\":0.02}";
+    }
+
+    private static MultipartFile genderHierarchyMultipartFile(){
+        return makeMockMultipartFile("./src/test/resources/testGenderHierarchy.csv", "hierarchies", "text/csv");
+    }
+
+    private static MultipartFile zipcodeHierarchyMultipartFile(){
+        return makeMockMultipartFile("./src/test/resources/testZipcodeHierarchy.csv","hierarchies", "text/csv");
+    }
+
+    public static MultipartFile[] testHierarchiesMultipartFile(){
+        return new MultipartFile[]{zipcodeHierarchyMultipartFile(),genderHierarchyMultipartFile()};
+    }
+
+    private static MultipartFile makeMockMultipartFile(String pathName, String name, String contentType){
+        try {
+            File file = new File(pathName);
+            FileInputStream input = new FileInputStream(file);
+            return new MockMultipartFile(name,file.getName(),contentType, IOUtils.toByteArray(input));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static ReIdentificationRisk ageGenderZipcodeReIndenticationRiskAfterAnonymization(){
