@@ -1,6 +1,8 @@
 package no.nav.arxaas;
 
 import no.nav.arxaas.model.Attribute;
+import no.nav.arxaas.model.FormDataAttribute;
+import no.nav.arxaas.model.FormMetaDataRequest;
 import no.nav.arxaas.model.Request;
 import no.nav.arxaas.model.anonymity.PrivacyCriterionModel;
 import no.nav.arxaas.model.risk.AttackerSuccess;
@@ -158,12 +160,24 @@ public class GenerateTestData {
         return makeMockMultipartFile("./src/test/resources/testDataset.csv","file","text/csv");
     }
 
-    public static String formDataTestPayload(){
-        return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
-                "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
-                "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":0}]," +
-                "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}]," +
-                "\"suppressionLimit\":0.02}";
+    public static FormMetaDataRequest formDataTestPayload(){
+
+        List<FormDataAttribute> formDataAttributeList = new ArrayList<>();
+        FormDataAttribute ageAttribute = new FormDataAttribute("age",IDENTIFYING,null);
+        FormDataAttribute genderAttribute = new FormDataAttribute("gender",QUASIIDENTIFYING,null);
+        FormDataAttribute zipcodeAttribute = new FormDataAttribute("zipcode", QUASIIDENTIFYING,0);
+        formDataAttributeList.add(ageAttribute);
+        formDataAttributeList.add(genderAttribute);
+        formDataAttributeList.add(zipcodeAttribute);
+
+        List<PrivacyCriterionModel> privacyCriterionModelList = new ArrayList<>();
+        Map<String,String> kMapValue = new HashMap<>();
+        kMapValue.put("k","5");
+        privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
+
+        Double suppressionLimit = 0.02;
+
+        return new FormMetaDataRequest(formDataAttributeList,privacyCriterionModelList,suppressionLimit);
     }
 
     private static MultipartFile genderHierarchyMultipartFile(){

@@ -1,6 +1,7 @@
 package no.nav.arxaas.utils;
 
 import no.nav.arxaas.GenerateTestData;
+import no.nav.arxaas.model.FormMetaDataRequest;
 import no.nav.arxaas.model.Request;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,7 @@ class FormDataFactoryTest {
 
     private FormDataFactory formDataFactory;
     private MultipartFile testFile;
-    private String testPayload;
+    private FormMetaDataRequest testPayload;
     private MultipartFile[] testHierarchies;
 
 
