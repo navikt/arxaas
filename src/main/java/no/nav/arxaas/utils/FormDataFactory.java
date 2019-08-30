@@ -26,12 +26,11 @@ public class FormDataFactory {
      * @param payload a String containing the raw metadata to be parsed.
      * @return an ARX {@link Request} model containing the parsed dataset and metadata.
      */
-    public Request createAnalyzationPayload(MultipartFile file, String payload){
+    public Request createAnalyzationPayload(MultipartFile file, FormMetaDataRequest payload){
         validateParameters(file,payload);
         List<String[]> rawData = handleInputStream(file);
-        FormMetaDataRequest formMetaDataRequest = buildFormDataPayload(payload);
-        List<Attribute> attributeList = buildRequestAnalyzationAttribute(formMetaDataRequest.getAttributes());
-        return new Request(rawData, attributeList, formMetaDataRequest.getPrivacyModels(), formMetaDataRequest.getSuppressionLimit());
+        List<Attribute> attributeList = buildRequestAnalyzationAttribute(payload.getAttributes());
+        return new Request(rawData, attributeList, payload.getPrivacyModels(), payload.getSuppressionLimit());
     }
 
     /***
@@ -41,12 +40,11 @@ public class FormDataFactory {
      * @param hierarchies a array of {@link MultipartFile} containing the raw hierarchy files to be parsed.
      * @return an ARX {@link Request} model containing the parsed dataset, metadata and hierarchies.
      */
-    public Request createAnonymizationPayload(MultipartFile file, String payload, MultipartFile[] hierarchies){
+    public Request createAnonymizationPayload(MultipartFile file, FormMetaDataRequest payload, MultipartFile[] hierarchies){
         validateParameters(file,payload);
         List<String[]> rawData = handleInputStream(file);
-        FormMetaDataRequest formMetaDataRequest = buildFormDataPayload(payload);
-        List<Attribute> attributeList = buildRequestAnonymizationAttribute(formMetaDataRequest.getAttributes(),hierarchies);
-        return new Request(rawData, attributeList, formMetaDataRequest.getPrivacyModels(), formMetaDataRequest.getSuppressionLimit());
+        List<Attribute> attributeList = buildRequestAnonymizationAttribute(payload.getAttributes(),hierarchies);
+        return new Request(rawData, attributeList, payload.getPrivacyModels(), payload.getSuppressionLimit());
     }
 
     /***
@@ -54,7 +52,7 @@ public class FormDataFactory {
      * @param file a {@link MultipartFile} containing the raw dataset file to be parsed.
      * @param payload a String containing the raw metadata to be parsed.
      */
-    private void validateParameters(MultipartFile file, String payload){
+    private void validateParameters(MultipartFile file, FormMetaDataRequest payload){
         if(file == null) throw new IllegalArgumentException("file parameter is null");
         if(payload == null) throw new IllegalArgumentException("metadata payload parameter is null");
     }
@@ -80,19 +78,6 @@ public class FormDataFactory {
     }
 
     /***
-     * Builds a {@link FormMetaDataRequest} model from the string payload.
-     * @param payload a String containing the raw metadata to be parsed.
-     * @return a {@link FormMetaDataRequest} model containing the metadata for analyzation and anonymization configurations.
-     */
-    private FormMetaDataRequest buildFormDataPayload(String payload){
-        try {
-            return new ObjectMapper().readValue(payload, FormMetaDataRequest.class);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Unable to create payload: " + e.getMessage());
-        }
-    }
-
-    /***
      * Builds a list of {@link Attribute} from the  list of {@link FormDataAttribute} to correctly build the attribute metadata.
      * @param attributeList a list of {@link FormDataAttribute} to be parsed in order to correctly build the attribute metadata.
      * @return list of {@link Attribute} for analyzation.
@@ -115,7 +100,6 @@ public class FormDataFactory {
      */
     private List<Attribute> buildRequestAnonymizationAttribute(List<FormDataAttribute> attributeList, MultipartFile[] hierarchies){
         List<Attribute> newAttributeList = new ArrayList<>();
-
         attributeList.forEach(attribute -> {
             if(attribute.getHierarchy() != null) {
                 int hierarchyIndex = attribute.getHierarchy();
