@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
@@ -28,7 +29,7 @@ public class FormDataAnonymizationController {
     }
 
     @PostMapping
-    public AnonymizationResultPayload anonymization(@RequestParam("file") MultipartFile file, @RequestParam("payload") String payload, @RequestParam("hierarchies") MultipartFile[] hierarchies, HttpServletRequest request) {
+    public AnonymizationResultPayload anonymization(@RequestPart("file") MultipartFile file, @RequestPart("metadata") @Valid FormMetaDataRequest payload, @RequestPart("hierarchies") MultipartFile[] hierarchies, HttpServletRequest request) {
         long requestRecivedTime = System.currentTimeMillis();
         Request requestPayload = formDataFactory.createAnonymizationPayload(file, payload, hierarchies);
         loggerService.loggPayload(requestPayload, request.getRemoteAddr(), AnonymizationController.class);

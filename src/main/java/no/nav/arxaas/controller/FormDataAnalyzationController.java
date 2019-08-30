@@ -28,9 +28,9 @@ public class FormDataAnalyzationController {
     }
 
     @PostMapping
-    public RiskProfile getPayloadAnalyzeFromFormData(@RequestParam("file") MultipartFile file, @RequestParam("payload") String payload, HttpServletRequest request){
+    public RiskProfile getPayloadAnalyzeFromFormData(@RequestPart("file") MultipartFile file, @RequestPart("metadata") FormMetaDataRequest metadata, HttpServletRequest request){
         long requestRecivedTime = System.currentTimeMillis();
-        Request requestPayload = formDataFactory.createAnalyzationPayload(file,payload);
+        Request requestPayload = formDataFactory.createAnalyzationPayload(file,metadata);
         loggerService.loggPayload(requestPayload, request.getRemoteAddr(), AnalyzationController.class);
         RiskProfile analyzationResult = analyzationService.analyze(requestPayload);
         long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
