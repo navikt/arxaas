@@ -8,6 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class FormDataFactoryTest {
 
     private FormDataFactory formDataFactory;
@@ -66,6 +69,29 @@ class FormDataFactoryTest {
         Assertions.assertEquals(expected.getAttributes().get(0).getField(),actual.getAttributes().get(0).getField());
         Assertions.assertEquals(expected.getAttributes().get(1).getAttributeTypeModel(),actual.getAttributes().get(1).getAttributeTypeModel());
         Assertions.assertArrayEquals(expected.getAttributes().get(2).getHierarchy().get(1),actual.getAttributes().get(2).getHierarchy().get(1));
+
+        //check privacy model
+        Assertions.assertEquals(expected.getPrivacyModels().get(0).getPrivacyModel(),actual.getPrivacyModels().get(0).getPrivacyModel());
+        Assertions.assertEquals(expected.getPrivacyModels().get(0).getParams(),actual.getPrivacyModels().get(0).getParams());
+
+        //suppression limit
+        Assertions.assertEquals(expected.getSuppressionLimit(),expected.getSuppressionLimit());
+    }
+
+    @Test
+    void createAnonymizationPayload_with_no_hierarchies(){
+        Request actual = formDataFactory.createAnonymizationPayload(testFile,testPayload, new MultipartFile[]{});
+        Request expected = GenerateTestData.zipcodeRequestPayload2Quasi();
+
+        //check dataset
+        Assertions.assertArrayEquals(expected.getData().get(1), actual.getData().get(1));
+        Assertions.assertArrayEquals(expected.getData().get(2), actual.getData().get(2));
+        Assertions.assertArrayEquals(expected.getData().get(3), actual.getData().get(3));
+
+        //check attributes
+        Assertions.assertEquals(expected.getAttributes().get(0).getField(),actual.getAttributes().get(0).getField());
+        Assertions.assertEquals(expected.getAttributes().get(1).getAttributeTypeModel(),actual.getAttributes().get(1).getAttributeTypeModel());
+        Assertions.assertNull(actual.getAttributes().get(2).getHierarchy());
 
         //check privacy model
         Assertions.assertEquals(expected.getPrivacyModels().get(0).getPrivacyModel(),actual.getPrivacyModels().get(0).getPrivacyModel());

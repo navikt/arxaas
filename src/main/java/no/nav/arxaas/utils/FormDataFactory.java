@@ -101,7 +101,7 @@ public class FormDataFactory {
     private List<Attribute> buildRequestAnonymizationAttribute(List<FormDataAttribute> attributeList, MultipartFile[] hierarchies){
         List<Attribute> newAttributeList = new ArrayList<>();
         attributeList.forEach(attribute -> {
-            if(attribute.getHierarchy() != null) {
+            if(attribute.getHierarchy() != null && hierarchies.length > 1) {
                 int hierarchyIndex = attribute.getHierarchy();
                 List<String[]> hierarchy = handleInputStream(hierarchies[hierarchyIndex]);
                 Attribute newAttribute = new Attribute(attribute.getField(), attribute.getAttributeTypeModel(), hierarchy);
