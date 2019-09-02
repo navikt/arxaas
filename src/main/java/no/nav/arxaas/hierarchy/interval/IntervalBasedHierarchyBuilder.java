@@ -18,6 +18,7 @@ import java.util.List;
 public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
 
     @NotNull
+    @Valid
     private final List<Interval> intervals;
     @NotNull
     @Valid
@@ -54,27 +55,40 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
     @Override
     public Hierarchy build(String[] column) {
         if(dataType == BuilderDataType.LONG){
-            HierarchyBuilderIntervalBased<Long> builder = arxHierarchyBuilderIntervalBased();
-            applyIntervals(builder);
-            applyLevels(builder);
-            builder.prepare(column);
-            return new Hierarchy(builder.build().getHierarchy());
+            return hierarchyFromlongTypeBuilder(column);
         }
         else if (dataType == BuilderDataType.DOUBLE){
-            HierarchyBuilderIntervalBased<Double> builder = arxHierarchyBuilderIntervalBasedDouble();
-            applyIntervalsDouble(builder);
-            applyLevels(builder);
-            builder.prepare(column);
-            return new Hierarchy(builder.build().getHierarchy());
+            return hierarchyFromdoubleTypeBuilder(column);
         }
         throw new IllegalStateException("Datatype=" + dataType.toString() + " is not supported");
     }
 
     /**
-     * Create HierarchyBuilderIntervalBased with right create method
+     * Create a HierarchyBuilderIntervalBased of type Double and add the intervals and levels to it
+     * @param column String[] conainting
      * @return HierarchyBuilderIntervalBased
      */
-    private HierarchyBuilderIntervalBased<Long> arxHierarchyBuilderIntervalBased() {
+    private Hierarchy hierarchyFromdoubleTypeBuilder(String[] column) {
+        HierarchyBuilderIntervalBased<Double> builder = arxDoubleTypeHierarchyBuilderIntervalBased();
+        applyIntervalsDouble(builder);
+        applyLevels(builder);
+        builder.prepare(column);
+        return new Hierarchy(builder.build().getHierarchy());
+    }
+
+    private Hierarchy hierarchyFromlongTypeBuilder(String[] column) {
+        HierarchyBuilderIntervalBased<Long> builder = arxLongTypeHierarchyBuilderIntervalBased();
+        applyIntervals(builder);
+        applyLevels(builder);
+        builder.prepare(column);
+        return new Hierarchy(builder.build().getHierarchy());
+    }
+
+    /**
+     * Create HierarchyBuilderIntervalBased of type Long
+     * @return HierarchyBuilderIntervalBased
+     */
+    private HierarchyBuilderIntervalBased<Long> arxLongTypeHierarchyBuilderIntervalBased() {
         HierarchyBuilderIntervalBased<Long> builder;
         if(upperRange == null || lowerRange ==null){
             builder = HierarchyBuilderIntervalBased.create(DataType.INTEGER);
@@ -88,8 +102,11 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
         builder.setAggregateFunction(DataType.INTEGER.createAggregate().createIntervalFunction(true, false));
         return builder;
     }
-
-    private HierarchyBuilderIntervalBased<Double> arxHierarchyBuilderIntervalBasedDouble() {
+    /**
+     * Create HierarchyBuilderIntervalBased of type Double
+     * @return HierarchyBuilderIntervalBased
+     */
+    private HierarchyBuilderIntervalBased<Double> arxDoubleTypeHierarchyBuilderIntervalBased() {
         HierarchyBuilderIntervalBased<Double> builder;
         if(upperRange == null || lowerRange ==null){
             builder = HierarchyBuilderIntervalBased.create(DataType.DECIMAL);
@@ -114,17 +131,13 @@ public class IntervalBasedHierarchyBuilder implements HierarchyBuilder {
 
     private void applyIntervalsDouble(HierarchyBuilderIntervalBased<Double> builder) {
         if(intervals != null){
-            for (Interval interval : intervals) {
-                interval.applyToDouble(builder);
-            }
+            for (Interval interval : intervals) { interval.applyToDouble(builder); }
         }
     }
 
     private void applyLevels(HierarchyBuilderIntervalBased builder){
         if (levels != null){
-            for (Level level: levels) {
-                level.applyTo(builder);
-            }
+            for (Level level: levels) { level.applyTo(builder); }
         }
     }
 
