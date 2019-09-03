@@ -40,10 +40,10 @@ class FormDataAnalyzationControllerTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        MultipartFile testFile = GenerateTestData.ageGenderZipcodeMultipartFile();
+        MultipartFile testFile = GenerateTestData.ageGenderZipcodeDatasetMultipartFile();
         String testMetaData = GenerateIntegrationTestData.testFormData_metadata_2quasi();
 
-         file = new MockMultipartFile("file", testFile.getOriginalFilename(),"text/csv", testFile.getInputStream().readAllBytes());
+         file = new MockMultipartFile("file", testFile.getOriginalFilename(),"text/csv", testFile.getBytes());
          metadata = new MockMultipartFile("metadata", "","application/json", testMetaData.getBytes());
     }
 
