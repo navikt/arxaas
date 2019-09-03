@@ -160,7 +160,7 @@ public class GenerateTestData {
         return makeMockMultipartFile("./src/test/resources/testDataset.csv","file","text/csv");
     }
 
-    public static FormMetaDataRequest formDataTestPayload(){
+    public static FormMetaDataRequest formDataTestMetaData(){
 
         List<FormDataAttribute> formDataAttributeList = new ArrayList<>();
         FormDataAttribute ageAttribute = new FormDataAttribute("age",IDENTIFYING,null);
