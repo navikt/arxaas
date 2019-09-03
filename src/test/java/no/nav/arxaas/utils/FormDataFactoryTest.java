@@ -8,9 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-
 class FormDataFactoryTest {
 
     private FormDataFactory formDataFactory;
@@ -23,7 +20,7 @@ class FormDataFactoryTest {
     void generateTestData(){
         formDataFactory = new FormDataFactory();
         testFile = GenerateTestData.ageGenderZipcodeMultipartFile();
-        testPayload = GenerateTestData.formDataTestPayload();
+        testPayload = GenerateTestData.formDataTestMetaData();
         testHierarchies = GenerateTestData.testHierarchiesMultipartFile();
     }
 
