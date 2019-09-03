@@ -19,7 +19,7 @@ class FormDataFactoryTest {
     @BeforeEach
     void generateTestData(){
         formDataFactory = new FormDataFactory();
-        testFile = GenerateTestData.ageGenderZipcodeMultipartFile();
+        testFile = GenerateTestData.ageGenderZipcodeDatasetMultipartFile();
         testPayload = GenerateTestData.formDataTestMetaData();
         testHierarchies = GenerateTestData.testHierarchiesMultipartFile();
     }

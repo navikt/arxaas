@@ -156,7 +156,7 @@ public class GenerateTestData {
         return new AttackerSuccess(measureMap);
     }
 
-    public static MultipartFile ageGenderZipcodeMultipartFile(){
+    public static MultipartFile ageGenderZipcodeDatasetMultipartFile(){
         return makeMockMultipartFile("./src/test/resources/testDataset.csv","file","text/csv");
     }
 
@@ -180,11 +180,11 @@ public class GenerateTestData {
         return new FormMetaDataRequest(formDataAttributeList,privacyCriterionModelList,suppressionLimit);
     }
 
-    private static MultipartFile genderHierarchyMultipartFile(){
+    public static MultipartFile genderHierarchyMultipartFile(){
         return makeMockMultipartFile("./src/test/resources/testGenderHierarchy.csv", "hierarchies", "text/csv");
     }
 
-    private static MultipartFile zipcodeHierarchyMultipartFile(){
+    public static MultipartFile zipcodeHierarchyMultipartFile(){
         return makeMockMultipartFile("./src/test/resources/testZipcodeHierarchy.csv","hierarchies", "text/csv");
     }
 
