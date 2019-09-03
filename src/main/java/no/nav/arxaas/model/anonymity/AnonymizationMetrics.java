@@ -1,6 +1,7 @@
 package no.nav.arxaas.model.anonymity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import no.nav.arxaas.model.AttributeGeneralizationRow;
 import org.deidentifier.arx.ARXLattice;
 import org.deidentifier.arx.ARXResult;
@@ -35,9 +36,9 @@ public class AnonymizationMetrics {
      * @param privacyModels Set containing PrivacyModels and their configurations used during arxaas
      */
     @JsonCreator
-    private AnonymizationMetrics(List<AttributeGeneralizationRow> attributeGeneralization,
-                                 Long processTimeMillisecounds,
-                                 Set privacyModels){
+    private AnonymizationMetrics(@JsonProperty("attributeGeneralization") List<AttributeGeneralizationRow> attributeGeneralization,
+                                 @JsonProperty("processTimeMillisecounds") Long processTimeMillisecounds,
+                                 @JsonProperty("privacyModels") Set privacyModels){
         this.attributeGeneralization = attributeGeneralization;
         this.processTimeMillisecounds = processTimeMillisecounds;
         this.privacyModels = privacyModels;

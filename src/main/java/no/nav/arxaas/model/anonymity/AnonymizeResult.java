@@ -1,5 +1,7 @@
 package no.nav.arxaas.model.anonymity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import no.nav.arxaas.model.Attribute;
 
 import java.util.List;
@@ -21,8 +23,9 @@ public class AnonymizeResult {
      * @param metrics {@link AnonymizationMetrics} containing the metrics from the arxaas process.
      * Contains data on Attribute generalization, privacymodels configuration and time elapsed during arxaas
      */
-    public AnonymizeResult(List<String[]> data, String anonymizationStatus,
-                           AnonymizationMetrics metrics,List<Attribute> attributes) {
+    @JsonCreator
+    public AnonymizeResult(@JsonProperty("data") List<String[]> data,@JsonProperty("anonymizationStatus") String anonymizationStatus,
+                           @JsonProperty("metrics") AnonymizationMetrics metrics,@JsonProperty("attributes") List<Attribute> attributes) {
         this.data = data;
         this.anonymizationStatus = anonymizationStatus;
         this.metrics = metrics;
