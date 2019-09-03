@@ -1,5 +1,6 @@
 package no.nav.arxaas.model.risk;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.DataHandle;
@@ -18,6 +19,7 @@ public class AttributeRisk {
      * Sets a list of distinction and seperation metrics for each of the quasi-identifyig attributes in the dataset
      * @param quasiIdentifierRiskList contains risk factors for each and each combination of risks for quasi-attributes in the dataset
      */
+    @JsonCreator
     private AttributeRisk(@JsonProperty("quasiIdentifierRiskList") List<QuasiIdentifierRisk> quasiIdentifierRiskList) {
         this.quasiIdentifierRiskList = quasiIdentifierRiskList;
     }
@@ -36,7 +38,7 @@ public class AttributeRisk {
      * @return A new instance of the class AttributeRisk containing a list of QuasiIdentifierRisks
      */
     public static AttributeRisk create(DataHandle dataToAnalyse, ARXPopulationModel pModel){
-        List<QuasiIdentifierRisk> quasiIdentifierRiskList = new ArrayList();
+        List<QuasiIdentifierRisk> quasiIdentifierRiskList = new ArrayList<>();
         for (String quasiAttribute : dataToAnalyse.getDefinition().getQuasiIdentifyingAttributes()) {
             RiskModelAttributes.QuasiIdentifierRisk[] data = dataToAnalyse.getRiskEstimator(pModel, Set.of(quasiAttribute)).getAttributeRisks().getAttributeRisks();
             //Will in most cases run only once as it gets passed only a single attribute
@@ -81,7 +83,10 @@ public class AttributeRisk {
          * @param distinction Percent value of each attribute/attribute combination
          * @param separation Percent value of each attribute/attribute combination
          */
-        public QuasiIdentifierRisk(List<String> identifier, double distinction, double separation) {
+        @JsonCreator
+        public QuasiIdentifierRisk(@JsonProperty("identifier") List<String> identifier,
+                                   @JsonProperty("distinction") double distinction,
+                                   @JsonProperty("separation") double separation) {
             this.identifier = identifier;
             this.distinction = distinction;
             this.separation = separation;

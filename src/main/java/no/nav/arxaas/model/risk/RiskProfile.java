@@ -1,5 +1,8 @@
 package no.nav.arxaas.model.risk;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 /**
@@ -13,7 +16,10 @@ public class RiskProfile {
 
     private AttributeRisk attributeRisk;
 
-    public RiskProfile(ReIdentificationRisk reIdentificationRisk, DistributionOfRisk distributionOfRisk, AttributeRisk quasiIdentifierRisk) {
+    @JsonCreator
+    public RiskProfile(@JsonProperty("reIdentificationRisk") ReIdentificationRisk reIdentificationRisk,
+                       @JsonProperty("distributionOfRisk") DistributionOfRisk distributionOfRisk,
+                       @JsonProperty("quasiIdentifierRisk") AttributeRisk quasiIdentifierRisk) {
         this.reIdentificationRisk = reIdentificationRisk;
         this.distributionOfRisk = distributionOfRisk;
         this.attributeRisk = quasiIdentifierRisk;

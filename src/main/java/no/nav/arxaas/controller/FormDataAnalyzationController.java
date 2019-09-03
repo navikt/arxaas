@@ -32,10 +32,10 @@ public class FormDataAnalyzationController {
     public RiskProfile getPayloadAnalyzeFromFormData(@RequestPart("file") MultipartFile file, @RequestPart("metadata") @Valid FormMetaDataRequest metadata , HttpServletRequest request){
         long requestRecivedTime = System.currentTimeMillis();
         Request requestPayload = formDataFactory.createAnalyzationPayload(file,metadata);
-        loggerService.loggPayload(requestPayload, request.getRemoteAddr(), AnalyzationController.class);
+        loggerService.loggPayload(requestPayload, request.getRemoteAddr(), FormDataAnalyzationController.class);
         RiskProfile analyzationResult = analyzationService.analyze(requestPayload);
         long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
-        loggerService.loggAnalyzationResult(analyzationResult, requestPayload, request.getRemoteAddr(), requestProcessingTime, AnalyzationController.class);
+        loggerService.loggAnalyzationResult(analyzationResult, requestPayload, request.getRemoteAddr(), requestProcessingTime, FormDataAnalyzationController.class);
         return analyzationResult;
     }
 }
