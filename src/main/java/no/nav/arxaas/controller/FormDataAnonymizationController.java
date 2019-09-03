@@ -32,10 +32,10 @@ public class FormDataAnonymizationController {
     public AnonymizationResultPayload anonymization(@RequestPart("file") MultipartFile file, @RequestPart("metadata") @Valid FormMetaDataRequest payload, @RequestPart("hierarchies") MultipartFile[] hierarchies, HttpServletRequest request) {
         long requestRecivedTime = System.currentTimeMillis();
         Request requestPayload = formDataFactory.createAnonymizationPayload(file, payload, hierarchies);
-        loggerService.loggPayload(requestPayload, request.getRemoteAddr(), AnonymizationController.class);
+        loggerService.loggPayload(requestPayload, request.getRemoteAddr(), FormDataAnonymizationController.class);
         AnonymizationResultPayload anonymizationResult = anonymizationService.anonymize(requestPayload);
         long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
-        loggerService.loggAnonymizeResult(anonymizationResult,requestProcessingTime, AnonymizationController.class, request.getRemoteAddr());
+        loggerService.loggAnonymizeResult(anonymizationResult,requestProcessingTime, FormDataAnonymizationController.class, request.getRemoteAddr());
         return anonymizationService.anonymize(requestPayload);
     }
 }
