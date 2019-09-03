@@ -1,6 +1,7 @@
 package no.nav.arxaas.model.risk;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.deidentifier.arx.risk.RiskModelSampleSummary;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ public class AttackerSuccess {
     private final Map<String, Double> successRates;
 
     @JsonCreator
-    public AttackerSuccess(Map<String, Double> successRates) {
+    public AttackerSuccess(@JsonProperty("successRates") Map<String, Double> successRates) {
         this.successRates = successRates;
     }
 

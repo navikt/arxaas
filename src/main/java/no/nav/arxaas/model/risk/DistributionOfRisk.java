@@ -2,6 +2,7 @@ package no.nav.arxaas.model.risk;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.deidentifier.arx.risk.RiskEstimateBuilder;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class DistributionOfRisk {
     private final List<RiskInterval> riskIntervalList;
 
     @JsonCreator
-    private DistributionOfRisk(List<RiskInterval> riskIntervalList){
+    private DistributionOfRisk(@JsonProperty("riskIntervalList") List<RiskInterval> riskIntervalList){
         this.riskIntervalList = riskIntervalList;
     }
 
@@ -91,7 +92,10 @@ public class DistributionOfRisk {
         private final double recordsWithRiskWithinInterval;
         private final double recordsWithMaximalRiskWithinInterval;
 
-        RiskInterval(String interval, double recordsWithRiskWithinInterval, double recordsWithMaximalRiskWithinInterval){
+        @JsonCreator
+        RiskInterval(@JsonProperty("interval") String interval,
+                     @JsonProperty("recordsWithRiskWithinInterval") double recordsWithRiskWithinInterval,
+                     @JsonProperty("recordsWithMaximalRiskWithinInterval")double recordsWithMaximalRiskWithinInterval){
             this.interval = interval;
             this.recordsWithRiskWithinInterval = recordsWithRiskWithinInterval;
             this.recordsWithMaximalRiskWithinInterval = recordsWithMaximalRiskWithinInterval;
@@ -105,7 +109,7 @@ public class DistributionOfRisk {
             return recordsWithRiskWithinInterval;
         }
 
-        public double getrecordsWithMaximalRiskWithinInterval() {
+        public double getRecordsWithMaximalRiskWithinInterval() {
             return recordsWithMaximalRiskWithinInterval;
         }
 

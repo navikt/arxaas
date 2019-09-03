@@ -242,4 +242,12 @@ public class GenerateIntegrationTestData {
         return new AnonymizationResultPayload(anonymizeResultTestData(),zipcodeAnalyzationAfterAnonymization());
     }
 
+    public static String testFormData_metadata_2quasi(){
+        return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
+                "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}]," +
+                "\"suppressionLimit\":0.02}";
+    }
+
 }

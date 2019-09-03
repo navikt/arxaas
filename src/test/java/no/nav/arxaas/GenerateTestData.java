@@ -1,6 +1,8 @@
 package no.nav.arxaas;
 
 import no.nav.arxaas.model.Attribute;
+import no.nav.arxaas.model.FormDataAttribute;
+import no.nav.arxaas.model.FormMetaDataRequest;
 import no.nav.arxaas.model.Request;
 import no.nav.arxaas.model.anonymity.PrivacyCriterionModel;
 import no.nav.arxaas.model.risk.AttackerSuccess;
@@ -10,13 +12,17 @@ import no.nav.arxaas.model.risk.RiskProfile;
 import no.nav.arxaas.model.risk.AttributeRisk;
 import no.nav.arxaas.utils.ARXDataFactory;
 import no.nav.arxaas.utils.DataFactory;
+import org.apache.commons.io.IOUtils;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.Data;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
 
 import static no.nav.arxaas.model.AttributeTypeModel.*;
 
@@ -148,6 +154,53 @@ public class GenerateTestData {
         measureMap.put("Marketer_attacker_success_rate",1.0);
         measureMap.put("Prosecutor_attacker_success_rate",1.0);
         return new AttackerSuccess(measureMap);
+    }
+
+    public static MultipartFile ageGenderZipcodeDatasetMultipartFile(){
+        return makeMockMultipartFile("./src/test/resources/testDataset.csv","file","text/csv");
+    }
+
+    public static FormMetaDataRequest formDataTestMetaData(){
+
+        List<FormDataAttribute> formDataAttributeList = new ArrayList<>();
+        FormDataAttribute ageAttribute = new FormDataAttribute("age",IDENTIFYING,null);
+        FormDataAttribute genderAttribute = new FormDataAttribute("gender",QUASIIDENTIFYING,null);
+        FormDataAttribute zipcodeAttribute = new FormDataAttribute("zipcode", QUASIIDENTIFYING,0);
+        formDataAttributeList.add(ageAttribute);
+        formDataAttributeList.add(genderAttribute);
+        formDataAttributeList.add(zipcodeAttribute);
+
+        List<PrivacyCriterionModel> privacyCriterionModelList = new ArrayList<>();
+        Map<String,String> kMapValue = new HashMap<>();
+        kMapValue.put("k","5");
+        privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
+
+        Double suppressionLimit = 0.02;
+
+        return new FormMetaDataRequest(formDataAttributeList,privacyCriterionModelList,suppressionLimit);
+    }
+
+    public static MultipartFile genderHierarchyMultipartFile(){
+        return makeMockMultipartFile("./src/test/resources/testGenderHierarchy.csv", "hierarchies", "text/csv");
+    }
+
+    public static MultipartFile zipcodeHierarchyMultipartFile(){
+        return makeMockMultipartFile("./src/test/resources/testZipcodeHierarchy.csv","hierarchies", "text/csv");
+    }
+
+    public static MultipartFile[] testHierarchiesMultipartFile(){
+        return new MultipartFile[]{zipcodeHierarchyMultipartFile(),genderHierarchyMultipartFile()};
+    }
+
+    private static MultipartFile makeMockMultipartFile(String pathName, String name, String contentType){
+        try {
+            File file = new File(pathName);
+            FileInputStream input = new FileInputStream(file);
+            return new MockMultipartFile(name,file.getName(),contentType, IOUtils.toByteArray(input));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static ReIdentificationRisk ageGenderZipcodeReIndenticationRiskAfterAnonymization(){

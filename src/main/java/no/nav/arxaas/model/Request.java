@@ -27,11 +27,9 @@ public class Request {
         this.suppressionLimit = suppressionLimit;
     }
 
-
     public List<String[]> getData() {
         return data;
     }
-
 
     public List<Attribute> getAttributes() {
         return attributes;

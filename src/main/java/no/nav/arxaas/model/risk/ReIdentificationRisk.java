@@ -1,6 +1,7 @@
 package no.nav.arxaas.model.risk;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.deidentifier.arx.ARXPopulationModel;
 import org.deidentifier.arx.DataHandle;
 import org.deidentifier.arx.risk.*;
@@ -16,7 +17,10 @@ public class ReIdentificationRisk {
     private final String populationModel;
 
     @JsonCreator
-    public ReIdentificationRisk(Map<String, Double> measures, AttackerSuccess attackerSuccessRate, List<String> quasiIdentifiers, String populationModel) {
+    public ReIdentificationRisk(@JsonProperty("measures") Map<String, Double> measures,
+                                @JsonProperty("attackerSuccessRate") AttackerSuccess attackerSuccessRate,
+                                @JsonProperty("quasiIdentifiers") List<String> quasiIdentifiers,
+                                @JsonProperty("populationModel") String populationModel) {
         this.measures  = measures;
         this.attackerSuccessRate = attackerSuccessRate;
         this.quasiIdentifiers = quasiIdentifiers;

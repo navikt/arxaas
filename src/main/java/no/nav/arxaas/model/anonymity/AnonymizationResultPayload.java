@@ -1,5 +1,7 @@
 package no.nav.arxaas.model.anonymity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import no.nav.arxaas.model.risk.RiskProfile;
 
 
@@ -17,8 +19,9 @@ public class AnonymizationResultPayload {
      *                        used for the arxaas
      * @param riskProfile contains the analysis data from the anonymized dataset.
      */
-    public AnonymizationResultPayload(AnonymizeResult anonymizeResult,
-                                      RiskProfile riskProfile) {
+    @JsonCreator
+    public AnonymizationResultPayload(@JsonProperty("anonymizeResult") AnonymizeResult anonymizeResult,
+                                      @JsonProperty("riskProfile") RiskProfile riskProfile) {
         this.anonymizeResult = anonymizeResult;
         this.riskProfile = riskProfile;
 
