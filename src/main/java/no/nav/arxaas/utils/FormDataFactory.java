@@ -73,9 +73,6 @@ public class FormDataFactory {
             settings.setLineSeparatorDetectionEnabled(true);
             CsvParser parser = new CsvParser(settings);
             rawData = parser.parseAll(file.getInputStream());
-            for (String[] data : rawData) {
-                System.out.println(Arrays.toString(data));
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
