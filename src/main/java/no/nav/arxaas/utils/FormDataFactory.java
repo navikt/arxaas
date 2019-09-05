@@ -68,11 +68,12 @@ public class FormDataFactory {
     private List<String[]> handleInputStream(MultipartFile file){
         List<String[]> rawData = new ArrayList<>();
         try {
-            CsvParserSettings settings = new CsvParserSettings();
-            settings.setDelimiterDetectionEnabled(true);
-            settings.setLineSeparatorDetectionEnabled(true);
-            CsvParser parser = new CsvParser(settings);
-            rawData = parser.parseAll(file.getInputStream());
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] data = line.split(";");
+                rawData.add(data);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
