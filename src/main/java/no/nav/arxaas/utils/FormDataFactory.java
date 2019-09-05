@@ -1,6 +1,8 @@
 package no.nav.arxaas.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.univocity.parsers.csv.CsvParser;
+import com.univocity.parsers.csv.CsvParserSettings;
 import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.FormDataAttribute;
 import no.nav.arxaas.model.FormMetaDataRequest;
@@ -12,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -65,11 +68,13 @@ public class FormDataFactory {
     private List<String[]> handleInputStream(MultipartFile file){
         List<String[]> rawData = new ArrayList<>();
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(file.getInputStream()));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] data = line.split(";");
-                rawData.add(data);
+            CsvParserSettings settings = new CsvParserSettings();
+            settings.setDelimiterDetectionEnabled(true);
+            settings.setLineSeparatorDetectionEnabled(true);
+            CsvParser parser = new CsvParser(settings);
+            rawData = parser.parseAll(file.getInputStream());
+            for (String[] data : rawData) {
+                System.out.println(Arrays.toString(data));
             }
         } catch (IOException e) {
             e.printStackTrace();
