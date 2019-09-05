@@ -52,7 +52,8 @@ class FormDataAnalyzationControllerTest {
     void getPayloadFormDataAnalyze() throws Exception {
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/analyze/file").file(file).file(metadata);
-        MvcResult result = mvc.perform(requestBuilder).andExpect(status().is(200))
+        MvcResult result = mvc.perform(requestBuilder)
+                .andExpect(status().is(200))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.reIdentificationRisk.measures.estimated_journalist_risk").value("1.0"))
                 .andExpect(jsonPath("$.distributionOfRisk.riskIntervalList[0].interval").value("[50,100]"))

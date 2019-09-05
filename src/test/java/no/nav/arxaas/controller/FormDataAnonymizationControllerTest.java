@@ -60,7 +60,8 @@ class FormDataAnonymizationControllerTest {
     void formdata_anonymization_post() throws Exception {
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file").file(file).file(metadata).file(genderHierarchy).file(zipcodeHierarchy);
-        MvcResult result = mvc.perform(requestBuilder).andExpect(status().is(200))
+        MvcResult result = mvc.perform(requestBuilder)
+                .andExpect(status().is(200))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andReturn();
 
