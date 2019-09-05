@@ -60,7 +60,8 @@ class FormDataAnonymizationControllerTest {
     void formdata_anonymization_post() throws Exception {
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file").file(file).file(metadata).file(genderHierarchy).file(zipcodeHierarchy);
-        MvcResult result = mvc.perform(requestBuilder).andExpect(status().is(200))
+        MvcResult result = mvc.perform(requestBuilder)
+                .andExpect(status().is(200))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andReturn();
 
@@ -70,82 +71,36 @@ class FormDataAnonymizationControllerTest {
 
         assertNotNull(actual.getRiskProfile().getReIdentificationRisk().getMeasures().get("records_affected_by_highest_prosecutor_risk"));
         assertNotNull(actual.getAnonymizeResult().getData());
-    }
 
-    @Test
-    void formdata_anonymization_check_for_dataset_values() throws Exception {
-
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file").file(file).file(metadata).file(genderHierarchy).file(zipcodeHierarchy);
-        MvcResult result = mvc.perform(requestBuilder).andExpect(status().is(200))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andReturn();
-
-        String jsonResult = result.getResponse().getContentAsString();
-
-        AnonymizationResultPayload actualResult = new ObjectMapper().readValue(jsonResult,AnonymizationResultPayload.class);
-
-        List<String[]> actual = actualResult.getAnonymizeResult().getData();
-        List<String[]> expected = GenerateTestData.ageGenderZipcodeDataAfterAnonymization();
+        //check for dataset values
+        List<String[]> actualDataset = actual.getAnonymizeResult().getData();
+        List<String[]> expectedDataset = GenerateTestData.ageGenderZipcodeDataAfterAnonymization();
         for(int x = 0; x<12;x++) {
-            Assertions.assertArrayEquals(expected.get(x), actual.get(x));
+            Assertions.assertArrayEquals(expectedDataset.get(x), actualDataset.get(x));
         }
-    }
 
-    @Test
-    void formdata_anonymization_check_for_attributes_values() throws Exception {
-
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file").file(file).file(metadata).file(genderHierarchy).file(zipcodeHierarchy);
-        MvcResult result = mvc.perform(requestBuilder).andExpect(status().is(200))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andReturn();
-
-        String jsonResult = result.getResponse().getContentAsString();
-
-        AnonymizationResultPayload actualResult = new ObjectMapper().readValue(jsonResult,AnonymizationResultPayload.class);
-
-        List<Attribute> actual = actualResult.getAnonymizeResult().getAttributes();
-        List<Attribute> expected = GenerateTestData.zipcodeRequestPayload2Quasi().getAttributes();
-
+        //check for attributes values
+        List<Attribute> actualAttributes = actual.getAnonymizeResult().getAttributes();
+        List<Attribute> expectedAttributes = GenerateTestData.zipcodeRequestPayload2Quasi().getAttributes();
 
         for(int x =0;x<3;x++){
-            assertEquals(expected.get(x).getField(),actual.get(x).getField());
-            assertEquals(expected.get(x).getAttributeTypeModel(),actual.get(x).getAttributeTypeModel());
+            assertEquals(expectedAttributes.get(x).getField(),actualAttributes.get(x).getField());
+            assertEquals(expectedAttributes.get(x).getAttributeTypeModel(),actualAttributes.get(x).getAttributeTypeModel());
         }
-    }
 
-    @Test
-    void formdata_anonymization_check_for_anonymization_status_values() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file").file(file).file(metadata).file(genderHierarchy).file(zipcodeHierarchy);
-        MvcResult result = mvc.perform(requestBuilder).andExpect(status().is(200))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andReturn();
+        //check for anonymization status values
+        String actualStatus = actual.getAnonymizeResult().getAnonymizationStatus();
+        assertEquals("ANONYMOUS",actualStatus);
 
-        String jsonResult = result.getResponse().getContentAsString();
+        //check for metric values
+        AnonymizationMetrics actualMetrics = actual.getAnonymizeResult().getMetrics();
+        assertNotNull(actualMetrics.getProcessTimeMillisecounds());
+        assertEquals(1, actualMetrics.getPrivacyModels().size());
 
-        AnonymizationResultPayload actualResult = new ObjectMapper().readValue(jsonResult,AnonymizationResultPayload.class);
+        assertEquals(2, actualMetrics.getAttributeGeneralization().size());
+        assertEquals(0, actualMetrics.getAttributeGeneralization().get(0).getGeneralizationLevel());
+        assertEquals("gender", actualMetrics.getAttributeGeneralization().get(0).getName());
+        assertEquals("QUASI_IDENTIFYING_ATTRIBUTE", actualMetrics.getAttributeGeneralization().get(0).getType());
 
-        String actual = actualResult.getAnonymizeResult().getAnonymizationStatus();
-        assertEquals("ANONYMOUS",actual);
-    }
-
-    @Test
-    void anonymization_check_for_metric_values() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file").file(file).file(metadata).file(genderHierarchy).file(zipcodeHierarchy);
-        MvcResult result = mvc.perform(requestBuilder).andExpect(status().is(200))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andReturn();
-
-        String jsonResult = result.getResponse().getContentAsString();
-
-        AnonymizationResultPayload actualResult = new ObjectMapper().readValue(jsonResult,AnonymizationResultPayload.class);
-
-        AnonymizationMetrics actual = actualResult.getAnonymizeResult().getMetrics();
-        assertNotNull(actual.getProcessTimeMillisecounds());
-        assertEquals(1, actual.getPrivacyModels().size());
-
-        assertEquals(2, actual.getAttributeGeneralization().size());
-        assertEquals(0, actual.getAttributeGeneralization().get(0).getGeneralizationLevel());
-        assertEquals("gender", actual.getAttributeGeneralization().get(0).getName());
-        assertEquals("QUASI_IDENTIFYING_ATTRIBUTE", actual.getAttributeGeneralization().get(0).getType());
     }
 }
