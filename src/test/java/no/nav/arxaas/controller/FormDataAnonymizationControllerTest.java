@@ -88,7 +88,7 @@ class FormDataAnonymizationControllerTest {
             assertEquals(expectedAttributes.get(x).getAttributeTypeModel(),actualAttributes.get(x).getAttributeTypeModel());
         }
 
-        //check fir anonymization status values
+        //check for anonymization status values
         String actualStatus = actual.getAnonymizeResult().getAnonymizationStatus();
         assertEquals("ANONYMOUS",actualStatus);
 
