@@ -80,8 +80,12 @@ class FormDataAnalyzationControllerTest {
 
         DistributionOfRisk expected = GenerateTestData.ageGenderZipcodeDistributionOfRisk();
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/analyze/file").file(file).file(metadata);
-        MvcResult result = mvc.perform(requestBuilder).andExpect(status().is(200))
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                .multipart("/api/analyze/file")
+                .file(file)
+                .file(metadata);
+        MvcResult result = mvc.perform(requestBuilder)
+                .andExpect(status().is(200))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andReturn();
         String jsonResult = result.getResponse().getContentAsString();
