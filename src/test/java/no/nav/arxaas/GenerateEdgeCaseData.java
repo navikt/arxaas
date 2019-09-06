@@ -361,10 +361,8 @@ public class GenerateEdgeCaseData {
         return privacyCriterionModelList;
     }
 
-    public static MockMultipartFile testDatasetComma() throws IOException {
-        MultipartFile testFile = GenerateTestData.makeMockMultipartFile("./src/test/resources/testDatasetComma.csv", "file", "text/csv");
-        assert testFile != null;
-        return new MockMultipartFile("file", testFile.getOriginalFilename(),"text/csv", testFile.getBytes());
+    public static MockMultipartFile testDatasetComma(){
+       return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testDatasetComma.csv", "file", "text/csv");
     }
 
     public static MockMultipartFile testMetaDataWrongFormat() {
