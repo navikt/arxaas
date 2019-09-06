@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @CrossOrigin
 @RestController
@@ -29,7 +30,7 @@ public class FormDataAnalyzationController {
     }
 
     @PostMapping
-    public RiskProfile getPayloadAnalyzeFromFormData(@RequestPart("file") MultipartFile file, @RequestPart("metadata") @Valid FormMetaDataRequest metadata , HttpServletRequest request){
+    public RiskProfile getPayloadAnalyzeFromFormData(@NotNull @RequestPart("file") MultipartFile file, @RequestPart("metadata") @Valid FormMetaDataRequest metadata , HttpServletRequest request){
         long requestRecivedTime = System.currentTimeMillis();
         Request requestPayload = formDataFactory.createAnalyzationPayload(file,metadata);
         loggerService.loggPayload(requestPayload, request.getRemoteAddr(), FormDataAnalyzationController.class);
