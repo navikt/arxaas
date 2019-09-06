@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,16 +43,13 @@ class FormDataAnonymizationControllerTest {
     private MockMultipartFile zipcodeHierarchy;
 
     @BeforeEach
-    void setUp() throws IOException {
-        MultipartFile testFile = GenerateTestData.ageGenderZipcodeDatasetMultipartFile();
+    void setUp(){
         String testMetaData = GenerateIntegrationTestData.testFormData_metadata_2quasi();
-        MultipartFile testGenderHierarchy = GenerateTestData.genderHierarchyMultipartFile();
-        MultipartFile testZipcodeHierarchy = GenerateTestData.zipcodeHierarchyMultipartFile();
 
-        file = new MockMultipartFile("file", testFile.getOriginalFilename(),"text/csv", testFile.getBytes());
+        file = (MockMultipartFile) GenerateTestData.ageGenderZipcodeDatasetMultipartFile();
         metadata = new MockMultipartFile("metadata", "","application/json", testMetaData.getBytes());
-        genderHierarchy = new MockMultipartFile("hierarchies", testGenderHierarchy.getOriginalFilename(), "text/csv",testGenderHierarchy.getBytes());
-        zipcodeHierarchy = new MockMultipartFile("hierarchies",testZipcodeHierarchy.getOriginalFilename(),"text/csv",testZipcodeHierarchy.getBytes());
+        genderHierarchy = (MockMultipartFile) GenerateTestData.genderHierarchyMultipartFile();
+        zipcodeHierarchy = (MockMultipartFile) GenerateTestData.zipcodeHierarchyMultipartFile();
     }
 
     @Test
