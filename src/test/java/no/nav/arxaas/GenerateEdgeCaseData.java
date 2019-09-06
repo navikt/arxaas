@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.anonymity.PrivacyCriterionModel;
 import no.nav.arxaas.model.Request;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -357,5 +359,23 @@ public class GenerateEdgeCaseData {
         lMapValue.put("label", "gender");
         privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.LDIVERSITY_DISTINCT, lMapValue));
         return privacyCriterionModelList;
+    }
+
+    public static MockMultipartFile testDatasetComma() throws IOException {
+        MultipartFile testFile = GenerateTestData.makeMockMultipartFile("./src/test/resources/testDatasetComma.csv", "file", "text/csv");
+        assert testFile != null;
+        return new MockMultipartFile("file", testFile.getOriginalFilename(),"text/csv", testFile.getBytes());
+    }
+
+    public static MockMultipartFile testMetaDataWrongFormat() {
+        return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_2quasi_wrong_format().getBytes());
+    }
+
+    private static String testFormData_metadata_2quasi_wrong_format(){
+        return "{\"attributes\":[{\"field\":\"aGe\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"GendEr\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"ZiPcoDe\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
+                "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}]," +
+                "\"suppressionLimit\":0.02}";
     }
 }

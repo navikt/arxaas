@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import java.util.Date;
 
@@ -97,6 +98,17 @@ class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(ArrayIndexOutOfBoundsException.class)
     public final ResponseEntity<Object> handleArrayIndexOutOfBounds(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                ex.toString(),
+                request.getDescription(false));
+
+        logger.error("Exception occurred during handling of request on: " + request.getDescription(false), ex);
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public final ResponseEntity<Object> handleMissingServletRequestPartException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
                 ex.toString(),
                 request.getDescription(false));
