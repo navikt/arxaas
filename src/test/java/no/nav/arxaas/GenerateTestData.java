@@ -192,7 +192,7 @@ public class GenerateTestData {
         return new MultipartFile[]{zipcodeHierarchyMultipartFile(),genderHierarchyMultipartFile()};
     }
 
-    private static MultipartFile makeMockMultipartFile(String pathName, String name, String contentType){
+    public static MultipartFile makeMockMultipartFile(String pathName, String name, String contentType){
         try {
             File file = new File(pathName);
             FileInputStream input = new FileInputStream(file);
