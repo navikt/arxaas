@@ -21,8 +21,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.io.IOException;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -39,7 +37,7 @@ class FormDataAnalyzationControllerTest {
 
     @BeforeEach
     void setUp(){
-        String testMetaData = GenerateIntegrationTestData.testFormData_metadata_2quasi();
+        String testMetaData = GenerateIntegrationTestData.testFormData_metadata_two_quasi();
 
          file = (MockMultipartFile) GenerateTestData.ageGenderZipcodeDatasetMultipartFile();
          metadata = new MockMultipartFile("metadata", "","application/json", testMetaData.getBytes());

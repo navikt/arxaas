@@ -34,7 +34,7 @@ class FormDataAnalyzationEdgeCaseTest {
 
     @BeforeEach
     void setUp(){
-        String testMetaData = GenerateIntegrationTestData.testFormData_metadata_2quasi();
+        String testMetaData = GenerateIntegrationTestData.testFormData_metadata_two_quasi();
 
         file = (MockMultipartFile) GenerateTestData.ageGenderZipcodeDatasetMultipartFile();
         metadata = new MockMultipartFile("metadata", "","application/json", testMetaData.getBytes());

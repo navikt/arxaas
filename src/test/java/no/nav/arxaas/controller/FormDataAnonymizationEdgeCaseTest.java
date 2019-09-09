@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class FormDataAnonymizationEdgeCaseTest {
+class FormDataAnonymizationEdgeCaseTest {
 
     @Autowired
     private MockMvc mvc;
@@ -39,7 +39,7 @@ public class FormDataAnonymizationEdgeCaseTest {
 
     @BeforeEach
     void setUp(){
-        String testMetaData = GenerateIntegrationTestData.testFormData_metadata_2quasi_with_hierarchies();
+        String testMetaData = GenerateIntegrationTestData.testFormData_metadata_two_quasi_with_hierarchies();
 
         file = (MockMultipartFile) GenerateTestData.ageGenderZipcodeDatasetMultipartFile();
         metadata = new MockMultipartFile("metadata", "","application/json", testMetaData.getBytes());
@@ -115,7 +115,7 @@ public class FormDataAnonymizationEdgeCaseTest {
     @Test
     void formdata_anonymization_with_payload_containing_to_many_quasi_vs_hierarchies_should_return_bad_request() throws Exception {
 
-        MockMultipartFile metaDataToManyQuasi = GenerateEdgeCaseData.testMetaData3Quasi();
+        MockMultipartFile metaDataToManyQuasi = GenerateEdgeCaseData.testMetaDataThreeQuasi();
         MockMultipartFile nullHierarchies = new MockMultipartFile("hierachies", "", "text/csv", InputStream.nullInputStream());
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
@@ -201,7 +201,7 @@ public class FormDataAnonymizationEdgeCaseTest {
     @Test
     void formdata_anonymization_with_hierarchy_having_data_not_existing_in_dataset() throws Exception {
 
-        MockMultipartFile metaData1Sensitive = GenerateEdgeCaseData.testMetaData1Sensitive();
+        MockMultipartFile metaData1Sensitive = GenerateEdgeCaseData.testMetaDataOneSensitive();
         MockMultipartFile zipcodeHierarchyMoreData = GenerateEdgeCaseData.testZipcodeHierarchyMoreData();
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
@@ -219,7 +219,7 @@ public class FormDataAnonymizationEdgeCaseTest {
     @Test
     void formdata_anonymization_with_privacy_model_on_non_sensitive_data() throws Exception {
 
-        MockMultipartFile metaDataPrivacyModel = GenerateEdgeCaseData.testMetaDataToMuchPrivacyModel();
+        MockMultipartFile metaDataPrivacyModel = GenerateEdgeCaseData.testMetaDataPrivacyModelOnNonExistingAttribute();
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
                 .file(file)
@@ -290,7 +290,7 @@ public class FormDataAnonymizationEdgeCaseTest {
 
     @Test
     void formdata_anonymization_with_wrong_suppression_limit_greater_than_1() throws Exception {
-        MockMultipartFile metaDataSuppressionHigherThan1 = GenerateEdgeCaseData.testMetaDataSuppressionHigherThan1();
+        MockMultipartFile metaDataSuppressionHigherThan1 = GenerateEdgeCaseData.testMetaDataSuppressionHigherThanOne();
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
                 .file(file)
@@ -307,7 +307,7 @@ public class FormDataAnonymizationEdgeCaseTest {
 
     @Test
     void formdata_anonymization_with_wrong_suppression_limit_lesser_than_0() throws Exception {
-        MockMultipartFile metaDataSuppressionLowerThan0 = GenerateEdgeCaseData.testMetaDataSuppressionLowerThan0();
+        MockMultipartFile metaDataSuppressionLowerThan0 = GenerateEdgeCaseData.testMetaDataSuppressionLowerThanZero();
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
                 .file(file)

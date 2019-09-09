@@ -365,18 +365,18 @@ public class GenerateEdgeCaseData {
     }
 
     public static MockMultipartFile testMetaDataWrongFormat() {
-        return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_2quasi_wrong_format().getBytes());
+        return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_two_quasi_wrong_format().getBytes());
     }
 
-    public static MockMultipartFile testMetaData3Quasi() {
-        return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_3quasi().getBytes());
+    public static MockMultipartFile testMetaDataThreeQuasi() {
+        return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_three_quasi().getBytes());
     }
 
     public static MockMultipartFile testMetaDataMissingPrivacyModel() {
         return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_missing_privacy_models().getBytes());
     }
 
-    public static MockMultipartFile testMetaDataToMuchPrivacyModel() {
+    public static MockMultipartFile testMetaDataPrivacyModelOnNonExistingAttribute() {
         return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_privacy_models_for_non_existing_attribute().getBytes());
     }
 
@@ -384,16 +384,16 @@ public class GenerateEdgeCaseData {
         return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_wrong_privacy_model_format().getBytes());
     }
 
-    public static MockMultipartFile testMetaDataSuppressionHigherThan1(){
-        return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_2quasi_supression_higher_than_1().getBytes());
+    public static MockMultipartFile testMetaDataSuppressionHigherThanOne(){
+        return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_two_quasi_supression_higher_than_one().getBytes());
     }
 
-    public static MockMultipartFile testMetaDataSuppressionLowerThan0(){
-        return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_2quasi_supression_lower_than_0().getBytes());
+    public static MockMultipartFile testMetaDataSuppressionLowerThanZero(){
+        return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_two_quasi_supression_lower_than_zero().getBytes());
     }
 
-    public static MockMultipartFile testMetaData1Sensitive(){
-        return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_1_sensitive().getBytes());
+    public static MockMultipartFile testMetaDataOneSensitive(){
+        return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_one_sensitive().getBytes());
     }
 
     public static MockMultipartFile testZipcodeHierarchyWrongFormat() {
@@ -404,7 +404,7 @@ public class GenerateEdgeCaseData {
         return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testZipcodeHierarchyMore.csv","hierarchies","text/csv");
     }
 
-    private static String testFormData_metadata_2quasi_wrong_format(){
+    private static String testFormData_metadata_two_quasi_wrong_format(){
         return "{\"attributes\":[{\"field\":\"aGe\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"GendEr\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"ZiPcoDe\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
@@ -412,7 +412,7 @@ public class GenerateEdgeCaseData {
                 "\"suppressionLimit\":0.02}";
     }
 
-    private static String testFormData_metadata_3quasi(){
+    private static String testFormData_metadata_three_quasi(){
         return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
@@ -444,7 +444,7 @@ public class GenerateEdgeCaseData {
                 "\"suppressionLimit\":0.02}";
     }
 
-    private static String testFormData_metadata_2quasi_supression_higher_than_1(){
+    private static String testFormData_metadata_two_quasi_supression_higher_than_one(){
         return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
@@ -452,7 +452,7 @@ public class GenerateEdgeCaseData {
                 "\"suppressionLimit\":10000}";
     }
 
-    private static String testFormData_metadata_2quasi_supression_lower_than_0(){
+    private static String testFormData_metadata_two_quasi_supression_lower_than_zero(){
         return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
@@ -460,7 +460,7 @@ public class GenerateEdgeCaseData {
                 "\"suppressionLimit\":-10000}";
     }
 
-    private static String testFormData_metadata_1_sensitive(){
+    private static String testFormData_metadata_one_sensitive(){
         return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"gender\",\"attributeTypeModel\":\"SENSITIVE\",\"hierarchy\":null}," +
                 "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":0}]," +

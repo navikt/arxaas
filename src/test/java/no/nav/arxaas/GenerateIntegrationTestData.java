@@ -242,7 +242,7 @@ public class GenerateIntegrationTestData {
         return new AnonymizationResultPayload(anonymizeResultTestData(),zipcodeAnalyzationAfterAnonymization());
     }
 
-    public static String testFormData_metadata_2quasi(){
+    public static String testFormData_metadata_two_quasi(){
         return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
@@ -250,12 +250,12 @@ public class GenerateIntegrationTestData {
                 "\"suppressionLimit\":0.02}";
     }
 
-    public static String testFormData_metadata_2quasi_with_hierarchies(){
+    public static String testFormData_metadata_two_quasi_with_hierarchies(){
         return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":0}," +
                 "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
                 "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":2}}]," +
-                "\"suppressionLimit\":0.02}";
+                "\"suppressionLimit\":1.0}";
     }
 
 }
