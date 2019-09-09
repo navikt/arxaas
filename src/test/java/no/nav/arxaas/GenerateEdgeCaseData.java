@@ -5,7 +5,6 @@ import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.anonymity.PrivacyCriterionModel;
 import no.nav.arxaas.model.Request;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -369,11 +368,91 @@ public class GenerateEdgeCaseData {
         return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_2quasi_wrong_format().getBytes());
     }
 
+    public static MockMultipartFile testMetaData3Quasi() {
+        return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_3quasi().getBytes());
+    }
+
+    public static MockMultipartFile testMetaDataMissingPrivacyModel() {
+        return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_missing_privacy_models().getBytes());
+    }
+
+    public static MockMultipartFile testMetaDataToMuchPrivacyModel() {
+        return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_privacy_models_for_non_existing_attribute().getBytes());
+    }
+
+    public static MockMultipartFile testMetaDataWrongPrivacyFormat(){
+        return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_wrong_privacy_model_format().getBytes());
+    }
+
+    public static MockMultipartFile testMetaDataSuppressionHigherThan1(){
+        return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_2quasi_supression_higher_than_1().getBytes());
+    }
+
+    public static MockMultipartFile testMetaDataSuppressionLowerThan0(){
+        return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_2quasi_supression_lower_than_0().getBytes());
+    }
+
+    public static MockMultipartFile testZipcodeHierarchyWrongFormat() {
+        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testZipcodeHierarchyComma.csv","file","text/csv");
+    }
+
+    public static MockMultipartFile testZipcodeHierarchyMoreData() {
+        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testZipcodeHierarchyMore.csv","file","text/csv");
+    }
+
     private static String testFormData_metadata_2quasi_wrong_format(){
         return "{\"attributes\":[{\"field\":\"aGe\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"GendEr\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
                 "{\"field\":\"ZiPcoDe\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
                 "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}]," +
                 "\"suppressionLimit\":0.02}";
+    }
+
+    private static String testFormData_metadata_3quasi(){
+        return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
+                "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}]," +
+                "\"suppressionLimit\":0.02}";
+    }
+
+    private static String testFormData_metadata_missing_privacy_models(){
+        return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]}";
+    }
+
+    private static String testFormData_metadata_privacy_models_for_non_existing_attribute(){
+        return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
+                "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}," +
+                                    "{\"privacyModel\":\"LDIVERSITY_DISTINCT\",\"params\":{\"l\":2,\"column_name\":\"Medisinsk forhold\"}}]," +
+                "\"suppressionLimit\":0.02}";
+    }
+
+    private static String testFormData_metadata_wrong_privacy_model_format(){
+        return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
+                "\"privacyModels\":[{\"privacyModel\":\"LDIVERSITY_DISTINCT\",\"params\":{\"kl\":5}}," +
+                "{\"privacyModel\":\"KANONYMITY\",\"params\":{\"l\":2,\"column_name\":\"Medisinsk forhold\"}}]," +
+                "\"suppressionLimit\":0.02}";
+    }
+
+    private static String testFormData_metadata_2quasi_supression_higher_than_1(){
+        return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
+                "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}]," +
+                "\"suppressionLimit\":10000}";
+    }
+
+    private static String testFormData_metadata_2quasi_supression_lower_than_0(){
+        return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
+                "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}]," +
+                "\"suppressionLimit\":-10000}";
     }
 }
