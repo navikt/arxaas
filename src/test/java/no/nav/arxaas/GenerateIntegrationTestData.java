@@ -255,7 +255,7 @@ public class GenerateIntegrationTestData {
                 "{\"field\":\"gender\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":0}," +
                 "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
                 "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":2}}]," +
-                "\"suppressionLimit\":1.0}";
+                "\"suppressionLimit\":0.02}";
     }
 
 }
