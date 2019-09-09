@@ -200,12 +200,13 @@ public class FormDataAnonymizationEdgeCaseTest {
 
     @Test
     void formdata_anonymization_with_hierarchy_having_data_not_existing_in_dataset() throws Exception {
+
+        MockMultipartFile metaData1Sensitive = GenerateEdgeCaseData.testMetaData1Sensitive();
         MockMultipartFile zipcodeHierarchyMoreData = GenerateEdgeCaseData.testZipcodeHierarchyMoreData();
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
                 .file(file)
-                .file(metadata)
-                .file(genderHierarchy)
+                .file(metaData1Sensitive)
                 .file(zipcodeHierarchyMoreData);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(200))

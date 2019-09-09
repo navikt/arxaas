@@ -392,12 +392,16 @@ public class GenerateEdgeCaseData {
         return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_2quasi_supression_lower_than_0().getBytes());
     }
 
+    public static MockMultipartFile testMetaData1Sensitive(){
+        return new  MockMultipartFile("metadata", "","application/json", testFormData_metadata_1_sensitive().getBytes());
+    }
+
     public static MockMultipartFile testZipcodeHierarchyWrongFormat() {
-        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testZipcodeHierarchyComma.csv","file","text/csv");
+        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testZipcodeHierarchyComma.csv","hierarchies","text/csv");
     }
 
     public static MockMultipartFile testZipcodeHierarchyMoreData() {
-        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testZipcodeHierarchyMore.csv","file","text/csv");
+        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testZipcodeHierarchyMore.csv","hierarchies","text/csv");
     }
 
     private static String testFormData_metadata_2quasi_wrong_format(){
@@ -454,5 +458,14 @@ public class GenerateEdgeCaseData {
                 "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":1}]," +
                 "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}]," +
                 "\"suppressionLimit\":-10000}";
+    }
+
+    private static String testFormData_metadata_1_sensitive(){
+        return "{\"attributes\":[{\"field\":\"age\",\"attributeTypeModel\":\"IDENTIFYING\",\"hierarchy\":null}," +
+                "{\"field\":\"gender\",\"attributeTypeModel\":\"SENSITIVE\",\"hierarchy\":null}," +
+                "{\"field\":\"zipcode\",\"attributeTypeModel\":\"QUASIIDENTIFYING\",\"hierarchy\":0}]," +
+                "\"privacyModels\":[{\"privacyModel\":\"KANONYMITY\",\"params\":{\"k\":5}}," +
+                                    "{\"privacyModel\":\"LDIVERSITY_DISTINCT\",\"params\":{\"column_name\":\"gender\",\"l\":2}}]," +
+                "\"suppressionLimit\":0.02}";
     }
 }
