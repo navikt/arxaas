@@ -289,7 +289,7 @@ class FormDataAnonymizationEdgeCaseTest {
     }
 
     @Test
-    void formdata_anonymization_with_wrong_suppression_limit_greater_than_1() throws Exception {
+    void formdata_anonymization_with_wrong_suppression_limit_greater_than_one() throws Exception {
         MockMultipartFile metaDataSuppressionHigherThan1 = GenerateEdgeCaseData.testMetaDataSuppressionHigherThanOne();
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
@@ -306,7 +306,7 @@ class FormDataAnonymizationEdgeCaseTest {
     }
 
     @Test
-    void formdata_anonymization_with_wrong_suppression_limit_lesser_than_0() throws Exception {
+    void formdata_anonymization_with_wrong_suppression_limit_lesser_than_zero() throws Exception {
         MockMultipartFile metaDataSuppressionLowerThan0 = GenerateEdgeCaseData.testMetaDataSuppressionLowerThanZero();
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
