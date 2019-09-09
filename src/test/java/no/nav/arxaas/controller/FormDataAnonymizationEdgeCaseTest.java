@@ -115,7 +115,7 @@ class FormDataAnonymizationEdgeCaseTest {
     @Test
     void formdata_anonymization_with_payload_containing_to_many_quasi_vs_hierarchies_should_return_bad_request() throws Exception {
 
-        MockMultipartFile metaDataToManyQuasi = GenerateEdgeCaseData.testMetaDataThreeQuasi();
+        MockMultipartFile metaDataToManyQuasi = GenerateEdgeCaseData.testMetaDataThreeQuasiAttribute();
         MockMultipartFile nullHierarchies = new MockMultipartFile("hierachies", "", "text/csv", InputStream.nullInputStream());
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
@@ -201,7 +201,7 @@ class FormDataAnonymizationEdgeCaseTest {
     @Test
     void formdata_anonymization_with_hierarchy_having_data_not_existing_in_dataset() throws Exception {
 
-        MockMultipartFile metaData1Sensitive = GenerateEdgeCaseData.testMetaDataOneSensitive();
+        MockMultipartFile metaData1Sensitive = GenerateEdgeCaseData.testMetaDataOneSensitiveAttribute();
         MockMultipartFile zipcodeHierarchyMoreData = GenerateEdgeCaseData.testZipcodeHierarchyMoreData();
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
