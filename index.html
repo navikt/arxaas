@@ -461,6 +461,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
+<li><a href="#formdata-analyze-controller">Formdata Analyze Controller</a>
+<ul class="sectlevel2">
+<li><a href="#formdata-analyze-controller-post">Generating a Risk profile</a>
+<ul class="sectlevel3">
+<li><a href="#formdata-analyze-controller-post_request_parts">Request parts</a></li>
+<li><a href="#formdata-analyze-controller-post_curl_request">Curl request</a></li>
+<li><a href="#formdata-analyze-controller-post_http_response">HTTP response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#formdata-anonymize-controller">Formdata Anonymize Controller</a>
+<ul class="sectlevel2">
+<li><a href="#formdata-anonymize-controller-post">Creating a Anonymized Dataset</a>
+<ul class="sectlevel3">
+<li><a href="#formdata-anonymize-controller-post_request_parts">Request parts</a></li>
+<li><a href="#formdata-anonymize-controller-post_curl_request">Curl request</a></li>
+<li><a href="#formdata-anonymize-controller-post_http_response">HTTP response</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#hierarchy-controller">Hierarchy Controller</a>
 <ul class="sectlevel2">
 <li><a href="#_create_a_redaction_based_hierarchy">Create a redaction based hierarchy</a>
@@ -676,7 +698,7 @@ Content-Type: application/hal+json;charset=UTF-8
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Analyze controller is used to generate risk profiles for a dataset. The REST controller receives a request object
-containing a dataset to be analyzed and the attribute type list of the dataset. The Controller returns an response object
+containing a dataset to be analyzed and the attribute type list of the dataset. The Controller returns a response object
 containing a risk profile that includes the re-identification risk and distribution of risk in a dataset.</p>
 </div>
 <div class="sect2">
@@ -893,8 +915,8 @@ Content-Length: 4330
 <div class="paragraph">
 <p>The Anonymize controller is used to create new dataset anonymized according to provided privacy models and
 transformation models. The controller receives a request object containing a dataset to be anonymized, list of
-attribute types containing transformation models(hierarchies) and privacy models. The controller returns an response
-object containing a anonymized dataset, a risk profile, and metadata for the anonymization process.</p>
+attribute types containing transformation models(hierarchies) and privacy models. The controller returns a response
+object containing an anonymized dataset, a risk profile, and metadata for the anonymization process.</p>
 </div>
 <div class="sect2">
 <h3 id="anonymize-controller-post">Creating a Anonymized Dataset</h3>
@@ -996,7 +1018,7 @@ Content-Type: application/json;charset=UTF-8
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 2,
+      "processTimeMillisecounds" : 1,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "attribute" : "gender",
@@ -1176,6 +1198,462 @@ Content-Type: application/json;charset=UTF-8
         "identifier" : [ "zipcode" ],
         "distinction" : 0.09090909090909091,
         "separation" : 0.0
+      } ]
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="formdata-analyze-controller">Formdata Analyze Controller</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Formdata Analyze controller is used to generate risk profiles for a dataset. The REST controller receives a multipartfile object
+containing a dataset csv file to be analyzed and a json object containing the attribute type list of the dataset. The Controller
+returns a response object containing a risk profile that includes the re-identification risk and distribution of risk in a dataset.</p>
+</div>
+<div class="sect2">
+<h3 id="formdata-analyze-controller-post">Generating a Risk profile</h3>
+<div class="paragraph">
+<p>A <code>POST</code> request is used to generate a risk profile</p>
+</div>
+<div class="sect3">
+<h4 id="formdata-analyze-controller-post_request_parts">Request parts</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Part</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>file</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset CSV file to be analyzed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>metadata</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Json object containing the metadata for the attributes types and transformation models to be applied to the dataset</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="formdata-analyze-controller-post_curl_request">Curl request</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/api/analyze/file' -i -X POST \
+    -H 'Content-Type: multipart/form-data' \
+    -F 'file=@testDataset.csv;type=text/csv' \
+    -F 'metadata={"attributes":[{"field":"age","attributeTypeModel":"IDENTIFYING","hierarchy":null},{"field":"gender","attributeTypeModel":"QUASIIDENTIFYING","hierarchy":0},{"field":"zipcode","attributeTypeModel":"QUASIIDENTIFYING","hierarchy":1}],"privacyModels":[{"privacyModel":"KANONYMITY","params":{"k":5}}],"suppressionLimit":0.02};type=application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="formdata-analyze-controller-post_http_response">HTTP response</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Length: 4467
+Content-Type: application/json;charset=UTF-8
+
+{
+  "reIdentificationRisk" : {
+    "measures" : {
+      "estimated_journalist_risk" : 1.0,
+      "records_affected_by_highest_prosecutor_risk" : 1.0,
+      "sample_uniques" : 1.0,
+      "lowest_risk" : 1.0,
+      "estimated_prosecutor_risk" : 1.0,
+      "highest_journalist_risk" : 1.0,
+      "records_affected_by_lowest_risk" : 1.0,
+      "average_prosecutor_risk" : 1.0,
+      "estimated_marketer_risk" : 1.0,
+      "highest_prosecutor_risk" : 1.0,
+      "records_affected_by_highest_journalist_risk" : 1.0,
+      "population_uniques" : 1.0
+    },
+    "attackerSuccessRate" : {
+      "successRates" : {
+        "Prosecutor_attacker_success_rate" : 1.0,
+        "Marketer_attacker_success_rate" : 1.0,
+        "Journalist_attacker_success_rate" : 1.0
+      }
+    },
+    "quasiIdentifiers" : [ "zipcode", "gender" ],
+    "populationModel" : "ZAYATZ"
+  },
+  "distributionOfRisk" : {
+    "riskIntervalList" : [ {
+      "interval" : "[50,100]",
+      "recordsWithRiskWithinInterval" : 1.0,
+      "recordsWithMaximalRiskWithinInterval" : 1.0
+    }, {
+      "interval" : "[33.4,50)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[25,33.4)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[20,25)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[16.7,20)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[14.3,16.7)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[12.5,14.3)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[10,12.5)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[9,10)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[8,9)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[7,8)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[6,7)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[5,6)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[4,5)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[3,4)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[2,3)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[1,2)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[0.1,1)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[0.01,0.1)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[0.001,0.01)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[0.0001,0.001)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[1e-5,0.0001)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[1e-6,1e-5)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    }, {
+      "interval" : "[0,1e-6)",
+      "recordsWithRiskWithinInterval" : 0.0,
+      "recordsWithMaximalRiskWithinInterval" : 0.0
+    } ]
+  },
+  "attributeRisk" : {
+    "quasiIdentifierRiskList" : [ {
+      "identifier" : [ "zipcode" ],
+      "distinction" : 1.0,
+      "separation" : 1.0
+    }, {
+      "identifier" : [ "gender" ],
+      "distinction" : 0.18181818181818182,
+      "separation" : 0.5454545454545454
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="formdata-anonymize-controller">Formdata Anonymize Controller</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Formdata Anonymize controller is used to create new dataset anonymized according to provided privacy models and
+transformation models. The controller receives a Multipartfile object containing a dataset CSV file to be anonymized, a
+json object containing the attribute type list of the dataset and privacy models, and a Multipartfile array containing the
+hierarchy CSV files. The controller returns a response object containing an anonymized dataset, a risk profile, and
+metadata for the anonymization process.</p>
+</div>
+<div class="sect2">
+<h3 id="formdata-anonymize-controller-post">Creating a Anonymized Dataset</h3>
+<div class="paragraph">
+<p>A <code>POST</code> request is used to create a new anonymized dataset</p>
+</div>
+<div class="sect3">
+<h4 id="formdata-anonymize-controller-post_request_parts">Request parts</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Part</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>file</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset CSV file to be analyzed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>metadata</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Json object containing the metadata for the attributes types and transformation models to be applied to the dataset</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hierarchies</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hierarchy CSV files containing the transformation models</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="formdata-anonymize-controller-post_curl_request">Curl request</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/api/anonymize/file' -i -X POST \
+    -H 'Content-Type: multipart/form-data' \
+    -F 'file=@testDataset.csv;type=text/csv' \
+    -F 'metadata={"attributes":[{"field":"age","attributeTypeModel":"IDENTIFYING","hierarchy":null},{"field":"gender","attributeTypeModel":"QUASIIDENTIFYING","hierarchy":0},{"field":"zipcode","attributeTypeModel":"QUASIIDENTIFYING","hierarchy":1}],"privacyModels":[{"privacyModel":"KANONYMITY","params":{"k":5}}],"suppressionLimit":0.02};type=application/json' \
+    -F 'hierarchies=@testGenderHierarchy.csv;type=text/csv' \
+    -F 'hierarchies=@testZipcodeHierarchy.csv;type=text/csv'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="formdata-anonymize-controller-post_http_response">HTTP response</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 7298
+
+{
+  "anonymizeResult" : {
+    "data" : [ [ "age", "gender", "zipcode" ], [ "*", "male", "816**" ], [ "*", "female", "816**" ], [ "*", "male", "816**" ], [ "*", "female", "816**" ], [ "*", "male", "816**" ], [ "*", "female", "816**" ], [ "*", "male", "816**" ], [ "*", "female", "816**" ], [ "*", "male", "816**" ], [ "*", "female", "816**" ], [ "*", "male", "816**" ] ],
+    "anonymizationStatus" : "ANONYMOUS",
+    "metrics" : {
+      "attributeGeneralization" : [ {
+        "name" : "gender",
+        "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
+        "generalizationLevel" : 0
+      }, {
+        "name" : "zipcode",
+        "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
+        "generalizationLevel" : 2
+      } ],
+      "processTimeMillisecounds" : 1,
+      "privacyModels" : [ {
+        "monotonicWithGeneralization" : true,
+        "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
+        "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
+        "dataSubset" : null,
+        "populationModel" : null,
+        "subset" : null,
+        "monotonicWithSuppression" : true,
+        "sampleBased" : false,
+        "subsetAvailable" : false
+      } ]
+    },
+    "attributes" : [ {
+      "field" : "age",
+      "attributeTypeModel" : "IDENTIFYING",
+      "hierarchy" : null
+    }, {
+      "field" : "gender",
+      "attributeTypeModel" : "QUASIIDENTIFYING",
+      "hierarchy" : [ [ "male", "*" ], [ "female", "*" ] ]
+    }, {
+      "field" : "zipcode",
+      "attributeTypeModel" : "QUASIIDENTIFYING",
+      "hierarchy" : [ [ "81667", "8166*", "816**", "81***", "8****", "*****" ], [ "81668", "8166*", "816**", "81***", "8****", "*****" ], [ "81669", "8166*", "816**", "81***", "8****", "*****" ], [ "81670", "8167*", "816**", "81***", "8****", "*****" ], [ "81671", "8167*", "816**", "81***", "8****", "*****" ], [ "81672", "8167*", "816**", "81***", "8****", "*****" ], [ "81673", "8167*", "816**", "81***", "8****", "*****" ], [ "81674", "8167*", "816**", "81***", "8****", "*****" ], [ "81675", "8167*", "816**", "81***", "8****", "*****" ], [ "81676", "8167*", "816**", "81***", "8****", "*****" ], [ "81677", "8167*", "816**", "81***", "8****", "*****" ] ]
+    } ]
+  },
+  "riskProfile" : {
+    "reIdentificationRisk" : {
+      "measures" : {
+        "estimated_journalist_risk" : 0.2,
+        "records_affected_by_highest_prosecutor_risk" : 0.45454545454545453,
+        "sample_uniques" : 0.0,
+        "lowest_risk" : 0.16666666666666666,
+        "estimated_prosecutor_risk" : 0.2,
+        "highest_journalist_risk" : 0.2,
+        "records_affected_by_lowest_risk" : 0.5454545454545454,
+        "average_prosecutor_risk" : 0.18181818181818182,
+        "estimated_marketer_risk" : 0.18181818181818182,
+        "highest_prosecutor_risk" : 0.2,
+        "records_affected_by_highest_journalist_risk" : 0.45454545454545453,
+        "population_uniques" : 0.0
+      },
+      "attackerSuccessRate" : {
+        "successRates" : {
+          "Prosecutor_attacker_success_rate" : 0.18181818181818182,
+          "Marketer_attacker_success_rate" : 0.18181818181818182,
+          "Journalist_attacker_success_rate" : 0.18181818181818182
+        }
+      },
+      "quasiIdentifiers" : [ "zipcode", "gender" ],
+      "populationModel" : "DANKAR"
+    },
+    "distributionOfRisk" : {
+      "riskIntervalList" : [ {
+        "interval" : "[50,100]",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 1.0
+      }, {
+        "interval" : "[33.4,50)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 1.0
+      }, {
+        "interval" : "[25,33.4)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 1.0
+      }, {
+        "interval" : "[20,25)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 1.0
+      }, {
+        "interval" : "[16.7,20)",
+        "recordsWithRiskWithinInterval" : 0.45454545454545453,
+        "recordsWithMaximalRiskWithinInterval" : 1.0
+      }, {
+        "interval" : "[14.3,16.7)",
+        "recordsWithRiskWithinInterval" : 0.5454545454545454,
+        "recordsWithMaximalRiskWithinInterval" : 0.5454545454545454
+      }, {
+        "interval" : "[12.5,14.3)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[10,12.5)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[9,10)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[8,9)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[7,8)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[6,7)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[5,6)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[4,5)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[3,4)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[2,3)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[1,2)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[0.1,1)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[0.01,0.1)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[0.001,0.01)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[0.0001,0.001)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[1e-5,0.0001)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[1e-6,1e-5)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      }, {
+        "interval" : "[0,1e-6)",
+        "recordsWithRiskWithinInterval" : 0.0,
+        "recordsWithMaximalRiskWithinInterval" : 0.0
+      } ]
+    },
+    "attributeRisk" : {
+      "quasiIdentifierRiskList" : [ {
+        "identifier" : [ "zipcode" ],
+        "distinction" : 0.09090909090909091,
+        "separation" : 0.0
+      }, {
+        "identifier" : [ "gender" ],
+        "distinction" : 0.18181818181818182,
+        "separation" : 0.5454545454545454
       } ]
     }
   }
@@ -1716,7 +2194,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-09-10 06:26:44 UTC
+Last updated 2019-09-10 12:14:44 UTC
 </div>
 </div>
 </body>
