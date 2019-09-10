@@ -1,6 +1,7 @@
 package no.nav.arxaas.docs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import no.nav.arxaas.GenerateIntegrationTestData;
 import no.nav.arxaas.GenerateTestData;
 import no.nav.arxaas.hierarchy.*;
 import no.nav.arxaas.model.Request;
@@ -15,10 +16,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -32,9 +36,11 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -49,6 +55,8 @@ class ApiDocsGenerationTest {
 
     private Request request;
     private Request analyzationRequest;
+    private MockMultipartFile testData;
+    private MockMultipartFile testMetaData;
 
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
@@ -56,6 +64,12 @@ class ApiDocsGenerationTest {
                 .apply(documentationConfiguration(restDocumentation)).build();
         request = GenerateTestData.zipcodeRequestPayload();
         analyzationRequest = GenerateTestData.zipcodeAnalyzationRequestPayload();
+
+        testData = (MockMultipartFile) GenerateTestData.ageGenderZipcodeDatasetMultipartFile();
+
+        String metaData = GenerateIntegrationTestData.testFormData_metadata_two_quasi();
+
+        testMetaData = new MockMultipartFile("metadata", "","application/json", metaData.getBytes());
     }
 
     @Test
@@ -107,6 +121,45 @@ class ApiDocsGenerationTest {
                                 subsectionWithPath("suppressionLimit").description("Suppression limit to be applied to the dataset")
                         )));
     }
+
+    @Test
+    void formdata_analyze_post() throws Exception {
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/analyze/file")
+                .file(testData)
+                .file(testMetaData);
+
+        this.mockMvc.perform(requestBuilder)
+                .andExpect(status().is(200))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(document("formdata-analyze-controller",preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+                        requestParts(partWithName("file").description("Dataset CSV file to be analyzed"),
+                                partWithName("metadata").description("Json object containing the metadata for the attributes types and transformation models to be applied to the dataset"))
+                        ));
+    }
+
+    @Test
+    void formdata_anonymize_post() throws Exception {
+
+        MockMultipartFile genderHierarchy = (MockMultipartFile) GenerateTestData.genderHierarchyMultipartFile();
+        MockMultipartFile zipcodeHierarchy = (MockMultipartFile) GenerateTestData.zipcodeHierarchyMultipartFile();
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
+                .file(testData)
+                .file(testMetaData)
+                .file(genderHierarchy)
+                .file(zipcodeHierarchy);
+
+        this.mockMvc.perform(requestBuilder)
+                .andExpect(status().is(200))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(document("formdata-anonymize-controller",preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+                        requestParts(partWithName("file").description("Dataset CSV file to be analyzed"),
+                                partWithName("metadata").description("Json object containing the metadata for the attributes types and transformation models to be applied to the dataset"),
+                                partWithName("hierarchies").description("Hierarchy CSV files containing the transformation models"))
+                ));
+    }
+
 
 
     @Test

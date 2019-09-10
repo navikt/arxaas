@@ -91,7 +91,7 @@ operation::root[snippets='http-response,links']
 == Analyze Controller
 
 The Analyze controller is used to generate risk profiles for a dataset. The REST controller receives a request object
-containing a dataset to be analyzed and the attribute type list of the dataset. The Controller returns an response object
+containing a dataset to be analyzed and the attribute type list of the dataset. The Controller returns a response object
 containing a risk profile that includes the re-identification risk and distribution of risk in a dataset.
 
 
@@ -108,8 +108,8 @@ operation::analyze-controller[snippets='request-fields,curl-request,http-respons
 
 The Anonymize controller is used to create new dataset anonymized according to provided privacy models and
 transformation models. The controller receives a request object containing a dataset to be anonymized, list of
-attribute types containing transformation models(hierarchies) and privacy models. The controller returns an response
-object containing a anonymized dataset, a risk profile, and metadata for the anonymization process.
+attribute types containing transformation models(hierarchies) and privacy models. The controller returns a response
+object containing an anonymized dataset, a risk profile, and metadata for the anonymization process.
 
 
 [[anonymize-controller-post]]
@@ -118,6 +118,40 @@ object containing a anonymized dataset, a risk profile, and metadata for the ano
 A `POST` request is used to create a new anonymized dataset
 
 operation::anonymize-controller[snippets='request-fields,curl-request,http-response']
+
+
+[[formdata-analyze-controller]]
+== Formdata Analyze Controller
+
+The Formdata Analyze controller is used to generate risk profiles for a dataset. The REST controller receives a multipartfile object
+containing a dataset csv file to be analyzed and a json object containing the attribute type list of the dataset. The Controller
+returns a response object containing a risk profile that includes the re-identification risk and distribution of risk in a dataset.
+
+
+[[formdata-analyze-controller-post]]
+=== Generating a Risk profile
+
+A `POST` request is used to generate a risk profile
+
+operation::formdata-analyze-controller[snippets='request-parts,curl-request,http-response']
+
+
+[[formdata-anonymize-controller]]
+== Formdata Anonymize Controller
+
+The Formdata Anonymize controller is used to create new dataset anonymized according to provided privacy models and
+transformation models. The controller receives a Multipartfile object containing a dataset CSV file to be anonymized, a
+json object containing the attribute type list of the dataset and privacy models, and a Multipartfile array containing the
+hierarchy CSV files. The controller returns a response object containing an anonymized dataset, a risk profile, and
+metadata for the anonymization process.
+
+
+[[formdata-anonymize-controller-post]]
+=== Creating a Anonymized Dataset
+
+A `POST` request is used to create a new anonymized dataset
+
+operation::formdata-anonymize-controller[snippets='request-parts,curl-request,http-response']
 
 
 [[hierarchy-controller]]
