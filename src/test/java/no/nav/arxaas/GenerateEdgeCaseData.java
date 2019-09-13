@@ -364,6 +364,10 @@ public class GenerateEdgeCaseData {
        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testDatasetComma.csv", "file", "text/csv");
     }
 
+    public static MockMultipartFile testDatasetSpecialFormat(){
+        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testDatasetSpecialFormat.csv", "file", "text/csv");
+    }
+
     public static MockMultipartFile testDatasetWrongFormat(){
         return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testDatasetWrongFormat.csv", "file", "text/csv");
     }

@@ -180,6 +180,26 @@ public class GenerateTestData {
         return new FormMetaDataRequest(formDataAttributeList,privacyCriterionModelList,suppressionLimit);
     }
 
+    public static FormMetaDataRequest formDataTestMetaDataSpecialFormat(){
+
+        List<FormDataAttribute> formDataAttributeList = new ArrayList<>();
+        FormDataAttribute ageAttribute = new FormDataAttribute("age#",IDENTIFYING,null);
+        FormDataAttribute genderAttribute = new FormDataAttribute("/gender",QUASIIDENTIFYING,null);
+        FormDataAttribute zipcodeAttribute = new FormDataAttribute("zip_code", QUASIIDENTIFYING,0);
+        formDataAttributeList.add(ageAttribute);
+        formDataAttributeList.add(genderAttribute);
+        formDataAttributeList.add(zipcodeAttribute);
+
+        List<PrivacyCriterionModel> privacyCriterionModelList = new ArrayList<>();
+        Map<String,String> kMapValue = new HashMap<>();
+        kMapValue.put("k","5");
+        privacyCriterionModelList.add(new PrivacyCriterionModel(PrivacyCriterionModel.PrivacyModel.KANONYMITY, kMapValue));
+
+        Double suppressionLimit = 0.02;
+
+        return new FormMetaDataRequest(formDataAttributeList,privacyCriterionModelList,suppressionLimit);
+    }
+
     public static MultipartFile genderHierarchyMultipartFile(){
         return makeMockMultipartFile("./src/test/resources/testGenderHierarchy.csv", "hierarchies", "text/csv");
     }
@@ -349,6 +369,22 @@ public class GenerateTestData {
 
     private static List<String[]> ageGenderZipcodeData() {
         String[][] rawData = {{"age", "gender", "zipcode" },
+                {"34", "male", "81667"},
+                {"35", "female", "81668"},
+                {"36", "male", "81669"},
+                {"37", "female", "81670"},
+                {"38", "male", "81671"},
+                {"39", "female", "81672"},
+                {"40", "male", "81673"},
+                {"41", "female", "81674"},
+                {"42", "male", "81675"},
+                {"43", "female", "81676"},
+                {"44", "male", "81677"}};
+        return  List.of(rawData);
+    }
+
+    public static List<String[]> ageGenderZipcodeDataSpecialFormat() {
+        String[][] rawData = {{"age#", "/gender", "zip_code" },
                 {"34", "male", "81667"},
                 {"35", "female", "81668"},
                 {"36", "male", "81669"},

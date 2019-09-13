@@ -11,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 class FormDataFactoryTest {
 
     private FormDataFactory formDataFactory;
@@ -111,5 +113,20 @@ class FormDataFactoryTest {
         Assertions.assertArrayEquals(expected.getData().get(1), actual.getData().get(1));
         Assertions.assertArrayEquals(expected.getData().get(2), actual.getData().get(2));
         Assertions.assertArrayEquals(expected.getData().get(3), actual.getData().get(3));
+    }
+
+    @Test
+    void create_payload_with_dataset_with_special_format(){
+        MultipartFile testFileSpecialFormat = GenerateEdgeCaseData.testDatasetSpecialFormat();
+        FormMetaDataRequest testPayloadSpecialFormat = GenerateTestData.formDataTestMetaDataSpecialFormat();
+
+        Request actual = formDataFactory.createAnalyzationPayload(testFileSpecialFormat,testPayloadSpecialFormat);
+        List<String[]> expected = GenerateTestData.ageGenderZipcodeDataSpecialFormat();
+
+        //check dataset
+        Assertions.assertArrayEquals(expected.get(1), actual.getData().get(1));
+        Assertions.assertArrayEquals(expected.get(2), actual.getData().get(2));
+        Assertions.assertArrayEquals(expected.get(3), actual.getData().get(3));
+
     }
 }
