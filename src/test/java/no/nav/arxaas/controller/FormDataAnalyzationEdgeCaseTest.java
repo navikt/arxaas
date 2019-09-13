@@ -55,7 +55,7 @@ class FormDataAnalyzationEdgeCaseTest {
 
     @Test
     void getPayloadFormDataAnalyze_wrong_data_format() throws Exception {
-        MockMultipartFile testDatasetWrongFormat = GenerateEdgeCaseData.testDatasetComma();
+        MockMultipartFile testDatasetWrongFormat = GenerateEdgeCaseData.testDatasetWrongFormat();
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/analyze/file")
                 .file(testDatasetWrongFormat)
                 .file(metadata);

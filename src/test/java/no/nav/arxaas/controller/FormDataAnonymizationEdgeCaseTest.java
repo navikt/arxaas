@@ -149,7 +149,7 @@ class FormDataAnonymizationEdgeCaseTest {
 
     @Test
     void formdata_anonymization_with_wrong_data_format() throws Exception {
-        MockMultipartFile testDatasetWrongFormat = GenerateEdgeCaseData.testDatasetComma();
+        MockMultipartFile testDatasetWrongFormat = GenerateEdgeCaseData.testDatasetWrongFormat();
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file")
                 .file(testDatasetWrongFormat)

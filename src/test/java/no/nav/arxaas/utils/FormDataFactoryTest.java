@@ -1,8 +1,11 @@
 package no.nav.arxaas.utils;
 
+import no.nav.arxaas.GenerateEdgeCaseData;
 import no.nav.arxaas.GenerateTestData;
 import no.nav.arxaas.model.FormMetaDataRequest;
 import no.nav.arxaas.model.Request;
+import no.nav.arxaas.model.risk.ReIdentificationRisk;
+import org.bouncycastle.cert.ocsp.Req;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -96,5 +99,17 @@ class FormDataFactoryTest {
 
         //suppression limit
         Assertions.assertEquals(expected.getSuppressionLimit(),expected.getSuppressionLimit());
+    }
+
+    @Test
+    void create_payload_with_dataset_delimiter_as_comma(){
+        MultipartFile testFileComma = GenerateEdgeCaseData.testDatasetComma();
+        Request actual = formDataFactory.createAnalyzationPayload(testFileComma,testPayload);
+        Request expected = GenerateTestData.zipcodeRequestPayload2Quasi();
+
+        //check dataset
+        Assertions.assertArrayEquals(expected.getData().get(1), actual.getData().get(1));
+        Assertions.assertArrayEquals(expected.getData().get(2), actual.getData().get(2));
+        Assertions.assertArrayEquals(expected.getData().get(3), actual.getData().get(3));
     }
 }
