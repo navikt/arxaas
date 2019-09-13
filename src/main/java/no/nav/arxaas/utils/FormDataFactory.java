@@ -1,7 +1,5 @@
 package no.nav.arxaas.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.FormDataAttribute;
@@ -14,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
