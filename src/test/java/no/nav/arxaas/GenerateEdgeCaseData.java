@@ -364,6 +364,14 @@ public class GenerateEdgeCaseData {
        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testDatasetComma.csv", "file", "text/csv");
     }
 
+    public static MockMultipartFile testDatasetSpecialFormat(){
+        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testDatasetSpecialFormat.csv", "file", "text/csv");
+    }
+
+    public static MockMultipartFile testDatasetWrongFormat(){
+        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testDatasetWrongFormat.csv", "file", "text/csv");
+    }
+
     public static MockMultipartFile testMetaDataWrongFormat() {
         return new MockMultipartFile("metadata", "","application/json", testFormData_metadata_two_quasi_attribute_wrong_format().getBytes());
     }
@@ -397,7 +405,7 @@ public class GenerateEdgeCaseData {
     }
 
     public static MockMultipartFile testZipcodeHierarchyWrongFormat() {
-        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testZipcodeHierarchyComma.csv","hierarchies","text/csv");
+        return (MockMultipartFile) GenerateTestData.makeMockMultipartFile("./src/test/resources/testZipcodeHierarchyWrongFormat.csv","hierarchies","text/csv");
     }
 
     public static MockMultipartFile testZipcodeHierarchyMoreData() {
