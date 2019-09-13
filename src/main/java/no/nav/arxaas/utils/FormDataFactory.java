@@ -1,5 +1,6 @@
 package no.nav.arxaas.utils;
 
+import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.FormDataAttribute;
@@ -8,9 +9,7 @@ import no.nav.arxaas.model.Request;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,13 +63,11 @@ public class FormDataFactory {
      */
     private List<String[]> handleInputStream(MultipartFile file){
         List<String[]> rawData = new ArrayList<>();
+        CsvParserSettings settings = new CsvParserSettings();
+        settings.setDelimiterDetectionEnabled(true,';',',');
+        CsvParser parser = new CsvParser(settings);
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(file.getInputStream()));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] data = line.split(";");
-                rawData.add(data);
-            }
+            rawData = parser.parseAll(file.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
