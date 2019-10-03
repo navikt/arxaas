@@ -36,6 +36,6 @@ public class FormDataAnonymizationController {
         AnonymizationResultPayload anonymizationResult = anonymizationService.anonymize(requestPayload);
         long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
         loggerService.loggAnonymizeResult(anonymizationResult,requestProcessingTime, FormDataAnonymizationController.class, request.getRemoteAddr());
-        return anonymizationService.anonymize(requestPayload);
+        return anonymizationResult;
     }
 }

@@ -31,7 +31,7 @@ public class AnonymizationController {
         AnonymizationResultPayload anonymizationResult = anonymizationService.anonymize(payload);
         long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
         loggerService.loggAnonymizeResult(anonymizationResult,requestProcessingTime, AnonymizationController.class, request.getRemoteAddr());
-        return anonymizationService.anonymize(payload);
+        return anonymizationResult;
     }
 
 }
