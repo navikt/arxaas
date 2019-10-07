@@ -1,5 +1,6 @@
 package no.nav.arxaas;
 
+import io.prometheus.client.hotspot.DefaultExports;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -12,6 +13,8 @@ public class ARXaaSApplication implements ApplicationRunner {
 	private static final Logger logger = LoggerFactory.getLogger(ARXaaSApplication.class);
 
 	public static void main(String[] args) {
+
+		DefaultExports.initialize();
 		SpringApplication.run(ARXaaSApplication.class, args);
 	}
 
