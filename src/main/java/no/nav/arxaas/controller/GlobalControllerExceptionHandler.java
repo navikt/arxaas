@@ -2,6 +2,7 @@ package no.nav.arxaas.controller;
 
 import no.nav.arxaas.exception.ExceptionResponse;
 import no.nav.arxaas.exception.UnableToAnonymizeDataInvalidDataSetException;
+import no.nav.arxaas.exception.UnableToReadInputStreamException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import no.nav.arxaas.exception.UnableToAnonymizeDataException;
@@ -117,4 +118,15 @@ class GlobalControllerExceptionHandler {
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
-}
+
+    @ExceptionHandler(UnableToReadInputStreamException.class)
+    public final ResponseEntity<Object> handleUnableToReadInputStreamException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                ex.toString(),
+                request.getDescription(false));
+
+        logger.error("Exception occurred while trying to read the input stream of the multipart file:", ex);
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+ }
