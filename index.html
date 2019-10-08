@@ -1018,17 +1018,16 @@ Content-Type: application/json;charset=UTF-8
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 1,
+      "processTimeMillisecounds" : 2,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
-        "attribute" : "gender",
-        "l" : 2.0,
+        "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
-        "minimalClassSize" : 2,
-        "requirements" : 4,
-        "riskThresholdJournalist" : 0.5,
-        "riskThresholdMarketer" : 0.5,
-        "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
         "populationModel" : null,
         "dataSubset" : null,
@@ -1038,13 +1037,14 @@ Content-Type: application/json;charset=UTF-8
         "subsetAvailable" : false
       }, {
         "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "minimalClassSize" : 5,
-        "requirements" : 1,
-        "riskThresholdJournalist" : 0.2,
-        "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
+        "attribute" : "gender",
+        "l" : 2.0,
         "localRecodingSupported" : true,
+        "minimalClassSize" : 2,
+        "requirements" : 4,
+        "riskThresholdJournalist" : 0.5,
+        "riskThresholdMarketer" : 0.5,
+        "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
         "populationModel" : null,
         "dataSubset" : null,
@@ -1471,7 +1471,7 @@ metadata for the anonymization process.</p>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 7298
+Content-Length: 7299
 
 {
   "anonymizeResult" : {
@@ -1487,7 +1487,7 @@ Content-Length: 7298
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 0,
+      "processTimeMillisecounds" : 31,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
@@ -2194,7 +2194,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-08 10:23:21 UTC
+Last updated 2019-10-08 12:22:55 UTC
 </div>
 </div>
 </body>
