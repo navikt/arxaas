@@ -1018,39 +1018,39 @@ Content-Type: application/json;charset=UTF-8
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 2,
+      "processTimeMillisecounds" : 0,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
         "riskThresholdJournalist" : 0.2,
         "riskThresholdMarketer" : 0.2,
-        "requirements" : 1,
-        "minimalClassSize" : 5,
+        "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
         "minimalClassSizeAvailable" : true,
-        "riskThresholdProsecutor" : 0.2,
+        "monotonicWithSuppression" : true,
         "sampleBased" : false,
         "subsetAvailable" : false,
-        "populationModel" : null,
         "dataSubset" : null,
-        "monotonicWithSuppression" : true,
+        "populationModel" : null,
         "subset" : null
       }, {
         "monotonicWithGeneralization" : true,
         "attribute" : "gender",
         "l" : 2.0,
         "localRecodingSupported" : true,
+        "minimalClassSize" : 2,
+        "requirements" : 4,
         "riskThresholdJournalist" : 0.5,
         "riskThresholdMarketer" : 0.5,
-        "requirements" : 4,
-        "minimalClassSize" : 2,
-        "minimalClassSizeAvailable" : true,
         "riskThresholdProsecutor" : 0.5,
+        "minimalClassSizeAvailable" : true,
+        "monotonicWithSuppression" : true,
         "sampleBased" : false,
         "subsetAvailable" : false,
-        "populationModel" : null,
         "dataSubset" : null,
-        "monotonicWithSuppression" : true,
+        "populationModel" : null,
         "subset" : null
       } ]
     },
@@ -1491,18 +1491,18 @@ Content-Length: 7298
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
         "riskThresholdJournalist" : 0.2,
         "riskThresholdMarketer" : 0.2,
-        "requirements" : 1,
-        "minimalClassSize" : 5,
+        "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
         "minimalClassSizeAvailable" : true,
-        "riskThresholdProsecutor" : 0.2,
+        "monotonicWithSuppression" : true,
         "sampleBased" : false,
         "subsetAvailable" : false,
-        "populationModel" : null,
         "dataSubset" : null,
-        "monotonicWithSuppression" : true,
+        "populationModel" : null,
         "subset" : null
       } ]
     },
@@ -2194,7 +2194,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-08 09:14:36 UTC
+Last updated 2019-10-08 09:21:54 UTC
 </div>
 </div>
 </body>
