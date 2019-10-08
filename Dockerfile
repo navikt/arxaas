@@ -1,5 +1,5 @@
-FROM openjdk:11-jdk
+FROM navikt/java
 VOLUME /tmp
 COPY target/arxaas-*.jar /app.jar
 EXPOSE 8080/tcp
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "/app.jar"]
+ENV SPRING_PROFILES_ACTIVE=prod
