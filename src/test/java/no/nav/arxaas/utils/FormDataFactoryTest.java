@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 class FormDataFactoryTest {
@@ -36,7 +37,7 @@ class FormDataFactoryTest {
     }
 
     @Test
-    void createAnalyzationPayload() {
+    void createAnalyzationPayload() throws IOException {
         Request actual = formDataFactory.createAnalyzationPayload(testFile,testPayload);
         Request expected = GenerateTestData.zipcodeRequestPayload2Quasi();
 
@@ -58,7 +59,7 @@ class FormDataFactoryTest {
     }
 
     @Test
-    void createAnonymizationPayload() {
+    void createAnonymizationPayload() throws IOException {
         Request actual = formDataFactory.createAnonymizationPayload(testFile,testPayload,testHierarchies);
         Request expected = GenerateTestData.zipcodeRequestPayload2Quasi();
 
@@ -81,7 +82,7 @@ class FormDataFactoryTest {
     }
 
     @Test
-    void createAnonymizationPayload_with_no_hierarchies(){
+    void createAnonymizationPayload_with_no_hierarchies() throws IOException {
         Request actual = formDataFactory.createAnonymizationPayload(testFile,testPayload, new MultipartFile[]{});
         Request expected = GenerateTestData.zipcodeRequestPayload2Quasi();
 
@@ -104,7 +105,7 @@ class FormDataFactoryTest {
     }
 
     @Test
-    void create_payload_with_dataset_delimiter_as_comma(){
+    void create_payload_with_dataset_delimiter_as_comma() throws IOException {
         MultipartFile testFileComma = GenerateEdgeCaseData.testDatasetComma();
         Request actual = formDataFactory.createAnalyzationPayload(testFileComma,testPayload);
         Request expected = GenerateTestData.zipcodeRequestPayload2Quasi();
@@ -116,7 +117,7 @@ class FormDataFactoryTest {
     }
 
     @Test
-    void create_payload_with_dataset_with_special_format(){
+    void create_payload_with_dataset_with_special_format() throws IOException {
         MultipartFile testFileSpecialFormat = GenerateEdgeCaseData.testDatasetSpecialFormat();
         FormMetaDataRequest testPayloadSpecialFormat = GenerateTestData.formDataTestMetaDataSpecialFormat();
 
