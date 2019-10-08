@@ -1018,24 +1018,8 @@ Content-Type: application/json;charset=UTF-8
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 0,
+      "processTimeMillisecounds" : 1,
       "privacyModels" : [ {
-        "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "minimalClassSize" : 5,
-        "requirements" : 1,
-        "riskThresholdJournalist" : 0.2,
-        "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
-        "localRecodingSupported" : true,
-        "minimalClassSizeAvailable" : true,
-        "monotonicWithSuppression" : true,
-        "sampleBased" : false,
-        "subsetAvailable" : false,
-        "dataSubset" : null,
-        "populationModel" : null,
-        "subset" : null
-      }, {
         "monotonicWithGeneralization" : true,
         "attribute" : "gender",
         "l" : 2.0,
@@ -1046,12 +1030,28 @@ Content-Type: application/json;charset=UTF-8
         "riskThresholdMarketer" : 0.5,
         "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
+        "populationModel" : null,
+        "dataSubset" : null,
+        "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
-        "subsetAvailable" : false,
-        "dataSubset" : null,
+        "subsetAvailable" : false
+      }, {
+        "monotonicWithGeneralization" : true,
+        "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
+        "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
         "populationModel" : null,
-        "subset" : null
+        "dataSubset" : null,
+        "subset" : null,
+        "monotonicWithSuppression" : true,
+        "sampleBased" : false,
+        "subsetAvailable" : false
       } ]
     },
     "attributes" : [ {
@@ -1487,7 +1487,7 @@ Content-Length: 7298
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 1,
+      "processTimeMillisecounds" : 0,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
@@ -1498,12 +1498,12 @@ Content-Length: 7298
         "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
         "minimalClassSizeAvailable" : true,
+        "populationModel" : null,
+        "dataSubset" : null,
+        "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
-        "subsetAvailable" : false,
-        "dataSubset" : null,
-        "populationModel" : null,
-        "subset" : null
+        "subsetAvailable" : false
       } ]
     },
     "attributes" : [ {
@@ -2194,7 +2194,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-08 09:21:54 UTC
+Last updated 2019-10-08 10:23:21 UTC
 </div>
 </div>
 </body>
