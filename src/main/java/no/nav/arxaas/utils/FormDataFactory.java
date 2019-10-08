@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,9 @@ public class FormDataFactory {
      * @param file a {@link MultipartFile} containing the raw dataset file to be parsed.
      * @param payload a String containing the raw metadata to be parsed.
      * @return an ARX {@link Request} model containing the parsed dataset and metadata.
+     * @throws IOException when unable to read the InputStream of the files
      */
-    public Request createAnalyzationPayload(MultipartFile file, FormMetaDataRequest payload){
+    public Request createAnalyzationPayload(MultipartFile file, FormMetaDataRequest payload) throws IOException {
         validateParameters(file,payload);
         List<String[]> rawData = handleInputStream(file);
         List<Attribute> attributeList = buildRequestAnalyzationAttribute(payload.getAttributes());
@@ -38,11 +40,16 @@ public class FormDataFactory {
      * @param payload a String containing the raw metadata to be parsed.
      * @param hierarchies a array of {@link MultipartFile} containing the raw hierarchy files to be parsed.
      * @return an ARX {@link Request} model containing the parsed dataset, metadata and hierarchies.
+     * @throws IOException when unable to read the InputStream of the files
      */
-    public Request createAnonymizationPayload(MultipartFile file, FormMetaDataRequest payload, MultipartFile[] hierarchies){
+    public Request createAnonymizationPayload(MultipartFile file, FormMetaDataRequest payload, MultipartFile[] hierarchies) throws IOException {
         validateParameters(file,payload);
         List<String[]> rawData = handleInputStream(file);
-        List<Attribute> attributeList = buildRequestAnonymizationAttribute(payload.getAttributes(),hierarchies);
+        List<List<String[]>> hierarchiesContent = new ArrayList<>();
+        if(hierarchies.length > 0) {
+            hierarchiesContent = handleHierarchiesInputStream(hierarchies);
+        }
+        List<Attribute> attributeList = buildRequestAnonymizationAttribute(payload.getAttributes(),hierarchiesContent);
         return new Request(rawData, attributeList, payload.getPrivacyModels(), payload.getSuppressionLimit());
     }
 
@@ -60,17 +67,15 @@ public class FormDataFactory {
      * Returns a list of String[] containing the dataset parsed from a {@link MultipartFile}.
      * @param file a {@link MultipartFile} containing the raw dataset file to be parsed.
      * @return the parsed dataset in a list of String[].
+     * @throws IOException when unable to read the InputStream of the files
      */
-    private List<String[]> handleInputStream(MultipartFile file){
-        List<String[]> rawData = new ArrayList<>();
+    private List<String[]> handleInputStream(MultipartFile file) throws IOException {
         CsvParserSettings settings = new CsvParserSettings();
         settings.setDelimiterDetectionEnabled(true,';',',');
         CsvParser parser = new CsvParser(settings);
-        try {
-            rawData = parser.parseAll(file.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        InputStream fileContent = file.getInputStream();
+        List<String[]> rawData = parser.parseAll(fileContent);
+        fileContent.close();
         return rawData;
     }
 
@@ -92,15 +97,15 @@ public class FormDataFactory {
      * Builds a list of {@link Attribute} from the  list of {@link FormDataAttribute} to correctly build the attribute metadata
      * and parse the raw hierarchy files.
      * @param attributeList a list of {@link FormDataAttribute} to be parsed in order to correctly build the attribute metadata.
-     * @param hierarchies a array of {@link MultipartFile} containing the raw hierarchy files to be parsed.
+     * @param hierarchies a List containing the parsed hierarchy files. the hierarchy files are in a List of String array
      * @return list of {@link Attribute} for anonymization.
      */
-    private List<Attribute> buildRequestAnonymizationAttribute(List<FormDataAttribute> attributeList, MultipartFile[] hierarchies){
+    private List<Attribute> buildRequestAnonymizationAttribute(List<FormDataAttribute> attributeList, List<List<String[]>> hierarchies){
         List<Attribute> newAttributeList = new ArrayList<>();
         attributeList.forEach(attribute -> {
-            if(attribute.getHierarchy() != null && hierarchies.length > 0) {
+            if(attribute.getHierarchy() != null && hierarchies.size() > 0) {
                 int hierarchyIndex = attribute.getHierarchy();
-                List<String[]> hierarchy = handleInputStream(hierarchies[hierarchyIndex]);
+                List<String[]> hierarchy = hierarchies.get(hierarchyIndex);
                 Attribute newAttribute = new Attribute(attribute.getField(), attribute.getAttributeTypeModel(), hierarchy);
                 newAttributeList.add(newAttribute);
             }else {
@@ -109,5 +114,20 @@ public class FormDataFactory {
             }
         });
         return newAttributeList;
+    }
+
+    /***
+     * Takes an array of {@link MultipartFile} containing the raw hierarchy files, and parses through the files and building a list out of them.
+     * @param hierarchies an array of {@link MultipartFile} containing the raw hierarchy files to be parsed.
+     * @return a List of parsed hierarchy files in the format of List of String array
+     * @throws IOException when unable to read the InputStream of the files
+     */
+    private List<List<String[]>> handleHierarchiesInputStream(MultipartFile[] hierarchies) throws IOException {
+        List<List<String[]>> hierarchiesContent = new ArrayList<>();
+        for(int x = 0; x<hierarchies.length; x++){
+            List<String[]> hierarchyContent = handleInputStream(hierarchies[x]);
+            hierarchiesContent.add(x,hierarchyContent);
+        }
+        return hierarchiesContent;
     }
 }

@@ -1,5 +1,6 @@
 package no.nav.arxaas.controller;
 
+import no.nav.arxaas.exception.UnableToReadInputStreamException;
 import no.nav.arxaas.model.*;
 import no.nav.arxaas.model.anonymity.AnonymizationResultPayload;
 import no.nav.arxaas.service.AnonymizationService;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @CrossOrigin
 @RestController
@@ -31,7 +33,12 @@ public class FormDataAnonymizationController {
     @PostMapping
     public AnonymizationResultPayload anonymization(@RequestPart("file") MultipartFile file, @RequestPart("metadata") @Valid FormMetaDataRequest payload, @RequestPart("hierarchies") MultipartFile[] hierarchies, HttpServletRequest request) {
         long requestRecivedTime = System.currentTimeMillis();
-        Request requestPayload = formDataFactory.createAnonymizationPayload(file, payload, hierarchies);
+        Request requestPayload;
+        try {
+            requestPayload = formDataFactory.createAnonymizationPayload(file, payload, hierarchies);
+        } catch (IOException e) {
+            throw new UnableToReadInputStreamException(e.getMessage());
+        }
         loggerService.loggPayload(requestPayload, request.getRemoteAddr(), FormDataAnonymizationController.class);
         AnonymizationResultPayload anonymizationResult = anonymizationService.anonymize(requestPayload);
         long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
