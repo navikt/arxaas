@@ -1,5 +1,6 @@
 package no.nav.arxaas.controller;
 
+import no.nav.arxaas.exception.UnableToReadInputStreamException;
 import no.nav.arxaas.model.*;
 import no.nav.arxaas.model.risk.RiskProfile;
 import no.nav.arxaas.service.AnalyzationService;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 
 @CrossOrigin
 @RestController
@@ -32,7 +34,12 @@ public class FormDataAnalyzationController {
     @PostMapping
     public RiskProfile getPayloadAnalyzeFromFormData(@NotNull @RequestPart("file") MultipartFile file, @RequestPart("metadata") @Valid FormMetaDataRequest metadata , HttpServletRequest request){
         long requestRecivedTime = System.currentTimeMillis();
-        Request requestPayload = formDataFactory.createAnalyzationPayload(file,metadata);
+        Request requestPayload;
+        try {
+            requestPayload = formDataFactory.createAnalyzationPayload(file,metadata);
+        } catch (IOException e) {
+            throw new UnableToReadInputStreamException(e.getMessage());
+        }
         loggerService.loggPayload(requestPayload, request.getRemoteAddr(), FormDataAnalyzationController.class);
         RiskProfile analyzationResult = analyzationService.analyze(requestPayload);
         long requestProcessingTime = System.currentTimeMillis() - requestRecivedTime;
