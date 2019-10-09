@@ -1021,6 +1021,22 @@ Content-Length: 7533
       "processTimeMillisecounds" : 1,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
+        "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
+        "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
+        "subset" : null,
+        "monotonicWithSuppression" : true,
+        "sampleBased" : false,
+        "subsetAvailable" : false,
+        "populationModel" : null,
+        "dataSubset" : null
+      }, {
+        "monotonicWithGeneralization" : true,
         "attribute" : "gender",
         "l" : 2.0,
         "localRecodingSupported" : true,
@@ -1030,28 +1046,12 @@ Content-Length: 7533
         "riskThresholdMarketer" : 0.5,
         "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
-        "populationModel" : null,
-        "dataSubset" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
-        "subsetAvailable" : false
-      }, {
-        "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "minimalClassSize" : 5,
-        "requirements" : 1,
-        "riskThresholdJournalist" : 0.2,
-        "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
-        "localRecodingSupported" : true,
-        "minimalClassSizeAvailable" : true,
+        "subsetAvailable" : false,
         "populationModel" : null,
-        "dataSubset" : null,
-        "subset" : null,
-        "monotonicWithSuppression" : true,
-        "sampleBased" : false,
-        "subsetAvailable" : false
+        "dataSubset" : null
       } ]
     },
     "attributes" : [ {
@@ -1487,7 +1487,7 @@ Content-Length: 7298
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 1,
+      "processTimeMillisecounds" : 2,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
@@ -1498,12 +1498,12 @@ Content-Length: 7298
         "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
         "minimalClassSizeAvailable" : true,
-        "populationModel" : null,
-        "dataSubset" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
-        "subsetAvailable" : false
+        "subsetAvailable" : false,
+        "populationModel" : null,
+        "dataSubset" : null
       } ]
     },
     "attributes" : [ {
@@ -2194,7 +2194,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-09 10:10:00 UTC
+Last updated 2019-10-09 10:52:50 UTC
 </div>
 </div>
 </body>
