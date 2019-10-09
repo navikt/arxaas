@@ -654,8 +654,8 @@ use of HTTP status codes.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Length: 170
 Content-Type: application/hal+json;charset=UTF-8
+Content-Length: 170
 
 {"_links":{"self":{"href":"http://localhost:8080/api"},"anonymize":{"href":"http://localhost:8080/api/anonymize"},"analyze":{"href":"http://localhost:8080/api/analyze"}}}</code></pre>
 </div>
@@ -1005,8 +1005,8 @@ object containing an anonymized dataset, a risk profile, and metadata for the an
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Length: 7533
 Content-Type: application/json;charset=UTF-8
+Content-Length: 7533
 
 {
   "anonymizeResult" : {
@@ -1018,7 +1018,7 @@ Content-Type: application/json;charset=UTF-8
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 2,
+      "processTimeMillisecounds" : 1,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
@@ -1029,8 +1029,8 @@ Content-Type: application/json;charset=UTF-8
         "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
         "minimalClassSizeAvailable" : true,
-        "populationModel" : null,
         "dataSubset" : null,
+        "populationModel" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
@@ -1046,8 +1046,8 @@ Content-Type: application/json;charset=UTF-8
         "riskThresholdMarketer" : 0.5,
         "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
-        "populationModel" : null,
         "dataSubset" : null,
+        "populationModel" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
@@ -1262,8 +1262,8 @@ returns a response object containing a risk profile that includes the re-identif
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Length: 4467
 Content-Type: application/json;charset=UTF-8
+Content-Length: 4467
 
 {
   "reIdentificationRisk" : {
@@ -1471,7 +1471,7 @@ metadata for the anonymization process.</p>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 7299
+Content-Length: 7298
 
 {
   "anonymizeResult" : {
@@ -1487,7 +1487,7 @@ Content-Length: 7299
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 31,
+      "processTimeMillisecounds" : 1,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
@@ -1498,8 +1498,8 @@ Content-Length: 7299
         "riskThresholdProsecutor" : 0.2,
         "localRecodingSupported" : true,
         "minimalClassSizeAvailable" : true,
-        "populationModel" : null,
         "dataSubset" : null,
+        "populationModel" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
@@ -1765,9 +1765,9 @@ returns a response object containing the resulting hierarchy.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/hierarchy HTTP/1.1
-Content-Length: 260
 Content-Type: application/json;charset=UTF-8
 Host: localhost:8080
+Content-Length: 260
 
 {
   "column" : [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ],
@@ -1787,8 +1787,8 @@ Host: localhost:8080
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Length: 162
 Content-Type: application/json;charset=UTF-8
+Content-Length: 162
 
 {
   "hierarchy" : [ [ "0", "*" ], [ "1", "*" ], [ "2", "*" ], [ "3", "*" ], [ "4", "*" ], [ "5", "*" ], [ "6", "*" ], [ "7", "*" ], [ "8", "*" ], [ "9", "*" ] ]
@@ -1931,9 +1931,9 @@ Content-Type: application/json;charset=UTF-8
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/hierarchy HTTP/1.1
-Content-Length: 832
 Content-Type: application/json;charset=UTF-8
 Host: localhost:8080
+Content-Length: 832
 
 {
   "column" : [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ],
@@ -1984,8 +1984,8 @@ Host: localhost:8080
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Length: 352
 Content-Type: application/json;charset=UTF-8
+Content-Length: 352
 
 {
   "hierarchy" : [ [ "0", "young", "[0, 4[", "*" ], [ "1", "young", "[0, 4[", "*" ], [ "2", "adult", "[0, 4[", "*" ], [ "3", "adult", "[0, 4[", "*" ], [ "4", "old", "[4, 8[", "*" ], [ "5", "old", "[4, 8[", "*" ], [ "6", "old", "[4, 8[", "*" ], [ "7", "old", "[4, 8[", "*" ], [ "8", "very-old", "[8, 12[", "*" ], [ "9", "very-old", "[8, 12[", "*" ] ]
@@ -2064,9 +2064,9 @@ into groups with the defined sizes.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/hierarchy HTTP/1.1
-Content-Length: 371
 Content-Type: application/json;charset=UTF-8
 Host: localhost:8080
+Content-Length: 371
 
 {
   "column" : [ "Oslo", "Bergen", "Stockholm", "London", "Paris" ],
@@ -2095,8 +2095,8 @@ Host: localhost:8080
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Length: 204
 Content-Type: application/json;charset=UTF-8
+Content-Length: 204
 
 {
   "hierarchy" : [ [ "Oslo", "nordic-city", "*" ], [ "Bergen", "nordic-city", "*" ], [ "Stockholm", "nordic-city", "*" ], [ "London", "mid-european-city", "*" ], [ "Paris", "mid-european-city", "*" ] ]
@@ -2160,8 +2160,8 @@ Content-Type: application/json;charset=UTF-8
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/hierarchy HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 386
 Host: localhost:8080
+Content-Length: 386
 
 {
   "column" : [ "2020-07-16 15:28:024", "2019-07-16 16:38:025", "2019-07-16 17:48:025", "2019-07-16 18:48:025", "2019-06-16 19:48:025", "2019-06-16 20:48:025" ],
@@ -2194,7 +2194,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-08 12:22:55 UTC
+Last updated 2019-10-09 08:17:30 UTC
 </div>
 </div>
 </body>
