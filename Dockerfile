@@ -1,4 +1,4 @@
-FROM navikt/java:12
+FROM navikt/java:13
 VOLUME /tmp
 COPY target/arxaas-*.jar /app/app.jar
 EXPOSE 8080/tcp
