@@ -24,7 +24,7 @@ docker pull navikt/arxaas
 ```
 3. Run the Docker image
 ```bash
-docker run navikt/arxaas
+docker run -p 8080:8080 navikt/arxaas
 ```
 
 ##### Run server on localhost from jar (download ARXaaS executable jar from Maven and execute it)
