@@ -6,8 +6,6 @@ import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.FormDataAttribute;
 import no.nav.arxaas.model.FormMetaDataRequest;
 import no.nav.arxaas.model.Request;
-import org.apache.commons.io.IOUtils;
-import org.deidentifier.arx.metric.v2.IO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
