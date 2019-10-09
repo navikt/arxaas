@@ -73,10 +73,9 @@ public class FormDataFactory {
         CsvParserSettings settings = new CsvParserSettings();
         settings.setDelimiterDetectionEnabled(true,';',',');
         CsvParser parser = new CsvParser(settings);
-        InputStream fileContent = file.getInputStream();
-        List<String[]> rawData = parser.parseAll(fileContent);
-        fileContent.close();
-        return rawData;
+        try(InputStream fileContent = file.getInputStream()) {
+            return parser.parseAll(fileContent);
+        }
     }
 
     /***
