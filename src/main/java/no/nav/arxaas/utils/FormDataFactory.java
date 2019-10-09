@@ -6,6 +6,8 @@ import no.nav.arxaas.model.Attribute;
 import no.nav.arxaas.model.FormDataAttribute;
 import no.nav.arxaas.model.FormMetaDataRequest;
 import no.nav.arxaas.model.Request;
+import org.apache.commons.io.IOUtils;
+import org.deidentifier.arx.metric.v2.IO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -73,10 +75,9 @@ public class FormDataFactory {
         CsvParserSettings settings = new CsvParserSettings();
         settings.setDelimiterDetectionEnabled(true,';',',');
         CsvParser parser = new CsvParser(settings);
-        InputStream fileContent = file.getInputStream();
-        List<String[]> rawData = parser.parseAll(fileContent);
-        fileContent.close();
-        return rawData;
+        try(InputStream fileContent = file.getInputStream()) {
+            return parser.parseAll(fileContent);
+        }
     }
 
     /***
