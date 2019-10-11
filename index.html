@@ -1018,40 +1018,40 @@ Content-Length: 7533
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 1,
+      "processTimeMillisecounds" : 3,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "attribute" : "gender",
         "l" : 2.0,
         "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
         "minimalClassSize" : 2,
         "requirements" : 4,
         "riskThresholdJournalist" : 0.5,
         "riskThresholdMarketer" : 0.5,
         "riskThresholdProsecutor" : 0.5,
-        "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
         "populationModel" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
-        "subsetAvailable" : false
+        "subsetAvailable" : false,
+        "dataSubset" : null
       }, {
         "monotonicWithGeneralization" : true,
         "k" : 5,
+        "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
         "minimalClassSize" : 5,
         "requirements" : 1,
         "riskThresholdJournalist" : 0.2,
         "riskThresholdMarketer" : 0.2,
         "riskThresholdProsecutor" : 0.2,
-        "localRecodingSupported" : true,
-        "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
         "populationModel" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
-        "subsetAvailable" : false
+        "subsetAvailable" : false,
+        "dataSubset" : null
       } ]
     },
     "attributes" : [ {
@@ -1471,7 +1471,7 @@ metadata for the anonymization process.</p>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 7298
+Content-Length: 7299
 
 {
   "anonymizeResult" : {
@@ -1487,23 +1487,23 @@ Content-Length: 7298
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 1,
+      "processTimeMillisecounds" : 33,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
+        "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
         "minimalClassSize" : 5,
         "requirements" : 1,
         "riskThresholdJournalist" : 0.2,
         "riskThresholdMarketer" : 0.2,
         "riskThresholdProsecutor" : 0.2,
-        "localRecodingSupported" : true,
-        "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
         "populationModel" : null,
         "subset" : null,
         "monotonicWithSuppression" : true,
         "sampleBased" : false,
-        "subsetAvailable" : false
+        "subsetAvailable" : false,
+        "dataSubset" : null
       } ]
     },
     "attributes" : [ {
@@ -2194,7 +2194,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-10 10:07:39 UTC
+Last updated 2019-10-11 06:55:56 UTC
 </div>
 </div>
 </body>
