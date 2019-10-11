@@ -1,0 +1,17 @@
+<configuration>
+    <springProfile name="prod">
+        <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
+        <root level="info">
+            <appender-ref ref="stdout_json" />
+        </root>
+    </springProfile>
+    <springProfile name="dev">
+        <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+</configuration>
