@@ -57,7 +57,7 @@ class FormDataAnonymizationControllerTest {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file").file(file).file(metadata).file(genderHierarchy).file(zipcodeHierarchy);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(200))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
         String jsonResult = result.getResponse().getContentAsString();
