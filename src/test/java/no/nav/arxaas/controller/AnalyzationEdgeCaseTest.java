@@ -3,6 +3,7 @@ package no.nav.arxaas.controller;
 import no.nav.arxaas.GenerateEdgeCaseData;
 import no.nav.arxaas.exception.ExceptionResponse;
 import no.nav.arxaas.model.Request;
+import no.nav.arxaas.model.risk.RiskProfile;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,15 +92,5 @@ class AnalyzationEdgeCaseTest {
         assertNotNull(resultData.getMessage());
     }
 
-    @Test
-    void getPayloadAnalyze_indexOutOfBoundsPayload() throws IOException {
-        Request indexOutOfBoundsExceptionPayload = GenerateEdgeCaseData.indexOutOfBoundsExceptionPayload();
-        System.out.println(indexOutOfBoundsExceptionPayload.toString());
-        ResponseEntity<ExceptionResponse> responseEntity = restTemplate.postForEntity("/api/analyze", indexOutOfBoundsExceptionPayload, ExceptionResponse.class);
-        assertNotNull(responseEntity);
-        assertSame(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        var resultData = responseEntity.getBody();
-        assertNotNull(resultData);
-        assertNotNull(resultData.getMessage());
-    }
+
 }

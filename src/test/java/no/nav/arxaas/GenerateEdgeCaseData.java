@@ -21,11 +21,6 @@ public class GenerateEdgeCaseData {
         return  new Request(null,null,null,null);
     }
 
-    public static Request indexOutOfBoundsExceptionPayload() throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(new File("./src/test/java/no/nav/arxaas/resources/indexOutOfBoundsPayload.json"), Request.class);
-    }
-
     public static Request zipcodeRequestPayloadWithSuppressionLimitGreaterThan1(){
         List<String[]> testData = ageGenderZipcodeData();
         List<String[]> listHierarchy = zipcodeHierarchy();
