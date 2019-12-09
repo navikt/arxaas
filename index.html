@@ -1018,46 +1018,46 @@ Content-Length: 7813
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 1,
+      "processTimeMillisecounds" : 2,
       "privacyModels" : [ {
-        "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "minimalClassSize" : 5,
-        "requirements" : 1,
-        "riskThresholdJournalist" : 0.2,
-        "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
-        "localRecodingSupported" : true,
-        "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
-        "populationModel" : null,
-        "subset" : null,
-        "heuristicSearchSupported" : true,
-        "heuristicSearchWithTimeLimitSupported" : true,
-        "optimalSearchSupported" : true,
-        "monotonicWithSuppression" : true,
-        "sampleBased" : false,
-        "subsetAvailable" : false
-      }, {
         "monotonicWithGeneralization" : true,
         "attribute" : "gender",
         "l" : 2.0,
         "localRecodingSupported" : true,
-        "minimalClassSize" : 2,
+        "riskThresholdMarketer" : 0.5,
+        "minimalClassSizeAvailable" : true,
+        "riskThresholdProsecutor" : 0.5,
         "requirements" : 4,
         "riskThresholdJournalist" : 0.5,
-        "riskThresholdMarketer" : 0.5,
-        "riskThresholdProsecutor" : 0.5,
-        "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
+        "minimalClassSize" : 2,
         "populationModel" : null,
-        "subset" : null,
-        "heuristicSearchSupported" : true,
+        "dataSubset" : null,
         "heuristicSearchWithTimeLimitSupported" : true,
-        "optimalSearchSupported" : true,
         "monotonicWithSuppression" : true,
+        "subset" : null,
         "sampleBased" : false,
-        "subsetAvailable" : false
+        "subsetAvailable" : false,
+        "heuristicSearchSupported" : true,
+        "optimalSearchSupported" : true
+      }, {
+        "monotonicWithGeneralization" : true,
+        "k" : 5,
+        "riskThresholdMarketer" : 0.2,
+        "minimalClassSizeAvailable" : true,
+        "riskThresholdProsecutor" : 0.2,
+        "requirements" : 1,
+        "localRecodingSupported" : true,
+        "riskThresholdJournalist" : 0.2,
+        "minimalClassSize" : 5,
+        "populationModel" : null,
+        "dataSubset" : null,
+        "heuristicSearchWithTimeLimitSupported" : true,
+        "monotonicWithSuppression" : true,
+        "subset" : null,
+        "sampleBased" : false,
+        "subsetAvailable" : false,
+        "heuristicSearchSupported" : true,
+        "optimalSearchSupported" : true
       } ]
     },
     "attributes" : [ {
@@ -1477,7 +1477,7 @@ metadata for the anonymization process.</p>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 7438
+Content-Length: 7439
 
 {
   "anonymizeResult" : {
@@ -1493,26 +1493,26 @@ Content-Length: 7438
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 1,
+      "processTimeMillisecounds" : 53,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
-        "minimalClassSize" : 5,
-        "requirements" : 1,
-        "riskThresholdJournalist" : 0.2,
         "riskThresholdMarketer" : 0.2,
-        "riskThresholdProsecutor" : 0.2,
-        "localRecodingSupported" : true,
         "minimalClassSizeAvailable" : true,
-        "dataSubset" : null,
+        "riskThresholdProsecutor" : 0.2,
+        "requirements" : 1,
+        "localRecodingSupported" : true,
+        "riskThresholdJournalist" : 0.2,
+        "minimalClassSize" : 5,
         "populationModel" : null,
-        "subset" : null,
-        "heuristicSearchSupported" : true,
+        "dataSubset" : null,
         "heuristicSearchWithTimeLimitSupported" : true,
-        "optimalSearchSupported" : true,
         "monotonicWithSuppression" : true,
+        "subset" : null,
         "sampleBased" : false,
-        "subsetAvailable" : false
+        "subsetAvailable" : false,
+        "heuristicSearchSupported" : true,
+        "optimalSearchSupported" : true
       } ]
     },
     "attributes" : [ {
@@ -2203,7 +2203,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-09 14:18:24 UTC
+Last updated 2019-12-09 14:18:38 UTC
 </div>
 </div>
 </body>
