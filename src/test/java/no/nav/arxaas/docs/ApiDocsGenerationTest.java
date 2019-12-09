@@ -93,7 +93,7 @@ class ApiDocsGenerationTest {
 
 
         this.mockMvc.perform(post("/api/analyze")
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(req))
                 .andExpect(status().isOk())
                 .andDo(document("analyze-controller", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
@@ -111,7 +111,7 @@ class ApiDocsGenerationTest {
 
 
         this.mockMvc.perform(post("/api/anonymize")
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(req))
                 .andExpect(status().isOk())
                 .andDo(document("anonymize-controller", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
@@ -131,7 +131,7 @@ class ApiDocsGenerationTest {
 
         this.mockMvc.perform(requestBuilder)
                 .andExpect(status().is(200))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andDo(document("formdata-analyze-controller",preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
                         requestParts(partWithName("file").description("Dataset CSV file to be analyzed"),
                                 partWithName("metadata").description("Json object containing the metadata for the attributes types and transformation models to be applied to the dataset"))
@@ -152,7 +152,7 @@ class ApiDocsGenerationTest {
 
         this.mockMvc.perform(requestBuilder)
                 .andExpect(status().is(200))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andDo(document("formdata-anonymize-controller",preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
                         requestParts(partWithName("file").description("Dataset CSV file to be analyzed"),
                                 partWithName("metadata").description("Json object containing the metadata for the attributes types and transformation models to be applied to the dataset"),
@@ -191,7 +191,7 @@ class ApiDocsGenerationTest {
 
 
         this.mockMvc.perform(post("/api/hierarchy")
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(req))
                 .andExpect(status().isOk())
                 .andDo(document("hierarchy-controller-intervalbased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
@@ -240,7 +240,7 @@ class ApiDocsGenerationTest {
 
 
         this.mockMvc.perform(post("/api/hierarchy")
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(req))
                 .andExpect(status().isOk())
                 .andDo(document("hierarchy-controller-redactionbased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
@@ -274,7 +274,7 @@ class ApiDocsGenerationTest {
 
 
         this.mockMvc.perform(post("/api/hierarchy")
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(req))
                 .andExpect(status().isOk())
                 .andDo(document("hierarchy-controller-orderbased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
@@ -309,7 +309,7 @@ class ApiDocsGenerationTest {
 
 
         this.mockMvc.perform(post("/api/hierarchy")
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(req))
                 .andExpect(status().isOk())
                 .andDo(document("hierarchy-controller-datebased", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),

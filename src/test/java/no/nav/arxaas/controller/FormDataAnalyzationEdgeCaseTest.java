@@ -47,7 +47,7 @@ class FormDataAnalyzationEdgeCaseTest {
                 .file(metadata);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -61,7 +61,7 @@ class FormDataAnalyzationEdgeCaseTest {
                 .file(metadata);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -73,7 +73,7 @@ class FormDataAnalyzationEdgeCaseTest {
                 .file(file);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -89,7 +89,7 @@ class FormDataAnalyzationEdgeCaseTest {
                 .file(testMetaDataWrongFormat);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -100,7 +100,7 @@ class FormDataAnalyzationEdgeCaseTest {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/analyze/file");
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -116,7 +116,7 @@ class FormDataAnalyzationEdgeCaseTest {
                 .file(testMetaDataWrongFormat);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());

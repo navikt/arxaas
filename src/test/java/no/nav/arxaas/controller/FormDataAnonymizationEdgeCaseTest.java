@@ -53,7 +53,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(metadata);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -65,7 +65,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(file);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -78,7 +78,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(metadata);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -95,7 +95,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(nullHierarchies);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -106,7 +106,7 @@ class FormDataAnonymizationEdgeCaseTest {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.multipart("/api/anonymize/file");
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -124,7 +124,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(nullHierarchies);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -141,7 +141,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(zipcodeHierarchy);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -158,7 +158,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(zipcodeHierarchy);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -174,7 +174,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(genderHierarchy);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -192,7 +192,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(zipcodeHierarchyWrongFormat);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -210,7 +210,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(zipcodeHierarchyMoreData);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(200))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -228,7 +228,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(zipcodeHierarchy);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -245,7 +245,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(zipcodeHierarchy);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -263,7 +263,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(zipcodeHierarchy);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -282,7 +282,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(zipcodeHierarchyWrongFormat);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -299,7 +299,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(zipcodeHierarchy);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
@@ -316,7 +316,7 @@ class FormDataAnonymizationEdgeCaseTest {
                 .file(zipcodeHierarchy);
         MvcResult result = mvc.perform(requestBuilder)
                 .andExpect(status().is(400))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertNotNull(result.getResponse());
         assertNotNull(result.getResponse().getContentAsString());
