@@ -27,9 +27,9 @@ jobs:
             - v1-dependencies-
 
       # download libarx
-      - run: wget  https://arx.deidentifier.org/?ddownload=1924 -P ./src/main/resources/
+      - run: wget  https://arx.deidentifier.org/?ddownload=1924 -O libarx-3.8.0.jar
       # maven install libarx as local dependency
-      - run: mvn -q install:install-file -Dfile=src/main/resources/libarx-3.8.0.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
+      - run: mvn -q install:install-file -Dfile=libarx-3.8.0.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.7.1 -Dpackaging=jar
 
       # prepare code climate test reporter
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
