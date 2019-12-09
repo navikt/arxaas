@@ -150,7 +150,7 @@ public class ReIdentificationRisk {
      * @return      amount of unique records/fields found in the data set
      */
     private static double sampleUniques(RiskModelSampleUniqueness riskModelSampleUniqueness){
-        return riskModelSampleUniqueness.getFractionOfUniqueTuples();
+        return riskModelSampleUniqueness.getFractionOfUniqueRecords();
     }
 
     /***
