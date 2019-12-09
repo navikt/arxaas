@@ -654,7 +654,7 @@ use of HTTP status codes.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/hal+json;charset=UTF-8
+Content-Type: application/hal+json
 Content-Length: 170
 
 {"_links":{"self":{"href":"http://localhost:8080/api"},"anonymize":{"href":"http://localhost:8080/api/anonymize"},"analyze":{"href":"http://localhost:8080/api/analyze"}}}</code></pre>
@@ -740,7 +740,7 @@ containing a risk profile that includes the re-identification risk and distribut
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/api/analyze' -i -X POST \
-    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Content-Type: application/json' \
     -d '{
   "data" : [ [ "age", "gender", "zipcode" ], [ "34", "male", "81667" ], [ "35", "female", "81668" ], [ "36", "male", "81669" ], [ "37", "female", "81670" ], [ "38", "male", "81671" ], [ "39", "female", "81672" ], [ "40", "male", "81673" ], [ "41", "female", "81674" ], [ "42", "male", "81675" ], [ "43", "female", "81676" ], [ "44", "male", "81677" ] ],
   "attributes" : [ {
@@ -767,7 +767,10 @@ containing a risk profile that includes the re-identification risk and distribut
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
 Content-Length: 4330
 
 {
@@ -967,7 +970,7 @@ object containing an anonymized dataset, a risk profile, and metadata for the an
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/api/anonymize' -i -X POST \
-    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Content-Type: application/json' \
     -d '{
   "data" : [ [ "age", "gender", "zipcode" ], [ "34", "male", "81667" ], [ "35", "female", "81668" ], [ "36", "male", "81669" ], [ "37", "female", "81670" ], [ "38", "male", "81671" ], [ "39", "female", "81672" ], [ "40", "male", "81673" ], [ "41", "female", "81674" ], [ "42", "male", "81675" ], [ "43", "female", "81676" ], [ "44", "male", "81677" ] ],
   "attributes" : [ {
@@ -1005,7 +1008,10 @@ object containing an anonymized dataset, a risk profile, and metadata for the an
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
 Content-Length: 7813
 
 {
@@ -1018,46 +1024,46 @@ Content-Length: 7813
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 2,
+      "processTimeMillisecounds" : 0,
       "privacyModels" : [ {
+        "monotonicWithGeneralization" : true,
+        "k" : 5,
+        "minimalClassSize" : 5,
+        "requirements" : 1,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
+        "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
+        "populationModel" : null,
+        "dataSubset" : null,
+        "subset" : null,
+        "heuristicSearchSupported" : true,
+        "heuristicSearchWithTimeLimitSupported" : true,
+        "optimalSearchSupported" : true,
+        "monotonicWithSuppression" : true,
+        "sampleBased" : false,
+        "subsetAvailable" : false
+      }, {
         "monotonicWithGeneralization" : true,
         "attribute" : "gender",
         "l" : 2.0,
         "localRecodingSupported" : true,
-        "riskThresholdMarketer" : 0.5,
-        "minimalClassSizeAvailable" : true,
-        "riskThresholdProsecutor" : 0.5,
+        "minimalClassSize" : 2,
         "requirements" : 4,
         "riskThresholdJournalist" : 0.5,
-        "minimalClassSize" : 2,
-        "populationModel" : null,
-        "dataSubset" : null,
-        "heuristicSearchWithTimeLimitSupported" : true,
-        "monotonicWithSuppression" : true,
-        "subset" : null,
-        "sampleBased" : false,
-        "subsetAvailable" : false,
-        "heuristicSearchSupported" : true,
-        "optimalSearchSupported" : true
-      }, {
-        "monotonicWithGeneralization" : true,
-        "k" : 5,
-        "riskThresholdMarketer" : 0.2,
+        "riskThresholdMarketer" : 0.5,
+        "riskThresholdProsecutor" : 0.5,
         "minimalClassSizeAvailable" : true,
-        "riskThresholdProsecutor" : 0.2,
-        "requirements" : 1,
-        "localRecodingSupported" : true,
-        "riskThresholdJournalist" : 0.2,
-        "minimalClassSize" : 5,
         "populationModel" : null,
         "dataSubset" : null,
-        "heuristicSearchWithTimeLimitSupported" : true,
-        "monotonicWithSuppression" : true,
         "subset" : null,
-        "sampleBased" : false,
-        "subsetAvailable" : false,
         "heuristicSearchSupported" : true,
-        "optimalSearchSupported" : true
+        "heuristicSearchWithTimeLimitSupported" : true,
+        "optimalSearchSupported" : true,
+        "monotonicWithSuppression" : true,
+        "sampleBased" : false,
+        "subsetAvailable" : false
       } ]
     },
     "attributes" : [ {
@@ -1268,7 +1274,10 @@ returns a response object containing a risk profile that includes the re-identif
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
 Content-Length: 4467
 
 {
@@ -1476,8 +1485,11 @@ metadata for the anonymization process.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-Content-Length: 7439
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 7438
 
 {
   "anonymizeResult" : {
@@ -1493,26 +1505,26 @@ Content-Length: 7439
         "type" : "QUASI_IDENTIFYING_ATTRIBUTE",
         "generalizationLevel" : 2
       } ],
-      "processTimeMillisecounds" : 53,
+      "processTimeMillisecounds" : 1,
       "privacyModels" : [ {
         "monotonicWithGeneralization" : true,
         "k" : 5,
-        "riskThresholdMarketer" : 0.2,
-        "minimalClassSizeAvailable" : true,
-        "riskThresholdProsecutor" : 0.2,
-        "requirements" : 1,
-        "localRecodingSupported" : true,
-        "riskThresholdJournalist" : 0.2,
         "minimalClassSize" : 5,
+        "requirements" : 1,
+        "riskThresholdJournalist" : 0.2,
+        "riskThresholdMarketer" : 0.2,
+        "riskThresholdProsecutor" : 0.2,
+        "localRecodingSupported" : true,
+        "minimalClassSizeAvailable" : true,
         "populationModel" : null,
         "dataSubset" : null,
-        "heuristicSearchWithTimeLimitSupported" : true,
-        "monotonicWithSuppression" : true,
         "subset" : null,
-        "sampleBased" : false,
-        "subsetAvailable" : false,
         "heuristicSearchSupported" : true,
-        "optimalSearchSupported" : true
+        "heuristicSearchWithTimeLimitSupported" : true,
+        "optimalSearchSupported" : true,
+        "monotonicWithSuppression" : true,
+        "sampleBased" : false,
+        "subsetAvailable" : false
       } ]
     },
     "attributes" : [ {
@@ -1774,9 +1786,9 @@ returns a response object containing the resulting hierarchy.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/hierarchy HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Host: localhost:8080
+Content-Type: application/json
 Content-Length: 260
+Host: localhost:8080
 
 {
   "column" : [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ],
@@ -1796,7 +1808,10 @@ Content-Length: 260
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
 Content-Length: 162
 
 {
@@ -1940,9 +1955,9 @@ Content-Length: 162
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/hierarchy HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Host: localhost:8080
+Content-Type: application/json
 Content-Length: 832
+Host: localhost:8080
 
 {
   "column" : [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ],
@@ -1993,7 +2008,10 @@ Content-Length: 832
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
 Content-Length: 352
 
 {
@@ -2073,9 +2091,9 @@ into groups with the defined sizes.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/hierarchy HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Host: localhost:8080
+Content-Type: application/json
 Content-Length: 371
+Host: localhost:8080
 
 {
   "column" : [ "Oslo", "Bergen", "Stockholm", "London", "Paris" ],
@@ -2104,7 +2122,10 @@ Content-Length: 371
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
 Content-Length: 204
 
 {
@@ -2168,9 +2189,9 @@ Content-Length: 204
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/hierarchy HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Host: localhost:8080
+Content-Type: application/json
 Content-Length: 386
+Host: localhost:8080
 
 {
   "column" : [ "2020-07-16 15:28:024", "2019-07-16 16:38:025", "2019-07-16 17:48:025", "2019-07-16 18:48:025", "2019-06-16 19:48:025", "2019-06-16 20:48:025" ],
@@ -2188,7 +2209,10 @@ Content-Length: 386
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
 Content-Length: 652
 
 {
@@ -2203,7 +2227,7 @@ Content-Length: 652
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-09 14:18:38 UTC
+Last updated 2019-12-09 15:13:27 UTC
 </div>
 </div>
 </body>
