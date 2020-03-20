@@ -1,0 +1,69 @@
+name: Bulid, test, package and deploy
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '*.*.*'
+
+env:
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/arxaas:${{ github.sha }}
+  CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
+jobs:
+  test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download and cache dependencies
+        run: wget  https://arx.deidentifier.org/?ddownload=1924 -O libarx-3.8.0.jar
+      - name: Maven install libarx as local dependency
+        run: mvn -q install:install-file -Dfile=libarx-3.8.0.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.8.0 -Dpackaging=jar
+      - name: prepare code climate test reporter
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+      - name: resolve dependencies, plugins, reports
+        run: mvn dependency:go-offline
+      - name: Set version in pom
+        run: |
+          mvn versions:set -DnewVersion="${github.sha}"
+          mvn versions:commit
+      - name: Run test
+        run: mvn package
+        env:
+          CI: true
+      - name: Run code climate test reporter and upload
+        run: |
+          JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
+          ./cc-test-reporter upload-coverage -d
+
+  publish_docs:
+    name: Publish documentation
+    needs: test
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: refs/heads/master
+      - name: Install and configure dependencies
+        run: |
+          npm install -g --silent gh-pages@2.0.1
+          git config user.email $GITHUB_PAGES_EMAIL
+          git config user.name "ci-build"
+      - name: Deploy docs to gh-pages branch
+        run: gh-pages --dist target/generated-docs --message "[ci skip]"
+
+  publish_to_docker:
+    name: Build and push docker image
+    needs: test
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: refs/heads/master
