@@ -28,12 +28,6 @@ jobs:
           ./cc-test-reporter before-build
       - name: resolve dependencies, plugins, reports
         run: mvn dependency:go-offline
-      - name: Set version in pom
-        env:
-          GITSHA: ${{github.sha}}
-        run: |
-          mvn versions:set -DnewVersion="${GITSHA}"
-          mvn versions:commit
       - name: Run test
         run: mvn test
         env:
