@@ -42,6 +42,7 @@ jobs:
           ./cc-test-reporter upload-coverage -d
       - name: Create and store version tag
         command: |
+          TEST_TIME=$(git log -1 --date=format:"%Y.%m.%d-%H.%M" --format="%cd" origin/master)
           TIME=$(TZ="Europe/Oslo" date +%Y.%m.%d-%H.%M)
           COMMIT=$(git rev-parse --short=12 HEAD)
           VERSION="$TIME-$COMMIT"
@@ -113,3 +114,40 @@ jobs:
           docker build --tag ${IMAGE} .
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${IMAGE)
+
+  publish_to_maven:
+    name: Build and push to maven
+    needs: test
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: refs/heads/master
+      - name: Set JDK to 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+      - name: Download artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: img_tag
+      - name: Setup image env
+        run: |
+          VALUE=${DOCKER_IMAGE}:$(cat img_tag/docker_img_tag.txt)
+          echo ${VALUE}
+          echo ::set-env name=IMAGE::${VALUE}
+          echo ::set-env name=TAG::${cat img_tag/docker_img_tag.txt}
+          echo ${IMAGE}
+      - name: Download and cache dependencies
+        run: wget  https://arx.deidentifier.org/?ddownload=1924 -O libarx-3.8.0.jar
+      - name: Maven install libarx as local dependency
+        run: mvn -q install:install-file -Dfile=libarx-3.8.0.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.8.0 -Dpackaging=jar
+      - name: resolve dependencies, plugins, reports
+        run: mvn dependency:go-offline
+      - name: Set version in pom
+        run: |
+          mvn versions:set -DnewVersion="$TAG"
+          mvn versions:commit
+      - name: Build package
+        run: mvn package
