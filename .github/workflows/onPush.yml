@@ -29,11 +29,13 @@ jobs:
       - name: resolve dependencies, plugins, reports
         run: mvn dependency:go-offline
       - name: Set version in pom
+        env:
+          GITSHA: ${{github.sha}}
         run: |
-          mvn versions:set -DnewVersion="${github.sha}"
+          mvn versions:set -DnewVersion="${GITSHA}"
           mvn versions:commit
       - name: Run test
-        run: mvn package
+        run: mvn test
         env:
           CI: true
       - name: Run code climate test reporter and upload
