@@ -40,6 +40,18 @@ jobs:
         run: |
           JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
           ./cc-test-reporter upload-coverage -d
+      - name: Create and store version tag
+        command: |
+          TIME=$(TZ="Europe/Oslo" date +%Y.%m.%d-%H.%M)
+          COMMIT=$(git rev-parse --short=12 HEAD)
+          VERSION="$TIME-$COMMIT"
+          echo "version $VERSION"
+          echo $VERSION > docker_img_tag.txt
+      - name: Upload img tag
+        uses: actions/upload-artifact@v1
+        with:
+          name: img_tag
+          path: docker_img_tag.txt
 
   publish_docs:
     name: Publish documentation
@@ -67,3 +79,4 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: refs/heads/master
+      - uses:
