@@ -75,8 +75,6 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: target
-      - name: Install and configure dependencies
-        run: npm install -g --silent gh-pages@2.0.1
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
