@@ -3,8 +3,7 @@ name: Bulid, test, package and deploy
 on:
   push:
     branches:
-      - '*'
-      - '!master'
+      - master
     tags-ignore:
       - '*.*.*'
 
@@ -45,10 +44,59 @@ jobs:
           mvn versions:set -DnewVersion="$(cat docker_img_tag.txt)"
           mvn versions:commit
       - name: Run test and package
-        run: mvn test
+        run: mvn package
         env:
           CI: true
       - name: Run code climate test reporter and upload
         run: |
           JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage -d ./target/site/jacoco/jacoco.xml --input-type jacoco
           ./cc-test-reporter upload-coverage -d
+      - name: Upload img tag
+        uses: actions/upload-artifact@v1
+        with:
+          name: img_tag
+          path: docker_img_tag.txt
+      - name: Upload target
+        uses: actions/upload-artifact@v1
+        with:
+          name: target
+          path: target
+
+  publish_to_docker:
+    name: Build and push docker image
+    needs: test
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: refs/heads/master
+      - name: Set JDK to 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+      - name: Download image tage
+        uses: actions/download-artifact@v1
+        with:
+          name: img_tag
+      - name: Download target folder
+        uses: actions/download-artifact@v1
+        with:
+          name: target
+      - name: Setup image env
+        run: |
+          VALUE=${DOCKER_IMAGE}:$(cat img_tag/docker_img_tag.txt)
+          echo ${VALUE}
+          echo ::set-env name=IMAGE::${VALUE}
+          echo ${IMAGE}
+      - name: Set version in pom
+        run: |
+          mvn versions:set -DnewVersion="$(cat img_tag/docker_img_tag.txt)"
+          mvn versions:commit
+      - name: Build and Publish to Docker Image
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker build --tag ${IMAGE} .
+          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+          docker push ${IMAGE)
