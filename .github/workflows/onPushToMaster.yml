@@ -25,12 +25,12 @@ jobs:
         run: wget  https://arx.deidentifier.org/?ddownload=1924 -O libarx-3.8.0.jar
       - name: Maven install libarx as local dependency
         run: mvn -q install:install-file -Dfile=libarx-3.8.0.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.8.0 -Dpackaging=jar
-      - name: prepare code climate test reporter
+      - name: Prepare code climate test reporter
         run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
           ./cc-test-reporter before-build
-      - name: resolve dependencies, plugins, reports
+      - name: Resolve dependencies, plugins, reports
         run: mvn dependency:go-offline
       - name: Create and store version tag
         run: |
@@ -75,7 +75,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
-      - name: Download image tage
+      - name: Download image tag
         uses: actions/download-artifact@v1
         with:
           name: img_tag
@@ -101,8 +101,35 @@ jobs:
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${IMAGE}
 
-  cleanup_job:
+  deploy_to_dev-fss:
+    name: Deploy to dev-fss
     needs: [publish_to_docker]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: refs/heads/master
+      - name: Download image tag
+        uses: actions/download-artifact@v1
+        with:
+          name: img_tag
+      - name: Setup image env
+        run: |
+          VALUE=${DOCKER_IMAGE}:$(cat img_tag/docker_img_tag.txt)
+          echo ${VALUE}
+          echo ::set-env name=IMAGE::${VALUE}
+          echo ${IMAGE}
+      - name: Deploy to nais
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-fss
+          RESOURCE: naiserator.yml
+          VARS: config-dev-fss.json
+
+  cleanup_job:
+    name: Clean up artifacts
+    needs: [deploy_to_dev-fss]
     if: always()
     runs-on: ubuntu-latest
     steps:

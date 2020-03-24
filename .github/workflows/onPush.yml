@@ -26,12 +26,12 @@ jobs:
         run: wget  https://arx.deidentifier.org/?ddownload=1924 -O libarx-3.8.0.jar
       - name: Maven install libarx as local dependency
         run: mvn -q install:install-file -Dfile=libarx-3.8.0.jar -DgroupId=org.deidentifier -DartifactId=libarx -Dversion=3.8.0 -Dpackaging=jar
-      - name: prepare code climate test reporter
+      - name: Prepare code climate test reporter
         run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
           ./cc-test-reporter before-build
-      - name: resolve dependencies, plugins, reports
+      - name: Resolve dependencies, plugins, reports
         run: mvn dependency:go-offline
       - name: Create and store version tag
         run: |
@@ -44,7 +44,7 @@ jobs:
         run: |
           mvn versions:set -DnewVersion="$(cat docker_img_tag.txt)"
           mvn versions:commit
-      - name: Run test and package
+      - name: Run test
         run: mvn test
         env:
           CI: true
