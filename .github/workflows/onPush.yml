@@ -62,27 +62,6 @@ jobs:
           name: target
           path: target
 
-  publish_docs:
-    name: Publish documentation
-    needs: test
-    if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: refs/heads/master
-      - name: Download target folder
-        uses: actions/download-artifact@v1
-        with:
-          name: target
-      - name: Install and configure dependencies
-        run: |
-          npm install -g --silent gh-pages@2.0.1
-          git config user.email $GITHUB_PAGES_EMAIL
-          git config user.name "ci-build"
-      - name: Deploy docs to gh-pages branch
-        run: gh-pages --dist target/generated-docs --message "[ci skip]"
-
   publish_to_docker:
     name: Build and push docker image
     needs: test
