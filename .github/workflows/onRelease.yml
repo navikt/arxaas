@@ -9,7 +9,7 @@ env:
 jobs:
 
   publish_to_docker:
-    name: Build and publish to docker
+    name: Build 🏗️ and publish to docker 🐳
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,7 +34,7 @@ jobs:
         run: |
           mvn versions:set -DnewVersion="$(cat docker_img_tag.txt)"
           mvn versions:commit
-      - name: Run test and package
+      - name: Run test 🧪 and package 📦
         run: mvn package
         env:
           CI: true
@@ -49,7 +49,7 @@ jobs:
           echo ${VALUE}
           echo ::set-env name=IMAGE::${VALUE}
           echo ${IMAGE}
-      - name: Build and publish Docker image
+      - name: Build 🏗️ and publish Docker image 🐳
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -57,8 +57,8 @@ jobs:
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${IMAGE}
 
-  deploy_prod-fss:
-    name: Deploy to prod-fss
+  deploy_to_prod-fss:
+    name: Deploy to prod-fss 🚀
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -74,7 +74,7 @@ jobs:
           echo ${VALUE}
           echo ::set-env name=IMAGE::${VALUE}
           echo ${IMAGE}
-      - name: Deploy to nais
+      - name: Deploy to nais 🚀
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
@@ -84,7 +84,7 @@ jobs:
 
   cleanup_job:
     name: Clean up artifacts
-    needs: [deploy_to_dev-fss]
+    needs: [deploy_to_prod-fss]
     if: always()
     runs-on: ubuntu-latest
     steps:
