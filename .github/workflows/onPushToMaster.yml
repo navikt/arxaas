@@ -75,7 +75,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
-      - name: Download image tage
+      - name: Download image tag
         uses: actions/download-artifact@v1
         with:
           name: img_tag
@@ -101,9 +101,35 @@ jobs:
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${IMAGE}
 
+  deploy_to_dev-fss:
+    name: Deploy to dev-fss
+    needs: [publish_to_docker]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: refs/heads/master
+      - name: Download image tag
+        uses: actions/download-artifact@v1
+        with:
+          name: img_tag
+      - name: Setup image env
+        run: |
+          VALUE=${DOCKER_IMAGE}:$(cat img_tag/docker_img_tag.txt)
+          echo ${VALUE}
+          echo ::set-env name=IMAGE::${VALUE}
+          echo ${IMAGE}
+      - name: Deploy to nais
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-fss
+          RESOURCE: naiserator.yml
+          VARS: config-dev-fss.json
+
   cleanup_job:
     name: Clean up artifacts
-    needs: [publish_to_docker]
+    needs: [deploy_to_dev-fss]
     if: always()
     runs-on: ubuntu-latest
     steps:
