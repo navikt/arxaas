@@ -3,7 +3,7 @@ name: Bulid, test, package and deploy
 on:
   push:
     branches:
-      - '*'
+      - '**'
       - '!master'
     tags-ignore:
       - '*.*.*'
