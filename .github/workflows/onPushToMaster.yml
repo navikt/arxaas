@@ -1,4 +1,4 @@
-name: Bulid, test, package and deploy
+name: Bulid, test, package 📦 and deploy
 
 on:
   push:
@@ -13,7 +13,7 @@ env:
 
 jobs:
   test:
-    name: Build and test
+    name: Build 🏗️ and test 🧪
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -43,7 +43,7 @@ jobs:
         run: |
           mvn versions:set -DnewVersion="$(cat docker_img_tag.txt)"
           mvn versions:commit
-      - name: Run test and package
+      - name: Run test and package 📦
         run: mvn package
         env:
           CI: true
@@ -83,7 +83,7 @@ jobs:
           FOLDER: target/generated-docs # The folder the action should deploy.
 
   publish_to_docker:
-    name: Build and push docker image
+    name: Build 🏗️ and push docker image 🐳
     needs: test
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
@@ -113,7 +113,7 @@ jobs:
         run: |
           mvn versions:set -DnewVersion="$(cat img_tag/docker_img_tag.txt)"
           mvn versions:commit
-      - name: Build and publish Docker image
+      - name: Build 🏗️ and publish Docker image 🐳
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -122,7 +122,7 @@ jobs:
           docker push ${IMAGE}
 
   deploy_to_dev-fss:
-    name: Deploy to dev-fss
+    name: Deploy to dev-fss 🚀
     needs: [publish_to_docker]
     runs-on: ubuntu-latest
     steps:
@@ -139,7 +139,7 @@ jobs:
           echo ${VALUE}
           echo ::set-env name=IMAGE::${VALUE}
           echo ${IMAGE}
-      - name: Deploy to nais
+      - name: Deploy to nais 🚀
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}

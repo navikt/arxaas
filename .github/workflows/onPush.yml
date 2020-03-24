@@ -13,7 +13,7 @@ env:
 
 jobs:
   test:
-    name: Build and test
+    name: Build 🏗️ and test 🧪
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -43,7 +43,7 @@ jobs:
         run: |
           mvn versions:set -DnewVersion="$(cat docker_img_tag.txt)"
           mvn versions:commit
-      - name: Run test
+      - name: Run test 🧪
         run: mvn test
         env:
           CI: true
