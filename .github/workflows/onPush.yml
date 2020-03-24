@@ -9,7 +9,6 @@ on:
       - '*.*.*'
 
 env:
-  DOCKER_IMAGE: docker.pkg.github.com/${{ github.repository }}/arxaas
   CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
 jobs:
