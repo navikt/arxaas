@@ -148,7 +148,7 @@ jobs:
           VARS: config-dev-fss.json
 
   cleanup_job:
-    name: Clean up artifacts
+    name: Clean up artifacts 🧹
     needs: [deploy_to_dev-fss]
     if: always()
     runs-on: ubuntu-latest
