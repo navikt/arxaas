@@ -1,4 +1,4 @@
-name: Bulid, test, package 📦 and deploy
+name: Build 🏗️ , test 🧪, package 📦 and deploy 🚀
 
 on:
   push:
@@ -43,7 +43,7 @@ jobs:
         run: |
           mvn versions:set -DnewVersion="$(cat docker_img_tag.txt)"
           mvn versions:commit
-      - name: Run test and package 📦
+      - name: Run test 🧪 and package 📦
         run: mvn package
         env:
           CI: true

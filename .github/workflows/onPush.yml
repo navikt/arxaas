@@ -1,4 +1,4 @@
-name: Bulid, test, package and deploy
+name: Build, test, package and deploy
 
 on:
   push:
