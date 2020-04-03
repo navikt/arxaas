@@ -1,14 +1,19 @@
-name: Delete calling job's artifacts
-on: repository_dispatch
+name: Remove old artifacts
+
+on:
+  schedule:
+    # Every day at 1am
+    - cron: '0 1 * * *'
+
 jobs:
-  main:
+  remove-old-artifacts:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
-      - name: Delete artifacts
-        if: github.event.action == 'delete_all_artifacts'
-        uses: christian-korneck/delete-run-artifacts-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Remove old artifacts
+        uses: c-hive/gha-remove-artifacts@v1
         with:
-          parent_runid: ${{ github.event.client_payload.parent_runid  }}
-          parent_repo: ${{ github.event.client_payload.parent_repo }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          age: '1 day'
+          skip-tags: true
