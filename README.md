@@ -1,6 +1,5 @@
 
 ![ARXaaS logo](ARXaaS_hero_small.png)
-[![CircleCI](https://circleci.com/gh/navikt/ARXaaS/tree/master.svg?style=svg)](https://circleci.com/gh/navikt/ARXaaS/tree/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b33732ce938a22920733/maintainability)](https://codeclimate.com/github/navikt/ARXaaS/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b33732ce938a22920733/test_coverage)](https://codeclimate.com/github/navikt/ARXaaS/test_coverage)
 [![Maven Central](https://img.shields.io/maven-central/v/no.nav/arxaas.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22no.nav%22%20AND%20a:%22arxaas%22)
@@ -12,7 +11,7 @@ ARXaaS is a data anonymization service built ontop of the [ARX](https://arx.deid
 
 #### Documentation
 
-[API documentation](https://navikt.github.io/ARXaaS/)
+[API documentation](https://navikt.github.io/arxaas/)
 
 #### Running the service locally
 
