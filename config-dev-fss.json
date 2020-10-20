@@ -1,4 +1,4 @@
 {
   "application_name": "anonymiserer",
-  "ingress": "https://anonymiserer.nais.preprod.local"
+  "ingress": "https://anonymiserer.dev-fss.nais.no"
 }
