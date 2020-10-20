@@ -1,4 +1,4 @@
 {
   "application_name": "anonymiserer",
-  "ingress": "https://anonymiserer.nais.adeo.no"
+  "ingress": "https://anonymiserer.prod-fss.nais.io"
 }
