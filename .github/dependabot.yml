@@ -1,0 +1,23 @@
+version: 2
+registries:
+  maven-repository-maven-pkg-github-com-navikt-fp-felles:
+    type: maven-repository
+    url: https://maven.pkg.github.com/navikt/fp-felles/
+    username: x-access-token
+    password: "${{secrets.MAVEN_REPOSITORY_MAVEN_PKG_GITHUB_COM_NAVIKT_FP_FELLES_PASSWORD}}"
+
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.pitest:pitest-maven
+    versions:
+    - 1.6.2
+    - 1.6.3
+    - 1.6.4
+  registries:
+  - maven-repository-maven-pkg-github-com-navikt-fp-felles
