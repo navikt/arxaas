@@ -139,10 +139,10 @@ jobs:
           echo ${VALUE}
           echo ::set-env name=IMAGE::${VALUE}
           echo ${IMAGE}
-      - name: Deploy to nais 🚀
-        uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-fss
-          RESOURCE: naiserator.yml
-          VARS: config-dev-fss.json
+#      - name: Deploy to nais 🚀
+#        uses: nais/deploy/actions/deploy@v1
+#        env:
+#          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+#          CLUSTER: dev-fss
+#          RESOURCE: naiserator.yml
+#          VARS: config-dev-fss.json
